@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.xingyuzhao.ltd/blog/2020/04/01/hello-world/</loc>
+    
+    <lastmod>2020-04-01T05:10:09.431Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.xingyuzhao.ltd/blog/2020/02/16/LeetCode17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88/</loc>
     
     <lastmod>2020-02-16T08:07:08.801Z</lastmod>
@@ -68,13 +75,6 @@
     <loc>http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3%E5%AE%89%E8%A3%85Emmet%E6%8F%92%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3/</loc>
     
     <lastmod>2019-09-29T01:10:30.967Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.xingyuzhao.ltd/blog/2020/04/01/hello-world/</loc>
-    
-    <lastmod>2019-09-29T01:03:17.626Z</lastmod>
     
   </url>
   
