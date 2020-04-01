@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="html,Sublime Text,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zhaoxingyu's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="写在前面最近对前端的知识准备进行一个入门，首先学习一下html文档的写法，第一步就是选择一个合适的开发工具。">
+<meta name="keywords" content="html,Sublime Text">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sublime Text3安装Emmet插件遇到的问题及解决">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/index.html">
+<meta property="og:site_name" content="Zhaoxingyu&#39;s blog">
+<meta property="og:description" content="写在前面最近对前端的知识准备进行一个入门，首先学习一下html文档的写法，第一步就是选择一个合适的开发工具。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/ST界面.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/pyv8.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/emmet.png">
+<meta property="og:updated_time" content="2019-09-29T01:10:30.967Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sublime Text3安装Emmet插件遇到的问题及解决">
+<meta name="twitter:description" content="写在前面最近对前端的知识准备进行一个入门，首先学习一下html文档的写法，第一步就是选择一个合适的开发工具。">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/ST界面.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/">
+
+
+
+
+
+  <title>Sublime Text3安装Emmet插件遇到的问题及解决 | Zhaoxingyu's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zhaoxingyu's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Aim high, down to earth.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhaoxingyu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhaoxingyu's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Sublime Text3安装Emmet插件遇到的问题及解决</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-16T13:52:06+08:00">
+                2019-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端学习入门/" itemprop="url" rel="index">
+                    <span itemprop="name">前端学习入门</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>最近对前端的知识准备进行一个入门，首先学习一下html文档的写法，第一步就是选择一个合适的开发工具。<a id="more"></a>当然，html文件也可以用记事本的方式进行编写，不过在尝试了记事本编写之后还是放弃了，缩进或者格式都得自己来，无疑是给自己徒增烦恼。</p>
+<p>在进行一番查看之后，选择了Sublime Text3这款工具来编写html文件，这款工具目前也比较流行，具体的好处就是可以带很多插件，提高你写代码的效率。这里附上ST3的下载网址：</p>
+<p><a href="http://www.sublimetext.com/3" target="_blank" rel="noopener">http://www.sublimetext.com/3</a></p>
+<h1 id="为什么使用Emmet这个插件？"><a href="#为什么使用Emmet这个插件？" class="headerlink" title="为什么使用Emmet这个插件？"></a>为什么使用Emmet这个插件？</h1><p>在没有安装Emmet之前，Sublime Text的使用貌似和记事本没有什么不同，也是得自己写结构，区别就是颜色好看了些，而安装了Emmet之后就不同了，如果你从事Web前端开发的话，对该插件一定不会陌生。它使用仿CSS选择器的语法来生成代码，大大提高了HTML/CSS代码编写的速度，可以直接使用 !+tab 快速得到一个标准的html5文档，如下图所示：</p>
+<img src="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/ST界面.png" style="zoom:50%;">
+
+<h1 id="安装Emmet插件"><a href="#安装Emmet插件" class="headerlink" title="安装Emmet插件"></a>安装Emmet插件</h1><p>这里已经默认你安装了Package Control，这个组件是用来安装/删除插件和其他一些功能要用到的（目前我就用到了安装和删除两个功能）。</p>
+<h2 id="自动安装法"><a href="#自动安装法" class="headerlink" title="自动安装法"></a>自动安装法</h2><p>这个方法就是看你运气，不过过程一定是正确的，但由于各种原因（墙、网络之类的）安装不成功的大有人在，所以先写一下自动安装法。</p>
+<ol>
+<li>在Sublime Text3的主页面按<strong>CTRL+SHIFT+P</strong>打开Package Control</li>
+<li>输入<strong>install</strong>，选择第一个回车</li>
+<li>这时候会让你选择需要安装的插件，你输入<strong>Emmet</strong>，选择第一个回车即可</li>
+<li>左下角会显示下载PyV8，在提示<strong>PyV8 binary successfully loaded</strong>即安装完成</li>
+<li>重启Sublime Text3，安装完成！</li>
+</ol>
+<p>当然，一般人像我运气一样的，这样是成功不了的（坏笑）。</p>
+<h2 id="手动安装法"><a href="#手动安装法" class="headerlink" title="手动安装法"></a>手动安装法</h2><h3 id="1-安装PyV8"><a href="#1-安装PyV8" class="headerlink" title="1.安装PyV8"></a>1.安装PyV8</h3><p>在你安装Emmet时，你可能出现下面这种错误提示：</p>
+<p><strong><em>Sublime Text Error while loading PyV8 binary: exit code 1 Try to manually install Pyv8 form <a href="https://github.com/emetio/pyv8-binaries" target="_blank" rel="noopener">https://github.com/emetio/pyv8-binaries</a></em></strong></p>
+<p>出现这种情况的原因就是下载PyV8这个包不成功，那么你就得手动去下载，这个里也把网址给你了，如下：<a href="https://github.com/emmetio/pyv8-binaries" target="_blank" rel="noopener">https://github.com/emmetio/pyv8-binaries</a> 选择合适你电脑的版本去下载，这个必须记住，不然可能会用不了，我第一次就犯了这个错误。因为我电脑装了python3.7，所以我选择了 <strong>pyv8-win64-p3</strong>，我把下载地址也贴出来，不过因为gtihub是国外的网站，所以下载会很慢，链接如下：</p>
+<p><a href="https://github.com/emmetio/pyv8-binaries/raw/master/pyv8-win64-p3.zip" target="_blank" rel="noopener">https://github.com/emmetio/pyv8-binaries/raw/master/pyv8-win64-p3.zip</a></p>
+<p>下载好了之后，对它进行解压，得到下面这个文件：</p>
+<img src="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/pyv8.png" style="zoom:80%;">
+
+<p>接下来按照以下的步骤做就ok了：</p>
+<ol>
+<li>打开Sublime Text</li>
+<li>依次选择首选项 -&gt; 浏览插件目录（我的汉化了，不然是Preferences -&gt;Browse Packages）</li>
+<li>新建PyV8文件夹</li>
+<li>在PyV8文件夹把上图中的文件复制过来</li>
+<li>重启Sublime Text</li>
+</ol>
+<p>现在你就可以在ST3中使用Emmet的功能了，不过还有运气不好的人，还是不能用，比如说我，那么继续往下看。</p>
+<h3 id="2-手动安装Emmet"><a href="#2-手动安装Emmet" class="headerlink" title="2.手动安装Emmet"></a>2.手动安装Emmet</h3><p>如果你还是无法使用Emmet，但是你在首选项菜单中的Package Settings还能看到Emmet的身影，然而那只是个空壳，继续进入插件目录，你会发现没有与Emmet相关的文件夹的存在，那么你就需要自己手动安装Emmet。下载地址如下（下载也比较慢，但是只有200k左右）：</p>
+<p><a href="https://codeload.github.com/sergeche/emmet-sublime/zip/master" target="_blank" rel="noopener">https://codeload.github.com/sergeche/emmet-sublime/zip/master</a></p>
+<p>下载好了之后，继续进入插件目录（首选项 -&gt; 浏览插件目录），把解压后的文件放进去，如图：</p>
+<img src="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/emmet.png" style="zoom:50%;">
+
+<p>接下来你再重启ST就行了，需要注意的是，如果你没有装PyV8，那么你打开ST之后它会自动再一次下载这个包，同样可能出现1中的问题，那么你可以先把PyV8装好，再手动安装Emmet，重启之后就大功告成，终于装好啦！我属于运气最差的那种，不好的都让我遇到了，刚接触花了几个小时才弄明白，虽然最后成功了，我还是流下了没有技术的眼泪。。。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/html/" rel="tag"># html</a>
+          
+            <a href="/tags/Sublime-Text/" rel="tag"># Sublime Text</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/09/06/一个测试文档/" rel="next" title="一个测试文档">
+                <i class="fa fa-chevron-left"></i> 一个测试文档
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/09/26/Git的基本使用（一）/" rel="prev" title="Git的基本使用(一)">
+                Git的基本使用(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zhaoxingyu</p>
+              <p class="site-description motion-element" itemprop="description">zxy的个人博客，用来记录学习中遇到的问题</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么使用Emmet这个插件？"><span class="nav-number">2.</span> <span class="nav-text">为什么使用Emmet这个插件？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Emmet插件"><span class="nav-number">3.</span> <span class="nav-text">安装Emmet插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自动安装法"><span class="nav-number">3.1.</span> <span class="nav-text">自动安装法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动安装法"><span class="nav-number">3.2.</span> <span class="nav-text">手动安装法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装PyV8"><span class="nav-number">3.2.1.</span> <span class="nav-text">1.安装PyV8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-手动安装Emmet"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.手动安装Emmet</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhaoxingyu</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">10.7k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

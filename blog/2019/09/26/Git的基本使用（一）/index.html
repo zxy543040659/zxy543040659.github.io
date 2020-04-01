@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Git,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zhaoxingyu's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本次学习要点： 如何建立一个本地仓库  设置你的个性化信息  工作区与缓存区  提交与历史">
+<meta name="keywords" content="Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git的基本使用(一)">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2019/09/26/Git的基本使用（一）/index.html">
+<meta property="og:site_name" content="Zhaoxingyu&#39;s blog">
+<meta property="og:description" content="本次学习要点： 如何建立一个本地仓库  设置你的个性化信息  工作区与缓存区  提交与历史">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/09/26/Git的基本使用（一）/GitFlow.jpg">
+<meta property="og:updated_time" content="2020-01-01T08:59:15.366Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git的基本使用(一)">
+<meta name="twitter:description" content="本次学习要点： 如何建立一个本地仓库  设置你的个性化信息  工作区与缓存区  提交与历史">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2019/09/26/Git的基本使用（一）/GitFlow.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2019/09/26/Git的基本使用（一）/">
+
+
+
+
+
+  <title>Git的基本使用(一) | Zhaoxingyu's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zhaoxingyu's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Aim high, down to earth.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2019/09/26/Git的基本使用（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhaoxingyu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhaoxingyu's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git的基本使用(一)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-26T22:24:21+08:00">
+                2019-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="本次学习要点："><a href="#本次学习要点：" class="headerlink" title="本次学习要点："></a>本次学习要点：</h3><ol>
+<li><p>如何建立一个本地仓库</p>
+</li>
+<li><p>设置你的个性化信息</p>
+</li>
+<li><p>工作区与缓存区</p>
+</li>
+<li><p>提交与历史</p>
+</li>
+</ol>
+<a id="more"></a>
+
+<h3 id="如何建立一个本地仓库"><a href="#如何建立一个本地仓库" class="headerlink" title="如何建立一个本地仓库"></a>如何建立一个本地仓库</h3><p>有两种方法，一种是Git GUI，一种是Git Bush，第一步都是先建立一个空文件夹。</p>
+<ol>
+<li>在文件夹空白处右键，选择Git GUI Here，点击Create New Repository，OK。</li>
+<li>在文件夹空白处右键，选择Git Bush Here，输入<code>git init</code>，OK。</li>
+</ol>
+<h3 id="设置你的个性化信息"><a href="#设置你的个性化信息" class="headerlink" title="设置你的个性化信息"></a>设置你的个性化信息</h3><p>Git是一个团队开发工作，你对团队的每次贡献都会有相应的记录。所以此时你应该告诉这个仓库你的个人信息，主要包括两个：</p>
+<ul>
+<li><strong>邮箱</strong> 邮箱是别人联系你的途径，当然你应当留意你的个人隐私问题，这个内容我们会放到之后的几章中讲，此处你可以随便填写一个邮箱。</li>
+<li><strong>姓名</strong> 你可以填真名或是化名，取决于你的实际开发和协作环境。</li>
+</ul>
+<ol>
+<li>打开Git Bash界面，我们输入指令<code>git config --help</code>来查看<code>git config</code>的帮助文档。【–help】是一个很有用的指令参数，当你忘了某个指令的使用方法，你都可以如此进行搜寻。</li>
+<li>我们可以看到如此一行：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">user.email</span><br><span class="line">	Your email address to be recorded in any newly created commits. </span><br><span class="line">	Can be overridden by the GIT_AUTHOR_EMAIL, GIT_COMMITTER_EMAIL, </span><br><span class="line">	and EMAIL environment variables. See git-commit-tree(1).</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>使用<code>git config user.email &lt;你的Email&gt;</code>进行邮箱的设置。同样的，<code>git config user.name &lt;你的名字或化名&gt;</code>可以设置该本地仓库的所有者姓名。</p>
+</li>
+<li><p>当你设置完这些值之后，可以打开<code>.gti/config</code>，查看到你刚刚所设置邮箱和姓名。</p>
+</li>
+</ul>
+<h3 id="工作区与缓存区"><a href="#工作区与缓存区" class="headerlink" title="工作区与缓存区"></a>工作区与缓存区</h3><img src="/blog/2019/09/26/Git的基本使用（一）/GitFlow.jpg" style="zoom:50%;">
+
+<p>​                                                            上图来源于西电腾讯TIC-Git的培训资料</p>
+<p>Git的基本工作流程，目前阶段我们需要知道三个区域：<strong>工作区域</strong>、<strong>缓存区</strong>和<strong>仓库记录</strong>。其中，仓库记录是由<strong>历史记录</strong>构成的，因为历史纪录是一棵树状结构，也被叫做(History Tree)。</p>
+<ul>
+<li>用户在工作区域(或工作目录)中进行的修改会被Git检测到，通过<code>add</code>指令被提交到缓存区。</li>
+<li>缓存区中的文件是工作区域中的文件的一次快照备份，你之后在工作区域中做任何修改都不会影响到缓存区中同一个文件的内容，除非再次使用<code>add</code>指令更新缓存区。</li>
+<li>当你觉得工作做得差不多了，你可以使用<code>commit</code>指令，把缓存区中的文件提交到仓库记录，仓库记录会自动生成一次历史记录。你可以简单认为仓库记录就是个数据库，一次<code>commit</code>指令就是一次数据库写入请求。从此之后该记录将一直留在仓库中，你也可以把工作区中的数据文件随时回滚到当时提交的这个版本。</li>
+<li>缓存区中的文件在并未被<code>commit</code>之前，并不会被写入记录，也就意味着有些操作会导致你丢失缓存区的文件快照备份(如<code>checkout</code>等)。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;filename&gt;</span><br><span class="line">#添加文件至缓存区</span><br><span class="line">git status</span><br><span class="line">#查看当前缓存区的状态</span><br><span class="line">git commit</span><br><span class="line">#将缓存区的文件提交到仓库</span><br></pre></td></tr></table></figure>
+
+<h3 id="提交与历史"><a href="#提交与历史" class="headerlink" title="提交与历史"></a>提交与历史</h3><ul>
+<li><p>打开Git Bash，键入<code>git log</code>，即可查看提交的历史纪录。如果对当前提交不满意，找到上一次提交的版本ID值(SHA ID)，键入命令<code>git checkout &lt;SHA ID&gt;</code>，此时版本便已回滚到了之前那个版本，当前的提交会直接删除掉。</p>
+</li>
+<li><p>在Vim界面中，按字母a来进入编辑模式，编辑完毕后按ESC键退出编辑，再按大写锁定，按ZZ来退出Vim。</p>
+</li>
+</ul>
+<p>编辑模板</p>
+<p>提交了xxxx</p>
+<p>来自：Zxy&lt;<a href="mailto:&#x35;&#x34;&#x33;&#x30;&#x34;&#x30;&#54;&#x35;&#57;&#x40;&#113;&#x71;&#x2e;&#99;&#111;&#x6d;" target="_blank" rel="noopener">&#x35;&#x34;&#x33;&#x30;&#x34;&#x30;&#54;&#x35;&#57;&#x40;&#113;&#x71;&#x2e;&#99;&#111;&#x6d;</a>&gt;</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/" rel="next" title="Sublime Text3安装Emmet插件遇到的问题及解决">
+                <i class="fa fa-chevron-left"></i> Sublime Text3安装Emmet插件遇到的问题及解决
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/09/29/Git的基本使用-撤销提交/" rel="prev" title="Git的基本使用(二) --撤销提交">
+                Git的基本使用(二) --撤销提交 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zhaoxingyu</p>
+              <p class="site-description motion-element" itemprop="description">zxy的个人博客，用来记录学习中遇到的问题</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#本次学习要点："><span class="nav-number">1.</span> <span class="nav-text">本次学习要点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何建立一个本地仓库"><span class="nav-number">2.</span> <span class="nav-text">如何建立一个本地仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置你的个性化信息"><span class="nav-number">3.</span> <span class="nav-text">设置你的个性化信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作区与缓存区"><span class="nav-number">4.</span> <span class="nav-text">工作区与缓存区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交与历史"><span class="nav-number">5.</span> <span class="nav-text">提交与历史</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhaoxingyu</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">10.7k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
