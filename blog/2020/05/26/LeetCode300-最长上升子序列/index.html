@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Git,">
+  <meta name="keywords" content="动态规划,">
 
 
 
@@ -81,20 +81,22 @@
 
 
 
-<meta name="description" content="本次学习要点： 如何建立一个本地仓库  设置你的个性化信息  工作区与缓存区  提交与历史">
-<meta name="keywords" content="Git">
+<meta name="description" content="题目描述给定一个无序的整数数组，找到其中最长上升子序列的长度。">
+<meta name="keywords" content="动态规划">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git的基本使用(一)">
-<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2019/09/26/Git的基本使用（一）/index.html">
+<meta property="og:title" content="LeetCode300-最长上升子序列">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/index.html">
 <meta property="og:site_name" content="Zhaoxingyu&#39;s blog">
-<meta property="og:description" content="本次学习要点： 如何建立一个本地仓库  设置你的个性化信息  工作区与缓存区  提交与历史">
+<meta property="og:description" content="题目描述给定一个无序的整数数组，找到其中最长上升子序列的长度。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/09/26/Git的基本使用（一）/GitFlow.jpg">
-<meta property="og:updated_time" content="2020-01-01T08:59:15.366Z">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/sl.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/ex1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/ex2.png">
+<meta property="og:updated_time" content="2020-05-28T11:56:55.231Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git的基本使用(一)">
-<meta name="twitter:description" content="本次学习要点： 如何建立一个本地仓库  设置你的个性化信息  工作区与缓存区  提交与历史">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2019/09/26/Git的基本使用（一）/GitFlow.jpg">
+<meta name="twitter:title" content="LeetCode300-最长上升子序列">
+<meta name="twitter:description" content="题目描述给定一个无序的整数数组，找到其中最长上升子序列的长度。">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/sl.png">
 
 
 
@@ -124,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2019/09/26/Git的基本使用（一）/">
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/">
 
 
 
 
 
-  <title>Git的基本使用(一) | Zhaoxingyu's blog</title>
+  <title>LeetCode300-最长上升子序列 | Zhaoxingyu's blog</title>
   
 
 
@@ -267,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2019/09/26/Git的基本使用（一）/">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhaoxingyu">
@@ -284,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Git的基本使用(一)</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode300-最长上升子序列</h1>
         
 
         <div class="post-meta">
@@ -296,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-26T22:24:21+08:00">
-                2019-09-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-26T09:43:18+08:00">
+                2020-05-26
               </time>
             
 
@@ -306,28 +308,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index">
-                    <span itemprop="name">Git</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -355,7 +335,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1k
+                  750
                 </span>
               
 
@@ -392,61 +372,30 @@
       
 
       
-        <h3 id="本次学习要点："><a href="#本次学习要点：" class="headerlink" title="本次学习要点："></a>本次学习要点：</h3><ol>
-<li><p>如何建立一个本地仓库</p>
-</li>
-<li><p>设置你的个性化信息</p>
-</li>
-<li><p>工作区与缓存区</p>
-</li>
-<li><p>提交与历史</p>
-</li>
-</ol>
+        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定一个无序的整数数组，找到其中最长上升子序列的长度。</p>
 <a id="more"></a>
 
-<h3 id="如何建立一个本地仓库"><a href="#如何建立一个本地仓库" class="headerlink" title="如何建立一个本地仓库"></a>如何建立一个本地仓库</h3><p>有两种方法，一种是Git GUI，一种是Git Bush，第一步都是先建立一个空文件夹。</p>
-<ol>
-<li>在文件夹空白处右键，选择Git GUI Here，点击Create New Repository，OK。</li>
-<li>在文件夹空白处右键，选择Git Bush Here，输入<code>git init</code>，OK。</li>
-</ol>
-<h3 id="设置你的个性化信息"><a href="#设置你的个性化信息" class="headerlink" title="设置你的个性化信息"></a>设置你的个性化信息</h3><p>Git是一个团队开发工作，你对团队的每次贡献都会有相应的记录。所以此时你应该告诉这个仓库你的个人信息，主要包括两个：</p>
-<ul>
-<li><strong>邮箱</strong> 邮箱是别人联系你的途径，当然你应当留意你的个人隐私问题，这个内容我们会放到之后的几章中讲，此处你可以随便填写一个邮箱。</li>
-<li><strong>姓名</strong> 你可以填真名或是化名，取决于你的实际开发和协作环境。</li>
-</ul>
-<ol>
-<li>打开Git Bash界面，我们输入指令<code>git config --help</code>来查看<code>git config</code>的帮助文档。【–help】是一个很有用的指令参数，当你忘了某个指令的使用方法，你都可以如此进行搜寻。</li>
-<li>我们可以看到如此一行：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">user.email</span><br><span class="line">	Your email address to be recorded in any newly created commits. </span><br><span class="line">	Can be overridden by the GIT_AUTHOR_EMAIL, GIT_COMMITTER_EMAIL, </span><br><span class="line">	and EMAIL environment variables. See git-commit-tree(1).</span><br></pre></td></tr></table></figure>
+<img src="/blog/2020/05/26/LeetCode300-最长上升子序列/sl.png" style="zoom:80%;">
 
-<ul>
-<li><p>使用<code>git config user.email &lt;你的Email&gt;</code>进行邮箱的设置。同样的，<code>git config user.name &lt;你的名字或化名&gt;</code>可以设置该本地仓库的所有者姓名。</p>
-</li>
-<li><p>当你设置完这些值之后，可以打开<code>.gti/config</code>，查看到你刚刚所设置邮箱和姓名。</p>
-</li>
-</ul>
-<h3 id="工作区与缓存区"><a href="#工作区与缓存区" class="headerlink" title="工作区与缓存区"></a>工作区与缓存区</h3><img src="/blog/2019/09/26/Git的基本使用（一）/GitFlow.jpg" style="zoom:50%;">
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这是一道动态规划的经典入门题，这里的子序列不一定是连续的。比如示例中<code>[2, 3, 7, 101]</code>，只要是递增的，就是上升子序列，我需要找到这里面最长的上升子序列的长度。</p>
+<p>动态规划一般是由历史信息推断当前信息的，并且历史信息是是独立的子问题，相互之间不会影响。现在考虑一个dp数组，如果说dp[0]到dp[i-1]都可以得到了，如果可以推出dp[i]，就可以得到dp数组的全部结果。</p>
+<h4 id="一、定义dp数组的含义"><a href="#一、定义dp数组的含义" class="headerlink" title="一、定义dp数组的含义"></a>一、定义dp数组的含义</h4><p>我们可以定义dp[i]表示以nums[i]这个数结尾的最长上升子序列的长度。举两个例子：</p>
+<img src="/blog/2020/05/26/LeetCode300-最长上升子序列/ex1.png" style="zoom:80%;">
 
-<p>​                                                            上图来源于西电腾讯TIC-Git的培训资料</p>
-<p>Git的基本工作流程，目前阶段我们需要知道三个区域：<strong>工作区域</strong>、<strong>缓存区</strong>和<strong>仓库记录</strong>。其中，仓库记录是由<strong>历史记录</strong>构成的，因为历史纪录是一棵树状结构，也被叫做(History Tree)。</p>
-<ul>
-<li>用户在工作区域(或工作目录)中进行的修改会被Git检测到，通过<code>add</code>指令被提交到缓存区。</li>
-<li>缓存区中的文件是工作区域中的文件的一次快照备份，你之后在工作区域中做任何修改都不会影响到缓存区中同一个文件的内容，除非再次使用<code>add</code>指令更新缓存区。</li>
-<li>当你觉得工作做得差不多了，你可以使用<code>commit</code>指令，把缓存区中的文件提交到仓库记录，仓库记录会自动生成一次历史记录。你可以简单认为仓库记录就是个数据库，一次<code>commit</code>指令就是一次数据库写入请求。从此之后该记录将一直留在仓库中，你也可以把工作区中的数据文件随时回滚到当时提交的这个版本。</li>
-<li>缓存区中的文件在并未被<code>commit</code>之前，并不会被写入记录，也就意味着有些操作会导致你丢失缓存区的文件快照备份(如<code>checkout</code>等)。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;filename&gt;</span><br><span class="line">#添加文件至缓存区</span><br><span class="line">git status</span><br><span class="line">#查看当前缓存区的状态</span><br><span class="line">git commit</span><br><span class="line">#将缓存区的文件提交到仓库</span><br></pre></td></tr></table></figure>
+<p>根据这个定义，最终结果(子序列的最大长度)就是dp数组中的最大值。</p>
+<h4 id="二、状态转移方程"><a href="#二、状态转移方程" class="headerlink" title="二、状态转移方程"></a>二、状态转移方程</h4><p>这就是动态规划的重头戏了，要思考如何进行状态转移，这里就可以使用数学归纳的思想：</p>
+<p>我们已经知道了 dp[0]到dp[4] 的所有结果，我们如何通过这些已知结果推出 dp[5] 呢？</p>
+<img src="/blog/2020/05/26/LeetCode300-最长上升子序列/ex2.png" style="zoom:80%;">
 
-<h3 id="提交与历史"><a href="#提交与历史" class="headerlink" title="提交与历史"></a>提交与历史</h3><ul>
-<li><p>打开Git Bash，键入<code>git log</code>，即可查看提交的历史纪录。如果对当前提交不满意，找到上一次提交的版本ID值(SHA ID)，键入命令<code>git checkout &lt;SHA ID&gt;</code>，此时版本便已回滚到了之前那个版本，当前的提交会直接删除掉。</p>
-</li>
-<li><p>在Vim界面中，按字母a来进入编辑模式，编辑完毕后按ESC键退出编辑，再按大写锁定，按ZZ来退出Vim。</p>
-</li>
-</ul>
-<p>编辑模板</p>
-<p>提交了xxxx</p>
-<p>来自：Zxy&lt;<a href="mailto:&#53;&#52;&#x33;&#x30;&#52;&#x30;&#x36;&#x35;&#x39;&#x40;&#113;&#113;&#46;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#53;&#52;&#x33;&#x30;&#52;&#x30;&#x36;&#x35;&#x39;&#x40;&#113;&#113;&#46;&#x63;&#111;&#x6d;</a>&gt;</p>
+<p>根据刚才我们对 dp 数组的定义，现在想求 dp[5] 的值，也就是想求以 nums[5] 为结尾的最长递增子序列。</p>
+<p>nums[5] = 7，既然是递增子序列，我们只要找到前面那些结尾比 7 小的子序列，然后把 3 接到最后，就可以形成一个新的递增子序列，而且这个新的子序列长度加一。</p>
+<p>当然，可能形成很多种新的子序列，但是我们只要最长的，把最长子序列的长度作为 dp[5] 的值即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (nums[i] &gt; nums[j]) </span><br><span class="line">        dp[i] = max(dp[i], dp[j] + <span class="number">1</span>);</span><br><span class="line">&#125; </span><br><span class="line"><span class="meta"># dp数组需要初始化为1，因为自己本身也算一个序列</span></span><br><span class="line"># 当i = <span class="number">5</span>时</span><br><span class="line"># nums[<span class="number">5</span>] &gt; nums[<span class="number">2</span>] dp[<span class="number">5</span>] = max&#123;dp[<span class="number">5</span>], dp[<span class="number">2</span>] + <span class="number">1</span>&#125; = max&#123;<span class="number">1</span>, <span class="number">2</span>&#125; = <span class="number">2</span></span><br><span class="line"># nums[<span class="number">5</span>] &gt; nums[<span class="number">3</span>] dp[<span class="number">5</span>] = max&#123;dp[<span class="number">5</span>], dp[<span class="number">3</span>] + <span class="number">1</span>&#125; = max&#123;<span class="number">2</span>, <span class="number">2</span> + <span class="number">1</span>&#125; = <span class="number">3</span></span><br><span class="line"># nums[<span class="number">5</span>] &gt; nums[<span class="number">4</span>] dp[<span class="number">5</span>] = max&#123;dp[<span class="number">5</span>], dp[<span class="number">4</span>] + <span class="number">1</span>&#125; = max&#123;<span class="number">3</span>, <span class="number">2</span> + <span class="number">1</span>&#125; = <span class="number">3</span></span><br><span class="line"># 所以dp[<span class="number">5</span>] = <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>根据上述的状态转移公式，就可以得到dp数组的所有值，我们再取其中的最大值，就是答案。</p>
+<h4 id="三、代码实现"><a href="#三、代码实现" class="headerlink" title="三、代码实现"></a>三、代码实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(nums.size(), <span class="number">1</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i] &gt; nums[j])</span><br><span class="line">                    dp[i] = max(dp[i],dp[j] + <span class="number">1</span>); <span class="comment">//dp[i]是指历史中的最大长度，否则后面的长度+1小于历史最大长度时，会覆盖</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> *max_element(dp.begin(), dp.end());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>《labuladong的算法小抄》 </p>
 
       
     </div>
@@ -464,7 +413,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Git/" rel="tag"># Git</a>
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
           
         </div>
       
@@ -477,8 +426,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/" rel="next" title="Sublime Text3安装Emmet插件遇到的问题及解决">
-                <i class="fa fa-chevron-left"></i> Sublime Text3安装Emmet插件遇到的问题及解决
+              <a href="/blog/2020/04/30/2020学习计划/" rel="next" title="2020学习/工作计划">
+                <i class="fa fa-chevron-left"></i> 2020学习/工作计划
               </a>
             
           </div>
@@ -487,8 +436,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2019/09/29/Git的基本使用-撤销提交/" rel="prev" title="Git的基本使用(二) --撤销提交">
-                Git的基本使用(二) --撤销提交 <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2020/05/28/LeetCode877-石子游戏/" rel="prev" title="LeetCode877-石子游戏">
+                LeetCode877-石子游戏 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -666,7 +615,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#本次学习要点："><span class="nav-number">1.</span> <span class="nav-text">本次学习要点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何建立一个本地仓库"><span class="nav-number">2.</span> <span class="nav-text">如何建立一个本地仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置你的个性化信息"><span class="nav-number">3.</span> <span class="nav-text">设置你的个性化信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作区与缓存区"><span class="nav-number">4.</span> <span class="nav-text">工作区与缓存区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交与历史"><span class="nav-number">5.</span> <span class="nav-text">提交与历史</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、定义dp数组的含义"><span class="nav-number">2.1.</span> <span class="nav-text">一、定义dp数组的含义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、状态转移方程"><span class="nav-number">2.2.</span> <span class="nav-text">二、状态转移方程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、代码实现"><span class="nav-number">2.3.</span> <span class="nav-text">三、代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
