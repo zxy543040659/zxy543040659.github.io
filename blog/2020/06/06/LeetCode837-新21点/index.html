@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="数据结构,">
+  <meta name="keywords" content="动态规划,">
 
 
 
@@ -81,22 +81,22 @@
 
 
 
-<meta name="description" content="本次学习要点 编写循环链表，由单链表修改得到 使用循环链表解决约瑟夫问题">
-<meta name="keywords" content="数据结构">
+<meta name="description" content="题目描述爱丽丝参与一个大致基于纸牌游戏 “21点” 规则的游戏，描述如下： 爱丽丝以 0 分开始，并在她的得分少于 K 分时抽取数字。 抽取时，她从 [1, W] 的范围中随机获得一个整数作为分数进行累计，其中 W 是整数。 每次抽取都是独立的，其结果具有相同的概率。 当爱丽丝获得不少于 K 分时，她就停止抽取数字。 爱丽丝的分数不超过 N 的概率是多少？">
+<meta name="keywords" content="动态规划">
 <meta property="og:type" content="article">
-<meta property="og:title" content="循环链表解决约瑟夫问题">
-<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/index.html">
+<meta property="og:title" content="LeetCode837-新21点">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/06/06/LeetCode837-新21点/index.html">
 <meta property="og:site_name" content="Zhaoxingyu&#39;s blog">
-<meta property="og:description" content="本次学习要点 编写循环链表，由单链表修改得到 使用循环链表解决约瑟夫问题">
+<meta property="og:description" content="题目描述爱丽丝参与一个大致基于纸牌游戏 “21点” 规则的游戏，描述如下： 爱丽丝以 0 分开始，并在她的得分少于 K 分时抽取数字。 抽取时，她从 [1, W] 的范围中随机获得一个整数作为分数进行累计，其中 W 是整数。 每次抽取都是独立的，其结果具有相同的概率。 当爱丽丝获得不少于 K 分时，她就停止抽取数字。 爱丽丝的分数不超过 N 的概率是多少？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/非空循环链表.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/空循环链表.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/结果.png">
-<meta property="og:updated_time" content="2019-12-03T05:05:27.093Z">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/06/LeetCode837-新21点/示例.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/06/LeetCode837-新21点/image1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/06/LeetCode837-新21点/image2.png">
+<meta property="og:updated_time" content="2020-06-06T03:39:57.280Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="循环链表解决约瑟夫问题">
-<meta name="twitter:description" content="本次学习要点 编写循环链表，由单链表修改得到 使用循环链表解决约瑟夫问题">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/非空循环链表.png">
+<meta name="twitter:title" content="LeetCode837-新21点">
+<meta name="twitter:description" content="题目描述爱丽丝参与一个大致基于纸牌游戏 “21点” 规则的游戏，描述如下： 爱丽丝以 0 分开始，并在她的得分少于 K 分时抽取数字。 抽取时，她从 [1, W] 的范围中随机获得一个整数作为分数进行累计，其中 W 是整数。 每次抽取都是独立的，其结果具有相同的概率。 当爱丽丝获得不少于 K 分时，她就停止抽取数字。 爱丽丝的分数不超过 N 的概率是多少？">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/06/06/LeetCode837-新21点/示例.png">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/">
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2020/06/06/LeetCode837-新21点/">
 
 
 
 
 
-  <title>循环链表解决约瑟夫问题 | Zhaoxingyu's blog</title>
+  <title>LeetCode837-新21点 | Zhaoxingyu's blog</title>
   
 
 
@@ -269,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2020/06/06/LeetCode837-新21点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhaoxingyu">
@@ -286,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">循环链表解决约瑟夫问题</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode837-新21点</h1>
         
 
         <div class="post-meta">
@@ -298,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-18T23:05:26+08:00">
-                2019-11-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-06T10:53:13+08:00">
+                2020-06-06
               </time>
             
 
@@ -321,8 +321,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
                   </a>
                 </span>
 
@@ -357,7 +357,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  830
+                  877
                 </span>
               
 
@@ -394,34 +394,31 @@
       
 
       
-        <h3 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h3><ol>
-<li>编写循环链表，由单链表修改得到</li>
-<li>使用循环链表解决约瑟夫问题</li>
-</ol>
+        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>爱丽丝参与一个大致基于纸牌游戏 “21点” 规则的游戏，描述如下：</p>
+<p>爱丽丝以 0 分开始，并在她的得分少于 K 分时抽取数字。 抽取时，她从 [1, W] 的范围中随机获得一个整数作为分数进行累计，其中 W 是整数。 每次抽取都是独立的，其结果具有相同的概率。</p>
+<p>当爱丽丝获得不少于 K 分时，她就停止抽取数字。 爱丽丝的分数不超过 N 的概率是多少？</p>
 <a id="more"></a>
 
-<h3 id="循环链表与单链表的不同之处"><a href="#循环链表与单链表的不同之处" class="headerlink" title="循环链表与单链表的不同之处"></a>循环链表与单链表的不同之处</h3><p>循环链表是另外一种线性表链式存储结构，它的节点结构与单链表相同，与单链表不同的是在循环链表中的表尾节点的<code>next</code>不为空（NULL），而是指向头节点，所以循环链表为空的条件为<code>head-&gt;next==head</code>,如图所示：</p>
-<img src="/blog/2019/11/18/循环链表解决约瑟夫问题/非空循环链表.png" style="zoom: 67%;">
+<img src="/blog/2020/06/06/LeetCode837-新21点/示例.png" style="zoom:80%;">
 
-<p>​                                                                                    (a)非空循环链表</p>
-<img src="/blog/2019/11/18/循环链表解决约瑟夫问题/空循环链表.png" style="zoom: 67%;">
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这道题一看不太明白什么意思，看过港片的都知道，在牌面加起来不大于21点时候，谁的牌面最大，谁就能获胜。这道题其实是求爱丽丝获胜的概率，不过点数为N，可以把规则复述一下：</p>
+<ol>
+<li>她可以从<code>[1,W]</code>的牌中任意取一张，可以无限重复取，也就是说取到范围中某张牌的概率一直是<code>1/W</code>；</li>
+<li>如果她手上的牌总额小于K时，她就会继续抽牌，大于等于K时就停止抽牌；</li>
+<li>停止抽牌后，和N进行比较，当小于等于N时，她就获胜了，求获胜的概率。</li>
+</ol>
+<h4 id="定义dp数组的含义"><a href="#定义dp数组的含义" class="headerlink" title="定义dp数组的含义"></a>定义dp数组的含义</h4><p>定义<code>dp[x]</code>为她手上牌面为x时，能获胜的概率。因为每次从<code>[1,W]</code>中抽取的机会都是均等的，所以<code>dp[x] =1/W * (dp[x+1] + dp[x+2] + ... + dp[x+W])</code>。x最多可以到<code>K-1</code>，因为x等于K时会停止抽牌，所以当抽牌结束后，她可能达到的最大牌面是<code>K-1+W</code>，开始时她的牌面为0，所以用长度为K+W的dp数组就够了，最后<code>dp[0]</code>，也就是爱丽丝还没有抽牌时的胜率就是最终答案。</p>
+<h4 id="状态转移方程"><a href="#状态转移方程" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>其实上一步已经提到了状态转移方程：<code>dp[x] =1/W * (dp[x+1] + dp[x+2] + ... + dp[x+W])</code>，但是dp数组具体应该怎么算呢，可以把它看成一个填格子的游戏，如下图：</p>
+<img src="/blog/2020/06/06/LeetCode837-新21点/image1.png" style="zoom:80%;">
 
-<p>​                                                                                        (b)空循环链表</p>
-<p>循环链表的操作与线性表的操作基本相同，只是将算法中的循环条件改为<code>temPtr</code>是否等于头指针，以下给出与单链表不同之处：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ElemType&gt;</span><br><span class="line">Node&lt;ElemType&gt; * SimpleCircLinkList&lt;ElemType&gt;::GetElemPtr(<span class="keyword">int</span> <span class="built_in">position</span>) <span class="keyword">const</span></span><br><span class="line"><span class="comment">//返回指向第position个结点的指针,时间复杂度O(n)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">position</span> == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> head;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	Node&lt;ElemType&gt; *tmpPtr = head-&gt;next; <span class="comment">//用tmpPtr遍历线性表以查找第position个结点</span></span><br><span class="line">	<span class="keyword">int</span> pos = <span class="number">1</span>;					<span class="comment">//tmpPtr所指结点的位置</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (tmpPtr != head&amp;&amp;pos &lt; <span class="built_in">position</span>)</span><br><span class="line">	&#123;	<span class="comment">//顺指针向后查找，直到tmpPtr指向第position个结点</span></span><br><span class="line">		tmpPtr = tmpPtr-&gt;next;</span><br><span class="line">		pos++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (tmpPtr != head&amp;&amp;pos == <span class="built_in">position</span>)</span><br><span class="line">	&#123;	<span class="comment">//查找成功</span></span><br><span class="line">		<span class="keyword">return</span> tmpPtr;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;	<span class="comment">//查找失败</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将格子分为两个部分，在橘黄色的格子中，爱丽丝是可以抽牌的，而在蓝色的格子中是不可以的。我们每次需要W个格子的结果进行状态转移。</p>
+<p>在蓝色的格子中，对于<code>[K,K+W-1]</code>中小于等于N的值，相应的<code>dp[i]</code>概率就是1，反之为0，在初始化时候进行。</p>
+<img src="/blog/2020/06/06/LeetCode837-新21点/image2.png" style="zoom:80%;">
 
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ElemType&gt;</span><br><span class="line"><span class="keyword">int</span> SimpleCircLinkList&lt;ElemType&gt;::Length() <span class="keyword">const</span></span><br><span class="line"><span class="comment">//返回线性表元素的个数</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (Node&lt;ElemType&gt; *tmpPtr = head-&gt;next; tmpPtr != <span class="literal">NULL</span>; tmpPtr = tmpPtr-&gt;next)</span><br><span class="line">	&#123;</span><br><span class="line">		count++;</span><br><span class="line">		<span class="keyword">if</span> (tmpPtr == head) <span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来，从K-1处根据状态转移方程进行dp数组的计算。在计算K-2处概率值时，在上一步用一个中间变量<code>sumw</code>保存<code>[K,K+W-1]</code>的概率之和，这样新的概率和<code>sumw = sumw - dp[K-1+W] + dp[K-1]</code>，提高效率。这样从最右边橘黄色格子一直填到最左边，就是最后的结果dp[0]。</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">new21Game</span><span class="params">(<span class="keyword">int</span> N, <span class="keyword">int</span> K, <span class="keyword">int</span> W)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; <span class="title">dp</span><span class="params">(K + W, <span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">double</span> sumw = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = K; i &lt;= K + W - <span class="number">1</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i &lt;= N) dp[i] = <span class="number">1</span>;</span><br><span class="line">            sumw += dp[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = K<span class="number">-1</span>; i &gt;=<span class="number">0</span>; i--)&#123;</span><br><span class="line">            dp[i] = (<span class="keyword">double</span>)<span class="number">1</span> / W * sumw; <span class="comment">//概率可能是小数，需要强制类型转换</span></span><br><span class="line">            sumw = sumw - dp[i+W] + dp[i]; </span><br><span class="line">            <span class="comment">//这里就是减去最右边概率dp[i+W]，加上最左边概率dp[i]</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ElemType&gt;</span><br><span class="line"><span class="keyword">bool</span> SimpleCircLinkList&lt;ElemType&gt;::Empty() <span class="keyword">const</span></span><br><span class="line"><span class="comment">//如果线性表为空，返回true，否则返回false</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> head-&gt;next == head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ElemType&gt;</span><br><span class="line"><span class="keyword">void</span> SimpleCircLinkList&lt;ElemType&gt;::Traverse(<span class="keyword">void</span>(*visit)(<span class="keyword">const</span> ElemType &amp;)) <span class="keyword">const</span></span><br><span class="line"><span class="comment">//依次对线性表每个元素调用函数(*visit)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">for</span> (Node&lt;ElemType&gt; * tmpPtr = head-&gt;next; tmpPtr != head; tmpPtr = tmpPtr-&gt;next)</span><br><span class="line">	&#123;</span><br><span class="line">		(*visit)(tmpPtr-&gt;data);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="循环列表解决与瑟夫问题"><a href="#循环列表解决与瑟夫问题" class="headerlink" title="循环列表解决与瑟夫问题"></a>循环列表解决与瑟夫问题</h3><p>问题描述：一个旅行社要从n个旅客中选出一名旅客，为他提供免费旅行服务，选择方法是让n个旅客围成一个圆圈，然后从信封中取出一张纸条，用上面写着的正整数m(m&lt;n)作为报数值，第一个人从1开始一个人一个人按顺时针报数，报到第m个旅客时，令其出列。然后从下一个人开始，从1顺时针报数，报到第m个游客时，再令其出列，如此下去，直到只剩下一个人为止。此人即为优胜者。如n=8，m=3，出列的顺序为3、6、1、5、2、8、4，最初编号为7的游客获得免费旅行服务。（待更新算法详细步骤）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">//main.cpp</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&quot;alg.h&quot;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template&lt;typename ElemType&gt;</span><br><span class="line">void display(ElemType &amp;e)</span><br><span class="line">&#123;</span><br><span class="line">	cout &lt;&lt; e &lt;&lt; &quot; &quot;;</span><br><span class="line">&#125;</span><br><span class="line">//循环链表解决约瑟夫问题</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	SimpleCircLinkList&lt;int&gt; la;</span><br><span class="line">	int n = 8, m = 3;</span><br><span class="line">	int position = 1;</span><br><span class="line">	int out, winer;</span><br><span class="line">	for (int k = 1; k &lt;= n; k++)</span><br><span class="line">	&#123;</span><br><span class="line">		la.Insert(k, k);</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 1; i &lt; n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		for (int j = 1; j &lt;= m; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			if (position &gt; la.Length())</span><br><span class="line">			&#123;</span><br><span class="line">				position = 1;</span><br><span class="line">			&#125;</span><br><span class="line">			position++;</span><br><span class="line">		&#125;</span><br><span class="line">		position--;</span><br><span class="line">		la.Delete(position, out);</span><br><span class="line">		cout &lt;&lt; out &lt;&lt; &quot; &quot;;</span><br><span class="line">	&#125;</span><br><span class="line">		la.GetElem(1, winer);</span><br><span class="line">		cout &lt;&lt; endl &lt;&lt; &quot;优胜者：&quot; &lt;&lt; winer &lt;&lt; endl;</span><br><span class="line">		return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果：</p>
-<img src="/blog/2019/11/18/循环链表解决约瑟夫问题/结果.png">
-
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://leetcode-cn.com/problems/new-21-game/solution/huan-you-bi-zhe-geng-jian-dan-de-ti-jie-ma-tian-ge/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/new-21-game/solution/huan-you-bi-zhe-geng-jian-dan-de-ti-jie-ma-tian-ge/</a></p>
 
       
     </div>
@@ -439,7 +436,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
           
         </div>
       
@@ -452,8 +449,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/10/30/单链表的基本操作/" rel="next" title="单链表的基本操作">
-                <i class="fa fa-chevron-left"></i> 单链表的基本操作
+              <a href="/blog/2020/05/28/LeetCode877-石子游戏/" rel="next" title="LeetCode877-石子游戏">
+                <i class="fa fa-chevron-left"></i> LeetCode877-石子游戏
               </a>
             
           </div>
@@ -461,10 +458,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2019/12/29/链式栈/" rel="prev" title="链式栈">
-                链式栈 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -641,7 +634,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环链表与单链表的不同之处"><span class="nav-number">2.</span> <span class="nav-text">循环链表与单链表的不同之处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环列表解决与瑟夫问题"><span class="nav-number">3.</span> <span class="nav-text">循环列表解决与瑟夫问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义dp数组的含义"><span class="nav-number">2.1.</span> <span class="nav-text">定义dp数组的含义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态转移方程"><span class="nav-number">2.2.</span> <span class="nav-text">状态转移方程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">2.3.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
