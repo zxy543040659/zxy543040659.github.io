@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="总结一下C++中string的常见用法，包括但不局限于：  初始化 string对象上的操作（包括取子串） 查找/删除/替换等">
+<meta name="description" content="总结一下C++中string的常见用法，包括但不局限于：  初始化 string对象上的操作（包括取子串） 查找/删除/替换 与数值的相互转换">
 <meta name="keywords" content="string">
 <meta property="og:type" content="article">
 <meta property="og:title" content="string操作总结(不定期更新)">
 <meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/06/25/string操作总结/index.html">
 <meta property="og:site_name" content="Zhaoxingyu&#39;s blog">
-<meta property="og:description" content="总结一下C++中string的常见用法，包括但不局限于：  初始化 string对象上的操作（包括取子串） 查找/删除/替换等">
+<meta property="og:description" content="总结一下C++中string的常见用法，包括但不局限于：  初始化 string对象上的操作（包括取子串） 查找/删除/替换 与数值的相互转换">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-06-25T12:27:04.532Z">
+<meta property="og:updated_time" content="2020-06-25T12:50:31.442Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="string操作总结(不定期更新)">
-<meta name="twitter:description" content="总结一下C++中string的常见用法，包括但不局限于：  初始化 string对象上的操作（包括取子串） 查找/删除/替换等">
+<meta name="twitter:description" content="总结一下C++中string的常见用法，包括但不局限于：  初始化 string对象上的操作（包括取子串） 查找/删除/替换 与数值的相互转换">
 
 
 
@@ -353,7 +353,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.3k
+                  1.6k
                 </span>
               
 
@@ -369,7 +369,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -394,7 +394,8 @@
 <ol>
 <li>初始化</li>
 <li>string对象上的操作（包括取子串）</li>
-<li>查找/删除/替换等</li>
+<li>查找/删除/替换</li>
+<li>与数值的相互转换</li>
 </ol>
 <a id="more"></a>
 
@@ -415,7 +416,7 @@
 
 <h4 id="取子串"><a href="#取子串" class="headerlink" title="取子串"></a>取子串</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//s.substr(pos, n)</span></span><br><span class="line"><span class="comment">//取s中从pos开始长度为n的子串</span></span><br><span class="line"><span class="comment">//如果pos超过s.size()则抛出out_of_range异常</span></span><br><span class="line"><span class="comment">//如果pos+n超过s.size()则substr自动调整n值，只拷贝到s末尾</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="built_in">string</span> str = s.substr(<span class="number">0</span>, <span class="number">5</span>);	<span class="comment">//str = "hello"</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="查找-删除-替换等"><a href="#查找-删除-替换等" class="headerlink" title="查找/删除/替换等"></a>查找/删除/替换等</h3><h4 id="查找函数find"><a href="#查找函数find" class="headerlink" title="查找函数find"></a>查找函数find</h4><p>string中的find函数返回子串/字符第一次出现在母串中的位置，类型为size_t，可以把它视为一个范围很大的int类型。如果没有找到，返回一个npos标记，是一个很大的整数。</p>
+<h3 id="查找-删除-替换"><a href="#查找-删除-替换" class="headerlink" title="查找/删除/替换"></a>查找/删除/替换</h3><h4 id="查找函数find"><a href="#查找函数find" class="headerlink" title="查找函数find"></a>查找函数find</h4><p>string中的find函数返回子串/字符第一次出现在母串中的位置，类型为size_t，可以把它视为一个范围很大的int类型。如果没有找到，返回一个npos标记，是一个很大的整数。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//size_t pos = s.find(str, startPos)</span></span><br><span class="line"><span class="comment">//str为子串或字符，startPos为开始搜索位置，缺省时默认为0</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="built_in">string</span> str = <span class="string">"world"</span>;</span><br><span class="line"><span class="keyword">size_t</span> pos = s.find(str);	<span class="comment">//等价于pos = s.find("world")，返回6</span></span><br><span class="line"><span class="keyword">size_t</span> pos1 = s.find(<span class="string">"c"</span>);	<span class="comment">//等价于pos1 = s.find('c')，返回npos</span></span><br></pre></td></tr></table></figure>
 
 <p>还可以从后往前反向查找，函数为rfind</p>
@@ -461,9 +462,21 @@
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//string&amp; replace (const_iterator i1, const_iterator i2, size_t n, char c)</span></span><br><span class="line"><span class="comment">//注意这里的c必须是char类型，不能是string对象</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="keyword">char</span> c = <span class="string">'#'</span>;</span><br><span class="line">s = s.replace(s.begin(), s.end(), <span class="number">2</span>, c);	<span class="comment">//s = "## world"</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.cnblogs.com/xzxl/p/7243490.html" target="_blank" rel="noopener">https://www.cnblogs.com/xzxl/p/7243490.html</a></p>
-<p><a href="https://blog.csdn.net/cai_niaocainiao/article/details/81260902?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/cai_niaocainiao/article/details/81260902?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase</a></p>
-<p><a href="https://blog.csdn.net/u010472607/article/details/80431604" target="_blank" rel="noopener">https://blog.csdn.net/u010472607/article/details/80431604</a></p>
+<h3 id="string与int相互转换"><a href="#string与int相互转换" class="headerlink" title="string与int相互转换"></a>string与int相互转换</h3><h4 id="string转int"><a href="#string转int" class="headerlink" title="string转int"></a>string转int</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># string直接转int</span></span><br><span class="line"><span class="comment">//stoi(s, pos, b) 把字符串s从pos开始转换成b进制的int</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"123"</span>;</span><br><span class="line"><span class="comment">//a = 123，如果里面含有非数字，那么从pos开始连续的字符串型数字才会被转为数字</span></span><br><span class="line"><span class="keyword">int</span> a = stoi(s, <span class="number">0</span>, <span class="number">10</span>);	</span><br><span class="line"><span class="comment">//stol(s,p,b)	把字符串s从p开始转换成b进制的long</span></span><br><span class="line"><span class="comment">//stoul(s,p,b)	把字符串s从p开始转换成b进制的unsigned long</span></span><br><span class="line"><span class="comment">//stoll(s,p,b)	把字符串s从p开始转换成b进制的long long</span></span><br><span class="line"><span class="comment">//stoull(s,p,b)	把字符串s从p开始转换成b进制的unsigned long long</span></span><br><span class="line"><span class="comment">//stof(s,p)		把字符串s从p开始转换成float</span></span><br><span class="line"><span class="comment">//stod(s,p)		把字符串s从p开始转换成double</span></span><br><span class="line"><span class="comment">//stold(s,p)	把字符串s从p开始转换成long double</span></span><br><span class="line"><span class="meta"># char型数组字符串转int</span></span><br><span class="line"><span class="comment">//c_str()函数返回一个指向正规C字符串的指针, 内容与string串相同</span></span><br><span class="line"><span class="comment">//string类对象的成员函数c_str()把string转换为c类型字符串</span></span><br><span class="line"><span class="comment">//如果string不是数字形式的则转换结果为0</span></span><br><span class="line"><span class="comment">//实际步骤为string-&gt;char*-&gt;int</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"123"</span>;</span><br><span class="line"><span class="keyword">int</span> a = atoi(s.c_str());	<span class="comment">//a = 123</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="int转string"><a href="#int转string" class="headerlink" title="int转string"></a>int转string</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//to_string(val) 将val转为string</span></span><br><span class="line"><span class="keyword">int</span> val = <span class="number">100</span>;</span><br><span class="line"><span class="built_in">string</span> s = to_string(val);	<span class="comment">//s = "100"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>查找/删除/替换：</p>
+<ol>
+<li><p><a href="https://www.cnblogs.com/xzxl/p/7243490.html" target="_blank" rel="noopener">https://www.cnblogs.com/xzxl/p/7243490.html</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/cai_niaocainiao/article/details/81260902?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/cai_niaocainiao/article/details/81260902?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/u010472607/article/details/80431604" target="_blank" rel="noopener">https://blog.csdn.net/u010472607/article/details/80431604</a></p>
+</li>
+</ol>
+<p>字符串转数值</p>
+<p><a href="https://blog.csdn.net/sinat_40872274/article/details/81367815" target="_blank" rel="noopener">https://blog.csdn.net/sinat_40872274/article/details/81367815</a></p>
 
       
     </div>
@@ -679,7 +692,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string对象上的操作"><span class="nav-number">2.</span> <span class="nav-text">string对象上的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两个string对象相加"><span class="nav-number">2.1.</span> <span class="nav-text">两个string对象相加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字面值和string对象相加"><span class="nav-number">2.2.</span> <span class="nav-text">字面值和string对象相加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理string对象中的字符"><span class="nav-number">2.3.</span> <span class="nav-text">处理string对象中的字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取子串"><span class="nav-number">2.4.</span> <span class="nav-text">取子串</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找-删除-替换等"><span class="nav-number">3.</span> <span class="nav-text">查找/删除/替换等</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查找函数find"><span class="nav-number">3.1.</span> <span class="nav-text">查找函数find</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除函数erase"><span class="nav-number">3.2.</span> <span class="nav-text">删除函数erase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#替换函数replace"><span class="nav-number">3.3.</span> <span class="nav-text">替换函数replace</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string对象上的操作"><span class="nav-number">2.</span> <span class="nav-text">string对象上的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两个string对象相加"><span class="nav-number">2.1.</span> <span class="nav-text">两个string对象相加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字面值和string对象相加"><span class="nav-number">2.2.</span> <span class="nav-text">字面值和string对象相加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理string对象中的字符"><span class="nav-number">2.3.</span> <span class="nav-text">处理string对象中的字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取子串"><span class="nav-number">2.4.</span> <span class="nav-text">取子串</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找-删除-替换"><span class="nav-number">3.</span> <span class="nav-text">查找/删除/替换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查找函数find"><span class="nav-number">3.1.</span> <span class="nav-text">查找函数find</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除函数erase"><span class="nav-number">3.2.</span> <span class="nav-text">删除函数erase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#替换函数replace"><span class="nav-number">3.3.</span> <span class="nav-text">替换函数replace</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string与int相互转换"><span class="nav-number">4.</span> <span class="nav-text">string与int相互转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#string转int"><span class="nav-number">4.1.</span> <span class="nav-text">string转int</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#int转string"><span class="nav-number">4.2.</span> <span class="nav-text">int转string</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -713,7 +726,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">20k</span>
+    <span title="Site words total count">20.3k</span>
   
 </div>
 
