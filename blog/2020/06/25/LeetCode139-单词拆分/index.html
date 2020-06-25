@@ -90,7 +90,7 @@
 <meta property="og:description" content="这道题我一开始没想到可以用动态规划来做，先试着用暴力做了，结果通过34/36，看似只剩下3个没通过，但是问题很大，不好修改，具体原因后面分析。 题目描述给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。 说明：  拆分时可以重复使用字典中的单词。 你可以假设字典中没有重复的单词。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/25/LeetCode139-单词拆分/示例.png">
-<meta property="og:updated_time" content="2020-06-25T08:56:27.228Z">
+<meta property="og:updated_time" content="2020-06-25T13:00:07.411Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode139-单词拆分">
 <meta name="twitter:description" content="这道题我一开始没想到可以用动态规划来做，先试着用暴力做了，结果通过34/36，看似只剩下3个没通过，但是问题很大，不好修改，具体原因后面分析。 题目描述给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。 说明：  拆分时可以重复使用字典中的单词。 你可以假设字典中没有重复的单词。">
@@ -415,7 +415,7 @@
 <li>直到<code>applepenapple</code>时，增加了<code>apple</code>，且它存在于字典中，最后一个字符即第13个字符处可拆。</li>
 </ul>
 <p>从上述分析可以知道，如果最后一个字符处可拆，就返回true，否则返回false。</p>
-<h4 id="定义dp数组"><a href="#定义dp数组" class="headerlink" title="定义dp数组"></a>定义dp数组</h4><p>首先，<code>dp</code>数组应该是<code>bool</code>类型，长度为<code>s.length()-1</code>，并且<code>dp[0]=true</code>，否则dp数组全是false。<strong>dp数组含义为当前位置的字符是否可以被拆分</strong>。</p>
+<h4 id="定义dp数组"><a href="#定义dp数组" class="headerlink" title="定义dp数组"></a>定义dp数组</h4><p>首先，<code>dp</code>数组应该是<code>bool</code>类型，长度为<code>s.length()+1</code>，并且<code>dp[0]=true</code>，否则dp数组全是false。<strong>dp数组含义为当前位置的字符是否可以被拆分</strong>。</p>
 <p>如果<code>dp[j]</code>代表当前位置，<code>dp[i]</code>是某一起始位置，那么就需要检查从<code>i</code>到<code>j</code>的子串是否在字典中，如果在，并且<code>dp[i]</code>是可以拆分的，那么<code>dp[j]</code>也应该是可以拆分的，否则<code>dp[j]=false</code>。</p>
 <h4 id="状态转移方程"><a href="#状态转移方程" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>根据上面的分析，可以容易写出以下的状态转移方程，同时将字典放入<code>unordered_map</code>中方便查找：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[j] = dp[i] &amp;&amp; dict.count(s.substr(i, j - i))</span><br></pre></td></tr></table></figure>
