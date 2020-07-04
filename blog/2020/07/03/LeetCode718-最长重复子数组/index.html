@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="html,Sublime Text,">
+  <meta name="keywords" content="动态规划,">
 
 
 
@@ -81,22 +81,26 @@
 
 
 
-<meta name="description" content="写在前面最近对前端的知识准备进行一个入门，首先学习一下html文档的写法，第一步就是选择一个合适的开发工具。">
-<meta name="keywords" content="html,Sublime Text">
+<meta name="description" content="题目描述给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度。">
+<meta name="keywords" content="动态规划">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Sublime Text3安装Emmet插件遇到的问题及解决">
-<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/index.html">
+<meta property="og:title" content="LeetCode718-最长重复子数组">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/07/03/LeetCode718-最长重复子数组/index.html">
 <meta property="og:site_name" content="Zhaoxingyu&#39;s blog">
-<meta property="og:description" content="写在前面最近对前端的知识准备进行一个入门，首先学习一下html文档的写法，第一步就是选择一个合适的开发工具。">
+<meta property="og:description" content="题目描述给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/ST界面.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/pyv8.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/emmet.png">
-<meta property="og:updated_time" content="2019-09-29T01:10:30.967Z">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/03/LeetCode718-最长重复子数组/示例.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/03/LeetCode718-最长重复子数组/index.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/03/LeetCode718-最长重复子数组/index1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/03/LeetCode718-最长重复子数组/index2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/03/LeetCode718-最长重复子数组/index3.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/03/LeetCode718-最长重复子数组/index4.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/03/LeetCode718-最长重复子数组/index5.png">
+<meta property="og:updated_time" content="2020-07-04T02:30:15.470Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sublime Text3安装Emmet插件遇到的问题及解决">
-<meta name="twitter:description" content="写在前面最近对前端的知识准备进行一个入门，首先学习一下html文档的写法，第一步就是选择一个合适的开发工具。">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/ST界面.png">
+<meta name="twitter:title" content="LeetCode718-最长重复子数组">
+<meta name="twitter:description" content="题目描述给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度。">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/07/03/LeetCode718-最长重复子数组/示例.png">
 
 
 
@@ -126,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/">
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2020/07/03/LeetCode718-最长重复子数组/">
 
 
 
 
 
-  <title>Sublime Text3安装Emmet插件遇到的问题及解决 | Zhaoxingyu's blog</title>
+  <title>LeetCode718-最长重复子数组 | Zhaoxingyu's blog</title>
   
 
 
@@ -269,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2020/07/03/LeetCode718-最长重复子数组/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zhaoxingyu">
@@ -286,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Sublime Text3安装Emmet插件遇到的问题及解决</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode718-最长重复子数组</h1>
         
 
         <div class="post-meta">
@@ -298,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-16T13:52:06+08:00">
-                2019-09-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-03T23:35:56+08:00">
+                2020-07-03
               </time>
             
 
@@ -321,8 +325,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端学习入门/" itemprop="url" rel="index">
-                    <span itemprop="name">前端学习入门</span>
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
                   </a>
                 </span>
 
@@ -357,7 +361,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  629
                 </span>
               
 
@@ -373,7 +377,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -394,44 +398,41 @@
       
 
       
-        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>最近对前端的知识准备进行一个入门，首先学习一下html文档的写法，第一步就是选择一个合适的开发工具。<a id="more"></a>当然，html文件也可以用记事本的方式进行编写，不过在尝试了记事本编写之后还是放弃了，缩进或者格式都得自己来，无疑是给自己徒增烦恼。</p>
-<p>在进行一番查看之后，选择了Sublime Text3这款工具来编写html文件，这款工具目前也比较流行，具体的好处就是可以带很多插件，提高你写代码的效率。这里附上ST3的下载网址：</p>
-<p><a href="http://www.sublimetext.com/3" target="_blank" rel="noopener">http://www.sublimetext.com/3</a></p>
-<h1 id="为什么使用Emmet这个插件？"><a href="#为什么使用Emmet这个插件？" class="headerlink" title="为什么使用Emmet这个插件？"></a>为什么使用Emmet这个插件？</h1><p>在没有安装Emmet之前，Sublime Text的使用貌似和记事本没有什么不同，也是得自己写结构，区别就是颜色好看了些，而安装了Emmet之后就不同了，如果你从事Web前端开发的话，对该插件一定不会陌生。它使用仿CSS选择器的语法来生成代码，大大提高了HTML/CSS代码编写的速度，可以直接使用 !+tab 快速得到一个标准的html5文档，如下图所示：</p>
-<img src="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/ST界面.png" style="zoom:50%;">
+        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给两个整数数组 <code>A</code> 和 <code>B</code> ，返回两个数组中公共的、长度最长的子数组的长度。</p>
+<a id="more"></a>
 
-<h1 id="安装Emmet插件"><a href="#安装Emmet插件" class="headerlink" title="安装Emmet插件"></a>安装Emmet插件</h1><p>这里已经默认你安装了Package Control，这个组件是用来安装/删除插件和其他一些功能要用到的（目前我就用到了安装和删除两个功能）。</p>
-<h2 id="自动安装法"><a href="#自动安装法" class="headerlink" title="自动安装法"></a>自动安装法</h2><p>这个方法就是看你运气，不过过程一定是正确的，但由于各种原因（墙、网络之类的）安装不成功的大有人在，所以先写一下自动安装法。</p>
-<ol>
-<li>在Sublime Text3的主页面按<strong>CTRL+SHIFT+P</strong>打开Package Control</li>
-<li>输入<strong>install</strong>，选择第一个回车</li>
-<li>这时候会让你选择需要安装的插件，你输入<strong>Emmet</strong>，选择第一个回车即可</li>
-<li>左下角会显示下载PyV8，在提示<strong>PyV8 binary successfully loaded</strong>即安装完成</li>
-<li>重启Sublime Text3，安装完成！</li>
-</ol>
-<p>当然，一般人像我运气一样的，这样是成功不了的（坏笑）。</p>
-<h2 id="手动安装法"><a href="#手动安装法" class="headerlink" title="手动安装法"></a>手动安装法</h2><h3 id="1-安装PyV8"><a href="#1-安装PyV8" class="headerlink" title="1.安装PyV8"></a>1.安装PyV8</h3><p>在你安装Emmet时，你可能出现下面这种错误提示：</p>
-<p><strong><em>Sublime Text Error while loading PyV8 binary: exit code 1 Try to manually install Pyv8 form <a href="https://github.com/emetio/pyv8-binaries" target="_blank" rel="noopener">https://github.com/emetio/pyv8-binaries</a></em></strong></p>
-<p>出现这种情况的原因就是下载PyV8这个包不成功，那么你就得手动去下载，这个里也把网址给你了，如下：<a href="https://github.com/emmetio/pyv8-binaries" target="_blank" rel="noopener">https://github.com/emmetio/pyv8-binaries</a> 选择合适你电脑的版本去下载，这个必须记住，不然可能会用不了，我第一次就犯了这个错误。因为我电脑装了python3.7，所以我选择了 <strong>pyv8-win64-p3</strong>，我把下载地址也贴出来，不过因为gtihub是国外的网站，所以下载会很慢，链接如下：</p>
-<p><a href="https://github.com/emmetio/pyv8-binaries/raw/master/pyv8-win64-p3.zip" target="_blank" rel="noopener">https://github.com/emmetio/pyv8-binaries/raw/master/pyv8-win64-p3.zip</a></p>
-<p>下载好了之后，对它进行解压，得到下面这个文件：</p>
-<img src="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/pyv8.png" style="zoom:80%;">
+<img src="/blog/2020/07/03/LeetCode718-最长重复子数组/示例.png" style="zoom: 80%;">
 
-<p>接下来按照以下的步骤做就ok了：</p>
-<ol>
-<li>打开Sublime Text</li>
-<li>依次选择首选项 -&gt; 浏览插件目录（我的汉化了，不然是Preferences -&gt;Browse Packages）</li>
-<li>新建PyV8文件夹</li>
-<li>在PyV8文件夹把上图中的文件复制过来</li>
-<li>重启Sublime Text</li>
-</ol>
-<p>现在你就可以在ST3中使用Emmet的功能了，不过还有运气不好的人，还是不能用，比如说我，那么继续往下看。</p>
-<h3 id="2-手动安装Emmet"><a href="#2-手动安装Emmet" class="headerlink" title="2.手动安装Emmet"></a>2.手动安装Emmet</h3><p>如果你还是无法使用Emmet，但是你在首选项菜单中的Package Settings还能看到Emmet的身影，然而那只是个空壳，继续进入插件目录，你会发现没有与Emmet相关的文件夹的存在，那么你就需要自己手动安装Emmet。下载地址如下（下载也比较慢，但是只有200k左右）：</p>
-<p><a href="https://codeload.github.com/sergeche/emmet-sublime/zip/master" target="_blank" rel="noopener">https://codeload.github.com/sergeche/emmet-sublime/zip/master</a></p>
-<p>下载好了之后，继续进入插件目录（首选项 -&gt; 浏览插件目录），把解压后的文件放进去，如图：</p>
-<img src="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/emmet.png" style="zoom:50%;">
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>题目的意思很好理解，如示例所示，公共的子数组除了单一的数值<code>[1],[2],[3]</code>，也有<code>[2,1],[3,2,1]</code>这些数组，其中最长的就是<code>[3,2,1]</code>这个数组，长度为3。像题目出现<strong>最长，最短</strong>之类的字都可以考虑用动态规划去解决。</p>
+<h4 id="一、定义dp数组的含义"><a href="#一、定义dp数组的含义" class="headerlink" title="一、定义dp数组的含义"></a>一、定义dp数组的含义</h4><p>数组A长5，数组B长5，我们假设存在一个<code>6×6</code>的<code>dp</code>矩阵，使得矩阵坐标从1开始，同时保证边界位置上的计算，并初始化所有值为0。<strong>矩阵表示固定A的值时，到B数组的当前值与到A固定值的公共数组长度</strong>：</p>
+<img src="/blog/2020/07/03/LeetCode718-最长重复子数组/index.png">
 
-<p>接下来你再重启ST就行了，需要注意的是，如果你没有装PyV8，那么你打开ST之后它会自动再一次下载这个包，同样可能出现1中的问题，那么你可以先把PyV8装好，再手动安装Emmet，重启之后就大功告成，终于装好啦！我属于运气最差的那种，不好的都让我遇到了，刚接触花了几个小时才弄明白，虽然最后成功了，我还是流下了没有技术的眼泪。。。</p>
+<p>我们固定A数组，然后去遍历B数组。假如<code>A[i]=B[j]</code>时，公共数组的长度在上一次长度的基础上+1，否则不变，在后续分析中可以看到。</p>
+<p>比如说<code>A[0]=1</code>，此时遍历B数组，<code>B[0]=3</code>，两个值不等。因为我们建立数组时候起始坐标是从1开始的，所以<code>dp[1][1] = 0</code>。继续遍历B数组，可以得到以下结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dp[1][2] = 0</span><br><span class="line">dp[1][3] = 1</span><br><span class="line">dp[1][4] = 0</span><br><span class="line">dp[1][5] = 0</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2020/07/03/LeetCode718-最长重复子数组/index1.png">
+
+<p>接下来改变A值，<code>A[1]=2</code>，可以得到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dp[2][1] = 0</span><br><span class="line">dp[2][2] = 1</span><br><span class="line">dp[2][3] = 0</span><br><span class="line">dp[2][4] = 0</span><br><span class="line">dp[2][5] = 0</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2020/07/03/LeetCode718-最长重复子数组/index2.png">
+
+<p>同理<code>A[2]=3</code>：</p>
+<img src="/blog/2020/07/03/LeetCode718-最长重复子数组/index3.png">
+
+<p>当<code>A[3]=2,B[1]=2</code>时，此时满足<code>value(A)==value(B)</code>，所以<code>dp[4][2] = dp[3][1] + 1 = 2</code>，如图：</p>
+<img src="/blog/2020/07/03/LeetCode718-最长重复子数组/index4.png">
+
+<p>当<code>A[4]=1,B[2]=1</code>时，此时满足<code>value(A)==value(B)</code>，所以<code>dp[5][3] = dp[4][2] + 1 = 3</code>，如图：</p>
+<img src="/blog/2020/07/03/LeetCode718-最长重复子数组/index5.png">
+
+<p>遍历完一次B数组后更新最大长度，所以最后最大的公共数组长度就是3。</p>
+<h4 id="二、状态转移方程"><a href="#二、状态转移方程" class="headerlink" title="二、状态转移方程"></a>二、状态转移方程</h4><p>根据上述分析，可以得到：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(A[i<span class="number">-1</span>] == B[j<span class="number">-1</span>])</span><br><span class="line">    dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="三、代码实现"><a href="#三、代码实现" class="headerlink" title="三、代码实现"></a>三、代码实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findLength</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; A, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; B)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> **dp = <span class="keyword">new</span> <span class="keyword">int</span>*[A.size()+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; A.size() + <span class="number">1</span>; i++)&#123;</span><br><span class="line">            dp[i] = <span class="keyword">new</span> <span class="keyword">int</span>[B.size()+<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; A.size() + <span class="number">1</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; B.size() + <span class="number">1</span>; j++)&#123;</span><br><span class="line">                dp[i][j] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 从前往后</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= A.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= B.size(); j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(A[i<span class="number">-1</span>] == B[j<span class="number">-1</span>]) dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span>;</span><br><span class="line">                res = max(res, dp[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -449,9 +450,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/html/" rel="tag"># html</a>
-          
-            <a href="/tags/Sublime-Text/" rel="tag"># Sublime Text</a>
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
           
         </div>
       
@@ -464,8 +463,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/09/06/一个测试文档/" rel="next" title="一个测试文档">
-                <i class="fa fa-chevron-left"></i> 一个测试文档
+              <a href="/blog/2020/06/27/堆排序-heap-sort/" rel="next" title="堆排序(heap sort)">
+                <i class="fa fa-chevron-left"></i> 堆排序(heap sort)
               </a>
             
           </div>
@@ -473,10 +472,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2019/09/26/Git的基本使用（一）/" rel="prev" title="Git的基本使用(一)">
-                Git的基本使用(一) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -653,7 +648,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么使用Emmet这个插件？"><span class="nav-number">2.</span> <span class="nav-text">为什么使用Emmet这个插件？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Emmet插件"><span class="nav-number">3.</span> <span class="nav-text">安装Emmet插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自动安装法"><span class="nav-number">3.1.</span> <span class="nav-text">自动安装法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动安装法"><span class="nav-number">3.2.</span> <span class="nav-text">手动安装法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装PyV8"><span class="nav-number">3.2.1.</span> <span class="nav-text">1.安装PyV8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-手动安装Emmet"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.手动安装Emmet</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、定义dp数组的含义"><span class="nav-number">2.1.</span> <span class="nav-text">一、定义dp数组的含义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、状态转移方程"><span class="nav-number">2.2.</span> <span class="nav-text">二、状态转移方程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、代码实现"><span class="nav-number">2.3.</span> <span class="nav-text">三、代码实现</span></a></li></ol></li></ol></div>
             
 
           </div>
