@@ -68,26 +68,26 @@
 
 
 
-  <meta name="keywords" content="数据结构,算法,">
+  <meta name="keywords" content="算法,数据结构,">
 
 
 
 
 
-  <link rel="alternate" href="/atom.xml" title="Zhaoxingyu's blog" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
 
 
 
 
 
 
-<meta name="description" content="堆排序是一种特殊的排序算法，涉及到了优先级的概念 本次学习要点 了解优先队列的一些概念 堆排序概念及实现">
-<meta name="keywords" content="数据结构,算法">
+<meta name="description" content="堆排序是一种特殊的排序算法，涉及到了优先级的概念 更新于2020/7/12 本次学习要点 了解优先队列的一些概念 堆排序概念及实现">
+<meta name="keywords" content="算法,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="堆排序(heap sort)">
 <meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/index.html">
-<meta property="og:site_name" content="Zhaoxingyu&#39;s blog">
-<meta property="og:description" content="堆排序是一种特殊的排序算法，涉及到了优先级的概念 本次学习要点 了解优先队列的一些概念 堆排序概念及实现">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="堆排序是一种特殊的排序算法，涉及到了优先级的概念 更新于2020/7/12 本次学习要点 了解优先队列的一些概念 堆排序概念及实现">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/实现方式.png">
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/二叉堆1.png">
@@ -105,10 +105,15 @@
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/heapify1.png">
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/heapify2">
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/heapify3">
-<meta property="og:updated_time" content="2020-07-04T02:35:02.056Z">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/原地1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/原地2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/D:%5CHexo%5Csource_posts%5C%E5%A0%86%E6%8E%92%E5%BA%8F-heap-sort%5C%E5%8E%9F%E5%9C%B03.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/index_heap1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/D:%5CHexo%5Csource_posts%5C%E5%A0%86%E6%8E%92%E5%BA%8F-heap-sort%5Cindex_heap2.png">
+<meta property="og:updated_time" content="2020-07-12T12:09:15.899Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="堆排序(heap sort)">
-<meta name="twitter:description" content="堆排序是一种特殊的排序算法，涉及到了优先级的概念 本次学习要点 了解优先队列的一些概念 堆排序概念及实现">
+<meta name="twitter:description" content="堆排序是一种特殊的排序算法，涉及到了优先级的概念 更新于2020/7/12 本次学习要点 了解优先队列的一些概念 堆排序概念及实现">
 <meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/实现方式.png">
 
 
@@ -145,7 +150,7 @@
 
 
 
-  <title>堆排序(heap sort) | Zhaoxingyu's blog</title>
+  <title>堆排序(heap sort) | Zxy's blog</title>
   
 
 
@@ -175,12 +180,12 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Zhaoxingyu's blog</span>
+        <span class="site-title">Zxy's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">Aim high, down to earth.</p>
+        <p class="site-subtitle">长风破浪会有时，直挂云帆济沧海</p>
       
   </div>
 
@@ -285,13 +290,13 @@
     <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zhaoxingyu">
+      <meta itemprop="name" content="Xingyu_Zhao">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zhaoxingyu's blog">
+      <meta itemprop="name" content="Zxy's blog">
     </span>
 
     
@@ -370,7 +375,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.5k
+                  2.8k
                 </span>
               
 
@@ -386,7 +391,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6 分钟
+                  12 分钟
                 </span>
               
             </div>
@@ -408,6 +413,7 @@
 
       
         <p>堆排序是一种特殊的排序算法，涉及到了优先级的概念</p>
+<p>更新于2020/7/12</p>
 <h3 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h3><ol>
 <li>了解优先队列的一些概念</li>
 <li>堆排序概念及实现</li>
@@ -494,9 +500,54 @@
 <img src="/blog/2020/06/27/堆排序-heap-sort/heapify3" style="zoom: 67%;">
 
 <p><strong>Heapify</strong>代码实现：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Item&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaxHeap</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Item *data;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    <span class="keyword">int</span> capacity;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">shiftDown</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 判断k是否有孩子</span></span><br><span class="line">        <span class="comment">// 对于完全二叉树，有左孩子就代表一定有孩子</span></span><br><span class="line">        <span class="keyword">while</span>( <span class="number">2</span>*k &lt;= count )&#123;</span><br><span class="line">            <span class="keyword">int</span> j = <span class="number">2</span>*k; <span class="comment">// 在此轮循环中,data[k]和data[j]交换位置</span></span><br><span class="line">            <span class="comment">// j+1为右孩子，需要判断是否存在</span></span><br><span class="line">            <span class="comment">// 再判断应该和哪个孩子交换</span></span><br><span class="line">            <span class="keyword">if</span>( j+<span class="number">1</span> &lt;= count &amp;&amp; data[j+<span class="number">1</span>] &gt; data[j] ) <span class="comment">// 右孩子大</span></span><br><span class="line">                j ++; <span class="comment">// j代表右孩子，否则为左孩子</span></span><br><span class="line">            <span class="comment">// data[j] 是 data[2*k]和data[2*k+1]中的最大值</span></span><br><span class="line">            <span class="keyword">if</span>( data[k] &gt;= data[j] ) <span class="keyword">break</span>;</span><br><span class="line">            swap( data[k] , data[j] );</span><br><span class="line">            k = j; <span class="comment">// 交换后的新节点，继续Shift Down</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 根据数组直接构造最大堆</span></span><br><span class="line">    MaxHeap(Item arr[], <span class="keyword">int</span> n)&#123;</span><br><span class="line">        data = <span class="keyword">new</span> Item[n+<span class="number">1</span>];</span><br><span class="line">        capacity = n;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i ++ )</span><br><span class="line">            data[i+<span class="number">1</span>] = arr[i];</span><br><span class="line">        count = n;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = count/<span class="number">2</span> ; i &gt;= <span class="number">1</span> ; i -- )</span><br><span class="line">            shiftDown(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">Item <span class="title">extractMax</span><span class="params">()</span></span>&#123;</span><br><span class="line">        assert( count &gt; <span class="number">0</span> );</span><br><span class="line">        Item ret = data[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        swap( data[<span class="number">1</span>] , data[count] );</span><br><span class="line">        count --;</span><br><span class="line">        shiftDown(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Item&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaxHeap</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Item *data;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    <span class="keyword">int</span> capacity;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">shiftDown</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 判断k是否有孩子</span></span><br><span class="line">        <span class="comment">// 对于完全二叉树，有左孩子就代表一定有孩子</span></span><br><span class="line">        <span class="keyword">while</span>( <span class="number">2</span>*k &lt;= count )&#123;</span><br><span class="line">            <span class="keyword">int</span> j = <span class="number">2</span>*k; </span><br><span class="line">            <span class="comment">// 在此轮循环中,data[k]和data[j]交换位置</span></span><br><span class="line">            <span class="comment">// j+1为右孩子，需要判断是否存在</span></span><br><span class="line">            <span class="comment">// 再找到值更大的孩子</span></span><br><span class="line">            <span class="keyword">if</span>( j+<span class="number">1</span> &lt;= count &amp;&amp; data[j+<span class="number">1</span>] &gt; data[j] ) </span><br><span class="line">                j ++;</span><br><span class="line">            <span class="comment">// 如果孩子中最大值小于等于父节点的值，就不用交换了</span></span><br><span class="line">            <span class="keyword">if</span>( data[k] &gt;= data[j] ) <span class="keyword">break</span>;</span><br><span class="line">            swap( data[k] , data[j] );</span><br><span class="line">            <span class="comment">// 交换后的新节点，继续Shift Down</span></span><br><span class="line">            k = j; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 根据数组直接构造最大堆</span></span><br><span class="line">    MaxHeap(Item arr[], <span class="keyword">int</span> n)&#123;</span><br><span class="line">        data = <span class="keyword">new</span> Item[n+<span class="number">1</span>];</span><br><span class="line">        capacity = n;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; i ++ )</span><br><span class="line">            data[i+<span class="number">1</span>] = arr[i];</span><br><span class="line">        count = n;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = count/<span class="number">2</span> ; i &gt;= <span class="number">1</span> ; i -- )</span><br><span class="line">            shiftDown(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">Item <span class="title">extractMax</span><span class="params">()</span></span>&#123;</span><br><span class="line">        assert( count &gt; <span class="number">0</span> );</span><br><span class="line">        Item ret = data[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        swap( data[<span class="number">1</span>] , data[count] );</span><br><span class="line">        count --;</span><br><span class="line">        shiftDown(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h3 id="原地堆排序"><a href="#原地堆排序" class="headerlink" title="原地堆排序"></a>原地堆排序</h3><p>后面更新(2020.6.27)</p>
+<h3 id="原地堆排序-从小到大"><a href="#原地堆排序-从小到大" class="headerlink" title="原地堆排序(从小到大)"></a>原地堆排序(从小到大)</h3><p>在之前构建一个堆需要额外的n个空间，实际上给定数组时候在原地也可以进行堆排序，过程如图所示：</p>
+<img src="/blog/2020/06/27/堆排序-heap-sort/原地1.png" style="zoom:80%;">
+
+<ul>
+<li>先对数组进行<code>Heapify</code>操作，则V就是最大值，V和W进行交换，此时最大值在末尾</li>
+<li>此时V之前的数组不再是最大堆，对W进行<code>ShiftDown</code>操作使之前的数组再次成为最大堆</li>
+<li>再次把此时的V和W(倒数第二个元素)进行交换，以此类推。</li>
+</ul>
+<p><strong>此时的索引是从0开始的</strong>，所以最后一个非叶子节点的索引为<code>(count-1)/2</code>，对于节点<strong>i</strong>，有：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">parent[i] = (i - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">left child[i] = <span class="number">2</span> × i + <span class="number">1</span>;</span><br><span class="line">right child[i] = <span class="number">2</span> × i + <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2020/06/27/堆排序-heap-sort/原地2.png" style="zoom:80%;">
+
+<p>对应的数组为：</p>
+<p><img src="/blog/2020/06/27/堆排序-heap-sort/D:%5CHexo%5Csource_posts%5C%E5%A0%86%E6%8E%92%E5%BA%8F-heap-sort%5C%E5%8E%9F%E5%9C%B03.png" alt="image-20200712164402912"></p>
+<p>代码实现：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">heapsort</span><span class="params">(T arr[], <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="comment">// heapify</span></span><br><span class="line">    <span class="comment">// from 第一个非叶子节点</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = (n - <span class="number">1</span>) / <span class="number">2</span>; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">        __shiftDown(arr, n, i);</span><br><span class="line">    <span class="comment">// i最后为1，当只有也给元素时无需进行操作</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt; <span class="number">0</span>; --i)&#123;</span><br><span class="line">        swap(arr[<span class="number">0</span>], arr[i]);</span><br><span class="line">        __shiftDown(arr, i, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line"><span class="keyword">void</span> __shiftDown(T arr[], <span class="keyword">int</span> n, <span class="keyword">int</span> k)&#123;</span><br><span class="line">    <span class="comment">// 从0开始索引，k为父节点</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">2</span> * k + <span class="number">1</span> &lt; n)&#123; <span class="comment">// 如果左孩子存在</span></span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">2</span> * k + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 以下操作是为了与左右孩子中更大的那个交换</span></span><br><span class="line">        <span class="keyword">if</span>(j + <span class="number">1</span> &lt; n &amp;&amp; arr[j+<span class="number">1</span>] &gt; arr[j])</span><br><span class="line">            j += <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(arr[k] &gt;= arr[j])</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        swap(arr[k], arr[j]);</span><br><span class="line">        k = j;</span><br><span class="line">    &#125; </span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="索引堆-Index-Heap"><a href="#索引堆-Index-Heap" class="headerlink" title="索引堆(Index Heap)"></a>索引堆(Index Heap)</h3><p>当进行堆排序之后，坐标和值的关系也就不复存在了，如果我们要继续使用坐标和值之间的关系，就需要对索引进行堆排序，以最大索引堆为例：</p>
+<img src="/blog/2020/06/27/堆排序-heap-sort/index_heap1.png" style="zoom:80%;">
+
+<ul>
+<li><code>data</code>数组并未改变，只有<code>index</code>数组发生了改变(<strong>根据data改变index</strong>)</li>
+<li>堆顶的元素<code>index[1] = 10</code>，表示堆顶的元素是<strong>10索引</strong>所指向的<code>data[10]</code>，即62</li>
+<li>同理可得，<code>index[2] = 9</code>表示62的左孩子是<strong>9索引</strong>所指向的<code>data[9] = 41</code>，<code>index[3] = 7</code>表示62的右孩子是<strong>7索引</strong>所指向的<code>data[7] = 28</code>，以此类推</li>
+</ul>
+<p><strong>优点</strong>：只有索引<code>index整型</code>数组发生了改变，<code>data</code>并未改变，<code>data</code>的类型并没有限制</p>
+<p>对于<code>shiftDown</code>和<code>shiftUp</code>变化不大，同时可以支持返回最大值的索引值，也可以根据索引值就直接返回<code>data</code>，最重要的操作是修改数据内容。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">change</span><span class="params">( <span class="keyword">int</span> i , Item newItem )</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    i += <span class="number">1</span>;</span><br><span class="line">    data[i] = newItem;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 找到indexes[j] = i, j表示data[i]在堆中的位置</span></span><br><span class="line">    <span class="comment">// 之后shiftUp(j), 再shiftDown(j)，再次将index构建为最大堆</span></span><br><span class="line">	<span class="comment">// 这里用的是遍历，复杂度较高O(n + logn)</span></span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= count ; j ++ )</span><br><span class="line">        <span class="keyword">if</span>( indexes[j] == i )&#123;</span><br><span class="line">            shiftUp(j);</span><br><span class="line">            shiftDown(j);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="优化-change"><a href="#优化-change" class="headerlink" title="优化(change)"></a>优化(change)</h4><p><img src="/blog/2020/06/27/堆排序-heap-sort/D:%5CHexo%5Csource_posts%5C%E5%A0%86%E6%8E%92%E5%BA%8F-heap-sort%5Cindex_heap2.png" alt="image-20200712174809139"></p>
+<ul>
+<li><code>reverse[i]</code>表示索引<code>i</code>在<code>index</code>中的位置</li>
+<li>比如我们要查找<code>i = 4</code>这个索引在<code>index</code>中的位置，先找到<code>rev[4] = 9</code>，那么索引<code>i = 4</code>就在<code>index[9]</code>处，时间复杂度为O(1)</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">indexes[i] = j;</span><br><span class="line">reverse[j] = i;</span><br><span class="line"></span><br><span class="line">indexes[reverse[i]] = i;</span><br><span class="line">reverse[indexes[i]] = i;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>swap</code>操作中需要修改<code>reverse</code></p>
+<p>代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    IndexMaxHeap(<span class="keyword">int</span> capacity)&#123;</span><br><span class="line"></span><br><span class="line">        data = <span class="keyword">new</span> Item[capacity+<span class="number">1</span>];</span><br><span class="line">        indexes = <span class="keyword">new</span> <span class="keyword">int</span>[capacity+<span class="number">1</span>];</span><br><span class="line">        reverse = <span class="keyword">new</span> <span class="keyword">int</span>[capacity+<span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 初始化为0，代表不存在</span></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= capacity ; i ++ )</span><br><span class="line">            reverse[i] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>-&gt;capacity = capacity;</span><br><span class="line">    &#125;</span><br><span class="line">    ~IndexMaxHeap()&#123;</span><br><span class="line">        <span class="keyword">delete</span>[] data;</span><br><span class="line">        <span class="keyword">delete</span>[] indexes;</span><br><span class="line">        <span class="keyword">delete</span>[] reverse;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 传入的i对用户而言,是从0索引的</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> i, Item item)</span></span>&#123;</span><br><span class="line">        assert( count + <span class="number">1</span> &lt;= capacity );</span><br><span class="line">        assert( i + <span class="number">1</span> &gt;= <span class="number">1</span> &amp;&amp; i + <span class="number">1</span> &lt;= capacity );</span><br><span class="line"></span><br><span class="line">        i += <span class="number">1</span>;</span><br><span class="line">        data[i] = item;</span><br><span class="line">        indexes[count+<span class="number">1</span>] = i;</span><br><span class="line">        reverse[i] = count+<span class="number">1</span>;</span><br><span class="line">        count++;</span><br><span class="line"></span><br><span class="line">        shiftUp(count);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 抽取最大的元素</span></span><br><span class="line">    <span class="function">Item <span class="title">extractMax</span><span class="params">()</span></span>&#123;</span><br><span class="line">        assert( count &gt; <span class="number">0</span> );</span><br><span class="line"></span><br><span class="line">        Item ret = data[indexes[<span class="number">1</span>]];</span><br><span class="line">        swap( indexes[<span class="number">1</span>] , indexes[count] );</span><br><span class="line">        <span class="comment">// 此时最后一个元素没有意义了</span></span><br><span class="line">        <span class="comment">// 此时的堆顶的第一个元素的reverse需要更新</span></span><br><span class="line">        reverse[indexes[count]] = <span class="number">0</span>;</span><br><span class="line">        reverse[indexes[<span class="number">1</span>]] = <span class="number">1</span>;</span><br><span class="line">        count--;</span><br><span class="line">        shiftDown(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 抽取最大元素的坐标</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">extractMaxIndex</span><span class="params">()</span></span>&#123;</span><br><span class="line">        assert( count &gt; <span class="number">0</span> );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> ret = indexes[<span class="number">1</span>] - <span class="number">1</span>;</span><br><span class="line">        swap( indexes[<span class="number">1</span>] , indexes[count] );</span><br><span class="line">        reverse[indexes[count]] = <span class="number">0</span>;</span><br><span class="line">        reverse[indexes[<span class="number">1</span>]] = <span class="number">1</span>;</span><br><span class="line">        count--;</span><br><span class="line">        shiftDown(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 返回最大元素的值</span></span><br><span class="line">    <span class="function">Item <span class="title">getMax</span><span class="params">()</span></span>&#123;</span><br><span class="line">        assert( count &gt; <span class="number">0</span> );</span><br><span class="line">        <span class="keyword">return</span> data[indexes[<span class="number">1</span>]];</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 返回最大元素的坐标</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getMaxIndex</span><span class="params">()</span></span>&#123;</span><br><span class="line">        assert( count &gt; <span class="number">0</span> );</span><br><span class="line">        <span class="keyword">return</span> indexes[<span class="number">1</span>]<span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 保证不越界</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">contain</span><span class="params">( <span class="keyword">int</span> i )</span></span>&#123;</span><br><span class="line">        assert( i + <span class="number">1</span> &gt;= <span class="number">1</span> &amp;&amp; i + <span class="number">1</span> &lt;= capacity );</span><br><span class="line">        <span class="keyword">return</span> reverse[i+<span class="number">1</span>] != <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 返回i处的元素值</span></span><br><span class="line">    <span class="function">Item <span class="title">getItem</span><span class="params">( <span class="keyword">int</span> i )</span></span>&#123;</span><br><span class="line">        assert( contain(i) );</span><br><span class="line">        <span class="keyword">return</span> data[i+<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 改变i处的元素值</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">change</span><span class="params">( <span class="keyword">int</span> i , Item newItem )</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        assert( contain(i) );</span><br><span class="line">        i += <span class="number">1</span>;</span><br><span class="line">        data[i] = newItem;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> j = reverse[i];</span><br><span class="line">        shiftUp( j );</span><br><span class="line">        shiftDown( j );</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:   </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">shiftUp</span><span class="params">( <span class="keyword">int</span> k )</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>( k &gt; <span class="number">1</span> &amp;&amp; data[indexes[k/<span class="number">2</span>]] &lt; data[indexes[k]] )&#123;</span><br><span class="line">            swap( indexes[k/<span class="number">2</span>] , indexes[k] );</span><br><span class="line">            reverse[indexes[k/<span class="number">2</span>]] = k/<span class="number">2</span>;</span><br><span class="line">            reverse[indexes[k]] = k;</span><br><span class="line">            k /= <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">shiftDown</span><span class="params">( <span class="keyword">int</span> k )</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>( <span class="number">2</span>*k &lt;= count )&#123;</span><br><span class="line">            <span class="keyword">int</span> j = <span class="number">2</span>*k;</span><br><span class="line">            <span class="keyword">if</span>( j + <span class="number">1</span> &lt;= count &amp;&amp; data[indexes[j+<span class="number">1</span>]] &gt; data[indexes[j]] )</span><br><span class="line">                j += <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>( data[indexes[k]] &gt;= data[indexes[j]] )</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            swap( indexes[k] , indexes[j] );</span><br><span class="line">            reverse[indexes[k]] = k;</span><br><span class="line">            reverse[indexes[j]] = j;</span><br><span class="line">            k = j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="用堆解决第一节问题思路"><a href="#用堆解决第一节问题思路" class="headerlink" title="用堆解决第一节问题思路"></a>用堆解决第一节问题思路</h3><p>使用堆实现优先队列，动态选择优先级最高的任务执行。</p>
+<p>第一节中的问题，在10000000个元素中选出前100名(在N个元素中选前M个元素)，维护一个优先队列(长度为100)，每次把最小的移除，遍历完成后，最后剩下的100个元素就是前100个元素。</p>
+<h3 id="完整工程"><a href="#完整工程" class="headerlink" title="完整工程"></a>完整工程</h3><p><a href="https://gitee.com/settlezxy/algorithm_and_data_structure.git" target="_blank" rel="noopener">https://gitee.com/settlezxy/algorithm_and_data_structure.git</a></p>
 
       
     </div>
@@ -514,9 +565,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
-          
             <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
         </div>
       
@@ -607,8 +658,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">Zhaoxingyu</p>
-              <p class="site-description motion-element" itemprop="description">zxy的个人博客，用来记录学习中遇到的问题</p>
+              <p class="site-author-name" itemprop="name">Xingyu_Zhao</p>
+              <p class="site-description motion-element" itemprop="description">life is study</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -718,7 +769,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优先队列"><span class="nav-number">2.</span> <span class="nav-text">优先队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆的基本实现"><span class="nav-number">3.</span> <span class="nav-text">堆的基本实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉堆-Binary-Heap"><span class="nav-number">3.1.</span> <span class="nav-text">二叉堆(Binary Heap)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加元素-Shift-Up"><span class="nav-number">3.2.</span> <span class="nav-text">添加元素(Shift Up)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取出元素-Shift-Down"><span class="nav-number">3.3.</span> <span class="nav-text">取出元素(Shift Down)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Heapify-将普通数组变为堆"><span class="nav-number">3.4.</span> <span class="nav-text">Heapify(将普通数组变为堆)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原地堆排序"><span class="nav-number">4.</span> <span class="nav-text">原地堆排序</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优先队列"><span class="nav-number">2.</span> <span class="nav-text">优先队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆的基本实现"><span class="nav-number">3.</span> <span class="nav-text">堆的基本实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二叉堆-Binary-Heap"><span class="nav-number">3.1.</span> <span class="nav-text">二叉堆(Binary Heap)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加元素-Shift-Up"><span class="nav-number">3.2.</span> <span class="nav-text">添加元素(Shift Up)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取出元素-Shift-Down"><span class="nav-number">3.3.</span> <span class="nav-text">取出元素(Shift Down)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Heapify-将普通数组变为堆"><span class="nav-number">3.4.</span> <span class="nav-text">Heapify(将普通数组变为堆)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原地堆排序-从小到大"><span class="nav-number">4.</span> <span class="nav-text">原地堆排序(从小到大)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引堆-Index-Heap"><span class="nav-number">5.</span> <span class="nav-text">索引堆(Index Heap)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优化-change"><span class="nav-number">5.1.</span> <span class="nav-text">优化(change)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用堆解决第一节问题思路"><span class="nav-number">6.</span> <span class="nav-text">用堆解决第一节问题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整工程"><span class="nav-number">7.</span> <span class="nav-text">完整工程</span></a></li></ol></div>
             
 
           </div>
@@ -742,7 +793,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Zhaoxingyu</span>
+  <span class="author" itemprop="copyrightHolder">Xingyu_Zhao</span>
 
   
     <span class="post-meta-divider">|</span>
@@ -752,7 +803,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">22.4k</span>
+    <span title="Site words total count">23.7k</span>
   
 </div>
 
