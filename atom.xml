@@ -145,13 +145,14 @@
     <link href="http://www.xingyuzhao.ltd/blog/2020/06/25/git%E6%8F%90%E4%BA%A4%E5%A4%B1%E8%B4%A5-ssh%E9%87%8D%E7%BD%AE/"/>
     <id>http://www.xingyuzhao.ltd/blog/2020/06/25/git%E6%8F%90%E4%BA%A4%E5%A4%B1%E8%B4%A5-ssh%E9%87%8D%E7%BD%AE/</id>
     <published>2020-06-25T09:13:36.000Z</published>
-    <updated>2020-07-13T02:56:45.491Z</updated>
+    <updated>2020-07-15T00:59:06.015Z</updated>
     
-    <content type="html"><![CDATA[<p>一段时间不提交，就容易出现“Please make sure you have the correct access rights and the repository exists.”，原因是ssh key出现了问题，记录一下解决方法，省的每次都去百度细节。</p><a id="more"></a><ol><li><p>重新配置身份信息</p><ul><li><code>git config --global user.name &quot;yourname&quot;</code></li><li><code>git config --global user.email &quot;your@email.com&quot;</code></li></ul></li><li><p>删除.ssh文件夹下的所有文件</p></li><li><p>输入命令<code>ssh-keygen -t rsa -C &quot;your@email.com&quot;</code>，出现提示直接回车</p></li><li><p>此时在.ssh文件夹下生成<strong>id_rsa</strong>和<strong>id_rsa.pub</strong>，用记事本打开<strong>id_rsa.pub</strong>并复制所有内容</p></li><li><p>打开github主页并进入到<code>SSH and GPG keys</code>中，新建shh，把刚才复制的内容粘贴进去</p></li><li><p>输入命令<code>ssh -T git@github.com</code>，出现提示输入<code>yes</code>，不是直接回车</p></li><li><p><strong>重新打开</strong>git进行提交</p></li></ol><p>以上所有git操作都在hexo根目录下</p>]]></content>
+    <content type="html"><![CDATA[<p>一段时间不提交，就容易出现“Please make sure you have the correct access rights and the repository exists.”，原因是ssh key出现了问题，记录一下解决方法，省的每次都去百度细节。</p><p><strong>用手机热点可以提交成功，尚不清楚原因(updated：2020/7/15)</strong> </p><a id="more"></a><ol><li><p>重新配置身份信息</p><ul><li><code>git config --global user.name &quot;yourname&quot;</code></li><li><code>git config --global user.email &quot;your@email.com&quot;</code></li></ul></li><li><p>删除.ssh文件夹下的所有文件</p></li><li><p>输入命令<code>ssh-keygen -t rsa -C &quot;your@email.com&quot;</code>，出现提示直接回车</p></li><li><p>此时在.ssh文件夹下生成<strong>id_rsa</strong>和<strong>id_rsa.pub</strong>，用记事本打开<strong>id_rsa.pub</strong>并复制所有内容</p></li><li><p>打开github主页并进入到<code>SSH and GPG keys</code>中，新建shh，把刚才复制的内容粘贴进去</p></li><li><p>输入命令<code>ssh -T git@github.com</code>，出现提示输入<code>yes</code>，不是直接回车</p></li><li><p><strong>重新打开</strong>git进行提交</p></li></ol><p>以上所有git操作都在hexo根目录下</p>]]></content>
     
     <summary type="html">
     
       &lt;p&gt;一段时间不提交，就容易出现“Please make sure you have the correct access rights and the repository exists.”，原因是ssh key出现了问题，记录一下解决方法，省的每次都去百度细节。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;用手机热点可以提交成功，尚不清楚原因(updated：2020/7/15)&lt;/strong&gt; &lt;/p&gt;
     
     </summary>
     
