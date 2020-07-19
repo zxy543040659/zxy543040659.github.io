@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="数据结构,">
+  <meta name="keywords" content="动态规划,">
 
 
 
@@ -81,31 +81,21 @@
 
 
 
-<meta name="description" content="&amp;nbsp; 原文地址：https://github.com/xitu/gold-miner/blob/master/TODO/what-does-the-time-complexity-o-log-n-actually-mean.md     原文作者：Maaz     译文出自：掘金翻译计划     译者：cdpath     校对者：zaraguo (zaraguo),&amp;nbsp;whatb">
-<meta name="keywords" content="数据结构">
+<meta name="description" content="在看了题解之后才慢慢意识到，这道题和63-不同路径Ⅱ，174-地下城游戏是非常相似的，题目虽然具有一定难度，但都是有迹可循。它们都可以抽象为在二维数组中，从起始到末尾找路径的问题。上面两个问题还未更新，跳转位置是题目链接。 题目描述给定三个字符串 s1, s2, s3, 验证 s3 是否是由 s1 和 s2 交错组成的。">
+<meta name="keywords" content="动态规划">
 <meta property="og:type" content="article">
-<meta property="og:title" content="转载：时间复杂度O(logn)意味着什么？（侵删）">
-<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/01/01/转载：时间复杂度O-logn-意味着什么？（侵删）/index.html">
+<meta property="og:title" content="LeetCode97-交错字符串">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/index.html">
 <meta property="og:site_name" content="Zxy&#39;s blog">
-<meta property="og:description" content="&amp;nbsp; 原文地址：https://github.com/xitu/gold-miner/blob/master/TODO/what-does-the-time-complexity-o-log-n-actually-mean.md     原文作者：Maaz     译文出自：掘金翻译计划     译者：cdpath     校对者：zaraguo (zaraguo),&amp;nbsp;whatb">
+<meta property="og:description" content="在看了题解之后才慢慢意识到，这道题和63-不同路径Ⅱ，174-地下城游戏是非常相似的，题目虽然具有一定难度，但都是有迹可循。它们都可以抽象为在二维数组中，从起始到末尾找路径的问题。上面两个问题还未更新，跳转位置是题目链接。 题目描述给定三个字符串 s1, s2, s3, 验证 s3 是否是由 s1 和 s2 交错组成的。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191121164646526.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpMzk2ODY0Mjg1,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191121164704291.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpMzk2ODY0Mjg1,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191121164715238.jpeg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191121164726473.jpeg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191121164751215.jpeg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191121164811565.jpeg">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191121164824637.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191121164908192.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191121164916433.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191121164930660.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20191121164955503.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2019112116500667.png">
-<meta property="og:updated_time" content="2020-05-28T14:48:46.503Z">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/question1">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/question1_dp">
+<meta property="og:updated_time" content="2020-07-19T10:20:07.368Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="转载：时间复杂度O(logn)意味着什么？（侵删）">
-<meta name="twitter:description" content="&amp;nbsp; 原文地址：https://github.com/xitu/gold-miner/blob/master/TODO/what-does-the-time-complexity-o-log-n-actually-mean.md     原文作者：Maaz     译文出自：掘金翻译计划     译者：cdpath     校对者：zaraguo (zaraguo),&amp;nbsp;whatb">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20191121164646526.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpMzk2ODY0Mjg1,size_16,color_FFFFFF,t_70">
+<meta name="twitter:title" content="LeetCode97-交错字符串">
+<meta name="twitter:description" content="在看了题解之后才慢慢意识到，这道题和63-不同路径Ⅱ，174-地下城游戏是非常相似的，题目虽然具有一定难度，但都是有迹可循。它们都可以抽象为在二维数组中，从起始到末尾找路径的问题。上面两个问题还未更新，跳转位置是题目链接。 题目描述给定三个字符串 s1, s2, s3, 验证 s3 是否是由 s1 和 s2 交错组成的。">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/question1">
 
 
 
@@ -135,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2020/01/01/转载：时间复杂度O-logn-意味着什么？（侵删）/">
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/">
 
 
 
 
 
-  <title>转载：时间复杂度O(logn)意味着什么？（侵删） | Zxy's blog</title>
+  <title>LeetCode97-交错字符串 | Zxy's blog</title>
   
 
 
@@ -278,7 +268,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2020/01/01/转载：时间复杂度O-logn-意味着什么？（侵删）/">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xingyu_Zhao">
@@ -295,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">转载：时间复杂度O(logn)意味着什么？（侵删）</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode97-交错字符串</h1>
         
 
         <div class="post-meta">
@@ -307,8 +297,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-01T23:15:50+08:00">
-                2020-01-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-18T23:47:04+08:00">
+                2020-07-18
               </time>
             
 
@@ -330,8 +320,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/转载/" itemprop="url" rel="index">
-                    <span itemprop="name">转载</span>
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
                   </a>
                 </span>
 
@@ -366,7 +356,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  693
+                  742
                 </span>
               
 
@@ -382,7 +372,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  3 分钟
                 </span>
               
             </div>
@@ -403,60 +393,35 @@
       
 
       
-        <p>&nbsp;</p>
-<ul><li>原文地址：https://github.com/xitu/gold-miner/blob/master/TODO/what-does-the-time-complexity-o-log-n-actually-mean.md</li>
-    <li>原文作者：<a href="https://link.juejin.im/?target=https%3A%2F%2Fhackernoon.com%2F%40maazrk" rel="noopener" target="_blank">Maaz</a></li>
-    <li>译文出自：<a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fxitu%2Fgold-miner" rel="noopener" target="_blank">掘金翻译计划</a></li>
-    <li>译者：<a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fcdpath" rel="noopener" target="_blank">cdpath</a></li>
-    <li>校对者：<a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fzaraguo" rel="noopener" target="_blank">zaraguo (zaraguo)</a>,&nbsp;<a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fwhatbeg" rel="noopener" target="_blank">whatbeg (Qiu Hu)</a></li>
-</ul><p>&nbsp;</p>
-
+        <p>在看了题解之后才慢慢意识到，这道题和<a href="https://leetcode-cn.com/problems/unique-paths-ii/" target="_blank" rel="noopener"><strong>63-不同路径Ⅱ</strong></a>，<a href="https://leetcode-cn.com/problems/dungeon-game/" target="_blank" rel="noopener"><strong>174-地下城游戏</strong></a>是非常相似的，题目虽然具有一定难度，但都是有迹可循。它们都可以抽象为在二维数组中，从起始到末尾找路径的问题。上面两个问题还未更新，跳转位置是题目链接。</p>
+<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定三个字符串 <em>s1</em>, <em>s2</em>, <em>s3</em>, 验证 <em>s3</em> 是否是由 <em>s1</em> 和 <em>s2</em> 交错组成的。</p>
 <a id="more"></a>
 
-<p><em>友情提示：如果图片挂了，请翻墙或者点击原文地址阅读。</em></p>
-<p>&nbsp;</p>
-<p>预先知道算法的复杂度是一回事，了解其后的原理是另一件事情。</p>
-<p>&nbsp;</p>
-<p>不管你是计算机科班出身还是想有效解决最优化问题，如果想要用自己的知识解决实际问题，你都必须理解时间复杂度。</p>
-<p>先从简单直观的 O(1) 和 O(n) 复杂度说起。O(1) 表示一次操作即可直接取得目标元素（比如字典或哈希表），O(n) 意味着先要检查 n 个元素来搜索目标，但是 O(log n) 是什么意思呢？</p>
-<p>你第一次听说 O(log n) 时间复杂度可能是在学二分搜索算法的时候。二分搜索一定有某种行为使其时间复杂度为 log n。我们来看看是二分搜索是如何实现的。</p>
-<p>因为在最好情况下二分搜索的时间复杂度是 O(1)，最坏情况（平均情况）下 O(log n)，我们直接来看最坏情况下的例子。已知有 16 个元素的有序数组。</p>
-<p>举个最坏情况的例子，比如我们要找的是数字 13。</p>
-<p><img alt class="has" src="https://img-blog.csdnimg.cn/20191121164646526.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpMzk2ODY0Mjg1,size_16,color_FFFFFF,t_70"></p>
-<p>十六个元素的有序数组</p>
-<p><img alt class="has" src="https://img-blog.csdnimg.cn/20191121164704291.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpMzk2ODY0Mjg1,size_16,color_FFFFFF,t_70"></p>
-<p>选中间的元素作为中心点（长度的一半）</p>
-<p><img alt class="has" height="191" src="https://img-blog.csdnimg.cn/20191121164715238.jpeg" width="628"></p>
-<p>13 小于中心点，所以不用考虑数组的后一半</p>
-<p><img alt class="has" height="134" src="https://img-blog.csdnimg.cn/20191121164726473.jpeg" width="411"></p>
-<p>重复这个过程，每次都寻找子数组的中间元素</p>
-<p>&nbsp;</p>
-<p><img alt class="has" height="101" src="https://img-blog.csdnimg.cn/20191121164751215.jpeg" width="285"></p>
-<p><img alt class="has" height="91" src="https://img-blog.csdnimg.cn/20191121164811565.jpeg" width="223"></p>
-<p>每次和中间元素比较都会使搜索范围减半。</p>
-<p>所以为了从 16 个元素中找到目标元素，我们需要把数组平均分割 4 次，也就是说，</p>
-<p><img alt class="has" height="141" src="https://img-blog.csdnimg.cn/20191121164824637.png" width="288"></p>
-<p>简化后的公式</p>
-<p>类似的，如果有 n 个元素，</p>
-<p><img alt class="has" height="141" src="https://img-blog.csdnimg.cn/20191121164908192.png" width="301"></p>
-<p>&nbsp;</p>
-<p>归纳一下</p>
-<p><img alt class="has" height="141" src="https://img-blog.csdnimg.cn/20191121164916433.png" width="275"></p>
-<p>分子和分母代入指数</p>
-<p><img alt class="has" height="141" src="https://img-blog.csdnimg.cn/20191121164930660.png" width="275"></p>
-<p>等式两边同时乘以 2^k</p>
-<p><img alt class="has" height="100" src="https://img-blog.csdnimg.cn/20191121164955503.png" width="285"></p>
-<p>最终结果</p>
-<p>现在来看看「对数」的定义：</p>
-<blockquote>
-<p>为使某数（底数）等于一给定数而必须取的乘幂的幂指数。</p>
-</blockquote>
+<img src="/blog/2020/07/18/LeetCode97-交错字符串/question1">
 
-<p>也就是说可以写成这种形式</p>
-<p><img alt class="has" height="87" src="https://img-blog.csdnimg.cn/2019112116500667.png" width="331"></p>
-<p>对数形式</p>
-<p>所以 log n 的确是有意义的，不是吗？没有其他什么可以表示这种行为。</p>
-<p>就这样吧，我希望我讲得这些你都搞懂了。在从事计算机科学相关的工作时，了解这类知识总是有用的（而且很有趣）。说不定就因为你知道算法的原理，你成了小组里能找出问题的最优解的人呢，谁知道呢。祝好运！</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>交错的意思是：如果第一次取了<code>s1</code>，那么第二次必须取<code>s2</code>，反之亦然。取多少和哪一个先取都是不一定的，只是要求交错即可。</p>
+<p>对于<code>s1 = &quot;bacc&quot;, s2 = &quot;aabcce&quot;, s3 = &quot;abaacbccec&quot;</code>，这个示例是可以匹配的，按照<strong>可以匹配</strong>的过程分析如下：</p>
+<ol>
+<li>首先只能取<code>s2</code>中的<code>a</code>，再继续往下取<code>a</code>时，与<code>s3</code>已经无法匹配了；</li>
+<li><strong>再取<code>s1</code>中的<code>b</code>或者<code>ba</code>都是可以的</strong>，这里取<code>b</code></li>
+<li>再取<code>s2</code>中的<code>a</code>，此时匹配到<code>aba</code></li>
+<li>再取<code>s1</code>中的<code>ac</code>，此时匹配到<code>abaac</code></li>
+<li>再取<code>s2</code>中的<code>bcce</code>，此时匹配到<code>abaacbbe</code></li>
+<li>再取<code>s1</code>中的<code>c</code>，此时完全匹配</li>
+</ol>
+<h4 id="定义dp数组"><a href="#定义dp数组" class="headerlink" title="定义dp数组"></a>定义dp数组</h4><p><code>dp[i][j]</code>表示<code>s1</code>的前<code>i</code>个字符和<code>s2</code>的前<code>j</code>个字符是否匹配，我们可以将刚才的分析表示为下图：</p>
+<img src="/blog/2020/07/18/LeetCode97-交错字符串/question1_dp" style="zoom:80%;">
+
+<p>上图是不是很像一个路径问题，而且只能向右或者向下移动，进一步说明是用动态规划来解决，如果还可以往上或者左，那就不能用动态规划来做了，得考虑<code>dfs</code>之类的算法。</p>
+<p>分析中的第二步，也就是图中<code>true</code>的其他可能。</p>
+<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 都为空时匹配</span></span><br><span class="line">dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"><span class="comment">// 对于第一行和第一列，当前值若无法匹配，则当前值和之后的都无法匹配</span></span><br><span class="line"><span class="keyword">if</span>(i == <span class="number">0</span>) dp[<span class="number">0</span>][j] = s2[<span class="number">0</span>,j) == s3[<span class="number">0</span>,j)</span><br><span class="line"><span class="keyword">if</span>(j == <span class="number">0</span>) dp[i][<span class="number">0</span>] = s2[<span class="number">0</span>,i) == s3[<span class="number">0</span>,i)</span><br></pre></td></tr></table></figure>
+
+<h4 id="状态转移方程"><a href="#状态转移方程" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j] = (dp[i - <span class="number">1</span>][j] &amp;&amp; s1[i - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>])</span><br><span class="line">	|| (dp[i][j - <span class="number">1</span>] &amp;&amp; s2[j - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isInterleave</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2, <span class="built_in">string</span> s3)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = s1.size(), n = s2.size();</span><br><span class="line">        <span class="keyword">if</span>(m + n != s3.size()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// bool dp[m + 1][n + 1] = &#123;false&#125;;</span></span><br><span class="line">        <span class="keyword">bool</span> **dp = <span class="keyword">new</span> <span class="keyword">bool</span>*[m + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; ++i)&#123;</span><br><span class="line">            dp[i] = <span class="keyword">new</span> <span class="keyword">bool</span>[n + <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n; ++j)&#123;</span><br><span class="line">                dp[i][j] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 初始化</span></span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n &amp;&amp; (s2.substr(<span class="number">0</span>, j) == s3.substr(<span class="number">0</span>, j)); ++j) </span><br><span class="line">            dp[<span class="number">0</span>][j] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m &amp;&amp; (s1.substr(<span class="number">0</span>, i) == s3.substr(<span class="number">0</span>, i)); ++i) </span><br><span class="line">            dp[i][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; ++j)&#123;</span><br><span class="line">                dp[i][j] = (dp[i - <span class="number">1</span>][j] &amp;&amp; (s1[i - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>])) ||</span><br><span class="line">                            (dp[i][j - <span class="number">1</span>] &amp;&amp; (s2[j - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[m][n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://leetcode-cn.com/problems/interleaving-string/solution/lei-si-lu-jing-wen-ti-zhao-zhun-zhuang-tai-fang-ch/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/interleaving-string/solution/lei-si-lu-jing-wen-ti-zhao-zhun-zhuang-tai-fang-ch/</a></p>
+
       
     </div>
     
@@ -473,7 +438,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
           
         </div>
       
@@ -486,8 +451,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/12/29/链式栈/" rel="next" title="链式栈">
-                <i class="fa fa-chevron-left"></i> 链式栈
+              <a href="/blog/2020/07/14/Verilog基础2/" rel="next" title="Verilog基础2">
+                <i class="fa fa-chevron-left"></i> Verilog基础2
               </a>
             
           </div>
@@ -495,10 +460,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2020/02/16/LeetCode17-电话号码的字母组合/" rel="prev" title="LeetCode17-电话号码的字母组合">
-                LeetCode17-电话号码的字母组合 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -550,8 +511,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -656,6 +626,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义dp数组"><span class="nav-number">2.1.</span> <span class="nav-text">定义dp数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">2.2.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态转移方程"><span class="nav-number">2.3.</span> <span class="nav-text">状态转移方程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
