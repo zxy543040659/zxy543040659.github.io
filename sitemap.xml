@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84%E2%85%A1/</loc>
+    
+    <lastmod>2020-09-20T14:55:31.263Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.xingyuzhao.ltd/blog/2020/09/20/LeetCode200-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F/</loc>
     
     <lastmod>2020-09-20T14:54:20.638Z</lastmod>
@@ -68,13 +75,6 @@
     <loc>http://www.xingyuzhao.ltd/blog/2020/08/02/C-11%E4%B9%8Blambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
     
     <lastmod>2020-08-02T15:19:15.095Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84%E2%85%A1/</loc>
-    
-    <lastmod>2020-07-26T03:08:14.322Z</lastmod>
     
   </url>
   
