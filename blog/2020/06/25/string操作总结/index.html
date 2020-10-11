@@ -17,6 +17,10 @@
 
 
 
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
 
 
 
@@ -384,7 +388,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
+    <div class="post-body han-init-context" itemprop="articleBody">
 
       
       
@@ -398,74 +402,54 @@
 <li>与数值的相互转换</li>
 </ol>
 <a id="more"></a>
-
 <h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认初始化，s1为空</span></span><br><span class="line"><span class="built_in">string</span> s1;</span><br><span class="line"><span class="comment">//用s1初始化s2</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s2</span><span class="params">(s1)</span></span>;</span><br><span class="line"><span class="comment">//s3为字面值"value"的副本，直接初始化</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s3</span><span class="params">(<span class="string">"value"</span>)</span></span>;</span><br><span class="line"><span class="comment">//与上述等价，不同之处在于这里是拷贝初始化</span></span><br><span class="line"><span class="built_in">string</span> s3 = <span class="string">"value"</span>;</span><br><span class="line"><span class="comment">//类似vector，n个'c'组成字符串s4</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s4</span><span class="params">(n, <span class="string">'c'</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-
 <h3 id="string对象上的操作"><a href="#string对象上的操作" class="headerlink" title="string对象上的操作"></a>string对象上的操作</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//从is读取一行给s，返回is</span></span><br><span class="line">getline(is, s)</span><br><span class="line"><span class="comment">//判断是否为空</span></span><br><span class="line">s.empty()</span><br><span class="line"><span class="comment">//s的长度</span></span><br><span class="line">s.size() / s.length()</span><br><span class="line"><span class="comment">//完全一样则相等，大小写敏感</span></span><br><span class="line">s1 == s2</span><br><span class="line"><span class="comment">//字典序比较，大小写敏感</span></span><br><span class="line">&lt;, &lt;=, &gt;, &gt;=</span><br></pre></td></tr></table></figure>
-
 <h4 id="两个string对象相加"><a href="#两个string对象相加" class="headerlink" title="两个string对象相加"></a>两个string对象相加</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s1 = <span class="string">"hello, "</span>, s2 = <span class="string">"world"</span>;</span><br><span class="line"><span class="comment">//s3 = "hello, world"</span></span><br><span class="line"><span class="built_in">string</span> s3 = s1 + s2;</span><br><span class="line"><span class="comment">//s1 = "hello, world"</span></span><br><span class="line">s1 += s2;</span><br></pre></td></tr></table></figure>
-
 <h4 id="字面值和string对象相加"><a href="#字面值和string对象相加" class="headerlink" title="字面值和string对象相加"></a>字面值和string对象相加</h4><p>当把string对象和字符字面值及字符串字面值混在一起相加时，必须确保<code>+</code>的两侧运算对象至少有一个string：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s4 = s1 + <span class="string">","</span>; 		<span class="comment">//√</span></span><br><span class="line"><span class="built_in">string</span> s5 = <span class="string">"hello"</span> + <span class="string">","</span>	<span class="comment">//×</span></span><br></pre></td></tr></table></figure>
-
 <p>注意：字符串字面值与string是不同类型，以上操作是自动进行了类型转换。</p>
 <h4 id="处理string对象中的字符"><a href="#处理string对象中的字符" class="headerlink" title="处理string对象中的字符"></a>处理string对象中的字符</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义在头文件cctype中</span></span><br><span class="line"><span class="built_in">isalnum</span>(c)		<span class="comment">//当c是字母或数字为真</span></span><br><span class="line"><span class="built_in">isalpha</span>(c)		<span class="comment">//当c是字母为真</span></span><br><span class="line"><span class="built_in">iscntrl</span>(c)		<span class="comment">//当c是控制字符为真，ASCII码前32</span></span><br><span class="line"><span class="built_in">isdigit</span>(c)		<span class="comment">//当c是数字为真</span></span><br><span class="line"><span class="built_in">islower</span>(c)		<span class="comment">//当c是小写字母为真</span></span><br><span class="line"><span class="built_in">isupper</span>(c)		<span class="comment">//当c是大写字母为真</span></span><br><span class="line"><span class="built_in">ispunct</span>(c)		<span class="comment">//当c是标点符号为真</span></span><br><span class="line"><span class="built_in">isspace</span>(c)		<span class="comment">//当c是空白为真(空格，回车，制表符等)</span></span><br><span class="line"><span class="built_in">tolower</span>(c)		<span class="comment">//如果c为大写字母，转为小写，否则不变</span></span><br><span class="line"><span class="built_in">toupper</span>(c)		<span class="comment">//如果c为小写字母，转为大写，否则不变</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>范围for语句</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//打印s1的所有内容</span></span><br><span class="line"><span class="comment">//仅访问时可加上const</span></span><br><span class="line"><span class="comment">//简化类型名可用auto代替</span></span><br><span class="line"><span class="built_in">string</span> s1 = <span class="string">"zhaoxingyu"</span></span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">string</span> s : s1)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; s;</span><br><span class="line"><span class="comment">//同时修改s1内容全为a</span></span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">string</span> &amp;s : s1)</span><br><span class="line">    s = <span class="string">'a'</span>;</span><br></pre></td></tr></table></figure>
-
 <h4 id="取子串"><a href="#取子串" class="headerlink" title="取子串"></a>取子串</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//s.substr(pos, n)</span></span><br><span class="line"><span class="comment">//取s中从pos开始长度为n的子串</span></span><br><span class="line"><span class="comment">//如果pos超过s.size()则抛出out_of_range异常</span></span><br><span class="line"><span class="comment">//如果pos+n超过s.size()则substr自动调整n值，只拷贝到s末尾</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="built_in">string</span> str = s.substr(<span class="number">0</span>, <span class="number">5</span>);	<span class="comment">//str = "hello"</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="查找-删除-替换"><a href="#查找-删除-替换" class="headerlink" title="查找/删除/替换"></a>查找/删除/替换</h3><h4 id="查找函数find"><a href="#查找函数find" class="headerlink" title="查找函数find"></a>查找函数find</h4><p>string中的find函数返回子串/字符第一次出现在母串中的位置，类型为size_t，可以把它视为一个范围很大的int类型。如果没有找到，返回一个npos标记，是一个很大的整数。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//size_t pos = s.find(str, startPos)</span></span><br><span class="line"><span class="comment">//str为子串或字符，startPos为开始搜索位置，缺省时默认为0</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="built_in">string</span> str = <span class="string">"world"</span>;</span><br><span class="line"><span class="keyword">size_t</span> pos = s.find(str);	<span class="comment">//等价于pos = s.find("world")，返回6</span></span><br><span class="line"><span class="keyword">size_t</span> pos1 = s.find(<span class="string">"c"</span>);	<span class="comment">//等价于pos1 = s.find('c')，返回npos</span></span><br></pre></td></tr></table></figure>
-
 <p>还可以从后往前反向查找，函数为rfind</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="keyword">size_t</span> pos = s.rfind(<span class="string">"l"</span>); 	<span class="comment">//返回9</span></span><br></pre></td></tr></table></figure>
-
 <p>其他一些find函数</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回子串首次出现位置</span></span><br><span class="line">pos = s.find_first_of(str);</span><br><span class="line"><span class="comment">//返回字串最后出现位置</span></span><br><span class="line">pos = s.find_last_of(str);</span><br></pre></td></tr></table></figure>
-
 <h4 id="删除函数erase"><a href="#删除函数erase" class="headerlink" title="删除函数erase"></a>删除函数erase</h4><p>string中提供的成员函数可以用来删除字符串中的字符，这里主要介绍<code>erase</code>方法</p>
 <ol>
 <li>从给定位置pos开始删除长度为n的字符串</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//basic_string &amp; erase(size_type pos=0, size_type n=npos)</span></span><br><span class="line"><span class="comment">//n缺省时默认为删除到末尾</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line">s.erase(<span class="number">5</span>);			<span class="comment">//从位置5开始全部删除，s = "hello";</span></span><br><span class="line">s.erase(<span class="number">0</span>, <span class="number">2</span>); 		<span class="comment">//从0开始删除长度为2的字符串，s = "llo"</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>删除迭代器位置处的单个字符，并返回<strong>下个元素</strong>的迭代器</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//iterator erase(const_iterator position)</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line">s.erase(s.begin());	<span class="comment">//s = "ello world";</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>删除迭代器<code>[first, last)</code>区间的所有字符,返回一个指向被删除的最后一个元素的下一个字符的迭代器.</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//iterator erase(const_iterator first, const_iterator last)</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="comment">//iter = s.erase(s.begin() + 1, s.end() - 1); 	 //可以直接删除</span></span><br><span class="line"><span class="keyword">auto</span> iter = s.erase(s.begin() + <span class="number">1</span>, s.end() - <span class="number">1</span>); <span class="comment">//删除并返回迭代器</span></span><br><span class="line"><span class="comment">//s = "hd"，*iter = d</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>注：也可以用pop_back()删除最后一个元素</strong></p>
 <h4 id="替换函数replace"><a href="#替换函数replace" class="headerlink" title="替换函数replace"></a>替换函数replace</h4><ol>
 <li>用str替换指定字符串从pos开始长度为len的字符串</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//string&amp; replace(size_t pos, size_t len, const string&amp; str)</span></span><br><span class="line"><span class="comment">//注意这里的str必须是string对象，不能是char字符</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="built_in">string</span> str = <span class="string">"#"</span>;</span><br><span class="line">s = s.replace(<span class="number">0</span>, <span class="number">5</span>, str);	<span class="comment">//s = "# world"</span></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>用str替换迭代器起始位置到终止位置的字符串</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//string&amp; replace(const_iterator it1, const_iterator it2, const string&amp; str)</span></span><br><span class="line"><span class="comment">//注意这里的str必须是string对象，不能是char字符</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="built_in">string</span> str = <span class="string">"#"</span>;</span><br><span class="line">s = s.replace(s.begin(), s.begin() + <span class="number">5</span>, str);	<span class="comment">//s = "# world"</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>用重复n次的c字符替换从指定位置pos长度为len的字符串</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//string&amp; replace(size_t pos, size_t len, size_t n, char c)</span></span><br><span class="line"><span class="comment">//注意这里的c必须是char类型，不能是string对象</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="keyword">char</span> c = <span class="string">'#'</span>;</span><br><span class="line">s = s.replace(<span class="number">0</span>, <span class="number">5</span>, <span class="number">2</span>, c);	<span class="comment">//s = "## world"</span></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>用重复n次的c字符替换从指定迭代器位置到终止位置的字符串</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//string&amp; replace (const_iterator i1, const_iterator i2, size_t n, char c)</span></span><br><span class="line"><span class="comment">//注意这里的c必须是char类型，不能是string对象</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="keyword">char</span> c = <span class="string">'#'</span>;</span><br><span class="line">s = s.replace(s.begin(), s.end(), <span class="number">2</span>, c);	<span class="comment">//s = "## world"</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="string与int相互转换"><a href="#string与int相互转换" class="headerlink" title="string与int相互转换"></a>string与int相互转换</h3><h4 id="string转int"><a href="#string转int" class="headerlink" title="string转int"></a>string转int</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># string直接转int</span></span><br><span class="line"><span class="comment">//stoi(s, pos, b) 把字符串s从pos开始转换成b进制的int</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"123"</span>;</span><br><span class="line"><span class="comment">//a = 123，如果里面含有非数字，那么从pos开始连续的字符串型数字才会被转为数字</span></span><br><span class="line"><span class="keyword">int</span> a = stoi(s, <span class="number">0</span>, <span class="number">10</span>);	</span><br><span class="line"><span class="comment">//stol(s,p,b)	把字符串s从p开始转换成b进制的long</span></span><br><span class="line"><span class="comment">//stoul(s,p,b)	把字符串s从p开始转换成b进制的unsigned long</span></span><br><span class="line"><span class="comment">//stoll(s,p,b)	把字符串s从p开始转换成b进制的long long</span></span><br><span class="line"><span class="comment">//stoull(s,p,b)	把字符串s从p开始转换成b进制的unsigned long long</span></span><br><span class="line"><span class="comment">//stof(s,p)		把字符串s从p开始转换成float</span></span><br><span class="line"><span class="comment">//stod(s,p)		把字符串s从p开始转换成double</span></span><br><span class="line"><span class="comment">//stold(s,p)	把字符串s从p开始转换成long double</span></span><br><span class="line"><span class="meta"># char型数组字符串转int</span></span><br><span class="line"><span class="comment">//c_str()函数返回一个指向正规C字符串的指针, 内容与string串相同</span></span><br><span class="line"><span class="comment">//string类对象的成员函数c_str()把string转换为c类型字符串</span></span><br><span class="line"><span class="comment">//如果string不是数字形式的则转换结果为0</span></span><br><span class="line"><span class="comment">//实际步骤为string-&gt;char*-&gt;int</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"123"</span>;</span><br><span class="line"><span class="keyword">int</span> a = atoi(s.c_str());	<span class="comment">//a = 123</span></span><br></pre></td></tr></table></figure>
-
 <h4 id="int转string"><a href="#int转string" class="headerlink" title="int转string"></a>int转string</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//to_string(val) 将val转为string</span></span><br><span class="line"><span class="keyword">int</span> val = <span class="number">100</span>;</span><br><span class="line"><span class="built_in">string</span> s = to_string(val);	<span class="comment">//s = "100"</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>查找/删除/替换：</p>
 <ol>
 <li><p><a href="https://www.cnblogs.com/xzxl/p/7243490.html" target="_blank" rel="noopener">https://www.cnblogs.com/xzxl/p/7243490.html</a></p>
@@ -596,7 +580,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -730,7 +714,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">33.5k</span>
+    <span title="Site words total count">34.4k</span>
   
 </div>
 
@@ -928,6 +912,8 @@
   
 
   
+  
+
 
   
 

@@ -17,6 +17,10 @@
 
 
 
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
 
 
 
@@ -386,7 +390,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
+    <div class="post-body han-init-context" itemprop="articleBody">
 
       
       
@@ -394,18 +398,13 @@
       
         <h2 id="Verilog基础"><a href="#Verilog基础" class="headerlink" title="Verilog基础"></a>Verilog基础</h2><p>学习verilog基础语法2</p>
 <a id="more"></a>
-
 <h3 id="第五章-FPGA基本实践"><a href="#第五章-FPGA基本实践" class="headerlink" title="第五章 FPGA基本实践"></a>第五章 FPGA基本实践</h3><h4 id="流水灯实践"><a href="#流水灯实践" class="headerlink" title="流水灯实践"></a>流水灯实践</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> v1(</span><br><span class="line">    <span class="keyword">input</span> clk,			<span class="comment">// 时钟输入</span></span><br><span class="line">    <span class="keyword">input</span> rst,			<span class="comment">// 复位信号</span></span><br><span class="line">    <span class="keyword">output</span> [<span class="number">7</span>:<span class="number">0</span>] led	<span class="comment">// LED输出</span></span><br><span class="line">    );</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">7</span>:<span class="number">0</span>] ledtemp = <span class="number">8'b0000_0001</span>;	<span class="comment">// led初始值</span></span><br><span class="line"><span class="keyword">reg</span> [<span class="number">23</span>:<span class="number">0</span>] divclk_cnt = <span class="number">0</span>;			<span class="comment">// 24位计数值</span></span><br><span class="line"><span class="keyword">reg</span> divclk = <span class="number">0</span>;						<span class="comment">// 低频时钟</span></span><br><span class="line"><span class="keyword">assign</span> led = ledtemp;	<span class="comment">// 实现将寄存器变量值赋给LED输出</span></span><br><span class="line">	<span class="keyword">parameter</span> halfduty_cntvalue = <span class="number">12500000</span>;</span><br><span class="line"><span class="keyword">always</span> @ ( <span class="keyword">posedge</span> clk )			<span class="comment">// 把系统时钟分频50Mhz/25000000 = 2Hz</span></span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">if</span>( divclk_cnt == halfduty_cntvalue)	<span class="comment">// 计数满后翻转</span></span><br><span class="line">		<span class="keyword">begin</span></span><br><span class="line">			divclk = ~divclk;</span><br><span class="line">			divclk_cnt = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">			divclk_cnt = divclk_cnt + <span class="number">1'b1</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">always</span> @ ( <span class="keyword">posedge</span> divclk )</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">if</span>( !rst )</span><br><span class="line">		<span class="keyword">begin</span></span><br><span class="line">			ledtemp = <span class="number">8'b0000_0001</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> ( ledtemp[<span class="number">7</span>] == <span class="number">1</span> )</span><br><span class="line">		ledtemp = <span class="number">8'b0000_0001</span>;		<span class="comment">// 瀹炵幇寰幆绉讳綅</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		ledtemp = ledtemp &lt;&lt; <span class="number">1</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-
 <p>仿真代码：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> sim3;</span><br><span class="line"><span class="keyword">reg</span> clk;</span><br><span class="line"><span class="keyword">reg</span> rst;</span><br><span class="line"><span class="keyword">wire</span> led;</span><br><span class="line"></span><br><span class="line">v1 uut( clk, rst, led );</span><br><span class="line"><span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">    clk = <span class="number">0</span>;</span><br><span class="line">    rst = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">always</span> #<span class="number">10</span> clk = ~clk; <span class="comment">// 每隔10ns反转，周期是20ns，频率也就是50MHz</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-
 <p>仿真图如下：</p>
-<img src="/blog/2020/07/14/Verilog基础2/image1">
-
+<p><img src="/blog/2020/07/14/Verilog基础2/image1"></p>
 <p>从<strong>ledtemp</strong>可以看出进行了左移的操作</p>
-<img src="/blog/2020/07/14/Verilog基础2/image2">
-
+<p><img src="/blog/2020/07/14/Verilog基础2/image2"></p>
 <p>完成一次循环之后回到<strong>00000001</strong></p>
 
       
@@ -520,7 +519,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -654,7 +653,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">33.5k</span>
+    <span title="Site words total count">34.4k</span>
   
 </div>
 
@@ -852,6 +851,8 @@
   
 
   
+  
+
 
   
 

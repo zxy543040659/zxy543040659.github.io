@@ -85,24 +85,20 @@
 
 
 
-<meta name="description" content="本题与97交错字符串，174-地下城游戏分析与解法相似 题目描述一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。 现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？">
+<meta name="description" content="题目描述小扣出去秋游，途中收集了一些红叶和黄叶，他利用这些叶子初步整理了一份秋叶收藏集 leaves， 字符串 leaves 仅包含小写字符 r 和 y， 其中字符 r 表示一片红叶，字符 y 表示一片黄叶。出于美观整齐的考虑，小扣想要将收藏集中树叶的排列调整成「红、黄、红」三部分。每部分树叶数量可以不相等，但均需大于等于 1。每次调整操作，小扣可以将一片红叶替换成黄叶或者将一片黄叶替换成红叶。请">
 <meta name="keywords" content="动态规划">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode63-不同路径Ⅱ">
-<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/index.html">
+<meta property="og:title" content="LCP19-秋叶收藏集">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/index.html">
 <meta property="og:site_name" content="Zxy&#39;s blog">
-<meta property="og:description" content="本题与97交错字符串，174-地下城游戏分析与解法相似 题目描述一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。 现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？">
+<meta property="og:description" content="题目描述小扣出去秋游，途中收集了一些红叶和黄叶，他利用这些叶子初步整理了一份秋叶收藏集 leaves， 字符串 leaves 仅包含小写字符 r 和 y， 其中字符 r 表示一片红叶，字符 y 表示一片黄叶。出于美观整齐的考虑，小扣想要将收藏集中树叶的排列调整成「红、黄、红」三部分。每部分树叶数量可以不相等，但均需大于等于 1。每次调整操作，小扣可以将一片红叶替换成黄叶或者将一片黄叶替换成红叶。请">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question1">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution1">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution2">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution3">
-<meta property="og:updated_time" content="2020-09-20T14:55:31.263Z">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/image-20201011112801516.png">
+<meta property="og:updated_time" content="2020-10-11T04:24:40.347Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode63-不同路径Ⅱ">
-<meta name="twitter:description" content="本题与97交错字符串，174-地下城游戏分析与解法相似 题目描述一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。 现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question">
+<meta name="twitter:title" content="LCP19-秋叶收藏集">
+<meta name="twitter:description" content="题目描述小扣出去秋游，途中收集了一些红叶和黄叶，他利用这些叶子初步整理了一份秋叶收藏集 leaves， 字符串 leaves 仅包含小写字符 r 和 y， 其中字符 r 表示一片红叶，字符 y 表示一片黄叶。出于美观整齐的考虑，小扣想要将收藏集中树叶的排列调整成「红、黄、红」三部分。每部分树叶数量可以不相等，但均需大于等于 1。每次调整操作，小扣可以将一片红叶替换成黄叶或者将一片黄叶替换成红叶。请">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/image-20201011112801516.png">
 
 
 
@@ -132,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/">
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/">
 
 
 
 
 
-  <title>LeetCode63-不同路径Ⅱ | Zxy's blog</title>
+  <title>LCP19-秋叶收藏集 | Zxy's blog</title>
   
 
 
@@ -275,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xingyu_Zhao">
@@ -292,7 +288,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode63-不同路径Ⅱ</h1>
+          <h1 class="post-title" itemprop="name headline">LCP19-秋叶收藏集</h1>
         
 
         <div class="post-meta">
@@ -304,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-26T10:09:11+08:00">
-                2020-07-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-11T11:25:10+08:00">
+                2020-10-11
               </time>
             
 
@@ -363,7 +359,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  848
+                  886
                 </span>
               
 
@@ -400,27 +396,46 @@
       
 
       
-        <p>本题与<a href="http://www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-%E4%BA%A4%E9%94%99%E5%AD%97%E7%AC%A6%E4%B8%B2/#more"><strong>97交错字符串</strong></a>，<a href="https://leetcode-cn.com/problems/dungeon-game/" target="_blank" rel="noopener"><strong>174-地下城游戏</strong></a>分析与解法相似</p>
-<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
-<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
-<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？</p>
+        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>小扣出去秋游，途中收集了一些红叶和黄叶，他利用这些叶子初步整理了一份秋叶收藏集 leaves， 字符串 leaves 仅包含小写字符 r 和 y， 其中字符 r 表示一片红叶，字符 y 表示一片黄叶。<br>出于美观整齐的考虑，小扣想要将收藏集中树叶的排列调整成「红、黄、红」三部分。每部分树叶数量可以不相等，但均需大于等于 1。每次调整操作，小扣可以将一片红叶替换成黄叶或者将一片黄叶替换成红叶。请问小扣最少需要多少次调整操作才能将秋叶收藏集调整完毕。</p>
 <a id="more"></a>
-<p><img src="/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question" style="zoom:80%;"></p>
-<p><img src="/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question1" style="zoom:;"></p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>对于输入为二维数组的题目中出现了只能向下或者向右移动的字眼，一般来说考虑动态规划。这道题的不同之处是设置了障碍物，如果遇到了1则表示<strong>不可达</strong>，假如<code>m = 2, n = 2</code>，并且无障碍物，我们可以得到下图：</p>
-<p><img src="/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution1" style="zoom:80%;"></p>
-<p>那么对于<code>(0,1)</code>和<code>(1,0)</code>位置，都只有一条通路可达：</p>
-<p><img src="/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution2" style="zoom:80%;"></p>
-<p>最后对于末尾处<code>(1,1)</code>，它的上边和左边可以到达，所以到达它的路径为<code>1 + 1 = 2</code>条：</p>
-<p><img src="/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution3" style="zoom:80%;"></p>
-<p>通过观察我们发现，在不遮挡的情况下，可以到达当前位置的路径数就是当前位置的上边和左边路径数的总和。</p>
-<p>对于存在障碍物的情况，我们直接令到达它的路径数为0，这样也就满足的题目的要求。</p>
-<h4 id="定义dp数组"><a href="#定义dp数组" class="headerlink" title="定义dp数组"></a>定义dp数组</h4><p>根据上述分析，<code>dp[i][j]</code>表示有多少条路径可以到达<code>(i,j)</code>，如果网格中此处值为1，也就是有障碍的情况下，<code>dp[i][j] = 0</code>。表示无法到达，路径数为0。</p>
-<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>在<strong>交错字符串</strong>中使用的是从前往后遍历的思想，这里换一种思路，从后往前进行遍历。对于最后一个位置<code>dp[m-1][n-1]</code>，如果第<code>m - 1</code>行或者<code>n - 1</code>列其他位置可以到达最后位置，则为1，否则为0，只要在网格中往回走遇到了1，在那之后<code>dp</code>数组的值都为0。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> dp[m][n];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)</span><br><span class="line">		dp[i][j] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 最后一行到end初始化为1</span></span><br><span class="line"><span class="comment">// 注意有有一个为1，后面都被阻挡</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt;= <span class="number">0</span> &amp;&amp; obstacleGrid[m - <span class="number">1</span>][j] == <span class="number">0</span>; --j)&#123;</span><br><span class="line">	dp[m - <span class="number">1</span>][j] = <span class="number">1</span>; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 最后一列到end初始化为1</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span> &amp;&amp; obstacleGrid[i][n - <span class="number">1</span>] == <span class="number">0</span>; --i)&#123;</span><br><span class="line">	dp[i][n - <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="状态转移方程"><a href="#状态转移方程" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(obstacleGrid[i][j] == <span class="number">0</span>)</span><br><span class="line">    dp[i][j] = dp[i+<span class="number">1</span>][j] + dp[i][j+<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; obstacleGrid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = obstacleGrid.size();</span><br><span class="line">        <span class="keyword">int</span> n = obstacleGrid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="comment">// 从后往前必须long long</span></span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> dp[m][n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)</span><br><span class="line">                dp[i][j] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 最后一行到end初始化为1</span></span><br><span class="line">        <span class="comment">// 注意有有一个为1，后面都被阻挡</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt;= <span class="number">0</span> &amp;&amp; obstacleGrid[m - <span class="number">1</span>][j] == <span class="number">0</span>; --j)&#123;</span><br><span class="line">                dp[m - <span class="number">1</span>][j] = <span class="number">1</span>; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 最后一列到end初始化为1</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span> &amp;&amp; obstacleGrid[i][n - <span class="number">1</span>] == <span class="number">0</span>; --i)&#123;</span><br><span class="line">                dp[i][n - <span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = m - <span class="number">2</span>; i &gt;= <span class="number">0</span>; --i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = n - <span class="number">2</span>; j &gt;= <span class="number">0</span>; --j)&#123;</span><br><span class="line">                <span class="keyword">if</span>(obstacleGrid[i][j] == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    dp[i][j] = dp[i + <span class="number">1</span>][j] + dp[i][j + <span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://leetcode-cn.com/problems/unique-paths-ii/solution/jian-dan-dpbi-xu-miao-dong-by-sweetiee/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/unique-paths-ii/solution/jian-dan-dpbi-xu-miao-dong-by-sweetiee/</a></p>
+<p><img src="/blog/2020/10/11/LCP19-秋叶收藏集/image-20201011112801516.png" style="zoom:80%;"></p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>用三个状态来标记其中的每一个部分，0和2表示前面和后面的红色，1表示中间的黄色，于是三部分结构为「0、1、2」。</p>
+<p>定义<code>dp[i][j]</code>表示：对<strong>[0..i]</strong>片叶子进行调整，并且第<strong>i</strong>片叶子处于<strong>j</strong>状态的最小操作数，所以有下面三种情况：</p>
+<ul>
+<li>当<strong>j = 0</strong>时，第<strong>i</strong>片叶子应为红色，并且第<strong>i - 1</strong>片叶子也应该处于<strong>j = 0</strong>的状态：</li>
+</ul>
+<script type="math/tex; mode=display">
+dp[i][0] = dp[i-1][0] + isYellow(i)</script><script type="math/tex; mode=display">
+isYellow(i)=
+\begin{cases}
+1& \text{leaves[i] = 'y'}\\
+0& \text{leaves[i] = 'r'}
+\end{cases}</script><p>如果是黄色，那么需要进行一次操作修改颜色：</p>
+<ul>
+<li>当<strong>j = 1</strong>时，第<strong>i</strong>片叶子应为黄色，第<strong>i - 1</strong>片叶子可以处于<strong>j = 0</strong>或<strong>j = 1</strong>的状态，所以取其中的较小值：</li>
+</ul>
+<script type="math/tex; mode=display">
+dp[i][1] = min(dp[i-1][1], dp[i-1][0]) + isRed(i)</script><script type="math/tex; mode=display">
+isRed(i)=
+\begin{cases}
+1& \text{leaves[i] = 'r'}\\
+0& \text{leaves[i] = 'y'}
+\end{cases}</script><p>​        如果是红色，那么需要进行一次操作修改颜色：</p>
+<ul>
+<li>当<strong>j = 2</strong>时，第<strong>i</strong>片叶子应为红色，第<strong>i - 1</strong>片叶子可以处于<strong>j = 2</strong>或<strong>j = 1</strong>的状态（不能取<strong>j = 0</strong>的状态，因为每种状态至少含有一片叶子，中间必须存在有黄色叶子），再取其中的较小值：</li>
+</ul>
+<script type="math/tex; mode=display">
+dp[i][2] = min(dp[i-1][2], dp[i-1][1]) + isYellow(i)</script><p>如果是黄色，那么需要进行一次操作修改颜色，公式同1</p>
+<p>最终答案为<code>dp[n-1][2]</code>。</p>
+<p><strong><em>初始化条件：</em></strong></p>
+<ol>
+<li>要保证每种状态都有叶子，则叶子数量应大于等于状态数量，对于<code>dp[i][j]</code>，有<strong>i &gt;= j</strong>；如果<strong>i &lt; j</strong>，那么可以令<code>dp[i][j] = INT_MAX</code>；</li>
+<li>对于<strong>i = 0</strong>，<strong>j</strong>也必须为0，于是有<code>dp[0][0] = isYellow(0)</code>。</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minimumOperations</span><span class="params">(<span class="built_in">string</span> leaves)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">dp</span><span class="params">(leaves.size(), <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">3</span>))</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = leaves[<span class="number">0</span>] == <span class="string">'y'</span>;</span><br><span class="line">        <span class="comment">// 不合要求的,实际上也不会遇到dp[0][2]这种情况</span></span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">1</span>] = dp[<span class="number">0</span>][<span class="number">2</span>] = dp[<span class="number">1</span>][<span class="number">2</span>] = INT_MAX;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; leaves.size(); ++i)&#123;</span><br><span class="line">            <span class="keyword">int</span> isYellow = leaves[i] == <span class="string">'y'</span>;</span><br><span class="line">            <span class="keyword">int</span> isRed = leaves[i] == <span class="string">'r'</span>;</span><br><span class="line">            dp[i][<span class="number">0</span>] = dp[i - <span class="number">1</span>][<span class="number">0</span>] + isYellow;</span><br><span class="line">            dp[i][<span class="number">1</span>] = min(dp[i - <span class="number">1</span>][<span class="number">1</span>], dp[i - <span class="number">1</span>][<span class="number">0</span>]) + isRed;</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= <span class="number">2</span>) dp[i][<span class="number">2</span>] = min(dp[i - <span class="number">1</span>][<span class="number">1</span>], dp[i - <span class="number">1</span>][<span class="number">2</span>]) + isYellow;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[leaves.size() - <span class="number">1</span>][<span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以优化空间，使用3个变量来代替状态转移数组：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minimumOperations</span><span class="params">(<span class="built_in">string</span> leaves)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = leaves.size();</span><br><span class="line">        <span class="comment">// dp[0][0]</span></span><br><span class="line">        <span class="keyword">int</span> start = leaves[<span class="number">0</span>] == <span class="string">'y'</span>;</span><br><span class="line">        <span class="comment">// dp[0][1]</span></span><br><span class="line">        <span class="keyword">int</span> mid = INT_MAX;</span><br><span class="line">        <span class="comment">// dp[1][2]</span></span><br><span class="line">        <span class="keyword">int</span> last = INT_MAX;</span><br><span class="line">        <span class="comment">// 初始化转移变量</span></span><br><span class="line">        <span class="keyword">int</span> start2, mid2, last2 = INT_MAX, red = <span class="number">0</span>, yellow = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</span><br><span class="line">            red = leaves[i] == <span class="string">'r'</span>;</span><br><span class="line">            yellow = leaves[i] == <span class="string">'y'</span>;</span><br><span class="line">            start2 = start + yellow;</span><br><span class="line">            mid2 = min(start, mid) + red;</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= <span class="number">2</span>) last2 = min(mid, last) + yellow;</span><br><span class="line"></span><br><span class="line">            start = start2;</span><br><span class="line">            mid = mid2;</span><br><span class="line">            last = last2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> last;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://leetcode-cn.com/problems/UlBDOe/solution/qiu-xie-shou-cang-ji-by-leetcode-solution/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/UlBDOe/solution/qiu-xie-shou-cang-ji-by-leetcode-solution/</a></p>
 
       
     </div>
@@ -451,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2020/07/18/LeetCode97-交错字符串/" rel="next" title="LeetCode97-交错字符串">
-                <i class="fa fa-chevron-left"></i> LeetCode97-交错字符串
+              <a href="/blog/2020/10/09/LeetCode701-二叉搜索树中的插入操作/" rel="next" title="LeetCode701-二叉搜索树中的插入操作">
+                <i class="fa fa-chevron-left"></i> LeetCode701-二叉搜索树中的插入操作
               </a>
             
           </div>
@@ -460,10 +475,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2020/08/02/C-11之lambda表达式/" rel="prev" title="C++11之lambda表达式">
-                C++11之lambda表达式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -640,7 +651,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义dp数组"><span class="nav-number">2.1.</span> <span class="nav-text">定义dp数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">2.2.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#状态转移方程"><span class="nav-number">2.3.</span> <span class="nav-text">状态转移方程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">2.4.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
 
           </div>
@@ -872,6 +883,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

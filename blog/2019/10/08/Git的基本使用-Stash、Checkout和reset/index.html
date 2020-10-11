@@ -17,6 +17,10 @@
 
 
 
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
 
 
 
@@ -384,7 +388,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
+    <div class="post-body han-init-context" itemprop="articleBody">
 
       
       
@@ -393,9 +397,7 @@
         <h3 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h3><p><code>Stash、Checkout</code>和<code>Reset</code>指令</p>
 <p>经常有这样的事情发生，当你正在进行项目中某一部分的工作，而你想转到其他分支上进行一些工作。问题是，你不想提交进行了一半的工作，否则以后你无法回到这个工作点，所以你储藏这些变更。为了往堆栈推送一个新的储藏，只要运行 <code>git stash</code>。</p>
 <a id="more"></a>
-
 <h3 id="基本指令-stash"><a href="#基本指令-stash" class="headerlink" title="基本指令-stash"></a>基本指令-stash</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">git stash </span><br><span class="line">#保存当前工作区所有内容到当前分支的储藏栈的栈顶(工作区会变为最后一次commit时的内容)。</span><br><span class="line">git stash apply </span><br><span class="line">#应用当前分支的储藏栈栈顶的储藏到工作区。</span><br><span class="line">git stash apply &lt;stash id&gt; </span><br><span class="line">#应用当前分支的储藏栈指定位置的储藏到工作区，例如git stash apply stash@&#123;0&#125;。</span><br><span class="line">git stash list </span><br><span class="line">#列出当前分支的储藏栈详细信息。</span><br><span class="line">git stash drop &lt;stash id&gt; </span><br><span class="line">#移除当前分支的储藏栈指定位置的储藏。</span><br><span class="line">git stash pop</span><br><span class="line">#从git栈中获取到最近一次stash进去的内容，恢复工作区的内容，获取之后，会删除栈中对应的stash。</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>唯一需要注意的是，<code>git stash apply</code>并不会改变储藏栈的内容，所以如果你觉得之前的那个储藏没用了，请手动调用<code>git stash drop &lt;stash id&gt;</code>清理储藏栈。特别的，<code>git stash pop</code>会自动应用当前分支的储藏栈栈顶的储藏到工作区，并将其从栈顶移除。</li>
 </ul>
@@ -404,48 +406,39 @@
 <li>创建分支<code>feature</code>，修改<code>test.txt</code>文件内容（321）然后运行<code>git status</code>可以看到以下中间过程的内容：</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   test.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>现在你想切换分支，但是你还不想提交你正在进行中的工作；所以你储藏这些变更。为了往堆栈推送一个新的储藏，只要运行 <code>git stash</code>。</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git stash</span><br><span class="line">Saved working directory and index state WIP on master: 7ac5b3d master注释</span><br><span class="line">#test.txt中的内容变成了“123”，工作区内容变为最后一次提交的内容</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>这时，你可以方便地切换到其他分支工作；你的变更都保存在栈上。要查看现有的储藏，你可以使用 <code>git stash list</code>：</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git stash list</span><br><span class="line">stash@&#123;0&#125;: WIP on master: 7ac5b3d master注释</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
+<ol>
 <li>切换到分支<code>feature</code>并且使用指令<code>git stash pop</code>，观察<code>test.txt</code>中的内容变化。</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ git stash pop</span><br><span class="line">On branch feature</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   test.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br><span class="line">Dropped refs/stash@&#123;0&#125; (81b72af21b8037e4b185820e3a86b78d95b9f8d8)</span><br><span class="line">#文档内容变成了“321”，也就是master修改后的工作区，但现在pop命令把储藏的栈顶弹出，是在feature分支进行工作的，此时feature的工作区是修改后的文档。</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
+<ol>
 <li>再次使用指令<code>git stash</code>，然后<code>git checkout master</code>，再次使用<code>git stash pop</code>，那么修改后的文档就是在<code>master</code>工作区了，最后直接查看工作区状态。</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   test.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
-
 <h4 id="练习二"><a href="#练习二" class="headerlink" title="练习二"></a>练习二</h4><p>在练习一基础上使用<code>apply</code>指令：</p>
 <ol>
 <li>当前工作区为<code>master</code>，<code>test.txt</code>中的内容是修改后的321，使用<code>stash</code>指令存储当前的工作区。</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git stash</span><br><span class="line">Saved working directory and index state WIP on master: 7ac5b3d master注释</span><br><span class="line"></span><br><span class="line">$ git stash list</span><br><span class="line">stash@&#123;0&#125;: WIP on master: 7ac5b3d master注释</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li>此时<code>test.txt</code>内容为（123），修改其内容（1234），然后进行<code>add</code>（不进行此操作也可以），再进行一次存储。</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git stash list</span><br><span class="line">stash@&#123;0&#125;: WIP on master: 7ac5b3d master注释</span><br><span class="line">stash@&#123;1&#125;: WIP on master: 7ac5b3d master注释</span><br><span class="line">#现在堆栈里存储了两个工作区，工作区空</span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br><span class="line">#test.txt中内容变为“123”</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
+<ol>
 <li>使用<code>apply</code>指令将堆栈中的栈顶应用到当前工作区，当前的栈顶应该是<code>stash@{0}</code>，所以内容应该恢复为“1234”。</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ git stash apply</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   test.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br><span class="line">#打开test.txt发现内容已经变回“1234”</span><br><span class="line">$ git stash list</span><br><span class="line">stash@&#123;0&#125;: WIP on master: 7ac5b3d master注释</span><br><span class="line">stash@&#123;1&#125;: WIP on master: 7ac5b3d master注释</span><br><span class="line">#堆栈中的内容不会主动删除，继续保存下来</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
+<ol>
 <li>修改<code>test.txt</code>中的“1234”为“123”（初始工作区），然后使用<code>git stash apply</code>指令将栈中的<code>stash@{1}</code>（修改后的工作区，内容是“321”）返回到工作区，此时文档内容是“321”。</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git stash apply stash@&#123;1&#125;</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        modified:   test.txt</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br><span class="line">#test.txt中的内容是“321”</span><br></pre></td></tr></table></figure>
-
 <h4 id="一些标注"><a href="#一些标注" class="headerlink" title="一些标注"></a>一些标注</h4><h5 id="练习一-1"><a href="#练习一-1" class="headerlink" title="练习一"></a>练习一</h5><p>初始工作区的<code>test.txt</code>内容为：123</p>
 <p>第一次修改后的<code>test.txt</code>内容为：321</p>
 <p>最后<code>master</code>中的<code>stash@{0}</code>内容为：321</p>
@@ -573,7 +566,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -707,7 +700,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">33.5k</span>
+    <span title="Site words total count">34.4k</span>
   
 </div>
 
@@ -905,6 +898,8 @@
   
 
   
+  
+
 
   
 

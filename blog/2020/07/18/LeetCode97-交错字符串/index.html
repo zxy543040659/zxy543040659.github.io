@@ -17,6 +17,10 @@
 
 
 
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
 
 
 
@@ -387,7 +391,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
+    <div class="post-body han-init-context" itemprop="articleBody">
 
       
       
@@ -396,9 +400,7 @@
         <p>在看了题解之后才慢慢意识到，这道题和<a href="https://leetcode-cn.com/problems/unique-paths-ii/" target="_blank" rel="noopener"><strong>63-不同路径Ⅱ</strong></a>，<a href="https://leetcode-cn.com/problems/dungeon-game/" target="_blank" rel="noopener"><strong>174-地下城游戏</strong></a>是非常相似的，题目虽然具有一定难度，但都是有迹可循。它们都可以抽象为在二维数组中，从起始到末尾找路径的问题。上面两个问题还未更新，跳转位置是题目链接。</p>
 <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定三个字符串 <em>s1</em>, <em>s2</em>, <em>s3</em>, 验证 <em>s3</em> 是否是由 <em>s1</em> 和 <em>s2</em> 交错组成的。</p>
 <a id="more"></a>
-
-<img src="/blog/2020/07/18/LeetCode97-交错字符串/question1">
-
+<p><img src="/blog/2020/07/18/LeetCode97-交错字符串/question1"></p>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>交错的意思是：如果第一次取了<code>s1</code>，那么第二次必须取<code>s2</code>，反之亦然。取多少和哪一个先取都是不一定的，只是要求交错即可。</p>
 <p>对于<code>s1 = &quot;bacc&quot;, s2 = &quot;aabcce&quot;, s3 = &quot;abaacbccec&quot;</code>，这个示例是可以匹配的，按照<strong>可以匹配</strong>的过程分析如下：</p>
 <ol>
@@ -410,16 +412,12 @@
 <li>再取<code>s1</code>中的<code>c</code>，此时完全匹配</li>
 </ol>
 <h4 id="定义dp数组"><a href="#定义dp数组" class="headerlink" title="定义dp数组"></a>定义dp数组</h4><p><code>dp[i][j]</code>表示<code>s1</code>的前<code>i</code>个字符和<code>s2</code>的前<code>j</code>个字符是否匹配，我们可以将刚才的分析表示为下图：</p>
-<img src="/blog/2020/07/18/LeetCode97-交错字符串/question1_dp" style="zoom:80%;">
-
+<p><img src="/blog/2020/07/18/LeetCode97-交错字符串/question1_dp" style="zoom:80%;"></p>
 <p>上图是不是很像一个路径问题，而且只能向右或者向下移动，进一步说明是用动态规划来解决，如果还可以往上或者左，那就不能用动态规划来做了，得考虑<code>dfs</code>之类的算法。</p>
 <p>分析中的第二步，也就是图中<code>true</code>的其他可能。</p>
 <h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 都为空时匹配</span></span><br><span class="line">dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"><span class="comment">// 对于第一行和第一列，当前值若无法匹配，则当前值和之后的都无法匹配</span></span><br><span class="line"><span class="keyword">if</span>(i == <span class="number">0</span>) dp[<span class="number">0</span>][j] = s2[<span class="number">0</span>,j) == s3[<span class="number">0</span>,j)</span><br><span class="line"><span class="keyword">if</span>(j == <span class="number">0</span>) dp[i][<span class="number">0</span>] = s2[<span class="number">0</span>,i) == s3[<span class="number">0</span>,i)</span><br></pre></td></tr></table></figure>
-
 <h4 id="状态转移方程"><a href="#状态转移方程" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j] = (dp[i - <span class="number">1</span>][j] &amp;&amp; s1[i - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>])</span><br><span class="line">	|| (dp[i][j - <span class="number">1</span>] &amp;&amp; s2[j - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>])</span><br></pre></td></tr></table></figure>
-
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isInterleave</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2, <span class="built_in">string</span> s3)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = s1.size(), n = s2.size();</span><br><span class="line">        <span class="keyword">if</span>(m + n != s3.size()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// bool dp[m + 1][n + 1] = &#123;false&#125;;</span></span><br><span class="line">        <span class="keyword">bool</span> **dp = <span class="keyword">new</span> <span class="keyword">bool</span>*[m + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; ++i)&#123;</span><br><span class="line">            dp[i] = <span class="keyword">new</span> <span class="keyword">bool</span>[n + <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n; ++j)&#123;</span><br><span class="line">                dp[i][j] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 初始化</span></span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n &amp;&amp; (s2.substr(<span class="number">0</span>, j) == s3.substr(<span class="number">0</span>, j)); ++j) </span><br><span class="line">            dp[<span class="number">0</span>][j] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m &amp;&amp; (s1.substr(<span class="number">0</span>, i) == s3.substr(<span class="number">0</span>, i)); ++i) </span><br><span class="line">            dp[i][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; ++j)&#123;</span><br><span class="line">                dp[i][j] = (dp[i - <span class="number">1</span>][j] &amp;&amp; (s1[i - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>])) ||</span><br><span class="line">                            (dp[i][j - <span class="number">1</span>] &amp;&amp; (s2[j - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[m][n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://leetcode-cn.com/problems/interleaving-string/solution/lei-si-lu-jing-wen-ti-zhao-zhun-zhuang-tai-fang-ch/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/interleaving-string/solution/lei-si-lu-jing-wen-ti-zhao-zhun-zhuang-tai-fang-ch/</a></p>
 
       
@@ -540,7 +538,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -674,7 +672,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">33.5k</span>
+    <span title="Site words total count">34.4k</span>
   
 </div>
 
@@ -872,6 +870,8 @@
   
 
   
+  
+
 
   
 

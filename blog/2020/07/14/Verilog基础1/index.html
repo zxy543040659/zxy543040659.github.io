@@ -17,6 +17,10 @@
 
 
 
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
 
 
 
@@ -388,7 +392,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
+    <div class="post-body han-init-context" itemprop="articleBody">
 
       
       
@@ -396,7 +400,6 @@
       
         <h2 id="Verilog基础"><a href="#Verilog基础" class="headerlink" title="Verilog基础"></a>Verilog基础</h2><p>学习verilog基础语法1</p>
 <a id="more"></a>
-
 <h2 id="第二章-基本语法"><a href="#第二章-基本语法" class="headerlink" title="第二章 基本语法"></a>第二章 基本语法</h2><h4 id="数据类型及变量"><a href="#数据类型及变量" class="headerlink" title="数据类型及变量"></a>数据类型及变量</h4><p>查找表<strong>LUT</strong></p>
 <ol>
 <li>线网型变量wire<ol>
@@ -438,7 +441,7 @@
 </li>
 </ol>
 <p>initial语句用于对寄存器变量赋予初值</p>
-<ol start="5">
+<ol>
 <li><p>条件语句<strong>if-else</strong></p>
 </li>
 <li><p>条件语句<strong>case</strong></p>
@@ -449,8 +452,7 @@
 <li><strong>forever</strong>语句：连续执行的语句</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">格式: forever begin 语句块 end</span><br><span class="line">forever常用于仿真代码中</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li><strong>repeat</strong></li>
 <li><strong>while</strong></li>
 <li><strong>for</strong> 尽量少用，循环次数固定</li>
@@ -458,129 +460,133 @@
 </li>
 </ol>
 <h2 id="第三章-组合逻辑电路"><a href="#第三章-组合逻辑电路" class="headerlink" title="第三章 组合逻辑电路"></a>第三章 组合逻辑电路</h2><h4 id="多数表决器的实现"><a href="#多数表决器的实现" class="headerlink" title="多数表决器的实现"></a>多数表决器的实现</h4><ol>
-<li><p><strong>逻辑表达式</strong>：<code>f = a&amp;b|a&amp;c|b&amp;C</code></p>
-</li>
-<li><p><strong>RTL分析</strong>：在左侧的流程导航器<code>Flow Navigator</code>中的详细设计<code>Elaborated Design</code> 部分按右键，在弹出的菜单中选<code>New Elaborated Design</code>之后得到RTL电路图（RTL意思是寄存器传输级，生成寄存器传输级别的电路，并非综合后的电路），在开发过程中RTL分析不是必须的，但是能帮助我们检测错误。</p>
-</li>
+<li><strong>逻辑表达式</strong>：<code>f = a&amp;b|a&amp;c|b&amp;C</code></li>
+<li><strong>RTL分析</strong>：在左侧的流程导航器<code>Flow Navigator</code>中的详细设计<code>Elaborated Design</code> 部分按右键，在弹出的菜单中选<code>New Elaborated Design</code>之后得到RTL电路图（RTL意思是寄存器传输级，生成寄存器传输级别的电路，并非综合后的电路），在开发过程中RTL分析不是必须的，但是能帮助我们检测错误。</li>
 <li><p><strong>综合</strong>：将RTL级别的设计描述转换成逻辑门级的逻辑描述。单击流程导航窗口综合<code>Synthesis</code>项下的<code>Run Synthesis</code>进入综合，综合完毕后点击<code>Schematic</code>打开原理图。</p>
 </li>
 <li><p><strong>仿真</strong>：新建仿真文件，然后编辑内容，再点击<code>Run Simulation</code></p>
 </li>
-<li><p><strong>编程和调试</strong>：首先生成比特流，然后再进行硬件调试</p>
-</li>
+<li><strong>编程和调试</strong>：首先生成比特流，然后再进行硬件调试</li>
 </ol>
 <h4 id="3-8译码器设计和IP核"><a href="#3-8译码器设计和IP核" class="headerlink" title="3-8译码器设计和IP核"></a><strong>3-8译码器设计和IP核</strong></h4><ol>
 <li>译码器设计步骤与多数表决器相同，也是组合逻辑电路</li>
 <li><strong>IP核</strong>：点击顶部的<strong>Tools</strong>，然后点击<strong>Create and Package IP</strong>项，之后一直<strong>Next</strong>，进入以下页面：</li>
 </ol>
-<img src="/blog/2020/07/14/Verilog基础1/image1" style="zoom:80%;">
-
+<p><img src="/blog/2020/07/14/Verilog基础1/image1" style="zoom:80%;"></p>
 <p>没什么问题后点击<strong>Review and Package</strong>中的<strong>Package IP</strong></p>
 <h4 id="调用IP核实现多数表决器"><a href="#调用IP核实现多数表决器" class="headerlink" title="调用IP核实现多数表决器"></a>调用IP核实现多数表决器</h4><h2 id="第四章-时序逻辑电路"><a href="#第四章-时序逻辑电路" class="headerlink" title="第四章 时序逻辑电路"></a>第四章 时序逻辑电路</h2><p>时钟同步状态机：时序电路的状态变化发生的时间有一个统一的时钟信号的指定边沿来激励。</p>
 <h4 id="实现11001序列发生器"><a href="#实现11001序列发生器" class="headerlink" title="实现11001序列发生器"></a>实现11001序列发生器</h4><ol>
 <li>画出状态转移图</li>
 </ol>
-<img src="/blog/2020/07/14/Verilog基础1/image2">
-
-<ol start="2">
+<p><img src="/blog/2020/07/14/Verilog基础1/image2"></p>
+<ol>
 <li>画出状态转移表</li>
 </ol>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">Q0 Q1 Q2</th>
-<th align="center">Q0* Q1* Q2*</th>
-<th align="center">Z</th>
+<th style="text-align:center">Q0 Q1 Q2</th>
+<th style="text-align:center">Q0<em> Q1</em> Q2*</th>
+<th style="text-align:center">Z</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">000</td>
-<td align="center">001</td>
-<td align="center">1</td>
+<tbody>
+<tr>
+<td style="text-align:center">000</td>
+<td style="text-align:center">001</td>
+<td style="text-align:center">1</td>
 </tr>
 <tr>
-<td align="center">001</td>
-<td align="center">010</td>
-<td align="center">1</td>
+<td style="text-align:center">001</td>
+<td style="text-align:center">010</td>
+<td style="text-align:center">1</td>
 </tr>
 <tr>
-<td align="center">010</td>
-<td align="center">011</td>
-<td align="center">0</td>
+<td style="text-align:center">010</td>
+<td style="text-align:center">011</td>
+<td style="text-align:center">0</td>
 </tr>
 <tr>
-<td align="center">011</td>
-<td align="center">100</td>
-<td align="center">0</td>
+<td style="text-align:center">011</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">0</td>
 </tr>
 <tr>
-<td align="center">100</td>
-<td align="center">000</td>
-<td align="center">1</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">000</td>
+<td style="text-align:center">1</td>
 </tr>
-</tbody></table>
-<ol start="3">
+</tbody>
+</table>
+</div>
+<ol>
 <li>根据状态转移表画卡诺图求解。（未使用的状态用无关项表示）</li>
 </ol>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">Q2/Q0Q1</th>
-<th align="center">00</th>
-<th align="center">01</th>
-<th align="center">11</th>
-<th align="center">10</th>
+<th style="text-align:center">Q2/Q0Q1</th>
+<th style="text-align:center">00</th>
+<th style="text-align:center">01</th>
+<th style="text-align:center">11</th>
+<th style="text-align:center">10</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">0</td>
-<td align="center">001/1</td>
-<td align="center">011/0</td>
-<td align="center">ddd/d</td>
-<td align="center">000/1</td>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">001/1</td>
+<td style="text-align:center">011/0</td>
+<td style="text-align:center">ddd/d</td>
+<td style="text-align:center">000/1</td>
 </tr>
 <tr>
-<td align="center">1</td>
-<td align="center">010/1</td>
-<td align="center">100/0</td>
-<td align="center">ddd/d</td>
-<td align="center">ddd/d</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">010/1</td>
+<td style="text-align:center">100/0</td>
+<td style="text-align:center">ddd/d</td>
+<td style="text-align:center">ddd/d</td>
 </tr>
-</tbody></table>
-<ol start="4">
+</tbody>
+</table>
+</div>
+<ol>
 <li><p>得到转移方程和输出方程</p>
 <ol>
-<li><p>转移方程：<br>$$<br>Q0* = Q1Q2\<br>Q1* = Q1’Q2 + Q1Q2’\<br>Q2* = Q0’Q2’<br>$$</p>
-</li>
+<li><p>转移方程：</p>
+<script type="math/tex; mode=display">
+Q0* = Q1Q2\\
+Q1* = Q1'Q2 + Q1Q2'\\
+Q2* = Q0'Q2'</script></li>
 <li><p>输出方程</p>
 </li>
 </ol>
-<p>$$<br>Z = Q1’<br>$$</p>
-</li>
+<script type="math/tex; mode=display">
+Z = Q1'</script></li>
 <li><p>判断自启动，FPGA设计可以给出初始态，所以可以忽略</p>
 </li>
-<li><p>使用D触发器，写出激励方程<br>$$<br>D0 = Q0* = Q1Q2\<br>D1 = Q1* = Q1’Q2 + Q1Q2’\<br>D2 = Q2* = Q0’Q2’<br>$$</p>
-</li>
+<li><p>使用D触发器，写出激励方程</p>
+<script type="math/tex; mode=display">
+D0 = Q0* = Q1Q2\\
+D1 = Q1* = Q1'Q2 + Q1Q2'\\
+D2 = Q2* = Q0'Q2'</script></li>
 <li><p>建立工程编写程序</p>
 </li>
 </ol>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> seq_11001_1(</span><br><span class="line">	<span class="keyword">input</span>  clk,</span><br><span class="line">	<span class="keyword">output</span> led</span><br><span class="line">    );</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">5</span>:<span class="number">0</span>] divclk_cnt = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">reg</span> divclk = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">reg</span> q0 = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">reg</span> q1 = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">reg</span> q2 = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">always</span> @ ( <span class="keyword">posedge</span> clk )</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">if</span>(divclk_cnt == <span class="number">25</span>) <span class="comment">// 50分频 25低25高 默认32位宽</span></span><br><span class="line">	<span class="keyword">begin</span></span><br><span class="line">		divclk = ~divclk;</span><br><span class="line">		divclk_cnt = <span class="number">0</span>;		</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">		divclk_cnt = divclk_cnt + <span class="number">1'b1</span>;</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">assign</span> led = ~q1;</span><br><span class="line"><span class="keyword">always</span> @ (<span class="keyword">posedge</span> divclk)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	q0 &lt;= q1&amp;q2;</span><br><span class="line">	q1 &lt;= ~q1&amp;q2|q1&amp;~q2;</span><br><span class="line">	q2 &lt;= ~q0&amp;~q2;</span><br><span class="line"><span class="keyword">end</span>	</span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-
 <p>仿真文件：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> sim1;</span><br><span class="line"><span class="keyword">reg</span> clk;</span><br><span class="line"><span class="keyword">wire</span> led;</span><br><span class="line">seq_11001_1 uut( clk, led );</span><br><span class="line"><span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">    clk = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">always</span> #<span class="number">10</span> clk = ~clk;</span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-
-<ol start="8">
+<ol>
 <li>仿真</li>
 </ol>
-<img src="/blog/2020/07/14/Verilog基础1/image3">
-
+<p><img src="/blog/2020/07/14/Verilog基础1/image3"></p>
 <p>从图可知，和状态转移表一致</p>
 <h4 id="状态图直接描述法实现序列发生器"><a href="#状态图直接描述法实现序列发生器" class="headerlink" title="状态图直接描述法实现序列发生器"></a>状态图直接描述法实现序列发生器</h4><p>根据上部分<strong>1</strong>中的状态转移图可以直接实现<strong>11001</strong>序列发生器，实现代码如下：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> seq_11001_2(</span><br><span class="line">    <span class="keyword">input</span> clk,</span><br><span class="line">    <span class="keyword">output</span> led</span><br><span class="line">    );</span><br><span class="line"><span class="keyword">reg</span> led;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] divclk_cnt = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">reg</span> divclk = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] state = state_A;</span><br><span class="line"><span class="keyword">parameter</span> <span class="comment">// 符号常量</span></span><br><span class="line">state_A = <span class="number">3'b000</span>,state_B = <span class="number">3'b001</span>,state_C = <span class="number">3'b010</span>,state_D = <span class="number">3'b011</span>,state_E = <span class="number">3'b100</span>;</span><br><span class="line"><span class="keyword">always</span> @ ( <span class="keyword">posedge</span> clk )</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">if</span>(divclk_cnt == <span class="number">25</span>)</span><br><span class="line">	<span class="keyword">begin</span></span><br><span class="line">		divclk = ~divclk;</span><br><span class="line">		divclk_cnt = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">		divclk_cnt = divclk_cnt + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">always</span> @ ( <span class="keyword">posedge</span> divclk )</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">case</span>( state )</span><br><span class="line">		state_A:<span class="keyword">begin</span></span><br><span class="line">			state &lt;= state_B;</span><br><span class="line">			led &lt;= <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">		state_B:<span class="keyword">begin</span></span><br><span class="line">			state &lt;= state_C;</span><br><span class="line">			led &lt;= <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">		state_C:<span class="keyword">begin</span></span><br><span class="line">			state &lt;= state_D;</span><br><span class="line">			led &lt;= <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">		state_D:<span class="keyword">begin</span></span><br><span class="line">			state &lt;= state_E;</span><br><span class="line">			led &lt;= <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">		state_E:<span class="keyword">begin</span></span><br><span class="line">			state &lt;= state_A;</span><br><span class="line">			led &lt;= <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">        <span class="comment">// 表示当前状态不属于以上状态，让状态回到state_A</span></span><br><span class="line">		<span class="keyword">default</span>:<span class="keyword">begin</span></span><br><span class="line">			state &lt;= state_A;</span><br><span class="line">			led &lt;= <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">endcase</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
-
 <p>仿真图如下：</p>
-<img src="/blog/2020/07/14/Verilog基础1/image4">
-
+<p><img src="/blog/2020/07/14/Verilog基础1/image4"></p>
 <p>当<code>state = 000</code>时，在<code>divclk</code>的下一个上升沿时<code>led = 1</code>，以此类推</p>
 
       
@@ -695,7 +701,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -829,7 +835,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">33.5k</span>
+    <span title="Site words total count">34.4k</span>
   
 </div>
 
@@ -1027,6 +1033,8 @@
   
 
   
+  
+
 
   
 

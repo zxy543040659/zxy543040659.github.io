@@ -17,6 +17,10 @@
 
 
 
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
 
 
 
@@ -386,7 +390,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
+    <div class="post-body han-init-context" itemprop="articleBody">
 
       
       
@@ -400,13 +404,10 @@
 <li>你可以假设字典中没有重复的单词。</li>
 </ul>
 <a id="more"></a>
-
-<img src="/blog/2020/06/25/LeetCode139-单词拆分/示例.png" style="zoom:80%;">
-
+<p><img src="/blog/2020/06/25/LeetCode139-单词拆分/示例.png" style="zoom:80%;"></p>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这道题题意还是挺好理解的，给定字符串s，从字典wordDict中取出单个或多个字符串（可重复），最后如果可以拼接成s，返回true，反之返回false。</p>
 <p>一开始暴力的思路就是遍历字典中的每一个字符串看是否出现在s中，如果出现了，那么用#号来代替s中的出现的子串，并且继续搜索，搜索完成后，将s中的#号清空，如果此时s为空，那么代表s可以被拆分，返回true。但是对于以下的例子：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"abbbc"</span></span><br><span class="line">wordDict = [<span class="string">"ab"</span>, <span class="string">"b"</span>, <span class="string">"bbc"</span>]</span><br></pre></td></tr></table></figure>
-
 <p>s可以由ab+bbc组合而成。但是用暴力法，只会搜到ab+b+b，再往下就搜索不到了，返回了false。如果需要修改，要用到dfs的思想，进行深搜，但是不剪枝也容易超时。在看了答案之后才知道可以用动态规划来做，而且很好理解。</p>
 <p>按照第二个示例来说，<code>s = &quot;applepenapple&quot;, wordDcit = [&quot;apple&quot;, &quot;pen&quot;]</code>，从s的第一个字符<code>a</code>开始遍历：</p>
 <ul>
@@ -419,9 +420,7 @@
 <p>如果<code>dp[j]</code>代表当前位置，<code>dp[i]</code>是某一起始位置，那么就需要检查从<code>i</code>到<code>j</code>的子串是否在字典中，如果在，并且<code>dp[i]</code>是可以拆分的，那么<code>dp[j]</code>也应该是可以拆分的，否则<code>dp[j]=false</code>。</p>
 <h4 id="状态转移方程"><a href="#状态转移方程" class="headerlink" title="状态转移方程"></a>状态转移方程</h4><p>根据上面的分析，可以容易写出以下的状态转移方程，同时将字典放入<code>unordered_map</code>中方便查找：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[j] = dp[i] &amp;&amp; dict.count(s.substr(i, j - i))</span><br></pre></td></tr></table></figure>
-
 <h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">wordBreak</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordDict)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 存入字典，方便查找</span></span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">bool</span>&gt; dict; </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;word : wordDict) dict[word] = <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 初始化dp数组，如果s为空，返回true</span></span><br><span class="line">        <span class="comment">// 实际上只初始化dp[0]即可</span></span><br><span class="line">        <span class="keyword">bool</span> *dp = <span class="keyword">new</span> <span class="keyword">bool</span>[s.length() + <span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="literal">true</span>; </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= s.length(); i++)&#123;</span><br><span class="line">            dp[i] = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= s.length(); j++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = j - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">                dp[j] = dp[i] &amp;&amp; dict.count(s.substr(i, j - i));</span><br><span class="line">                <span class="keyword">if</span>(dp[j]) <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[s.length()];    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://leetcode-cn.com/problems/word-break/solution/dan-ci-chai-fen-ju-jue-zhuang-xcong-jian-dan-de-xi/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/word-break/solution/dan-ci-chai-fen-ju-jue-zhuang-xcong-jian-dan-de-xi/</a></p>
 
       
@@ -542,7 +541,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -676,7 +675,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">33.5k</span>
+    <span title="Site words total count">34.4k</span>
   
 </div>
 
@@ -874,6 +873,8 @@
   
 
   
+  
+
 
   
 

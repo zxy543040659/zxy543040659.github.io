@@ -17,6 +17,10 @@
 
 
 
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
 
 
 
@@ -388,7 +392,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
+    <div class="post-body han-init-context" itemprop="articleBody">
 
       
       
@@ -398,8 +402,7 @@
 <p>在进行一番查看之后，选择了Sublime Text3这款工具来编写html文件，这款工具目前也比较流行，具体的好处就是可以带很多插件，提高你写代码的效率。这里附上ST3的下载网址：</p>
 <p><a href="http://www.sublimetext.com/3" target="_blank" rel="noopener">http://www.sublimetext.com/3</a></p>
 <h1 id="为什么使用Emmet这个插件？"><a href="#为什么使用Emmet这个插件？" class="headerlink" title="为什么使用Emmet这个插件？"></a>为什么使用Emmet这个插件？</h1><p>在没有安装Emmet之前，Sublime Text的使用貌似和记事本没有什么不同，也是得自己写结构，区别就是颜色好看了些，而安装了Emmet之后就不同了，如果你从事Web前端开发的话，对该插件一定不会陌生。它使用仿CSS选择器的语法来生成代码，大大提高了HTML/CSS代码编写的速度，可以直接使用 !+tab 快速得到一个标准的html5文档，如下图所示：</p>
-<img src="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/ST界面.png" style="zoom:50%;">
-
+<p><img src="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/ST界面.png" style="zoom:50%;"></p>
 <h1 id="安装Emmet插件"><a href="#安装Emmet插件" class="headerlink" title="安装Emmet插件"></a>安装Emmet插件</h1><p>这里已经默认你安装了Package Control，这个组件是用来安装/删除插件和其他一些功能要用到的（目前我就用到了安装和删除两个功能）。</p>
 <h2 id="自动安装法"><a href="#自动安装法" class="headerlink" title="自动安装法"></a>自动安装法</h2><p>这个方法就是看你运气，不过过程一定是正确的，但由于各种原因（墙、网络之类的）安装不成功的大有人在，所以先写一下自动安装法。</p>
 <ol>
@@ -415,8 +418,7 @@
 <p>出现这种情况的原因就是下载PyV8这个包不成功，那么你就得手动去下载，这个里也把网址给你了，如下：<a href="https://github.com/emmetio/pyv8-binaries" target="_blank" rel="noopener">https://github.com/emmetio/pyv8-binaries</a> 选择合适你电脑的版本去下载，这个必须记住，不然可能会用不了，我第一次就犯了这个错误。因为我电脑装了python3.7，所以我选择了 <strong>pyv8-win64-p3</strong>，我把下载地址也贴出来，不过因为gtihub是国外的网站，所以下载会很慢，链接如下：</p>
 <p><a href="https://github.com/emmetio/pyv8-binaries/raw/master/pyv8-win64-p3.zip" target="_blank" rel="noopener">https://github.com/emmetio/pyv8-binaries/raw/master/pyv8-win64-p3.zip</a></p>
 <p>下载好了之后，对它进行解压，得到下面这个文件：</p>
-<img src="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/pyv8.png" style="zoom:80%;">
-
+<p><img src="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/pyv8.png" style="zoom:80%;"></p>
 <p>接下来按照以下的步骤做就ok了：</p>
 <ol>
 <li>打开Sublime Text</li>
@@ -429,8 +431,7 @@
 <h3 id="2-手动安装Emmet"><a href="#2-手动安装Emmet" class="headerlink" title="2.手动安装Emmet"></a>2.手动安装Emmet</h3><p>如果你还是无法使用Emmet，但是你在首选项菜单中的Package Settings还能看到Emmet的身影，然而那只是个空壳，继续进入插件目录，你会发现没有与Emmet相关的文件夹的存在，那么你就需要自己手动安装Emmet。下载地址如下（下载也比较慢，但是只有200k左右）：</p>
 <p><a href="https://codeload.github.com/sergeche/emmet-sublime/zip/master" target="_blank" rel="noopener">https://codeload.github.com/sergeche/emmet-sublime/zip/master</a></p>
 <p>下载好了之后，继续进入插件目录（首选项 -&gt; 浏览插件目录），把解压后的文件放进去，如图：</p>
-<img src="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/emmet.png" style="zoom:50%;">
-
+<p><img src="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/emmet.png" style="zoom:50%;"></p>
 <p>接下来你再重启ST就行了，需要注意的是，如果你没有装PyV8，那么你打开ST之后它会自动再一次下载这个包，同样可能出现1中的问题，那么你可以先把PyV8装好，再手动安装Emmet，重启之后就大功告成，终于装好啦！我属于运气最差的那种，不好的都让我遇到了，刚接触花了几个小时才弄明白，虽然最后成功了，我还是流下了没有技术的眼泪。。。</p>
 
       
@@ -553,7 +554,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -687,7 +688,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">33.5k</span>
+    <span title="Site words total count">34.4k</span>
   
 </div>
 
@@ -885,6 +886,8 @@
   
 
   
+  
+
 
   
 
