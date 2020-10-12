@@ -17,10 +17,6 @@
 
 
 
-  
-  
-  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
-
 
 
 
@@ -392,7 +388,7 @@
     
     
     
-    <div class="post-body han-init-context" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody">
 
       
       
@@ -400,21 +396,27 @@
       
         <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定一个无序的整数数组，找到其中最长上升子序列的长度。</p>
 <a id="more"></a>
-<p><img src="/blog/2020/05/26/LeetCode300-最长上升子序列/sl.png" style="zoom:80%;"></p>
+
+<img src="/blog/2020/05/26/LeetCode300-最长上升子序列/sl.png" style="zoom:80%;">
+
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这是一道动态规划的经典入门题，这里的子序列不一定是连续的。比如示例中<code>[2, 3, 7, 101]</code>，只要是递增的，就是上升子序列，我需要找到这里面最长的上升子序列的长度。</p>
 <p>动态规划一般是由历史信息推断当前信息的，并且历史信息是是独立的子问题，相互之间不会影响。现在考虑一个dp数组，如果说dp[0]到dp[i-1]都可以得到了，如果可以推出dp[i]，就可以得到dp数组的全部结果。</p>
 <h4 id="一、定义dp数组的含义"><a href="#一、定义dp数组的含义" class="headerlink" title="一、定义dp数组的含义"></a>一、定义dp数组的含义</h4><p>我们可以定义dp[i]表示以nums[i]这个数结尾的最长上升子序列的长度。举两个例子：</p>
-<p><img src="/blog/2020/05/26/LeetCode300-最长上升子序列/ex1.png" style="zoom:80%;"></p>
+<img src="/blog/2020/05/26/LeetCode300-最长上升子序列/ex1.png" style="zoom:80%;">
+
 <p>根据这个定义，最终结果(子序列的最大长度)就是dp数组中的最大值。</p>
 <h4 id="二、状态转移方程"><a href="#二、状态转移方程" class="headerlink" title="二、状态转移方程"></a>二、状态转移方程</h4><p>这就是动态规划的重头戏了，要思考如何进行状态转移，这里就可以使用数学归纳的思想：</p>
 <p>我们已经知道了 dp[0]到dp[4] 的所有结果，我们如何通过这些已知结果推出 dp[5] 呢？</p>
-<p><img src="/blog/2020/05/26/LeetCode300-最长上升子序列/ex2.png" style="zoom:80%;"></p>
+<img src="/blog/2020/05/26/LeetCode300-最长上升子序列/ex2.png" style="zoom:80%;">
+
 <p>根据刚才我们对 dp 数组的定义，现在想求 dp[5] 的值，也就是想求以 nums[5] 为结尾的最长递增子序列。</p>
 <p>nums[5] = 7，既然是递增子序列，我们只要找到前面那些结尾比 7 小的子序列，然后把 7 接到最后，就可以形成一个新的递增子序列，而且这个新的子序列长度加一。</p>
 <p>当然，可能形成很多种新的子序列，但是我们只要最长的，把最长子序列的长度作为 dp[5] 的值即可。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (nums[i] &gt; nums[j]) </span><br><span class="line">        dp[i] = max(dp[i], dp[j] + <span class="number">1</span>);</span><br><span class="line">&#125; </span><br><span class="line"><span class="meta"># dp数组需要初始化为1，因为自己本身也算一个序列</span></span><br><span class="line"># 当i = <span class="number">5</span>时</span><br><span class="line"># nums[<span class="number">5</span>] &gt; nums[<span class="number">2</span>] dp[<span class="number">5</span>] = max&#123;dp[<span class="number">5</span>], dp[<span class="number">2</span>] + <span class="number">1</span>&#125; = max&#123;<span class="number">1</span>, <span class="number">2</span>&#125; = <span class="number">2</span></span><br><span class="line"># nums[<span class="number">5</span>] &gt; nums[<span class="number">3</span>] dp[<span class="number">5</span>] = max&#123;dp[<span class="number">5</span>], dp[<span class="number">3</span>] + <span class="number">1</span>&#125; = max&#123;<span class="number">2</span>, <span class="number">2</span> + <span class="number">1</span>&#125; = <span class="number">3</span></span><br><span class="line"># nums[<span class="number">5</span>] &gt; nums[<span class="number">4</span>] dp[<span class="number">5</span>] = max&#123;dp[<span class="number">5</span>], dp[<span class="number">4</span>] + <span class="number">1</span>&#125; = max&#123;<span class="number">3</span>, <span class="number">2</span> + <span class="number">1</span>&#125; = <span class="number">3</span></span><br><span class="line"># 所以dp[<span class="number">5</span>] = <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
 <p>根据上述的状态转移公式，就可以得到dp数组的所有值，我们再取其中的最大值，就是答案。</p>
 <h4 id="三、代码实现"><a href="#三、代码实现" class="headerlink" title="三、代码实现"></a>三、代码实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(nums.size(), <span class="number">1</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i] &gt; nums[j])</span><br><span class="line">                    dp[i] = max(dp[i],dp[j] + <span class="number">1</span>); </span><br><span class="line">                <span class="comment">//dp[i]是指历史中的最大长度，否则后面的长度+1小于历史最大长度时，会覆盖</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> *max_element(dp.begin(), dp.end());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>《labuladong的算法小抄》 动态规划设计：最长递增子序列</p>
 
       
@@ -535,7 +537,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -557,7 +559,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -669,7 +671,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">34.4k</span>
+    <span title="Site words total count">34.9k</span>
   
 </div>
 

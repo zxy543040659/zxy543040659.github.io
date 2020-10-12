@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="动态规划,">
+  <meta name="keywords" content="二叉树,递归,">
 
 
 
@@ -81,20 +81,22 @@
 
 
 
-<meta name="description" content="题目描述小扣出去秋游，途中收集了一些红叶和黄叶，他利用这些叶子初步整理了一份秋叶收藏集 leaves， 字符串 leaves 仅包含小写字符 r 和 y， 其中字符 r 表示一片红叶，字符 y 表示一片黄叶。出于美观整齐的考虑，小扣想要将收藏集中树叶的排列调整成「红、黄、红」三部分。每部分树叶数量可以不相等，但均需大于等于 1。每次调整操作，小扣可以将一片红叶替换成黄叶或者将一片黄叶替换成红叶。请">
-<meta name="keywords" content="动态规划">
+<meta name="description" content="题目描述根据一棵树的中序遍历与后序遍历构造二叉树。 注意:你可以假设树中没有重复的元素。">
+<meta name="keywords" content="二叉树,递归">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LCP19-秋叶收藏集">
-<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/index.html">
+<meta property="og:title" content="LeetCode106-从中序与后序遍历序列构造二叉树">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/index.html">
 <meta property="og:site_name" content="Zxy&#39;s blog">
-<meta property="og:description" content="题目描述小扣出去秋游，途中收集了一些红叶和黄叶，他利用这些叶子初步整理了一份秋叶收藏集 leaves， 字符串 leaves 仅包含小写字符 r 和 y， 其中字符 r 表示一片红叶，字符 y 表示一片黄叶。出于美观整齐的考虑，小扣想要将收藏集中树叶的排列调整成「红、黄、红」三部分。每部分树叶数量可以不相等，但均需大于等于 1。每次调整操作，小扣可以将一片红叶替换成黄叶或者将一片黄叶替换成红叶。请">
+<meta property="og:description" content="题目描述根据一棵树的中序遍历与后序遍历构造二叉树。 注意:你可以假设树中没有重复的元素。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/image-20201011112801516.png">
-<meta property="og:updated_time" content="2020-10-12T09:27:57.981Z">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/示例.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/pic1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/pic2.png">
+<meta property="og:updated_time" content="2020-10-12T09:15:13.117Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LCP19-秋叶收藏集">
-<meta name="twitter:description" content="题目描述小扣出去秋游，途中收集了一些红叶和黄叶，他利用这些叶子初步整理了一份秋叶收藏集 leaves， 字符串 leaves 仅包含小写字符 r 和 y， 其中字符 r 表示一片红叶，字符 y 表示一片黄叶。出于美观整齐的考虑，小扣想要将收藏集中树叶的排列调整成「红、黄、红」三部分。每部分树叶数量可以不相等，但均需大于等于 1。每次调整操作，小扣可以将一片红叶替换成黄叶或者将一片黄叶替换成红叶。请">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/image-20201011112801516.png">
+<meta name="twitter:title" content="LeetCode106-从中序与后序遍历序列构造二叉树">
+<meta name="twitter:description" content="题目描述根据一棵树的中序遍历与后序遍历构造二叉树。 注意:你可以假设树中没有重复的元素。">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/示例.png">
 
 
 
@@ -124,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/">
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/">
 
 
 
 
 
-  <title>LCP19-秋叶收藏集 | Zxy's blog</title>
+  <title>LeetCode106-从中序与后序遍历序列构造二叉树 | Zxy's blog</title>
   
 
 
@@ -267,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xingyu_Zhao">
@@ -284,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LCP19-秋叶收藏集</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode106-从中序与后序遍历序列构造二叉树</h1>
         
 
         <div class="post-meta">
@@ -296,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-11T11:25:10+08:00">
-                2020-10-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-27T22:24:39+08:00">
+                2020-09-27
               </time>
             
 
@@ -355,7 +357,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  890
+                  566
                 </span>
               
 
@@ -371,7 +373,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -392,42 +394,33 @@
       
 
       
-        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>小扣出去秋游，途中收集了一些红叶和黄叶，他利用这些叶子初步整理了一份秋叶收藏集 leaves， 字符串 leaves 仅包含小写字符 r 和 y， 其中字符 r 表示一片红叶，字符 y 表示一片黄叶。<br>出于美观整齐的考虑，小扣想要将收藏集中树叶的排列调整成「红、黄、红」三部分。每部分树叶数量可以不相等，但均需大于等于 1。每次调整操作，小扣可以将一片红叶替换成黄叶或者将一片黄叶替换成红叶。请问小扣最少需要多少次调整操作才能将秋叶收藏集调整完毕。</p>
+        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>根据一棵树的中序遍历与后序遍历构造二叉树。</p>
+<p><strong>注意:</strong><br>你可以假设树中没有重复的元素。</p>
 <a id="more"></a>
 
-<img src="/blog/2020/10/11/LCP19-秋叶收藏集/image-20201011112801516.png" style="zoom:80%;">
+<img src="/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/示例.png">
 
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>用三个状态来标记其中的每一个部分，0和2表示前面和后面的红色，1表示中间的黄色，于是三部分结构为「0、1、2」。</p>
-<p>定义<code>dp[i][j]</code>表示：对**[0..i]<strong>片叶子进行调整，并且第</strong>i<strong>片叶子处于</strong>j**状态的最小操作数，所以有下面三种情况：</p>
-<ol>
-<li>当<strong>j = 0</strong>时，第<strong>i</strong>片叶子应为红色，并且第<strong>i - 1</strong>片叶子也应该处于<strong>j = 0</strong>的状态：</li>
-</ol>
-<p>$$<br>dp[i][0] = dp[i-1][0] + isYellow(i)<br>$$</p>
-<p>$$<br>isYellow(i)=<br>\begin{cases}<br>1&amp; \text{leaves[i] = ‘y’}\\<br>0&amp; \text{leaves[i] = ‘r’}<br>\end{cases}<br>$$</p>
-<p>如果是黄色，那么需要进行一次操作修改颜色：</p>
-<ol start="2">
-<li>当<strong>j = 1</strong>时，第<strong>i</strong>片叶子应为黄色，第<strong>i - 1</strong>片叶子可以处于<strong>j = 0</strong>或<strong>j = 1</strong>的状态，所以取其中的较小值：</li>
-</ol>
-<p>$$<br>dp[i][1] = min(dp[i-1][1], dp[i-1][0]) + isRed(i)<br>$$</p>
-<p>$$<br>isRed(i)=<br>\begin{cases}<br>1&amp; \text{leaves[i] = ‘r’}\\<br>0&amp; \text{leaves[i] = ‘y’}<br>\end{cases}<br>$$</p>
-<p>​        如果是红色，那么需要进行一次操作修改颜色：</p>
-<ol start="3">
-<li>当<strong>j = 2</strong>时，第<strong>i</strong>片叶子应为红色，第<strong>i - 1</strong>片叶子可以处于<strong>j = 2</strong>或<strong>j = 1</strong>的状态（不能取<strong>j = 0</strong>的状态，因为每种状态至少含有一片叶子，中间必须存在有黄色叶子），再取其中的较小值：</li>
-</ol>
-<p>$$<br>dp[i][2] = min(dp[i-1][2], dp[i-1][1]) + isYellow(i)<br>$$</p>
-<p>如果是黄色，那么需要进行一次操作修改颜色，公式同1</p>
-<p>最终答案为<code>dp[n-1][2]</code>。</p>
-<p><strong><em>初始化条件：</em></strong></p>
-<ol>
-<li>要保证每种状态都有叶子，则叶子数量应大于等于状态数量，对于<code>dp[i][j]</code>，有<strong>i &gt;= j</strong>；如果<strong>i &lt; j</strong>，那么可以令<code>dp[i][j] = INT_MAX</code>；</li>
-<li>对于<strong>i = 0</strong>，<strong>j</strong>也必须为0，于是有<code>dp[0][0] = isYellow(0)</code>。</li>
-</ol>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minimumOperations</span><span class="params">(<span class="built_in">string</span> leaves)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">dp</span><span class="params">(leaves.size(), <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">3</span>))</span></span>;</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = leaves[<span class="number">0</span>] == <span class="string">'y'</span>;</span><br><span class="line">        <span class="comment">// 不合要求的,实际上也不会遇到dp[0][2]这种情况</span></span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">1</span>] = dp[<span class="number">0</span>][<span class="number">2</span>] = dp[<span class="number">1</span>][<span class="number">2</span>] = INT_MAX;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; leaves.size(); ++i)&#123;</span><br><span class="line">            <span class="keyword">int</span> isYellow = leaves[i] == <span class="string">'y'</span>;</span><br><span class="line">            <span class="keyword">int</span> isRed = leaves[i] == <span class="string">'r'</span>;</span><br><span class="line">            dp[i][<span class="number">0</span>] = dp[i - <span class="number">1</span>][<span class="number">0</span>] + isYellow;</span><br><span class="line">            dp[i][<span class="number">1</span>] = min(dp[i - <span class="number">1</span>][<span class="number">1</span>], dp[i - <span class="number">1</span>][<span class="number">0</span>]) + isRed;</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= <span class="number">2</span>) dp[i][<span class="number">2</span>] = min(dp[i - <span class="number">1</span>][<span class="number">1</span>], dp[i - <span class="number">1</span>][<span class="number">2</span>]) + isYellow;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[leaves.size() - <span class="number">1</span>][<span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>也可以优化空间，使用3个变量来代替状态转移数组：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minimumOperations</span><span class="params">(<span class="built_in">string</span> leaves)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = leaves.size();</span><br><span class="line">        <span class="comment">// dp[0][0]</span></span><br><span class="line">        <span class="keyword">int</span> start = leaves[<span class="number">0</span>] == <span class="string">'y'</span>;</span><br><span class="line">        <span class="comment">// dp[0][1]</span></span><br><span class="line">        <span class="keyword">int</span> mid = INT_MAX;</span><br><span class="line">        <span class="comment">// dp[1][2]</span></span><br><span class="line">        <span class="keyword">int</span> last = INT_MAX;</span><br><span class="line">        <span class="comment">// 初始化转移变量</span></span><br><span class="line">        <span class="keyword">int</span> start2, mid2, last2 = INT_MAX, red = <span class="number">0</span>, yellow = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</span><br><span class="line">            red = leaves[i] == <span class="string">'r'</span>;</span><br><span class="line">            yellow = leaves[i] == <span class="string">'y'</span>;</span><br><span class="line">            start2 = start + yellow;</span><br><span class="line">            mid2 = min(start, mid) + red;</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= <span class="number">2</span>) last2 = min(mid, last) + yellow;</span><br><span class="line"></span><br><span class="line">            start = start2;</span><br><span class="line">            mid = mid2;</span><br><span class="line">            last = last2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> last;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://leetcode-cn.com/problems/UlBDOe/solution/qiu-xie-shou-cang-ji-by-leetcode-solution/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/UlBDOe/solution/qiu-xie-shou-cang-ji-by-leetcode-solution/</a></p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>对于二叉树的题，大部分都是通过递归来解决的，此题也不例外，需要注意的是，要充分利用二叉树中序遍历和后序遍历的性质。</p>
+<ul>
+<li>中序遍历二叉树(左子树—根节点—右子树)，根节点的左边是左子树，右边是右子树；</li>
+<li>后序遍历二叉树(左子树—右子树—根节点)，根节点是最后输出的。</li>
+</ul>
+<p>在后序遍历数组中找到根节点之后，再从中序遍历数组中搜索根节点的左边，由此坐标将数组分开，分别就是当前根节点下的左子树和右子树：</p>
+<img src="/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/pic1.png">
+
+<p>上图中<code>inorder</code>数组中，3是在<code>postorder</code>找到的根节点，由此节点分开，<code>inorder</code>数组中绿色部分是左子树，黄色部分是右子树，在<code>posorder</code>数组中也是一样的。</p>
+<ul>
+<li>定义<code>inorder</code>数组中3的位置为<strong>rootIn</strong>，数组起始位置为<strong>iStart</strong>，结束位置为<strong>iEnd</strong>；</li>
+<li>定义<code>postorder</code>数组数组起始位置为<strong>pStart</strong>，结束位置为<strong>pEnd</strong>；</li>
+</ul>
+<p>根据以上定义，<code>inorder</code>数组中左子树起止位置为<code>iStart-&gt;rootIn-1</code>，右子树起止位置为<code>rootIn+1-&gt;iEnd</code>；<code>postorder</code>数组中左子树起止位置为<code>pStart-&gt;pStart+rootIn-iStart-1</code>，右子树起止位置为<code>pStart+rootIn-iStart-&gt;pEnd-1</code>，图来自leetcode题解(<a href="https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/solution/tu-jie-gou-zao-er-cha-shu-wei-wan-dai-xu-by-user72/)%EF%BC%9A" target="_blank" rel="noopener">https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/solution/tu-jie-gou-zao-er-cha-shu-wei-wan-dai-xu-by-user72/)：</a></p>
+<img src="/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/pic2.png">
+
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; post;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 使用一个map记录中序遍历数值的位置</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;num : inorder)&#123;</span><br><span class="line">            <span class="built_in">map</span>[num] = cnt++;</span><br><span class="line">        &#125;</span><br><span class="line">        post = postorder;</span><br><span class="line">        TreeNode *node = dfs(<span class="number">0</span>, inorder.size() - <span class="number">1</span>, <span class="number">0</span>, postorder.size() - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> iStart, <span class="keyword">int</span> iEnd, <span class="keyword">int</span> pStart, <span class="keyword">int</span> pEnd)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(iStart &gt; iEnd || pStart &gt; pEnd) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">int</span> root = post[pEnd];</span><br><span class="line">        <span class="keyword">int</span> rootIn = <span class="built_in">map</span>[root];</span><br><span class="line">        TreeNode *node = <span class="keyword">new</span> TreeNode(root);</span><br><span class="line">        node-&gt;left = dfs(iStart, rootIn - <span class="number">1</span>, pStart, pStart + rootIn - iStart - <span class="number">1</span>);</span><br><span class="line">        node-&gt;right = dfs(rootIn + <span class="number">1</span>, iEnd, pStart + rootIn - iStart, pEnd - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a href="https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/solution/tu-jie-gou-zao-er-cha-shu-wei-wan-dai-xu-by-user72/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/solution/tu-jie-gou-zao-er-cha-shu-wei-wan-dai-xu-by-user72/</a></p>
 
       
     </div>
@@ -445,7 +438,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
+            <a href="/tags/二叉树/" rel="tag"># 二叉树</a>
+          
+            <a href="/tags/递归/" rel="tag"># 递归</a>
           
         </div>
       
@@ -458,8 +453,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2020/10/09/LeetCode701-二叉搜索树中的插入操作/" rel="next" title="LeetCode701-二叉搜索树中的插入操作">
-                <i class="fa fa-chevron-left"></i> LeetCode701-二叉搜索树中的插入操作
+              <a href="/blog/2020/09/20/LeetCode200-岛屿数量/" rel="next" title="LeetCode200-岛屿数量">
+                <i class="fa fa-chevron-left"></i> LeetCode200-岛屿数量
               </a>
             
           </div>
@@ -467,6 +462,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2020/10/09/LeetCode701-二叉搜索树中的插入操作/" rel="prev" title="LeetCode701-二叉搜索树中的插入操作">
+                LeetCode701-二叉搜索树中的插入操作 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -875,26 +874,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
