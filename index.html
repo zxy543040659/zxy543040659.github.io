@@ -349,7 +349,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  558
+                  570
                 </span>
               
 
@@ -387,41 +387,15 @@
 
       
         
-          
-            <h4 id="第七章：类"><a href="#第七章：类" class="headerlink" title="第七章：类"></a>第七章：类</h4><ol>
-<li><h5 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h5></li>
-</ol>
-<ul>
-<li><p>类可以允许其他类或者函数访问它的非共有成员，方法是令其他类或者函数（可以是成员函数也可以是非成员函数）成为它的友元。一般来说，在类的开始或者结束前位置集中声明友元。如果希望类的用户能够调用某个友元函数，那么就需要在类中友元声明之外再进行一次声明。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sales_data</span>&#123;</span></span><br><span class="line"><span class="function"><span class="keyword">friend</span> Sales_data <span class="title">add</span><span class="params">(<span class="keyword">const</span> Sale_data&amp;, <span class="keyword">const</span> Sale_data&amp;)</span></span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    /.../</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    /.../</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 非成员函数声明</span></span><br><span class="line"><span class="function">Sales_data <span class="title">add</span><span class="params">(<span class="keyword">const</span> Sale_data&amp;, <span class="keyword">const</span> Sale_data&amp;)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果一个类指定了友元类，则友元类的成员函数可以访问此类包括非公有成员在内的所有成员。友元的关系不具有传递性。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Screen</span>&#123;</span></span><br><span class="line">    <span class="comment">// Window_mgr的成员可以访问Screen类的私有部分</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Window_mgr</span>;</span></span><br><span class="line">    /.../</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 也可以只为某个成员函数提供访问权限</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Screen</span>&#123;</span></span><br><span class="line">    <span class="comment">// Window_mgr::clear必须再Screen类之前声明</span></span><br><span class="line">    <span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">Window_mgr::clear</span><span class="params">(ScreenIndex)</span></span>;</span><br><span class="line">    /.../</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ol start="2">
-<li><strong>构造函数</strong></li>
-</ol>
-<ul>
-<li><p>使用构造函数初始值列表来初始化成员。</p>
-</li>
-<li><p>如果成员是引用或者const时，必须通过函数初始值列标将其初始化：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConstRef</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	ConstRef(<span class="keyword">int</span> ii);</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> ci;</span><br><span class="line">	<span class="keyword">int</span> &amp;ri;</span><br><span class="line">&#125;</span><br><span class="line">ConstRef::ConstRef(<span class="keyword">int</span> ii): i(ii), ci(ii), ri(ii);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ol start="3">
-<li><strong>类的静态成员</strong></li>
-</ol>
-<ul>
-<li><p>适用于类的成员直接与类相关，而不是与类的各个对象关联，比如说：银行的利率</p>
-</li>
-<li><p>静态成员可以是public或者private，使用关键字static，成员函数不用通过作用域运算符就能直接使用静态成员。静态成员不是由类的构造函数初始化的，一般在类的外部定义和初始化每个静态成员，只能定义一次：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Account</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">calculate</span><span class="params">()</span> </span>&#123; amount += amount * interestRate; &#125;;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">double</span> <span class="title">rate</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> interestRate; &#125;;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">rate</span><span class="params">(<span class="keyword">double</span>)</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">string</span> owner;</span><br><span class="line">    <span class="keyword">double</span> amount;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">double</span> interestRate;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">double</span> <span class="title">initRate</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1.0</span>;</span><br><span class="line">    &#125;;  </span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Account::rate</span><span class="params">(<span class="keyword">double</span> newRate)</span></span>&#123;</span><br><span class="line">    interestRate = newRate;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定义并初始化一个静态成员</span></span><br><span class="line"><span class="keyword">double</span> Account::interestRate = initRate();</span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Account c1;</span><br><span class="line">    <span class="keyword">double</span> r;</span><br><span class="line">    r = c1.rate();</span><br><span class="line">    <span class="comment">// 输出1</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; r &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    </span><br><span class="line">    Account::rate(<span class="number">0.8</span>);</span><br><span class="line">    r = c1.rate();</span><br><span class="line">    <span class="comment">// 输出0.8</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; r &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-
-          
+          <p>《C++ Primer》第七章内容——类</p>
+<p><strong>部分总结</strong></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/blog/2020/10/18/C-类的一些知识点/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
