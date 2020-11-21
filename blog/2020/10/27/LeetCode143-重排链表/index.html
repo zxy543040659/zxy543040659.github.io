@@ -90,7 +90,7 @@
 <meta property="og:description" content="本题同时解决LeetCode206-反转链表和LeetCode876-链表的中间结点 题目描述给定一个单链表 L：L0→L1→…→Ln-1→Ln ，将其重新排列后变为： L0→Ln→L1→Ln-1→L2→Ln-2→… 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/10/27/LeetCode143-重排链表/示例.png">
-<meta property="og:updated_time" content="2020-10-27T02:19:56.000Z">
+<meta property="og:updated_time" content="2020-11-21T16:00:00.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode143-重排链表">
 <meta name="twitter:description" content="本题同时解决LeetCode206-反转链表和LeetCode876-链表的中间结点 题目描述给定一个单链表 L：L0→L1→…→Ln-1→Ln ，将其重新排列后变为： L0→Ln→L1→Ln-1→L2→Ln-2→… 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。">
@@ -355,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  417
+                  507
                 </span>
               
 
@@ -401,7 +401,7 @@
 
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>观察链表，对于长度为偶数的链表，如示例1，可以将2之后的子链表进行反转得到<code>4-&gt;3</code>，然后再与剩下的链表<code>1-&gt;2</code>交叉合并，得到<code>1-&gt;4-&gt;2-&gt;3</code>；</p>
 <p>长度为奇数的链表同理，找到中间结点3，将3之后的子链表反转得到<code>5-&gt;4</code>，再与剩下的链表<code>1-&gt;2-&gt;3</code>进行合并，得到<code>1-&gt;5-&gt;2-&gt;4-&gt;3</code>。</p>
-<h4 id="链表的中间结点"><a href="#链表的中间结点" class="headerlink" title="链表的中间结点"></a>链表的中间结点</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">midNode</span><span class="params">(ListNode *root)</span></span>&#123;</span><br><span class="line">    ListNode *fast = root;</span><br><span class="line">    ListNode *slow = root;</span><br><span class="line">    <span class="keyword">while</span>(fast &amp;&amp; fast-&gt;next)&#123;</span><br><span class="line">        fast = fast-&gt;next-&gt;next;</span><br><span class="line">        slow = slow-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> slow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="链表的中间结点"><a href="#链表的中间结点" class="headerlink" title="链表的中间结点"></a>链表的中间结点</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对于偶数长度链表，找到的是中间靠后的一个</span></span><br><span class="line"><span class="function">ListNode* <span class="title">midNode</span><span class="params">(ListNode *root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root || !root-&gt;next) </span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    ListNode *fast = root;</span><br><span class="line">    ListNode *slow = root;</span><br><span class="line">    <span class="keyword">while</span>(fast &amp;&amp; fast-&gt;next)&#123;</span><br><span class="line">        fast = fast-&gt;next-&gt;next;</span><br><span class="line">        slow = slow-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> slow;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 对于偶数长度链表，找到的是中间靠前的一个</span></span><br><span class="line"><span class="function">ListNode* <span class="title">midNode</span><span class="params">(ListNode *root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root || !root-&gt;next) </span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    ListNode *fast = root;</span><br><span class="line">    ListNode *slow = root;</span><br><span class="line">    <span class="keyword">while</span>(fast-&gt;next &amp;&amp; fast-&gt;next-&gt;next)&#123;</span><br><span class="line">        fast = fast-&gt;next-&gt;next;</span><br><span class="line">        slow = slow-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> slow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode *root)</span></span>&#123;</span><br><span class="line">    ListNode *pre = <span class="literal">nullptr</span>;</span><br><span class="line">    ListNode *cur = root;</span><br><span class="line">    <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">        ListNode *tmp = cur-&gt;next;</span><br><span class="line">        cur-&gt;next = pre;</span><br><span class="line">        pre = cur;</span><br><span class="line">        cur = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -526,7 +526,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -548,7 +548,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -660,7 +660,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">41.5k</span>
+    <span title="Site words total count">45.6k</span>
   
 </div>
 
