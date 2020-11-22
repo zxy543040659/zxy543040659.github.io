@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="链表,归并排序,">
 
 
 
@@ -81,16 +81,20 @@
 
 
 
-<meta name="description" content="Email: 543040659@qq.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Zxy&#39;s blog">
-<meta property="og:url" content="http://www.xingyuzhao.ltd/page/5/index.html">
+<meta name="description" content="题目描述给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 进阶： 你可以在*O(n log n)*时间复杂度和常数级空间复杂度下，对链表进行排序吗？ 本题可与LeetCode147-对链表进行插入排序，LeetCode143-重排链表共同学习。">
+<meta name="keywords" content="链表,归并排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode148-排序链表">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/11/22/LeetCode148-排序链表/index.html">
 <meta property="og:site_name" content="Zxy&#39;s blog">
-<meta property="og:description" content="Email: 543040659@qq.com">
+<meta property="og:description" content="题目描述给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 进阶： 你可以在*O(n log n)*时间复杂度和常数级空间复杂度下，对链表进行排序吗？ 本题可与LeetCode147-对链表进行插入排序，LeetCode143-重排链表共同学习。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/22/LeetCode148-排序链表/示例.png">
+<meta property="og:updated_time" content="2020-11-22T02:58:32.977Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zxy&#39;s blog">
-<meta name="twitter:description" content="Email: 543040659@qq.com">
+<meta name="twitter:title" content="LeetCode148-排序链表">
+<meta name="twitter:description" content="题目描述给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 进阶： 你可以在*O(n log n)*时间复杂度和常数级空间复杂度下，对链表进行排序吗？ 本题可与LeetCode147-对链表进行插入排序，LeetCode143-重排链表共同学习。">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/11/22/LeetCode148-排序链表/示例.png">
 
 
 
@@ -120,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xingyuzhao.ltd/page/5/">
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2020/11/22/LeetCode148-排序链表/">
 
 
 
 
 
-  <title>Zxy's blog</title>
+  <title>LeetCode148-排序链表 | Zxy's blog</title>
   
 
 
@@ -145,8 +149,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -249,9 +252,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -264,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2020/11/22/LeetCode148-排序链表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xingyu_Zhao">
@@ -281,9 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/" itemprop="url">Sublime Text3安装Emmet插件遇到的问题及解决</a></h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode148-排序链表</h1>
         
 
         <div class="post-meta">
@@ -295,8 +296,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-16T13:52:06+08:00">
-                2019-09-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-22T10:27:25+08:00">
+                2020-11-22
               </time>
             
 
@@ -318,8 +319,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端学习入门/" itemprop="url" rel="index">
-                    <span itemprop="name">前端学习入门</span>
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
                   </a>
                 </span>
 
@@ -337,6 +338,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
 
           
             <div class="post-wordcount">
@@ -349,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k
+                  616
                 </span>
               
 
@@ -365,7 +371,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -386,16 +392,24 @@
       
 
       
-        
-          <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>最近对前端的知识准备进行一个入门，首先学习一下html文档的写法，第一步就是选择一个合适的开发工具。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/2019/09/16/Sublime-text3安装Emmet插件遇到的问题及解决/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。</p>
+<p><strong>进阶</strong>：</p>
+<p>你可以在*O(n log n)*时间复杂度和常数级空间复杂度下，对链表进行排序吗？</p>
+<p>本题可与<a href="http://www.xingyuzhao.ltd/blog/2020/11/21/LeetCode147-%E5%AF%B9%E9%93%BE%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/#more">LeetCode147-对链表进行插入排序</a>，<a href="http://www.xingyuzhao.ltd/blog/2020/10/27/LeetCode143-%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8/">LeetCode143-重排链表</a>共同学习。</p>
+<a id="more"></a>
+
+<img src="/blog/2020/11/22/LeetCode148-排序链表/示例.png" style="zoom:80%;">
+
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>题目要求用*O(nlogn)*的时间复杂度来进行排序，所以不能用<a href="http://www.xingyuzhao.ltd/blog/2020/11/21/LeetCode147-%E5%AF%B9%E9%93%BE%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/#more">LeetCode147-对链表进行插入排序</a>的方法来进行解，所以采用归并排序的思想对链表进行排序。</p>
+<p>使用归并排序首先得找到链表的中间节点，找到中间节点，根据中间节点的位置将链表分为两个部分，再进行归并排序。<strong>中间节点在链表前半部分的末尾，将链表拆开后，要让中间节点的下一个指向空</strong>，再分别对两个链表进行归并排序，最后再合并两个排序好的链表，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ListNode* __mergeSort(ListNode *node)&#123;</span><br><span class="line">    <span class="comment">// 如果节点为空或只有一个节点，返回当前节点即可</span></span><br><span class="line">    <span class="keyword">if</span>(!node || !node-&gt;next)</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    ListNode *fast = node;</span><br><span class="line">    ListNode *slow = node;</span><br><span class="line">    <span class="keyword">while</span>(fast-&gt;next &amp;&amp; fast-&gt;next-&gt;next)&#123;</span><br><span class="line">        fast = fast-&gt;next-&gt;next;</span><br><span class="line">        slow = slow-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode *l2 = slow-&gt;next;</span><br><span class="line">    slow-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">    ListNode* left = __mergeSort(node);</span><br><span class="line">    ListNode* right = __mergeSort(l2);</span><br><span class="line">    <span class="keyword">return</span> __merge(left, right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>合并的操作需要创建一个新的链表，新的链表根据两个链表的值建立。如果<code>l1</code>的值小于<code>l2</code>，那么将<code>l1</code>插入新的链表中，同时<code>l1</code>移动到它的下一个节点；否则将<code>l2</code>插入新的链表中，同时<code>l2</code>移动到它的下一个节点。插入操作结束后，再将新链表向后移动一个节点（也就是新插入的节点）。<strong>如果两个链表长度不一样（两个链表长度最多差一个），还要判断插入操作结束后哪个链表不为空，如果不为空，它就是新链表的最后一个节点</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">ListNode* __merge(ListNode *l1, ListNode *l2)&#123;</span><br><span class="line">    ListNode *dummyNode = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">    ListNode *cur = dummyNode;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(l1 &amp;&amp; l2)&#123;</span><br><span class="line">        <span class="keyword">if</span>(l1-&gt;val &lt; l2-&gt;val)&#123;</span><br><span class="line">            cur-&gt;next = l1;</span><br><span class="line">            l1 = l1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            cur-&gt;next = l2;</span><br><span class="line">            <span class="comment">// cout &lt;&lt; l2-&gt;val;</span></span><br><span class="line">            l2 = l2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    cur-&gt;next = l1 != <span class="literal">nullptr</span> ? l1 : l2;</span><br><span class="line">    <span class="keyword">return</span> dummyNode-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主函数</span></span><br><span class="line"><span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> __mergeSort(head);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 其余两个函数</span></span><br><span class="line">ListNode* __mergeSort(ListNode *node);</span><br><span class="line">ListNode* __merge(ListNode *l1, ListNode *l2);</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
     
@@ -410,368 +424,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2019/09/06/一个测试文档/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xingyu_Zhao">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zxy's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2019/09/06/一个测试文档/" itemprop="url">一个测试文档</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-06T18:46:20+08:00">
-                2019-09-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/链表/" rel="tag"># 链表</a>
           
-
+            <a href="/tags/归并排序/" rel="tag"># 归并排序</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  136
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p>目前没有特别需要写的东西，就收藏几个网站，便于之后写文章时查阅语法</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/2019/09/06/一个测试文档/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2020/11/21/LeetCode147-对链表进行插入排序/" rel="next" title="LeetCode147-对链表进行插入排序">
+                <i class="fa fa-chevron-left"></i> LeetCode147-对链表进行插入排序
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2019/09/05/使用hexo遇到的问题及解决方案/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xingyu_Zhao">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zxy's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2019/09/05/使用hexo遇到的问题及解决方案/" itemprop="url">使用hexo遇到的问题及解决方案</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-05T22:00:21+08:00">
-                2019-09-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  94
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>使用hexo遇到的问题及解决</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/2019/09/05/使用hexo遇到的问题及解决方案/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -781,14 +465,11 @@
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -796,6 +477,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -816,8 +501,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -922,6 +616,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1087,6 +797,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -1144,26 +858,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
