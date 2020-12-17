@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="题目描述Dota2 的世界里有两个阵营：Radiant(天辉)和 Dire(夜魇) Dota2 参议院由来自两派的参议员组成。现在参议院希望对一个 Dota2 游戏里的改变作出决定。他们以一个基于轮为过程的投票进行。在每一轮中，每一位参议员都可以行使两项权利中的一项： 禁止一名参议员的权利： 参议员可以让另一位参议员在这一轮和随后的几轮中丧失所有的权利。 宣布胜利： 如果参议员发现有权利投票的参议">
+<meta name="description" content="题目描述Dota2 的世界里有两个阵营：Radiant(天辉)和 Dire(夜魇) Dota2 参议院由来自两派的参议员组成。现在参议院希望对一个 Dota2 游戏里的改变作出决定。他们以一个基于轮为过程的投票进行。在每一轮中，每一位参议员都可以行使两项权利中的一项：  禁止一名参议员的权利：  参议员可以让另一位参议员在这一轮和随后的几轮中丧失所有的权利。  宣布胜利：  如果参议员发现有权利投">
 <meta name="keywords" content="贪心算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode649-Dota2参议院">
 <meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/12/11/LeetCode649-Dota2参议院/index.html">
 <meta property="og:site_name" content="Zxy&#39;s blog">
-<meta property="og:description" content="题目描述Dota2 的世界里有两个阵营：Radiant(天辉)和 Dire(夜魇) Dota2 参议院由来自两派的参议员组成。现在参议院希望对一个 Dota2 游戏里的改变作出决定。他们以一个基于轮为过程的投票进行。在每一轮中，每一位参议员都可以行使两项权利中的一项： 禁止一名参议员的权利： 参议员可以让另一位参议员在这一轮和随后的几轮中丧失所有的权利。 宣布胜利： 如果参议员发现有权利投票的参议">
+<meta property="og:description" content="题目描述Dota2 的世界里有两个阵营：Radiant(天辉)和 Dire(夜魇) Dota2 参议院由来自两派的参议员组成。现在参议院希望对一个 Dota2 游戏里的改变作出决定。他们以一个基于轮为过程的投票进行。在每一轮中，每一位参议员都可以行使两项权利中的一项：  禁止一名参议员的权利：  参议员可以让另一位参议员在这一轮和随后的几轮中丧失所有的权利。  宣布胜利：  如果参议员发现有权利投">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/11/LeetCode649-Dota2参议院/649.png">
-<meta property="og:updated_time" content="2020-12-12T14:53:25.845Z">
+<meta property="og:updated_time" content="2020-12-17T08:06:32.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode649-Dota2参议院">
-<meta name="twitter:description" content="题目描述Dota2 的世界里有两个阵营：Radiant(天辉)和 Dire(夜魇) Dota2 参议院由来自两派的参议员组成。现在参议院希望对一个 Dota2 游戏里的改变作出决定。他们以一个基于轮为过程的投票进行。在每一轮中，每一位参议员都可以行使两项权利中的一项： 禁止一名参议员的权利： 参议员可以让另一位参议员在这一轮和随后的几轮中丧失所有的权利。 宣布胜利： 如果参议员发现有权利投票的参议">
+<meta name="twitter:description" content="题目描述Dota2 的世界里有两个阵营：Radiant(天辉)和 Dire(夜魇) Dota2 参议院由来自两派的参议员组成。现在参议院希望对一个 Dota2 游戏里的改变作出决定。他们以一个基于轮为过程的投票进行。在每一轮中，每一位参议员都可以行使两项权利中的一项：  禁止一名参议员的权利：  参议员可以让另一位参议员在这一轮和随后的几轮中丧失所有的权利。  宣布胜利：  如果参议员发现有权利投">
 <meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/11/LeetCode649-Dota2参议院/649.png">
 
 
@@ -365,7 +365,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  956
+                  960
                 </span>
               
 
@@ -402,26 +402,30 @@
       
 
       
-        <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>Dota2 的世界里有两个阵营：Radiant(天辉)和 Dire(夜魇)</p>
+        <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>Dota2 的世界里有两个阵营：<code>Radiant</code>(天辉)和 <code>Dire</code>(夜魇)</p>
 <p>Dota2 参议院由来自两派的参议员组成。现在参议院希望对一个 Dota2 游戏里的改变作出决定。他们以一个基于轮为过程的投票进行。在每一轮中，每一位参议员都可以行使两项权利中的一项：</p>
-<p>禁止一名参议员的权利：</p>
+<ol>
+<li><code>禁止一名参议员的权利</code>：</li>
+</ol>
 <p>参议员可以让另一位参议员在这一轮和随后的几轮中丧失所有的权利。</p>
-<p>宣布胜利：</p>
+<ol start="2">
+<li><code>宣布胜利</code>：</li>
+</ol>
 <p>如果参议员发现有权利投票的参议员都是同一个阵营的，他可以宣布胜利并决定在游戏中的有关变化。</p>
 <a id="more"></a>
 
-<p>给定一个字符串代表每个参议员的阵营。字母 “R” 和 “D” 分别代表了 Radiant（天辉）和 Dire（夜魇）。然后，如果有 n 个参议员，给定字符串的大小将是 n。</p>
+<p>给定一个字符串代表每个参议员的阵营。字母 “R” 和 “D” 分别代表了 <code>Radiant</code>（天辉）和 <code>Dire</code>（夜魇）。然后，如果有 <code>n</code> 个参议员，给定字符串的大小将是 <code>n</code>。</p>
 <p>以轮为基础的过程从给定顺序的第一个参议员开始到最后一个参议员结束。这一过程将持续到投票结束。所有失去权利的参议员将在过程中被跳过。</p>
-<p>假设每一位参议员都足够聪明，会为自己的政党做出最好的策略，你需要预测哪一方最终会宣布胜利并在 Dota2 游戏中决定改变。输出应该是 Radiant 或 Dire。</p>
+<p>假设每一位参议员都足够聪明，会为自己的政党做出最好的策略，你需要预测哪一方最终会宣布胜利并在 Dota2 游戏中决定改变。输出应该是 <code>Radiant</code> 或 <code>Dire</code>。</p>
 <img src="/blog/2020/12/11/LeetCode649-Dota2参议院/649.png" style="zoom:80%;">
 
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>只想到了暴力法解决。首先记录<code>senate</code>中R和D出现次数，再用一个长与<code>senate</code>相同的<code>bool</code>数组来记录当前字母是否被<strong>消灭</strong>了，初始化都为0，代表没有被<strong>消灭</strong>。遍历<code>senate</code>，如果遇到了R，就从R开始找第一个D的位置，直到下一轮循环到它之前的位置；对于D也是一样。这样保证它们能行使自己的权力，除非自己的阵营已经获胜了。</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>只想到了暴力法解决。首先记录$senate$中R和D出现次数，再用一个长与$senate$相同的$bool$数组来记录当前字母是否被<strong>消灭</strong>了，初始化都为0，代表没有被<strong>消灭</strong>。遍历$senate$，如果遇到了R，就从R开始找第一个D的位置，直到下一轮循环到它之前的位置；对于D也是一样。这样保证它们能行使自己的权力，除非自己的阵营已经获胜了。</p>
 <p><strong>消灭的策略是：尽量消灭自己后面的对手，因为前面的对手已经使用过权利了，而后序的对手依然可以使用权利消灭自己的同伴。</strong></p>
 <p>这样做的时间复杂度会很高，用时1452ms。</p>
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">predictPartyVictory</span><span class="params">(<span class="built_in">string</span> senate)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> R_cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> D_cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> len = senate.size();</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; <span class="title">isUsed</span><span class="params">(senate.size(), <span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;ch : senate)&#123;</span><br><span class="line">            <span class="keyword">if</span>(ch == <span class="string">'R'</span>) R_cnt++;</span><br><span class="line">            <span class="keyword">else</span> D_cnt++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(R_cnt != <span class="number">0</span> &amp;&amp; D_cnt != <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; senate.size(); ++i)&#123;</span><br><span class="line">                <span class="keyword">if</span>(isUsed[i]) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span>(senate[i] == <span class="string">'R'</span>)&#123;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> m = i + <span class="number">1</span>; m &lt; i + len; ++m)&#123;</span><br><span class="line">                        <span class="keyword">int</span> j = m % len;</span><br><span class="line">                        <span class="keyword">if</span>(senate[j] == <span class="string">'D'</span> &amp;&amp; isUsed[j] == <span class="literal">false</span>)&#123;</span><br><span class="line">                            isUsed[j] = <span class="literal">true</span>;</span><br><span class="line">                            D_cnt--;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> m = i + <span class="number">1</span>; m &lt; i + len; ++m)&#123;</span><br><span class="line">                        <span class="keyword">int</span> j = m % len;</span><br><span class="line">                        <span class="keyword">if</span>(senate[j] == <span class="string">'R'</span> &amp;&amp; isUsed[j] == <span class="literal">false</span>)&#123;</span><br><span class="line">                            isUsed[j] = <span class="literal">true</span>;</span><br><span class="line">                            R_cnt--;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(R_cnt == <span class="number">0</span> || D_cnt == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> R_cnt != <span class="number">0</span> ? <span class="string">"Radiant"</span> : <span class="string">"Dire"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h4 id="更进一步"><a href="#更进一步" class="headerlink" title="更进一步"></a>更进一步</h4><h5 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h5><p>使用一个变量来记录当前参议员之前有几个对手，从而判断自己是否被消灭了。</p>
-<p>这里使用<code>count&gt;0</code>表示<strong>R在D前面，R可以消灭D</strong>，用<code>count&lt;0</code>表示<strong>D在R前面，D可以消灭R</strong>。</p>
+<p>这里使用$count&gt;0$表示<strong>R在D前面，R可以消灭D</strong>，用$count&lt;0$表示<strong>D在R前面，D可以消灭R</strong>。</p>
 <p>执行用时：4ms。</p>
 <h5 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">predictPartyVictory</span><span class="params">(<span class="built_in">string</span> senate)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">bool</span> R = <span class="literal">true</span>, D = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">while</span>(R &amp;&amp; D)&#123;</span><br><span class="line">            R = <span class="literal">false</span>;</span><br><span class="line">            D = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; senate.size(); ++i)&#123;</span><br><span class="line">                <span class="comment">// 如果没被完全消灭，本轮循环结束R和D都为true</span></span><br><span class="line">                <span class="keyword">if</span>(senate[i] == <span class="string">'R'</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(count &lt; <span class="number">0</span>) senate[i] = <span class="string">'0'</span>;</span><br><span class="line">                    <span class="keyword">else</span> R = <span class="literal">true</span>;</span><br><span class="line">                    <span class="comment">// 如果被消灭了计数加一，代表抵挡了一次攻击</span></span><br><span class="line">                    <span class="comment">// 如果没有被消灭，代表有多了一次消灭敌方机会</span></span><br><span class="line">                    <span class="comment">// 无论如何都是需要++的，下面的--同</span></span><br><span class="line">                    count++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(senate[i] == <span class="string">'D'</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(count &gt; <span class="number">0</span>) senate[i] = <span class="string">'0'</span>;</span><br><span class="line">                    <span class="keyword">else</span> D = <span class="literal">true</span>;</span><br><span class="line">                    count--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> R != <span class="number">0</span> ? <span class="string">"Radiant"</span> : <span class="string">"Dire"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -570,7 +574,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -902,6 +906,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

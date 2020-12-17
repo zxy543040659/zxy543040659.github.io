@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="题目描述给定一个数字字符串 S，比如 S = “123456579”，我们可以将它分成斐波那契式的序列 [123, 456, 579]。 形式上，斐波那契式序列是一个非负整数列表 F，且满足：  0 &amp;lt;= F[i] &amp;lt;= 2^31 - 1，（也就是说，每个整数都符合 32 位有符号整数类型） F.length &amp;gt;= 3； 对于所有的0 &amp;lt;= i &amp;lt; F.length">
+<meta name="description" content="题目描述给定一个数字字符串 S，比如 S = &amp;quot;123456579&amp;quot;，我们可以将它分成斐波那契式的序列 [123, 456, 579]​。 形式上，斐波那契式序列是一个非负整数列表 F​，且满足：  0 &amp;lt;= F[i] &amp;lt;= 2^31 - 1​，（也就是说，每个整数都符合 32 位有符号整数类型） F.length &amp;gt;= 3​； 对于所有的 0 &amp;lt;= i">
 <meta name="keywords" content="贪心算法,回溯算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode842-将数组拆分成斐波那契序列">
 <meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/12/08/LeetCode842-将数组拆分成斐波那契序列/index.html">
 <meta property="og:site_name" content="Zxy&#39;s blog">
-<meta property="og:description" content="题目描述给定一个数字字符串 S，比如 S = “123456579”，我们可以将它分成斐波那契式的序列 [123, 456, 579]。 形式上，斐波那契式序列是一个非负整数列表 F，且满足：  0 &amp;lt;= F[i] &amp;lt;= 2^31 - 1，（也就是说，每个整数都符合 32 位有符号整数类型） F.length &amp;gt;= 3； 对于所有的0 &amp;lt;= i &amp;lt; F.length">
+<meta property="og:description" content="题目描述给定一个数字字符串 S，比如 S = &amp;quot;123456579&amp;quot;，我们可以将它分成斐波那契式的序列 [123, 456, 579]​。 形式上，斐波那契式序列是一个非负整数列表 F​，且满足：  0 &amp;lt;= F[i] &amp;lt;= 2^31 - 1​，（也就是说，每个整数都符合 32 位有符号整数类型） F.length &amp;gt;= 3​； 对于所有的 0 &amp;lt;= i">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/08/LeetCode842-将数组拆分成斐波那契序列/842.png">
-<meta property="og:updated_time" content="2020-12-08T15:10:44.000Z">
+<meta property="og:updated_time" content="2020-12-17T08:05:11.316Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode842-将数组拆分成斐波那契序列">
-<meta name="twitter:description" content="题目描述给定一个数字字符串 S，比如 S = “123456579”，我们可以将它分成斐波那契式的序列 [123, 456, 579]。 形式上，斐波那契式序列是一个非负整数列表 F，且满足：  0 &amp;lt;= F[i] &amp;lt;= 2^31 - 1，（也就是说，每个整数都符合 32 位有符号整数类型） F.length &amp;gt;= 3； 对于所有的0 &amp;lt;= i &amp;lt; F.length">
+<meta name="twitter:description" content="题目描述给定一个数字字符串 S，比如 S = &amp;quot;123456579&amp;quot;，我们可以将它分成斐波那契式的序列 [123, 456, 579]​。 形式上，斐波那契式序列是一个非负整数列表 F​，且满足：  0 &amp;lt;= F[i] &amp;lt;= 2^31 - 1​，（也就是说，每个整数都符合 32 位有符号整数类型） F.length &amp;gt;= 3​； 对于所有的 0 &amp;lt;= i">
 <meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/08/LeetCode842-将数组拆分成斐波那契序列/842.png">
 
 
@@ -365,7 +365,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  585
+                  587
                 </span>
               
 
@@ -402,15 +402,15 @@
       
 
       
-        <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个数字字符串 S，比如 S = “123456579”，我们可以将它分成斐波那契式的序列 [123, 456, 579]。</p>
-<p>形式上，斐波那契式序列是一个非负整数列表 F，且满足：</p>
+        <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个数字字符串 <code>S</code>，比如 <code>S = &quot;123456579&quot;</code>，我们可以将它分成斐波那契式的序列 <code>[123, 456, 579]​</code>。</p>
+<p>形式上，斐波那契式序列是一个非负整数列表 <code>F​</code>，且满足：</p>
 <ul>
-<li>0 &lt;= F[i] &lt;= 2^31 - 1，（也就是说，每个整数都符合 32 位有符号整数类型）</li>
-<li>F.length &gt;= 3；</li>
-<li>对于所有的0 &lt;= i &lt; F.length - 2，都有 F[i] + F[i+1] = F[i+2] 成立。</li>
+<li><code>0 &lt;= F[i] &lt;= 2^31 - 1​</code>，（也就是说，每个整数都符合 32 位有符号整数类型）</li>
+<li><code>F.length &gt;= 3​</code>；</li>
+<li>对于所有的 <code>0 &lt;= i &lt; F.length - 2​</code>，都有 ​<code>F[i] + F[i+1] = F[i+2]​</code>成立。</li>
 </ul>
 <p><strong>另外，请注意，将字符串拆分成小块时，每个块的数字一定不要以零开头，除非这个块是数字 0 本身。</strong></p>
-<p>返回从 S 拆分出来的任意一组斐波那契式的序列块，如果不能拆分则返回 []。</p>
+<p>返回从 <code>S</code> 拆分出来的任意一组斐波那契式的序列块，如果不能拆分则返回 <code>[]</code>。</p>
 <a id="more"></a>
 
 <img src="/blog/2020/12/08/LeetCode842-将数组拆分成斐波那契序列/842.png" style="zoom:80%;">
@@ -565,7 +565,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -897,6 +897,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

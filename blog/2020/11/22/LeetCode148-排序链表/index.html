@@ -90,7 +90,7 @@
 <meta property="og:description" content="题目描述给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 进阶： 你可以在O(nlogn)时间复杂度和常数级空间复杂度下，对链表进行排序吗？ 本题可与LeetCode147-对链表进行插入排序，LeetCode143-重排链表共同学习。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/22/LeetCode148-排序链表/示例.png">
-<meta property="og:updated_time" content="2020-11-22T03:16:08.976Z">
+<meta property="og:updated_time" content="2020-12-17T08:14:30.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode148-排序链表">
 <meta name="twitter:description" content="题目描述给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 进阶： 你可以在O(nlogn)时间复杂度和常数级空间复杂度下，对链表进行排序吗？ 本题可与LeetCode147-对链表进行插入排序，LeetCode143-重排链表共同学习。">
@@ -365,7 +365,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  614
+                  615
                 </span>
               
 
@@ -402,7 +402,7 @@
       
 
       
-        <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。</p>
+        <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给你链表的头结点 <code>head</code> ，请将其按 升序 排列并返回 排序后的链表 。</p>
 <p><strong>进阶</strong>：</p>
 <p>你可以在<code>O(nlogn)</code>时间复杂度和常数级空间复杂度下，对链表进行排序吗？</p>
 <p>本题可与<a href="http://www.xingyuzhao.ltd/blog/2020/11/21/LeetCode147-%E5%AF%B9%E9%93%BE%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/#more">LeetCode147-对链表进行插入排序</a>，<a href="http://www.xingyuzhao.ltd/blog/2020/10/27/LeetCode143-%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8/">LeetCode143-重排链表</a>共同学习。</p>
@@ -414,7 +414,7 @@
 <p>使用归并排序首先得找到链表的中间节点，找到中间节点，根据中间节点的位置将链表分为两个部分，再进行归并排序。<strong>中间节点在链表前半部分的末尾，将链表拆开后，要让中间节点的下一个指向空</strong>，再分别对两个链表进行归并排序，最后再合并两个排序好的链表，如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ListNode* __mergeSort(ListNode *node)&#123;</span><br><span class="line">    <span class="comment">// 如果节点为空或只有一个节点，返回当前节点即可</span></span><br><span class="line">    <span class="keyword">if</span>(!node || !node-&gt;next)</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    ListNode *fast = node;</span><br><span class="line">    ListNode *slow = node;</span><br><span class="line">    <span class="keyword">while</span>(fast-&gt;next &amp;&amp; fast-&gt;next-&gt;next)&#123;</span><br><span class="line">        fast = fast-&gt;next-&gt;next;</span><br><span class="line">        slow = slow-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode *l2 = slow-&gt;next;</span><br><span class="line">    slow-&gt;next = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">    ListNode* left = __mergeSort(node);</span><br><span class="line">    ListNode* right = __mergeSort(l2);</span><br><span class="line">    <span class="keyword">return</span> __merge(left, right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>合并的操作需要创建一个新的链表，新的链表根据两个链表的值建立。如果<code>l1</code>的值小于<code>l2</code>，那么将<code>l1</code>插入新的链表中，同时<code>l1</code>移动到它的下一个节点；否则将<code>l2</code>插入新的链表中，同时<code>l2</code>移动到它的下一个节点。插入操作结束后，再将新链表向后移动一个节点（也就是新插入的节点）。<strong>如果两个链表长度不一样（两个链表长度最多差一个），还要判断插入操作结束后哪个链表不为空，如果不为空，它就是新链表的最后一个节点</strong>。</p>
+<p>合并的操作需要创建一个新的链表，新的链表根据两个链表的值建立。如果$l1$的值小于$l2$，那么将插入$l1$新的链表中，同时$l1$移动到它的下一个节点；否则将$l2$插入新的链表中，同时$l2$移动到它的下一个节点。插入操作结束后，再将新链表向后移动一个节点（也就是新插入的节点）。<strong>如果两个链表长度不一样（两个链表长度最多差一个），还要判断插入操作结束后哪个链表不为空，如果不为空，它就是新链表的最后一个节点</strong>。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">ListNode* __merge(ListNode *l1, ListNode *l2)&#123;</span><br><span class="line">    ListNode *dummyNode = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">    ListNode *cur = dummyNode;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(l1 &amp;&amp; l2)&#123;</span><br><span class="line">        <span class="keyword">if</span>(l1-&gt;val &lt; l2-&gt;val)&#123;</span><br><span class="line">            cur-&gt;next = l1;</span><br><span class="line">            l1 = l1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            cur-&gt;next = l2;</span><br><span class="line">            <span class="comment">// cout &lt;&lt; l2-&gt;val;</span></span><br><span class="line">            l2 = l2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    cur-&gt;next = l1 != <span class="literal">nullptr</span> ? l1 : l2;</span><br><span class="line">    <span class="keyword">return</span> dummyNode-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主函数</span></span><br><span class="line"><span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> __mergeSort(head);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 其余两个函数</span></span><br><span class="line">ListNode* __mergeSort(ListNode *node);</span><br><span class="line">ListNode* __merge(ListNode *l1, ListNode *l2);</span><br></pre></td></tr></table></figure>
@@ -565,7 +565,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -897,6 +897,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
