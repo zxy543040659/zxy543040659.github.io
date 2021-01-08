@@ -89,14 +89,14 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述根据一棵树的中序遍历与后序遍历构造二叉树。 注意:你可以假设树中没有重复的元素。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/示例.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/pic1.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/pic2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/示例.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/pic1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/pic2.png">
 <meta property="og:updated_time" content="2020-10-12T09:15:13.117Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode106-从中序与后序遍历序列构造二叉树">
 <meta name="twitter:description" content="题目描述根据一棵树的中序遍历与后序遍历构造二叉树。 注意:你可以假设树中没有重复的元素。">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/示例.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/示例.png">
 
 
 
@@ -440,7 +440,7 @@
 <p><strong>注意:</strong><br>你可以假设树中没有重复的元素。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/示例.png">
+<img src="/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/示例.png">
 
 
 
@@ -450,7 +450,7 @@
 <li>后序遍历二叉树(左子树—右子树—根节点)，根节点是最后输出的。</li>
 </ul>
 <p>在后序遍历数组中找到根节点之后，再从中序遍历数组中搜索根节点的左边，由此坐标将数组分开，分别就是当前根节点下的左子树和右子树：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/pic1.png">
+<img src="/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/pic1.png">
 
 <p>上图中<code>inorder</code>数组中，3是在<code>postorder</code>找到的根节点，由此节点分开，<code>inorder</code>数组中绿色部分是左子树，黄色部分是右子树，在<code>posorder</code>数组中也是一样的。</p>
 <ul>
@@ -458,7 +458,7 @@
 <li>定义<code>postorder</code>数组数组起始位置为<strong>pStart</strong>，结束位置为<strong>pEnd</strong>；</li>
 </ul>
 <p>根据以上定义，<code>inorder</code>数组中左子树起止位置为<code>iStart-&gt;rootIn-1</code>，右子树起止位置为<code>rootIn+1-&gt;iEnd</code>；<code>postorder</code>数组中左子树起止位置为<code>pStart-&gt;pStart+rootIn-iStart-1</code>，右子树起止位置为<code>pStart+rootIn-iStart-&gt;pEnd-1</code>，图来自leetcode题解(<a href="https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/solution/tu-jie-gou-zao-er-cha-shu-wei-wan-dai-xu-by-user72/)%EF%BC%9A" target="_blank" rel="noopener">https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/solution/tu-jie-gou-zao-er-cha-shu-wei-wan-dai-xu-by-user72/)：</a></p>
-<img src="/www.xingyuzhao.ltd/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/pic2.png">
+<img src="/blog/2020/09/27/LeetCode106-从中序与后序遍历序列构造二叉树/pic2.png">
 
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; post;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; inorder, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 使用一个map记录中序遍历数值的位置</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;num : inorder)&#123;</span><br><span class="line">            <span class="built_in">map</span>[num] = cnt++;</span><br><span class="line">        &#125;</span><br><span class="line">        post = postorder;</span><br><span class="line">        TreeNode *node = dfs(<span class="number">0</span>, inorder.size() - <span class="number">1</span>, <span class="number">0</span>, postorder.size() - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">TreeNode* <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> iStart, <span class="keyword">int</span> iEnd, <span class="keyword">int</span> pStart, <span class="keyword">int</span> pEnd)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(iStart &gt; iEnd || pStart &gt; pEnd) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">int</span> root = post[pEnd];</span><br><span class="line">        <span class="keyword">int</span> rootIn = <span class="built_in">map</span>[root];</span><br><span class="line">        TreeNode *node = <span class="keyword">new</span> TreeNode(root);</span><br><span class="line">        node-&gt;left = dfs(iStart, rootIn - <span class="number">1</span>, pStart, pStart + rootIn - iStart - <span class="number">1</span>);</span><br><span class="line">        node-&gt;right = dfs(rootIn + <span class="number">1</span>, iEnd, pStart + rootIn - iStart, pEnd - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 

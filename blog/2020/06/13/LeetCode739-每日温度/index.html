@@ -89,13 +89,13 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="这次主要学习一下单调栈这种数据结构，同时用此数据结构解决739题 题目描述请根据每日 气温 列表，重新生成一个列表。对应位置的输出为：要想观测到更高的气温，至少需要等待的天数。如果气温在这之后都不会升高，请在该位置用 0 来代替。 例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/06/13/LeetCode739-每日温度/人.jpg">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/06/13/LeetCode739-每日温度/栈.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/13/LeetCode739-每日温度/人.jpg">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/06/13/LeetCode739-每日温度/栈.png">
 <meta property="og:updated_time" content="2020-06-13T05:11:31.542Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode739-每日温度">
 <meta name="twitter:description" content="这次主要学习一下单调栈这种数据结构，同时用此数据结构解决739题 题目描述请根据每日 气温 列表，重新生成一个列表。对应位置的输出为：要想观测到更高的气温，至少需要等待的天数。如果气温在这之后都不会升高，请在该位置用 0 来代替。 例如，给定一个列表 temperatures = [73, 74, 75, 71, 69, 72, 76, 73]，你的输出应该是 [1, 1, 4, 2, 1, 1,">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/06/13/LeetCode739-每日温度/人.jpg">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/06/13/LeetCode739-每日温度/人.jpg">
 
 
 
@@ -443,12 +443,12 @@
 
 <h3 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h3><p>先学习一下单调栈这种数据结构，单调栈就是栈的基础上使用一定的逻辑，使栈中的元素单调递增或者递减，一般只处理一种典型的问题，叫做<strong>下一个更大的元素</strong>，这个问题是说：给你一个数组，返回一个等长的数组，对应索引存储着下一个更大元素，如果没有更大的元素，就存 -1。举例如下：给你一个数组 [2,1,2,4,3]，你返回数组 [4,2,4,-1,-1]。</p>
 <p>可以这样思考，把数组元素想象成人，如何求2的下一个更大的元素呢？如果2的下一个人比2还低或者一样高，那么就会被2遮挡住，直到第一个比他高的人，他挡不住了，就是答案。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/06/13/LeetCode739-每日温度/人.jpg" style="zoom: 30%;">
+<img src="/blog/2020/06/13/LeetCode739-每日温度/人.jpg" style="zoom: 30%;">
 
 <p>代码实现如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">nextGreaterElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">ans</span><span class="params">(nums.size())</span></span>; <span class="comment">// 存放答案的数组</span></span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = nums.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123; <span class="comment">// 倒着往栈里放</span></span><br><span class="line">        <span class="keyword">while</span> (!s.empty() &amp;&amp; s.top() &lt;= nums[i]) &#123; <span class="comment">// 判定个子高矮，nums在s之前</span></span><br><span class="line">            s.pop(); <span class="comment">// 矮个起开，反正也被挡着了。。。</span></span><br><span class="line">        &#125;</span><br><span class="line">        ans[i] = s.empty() ? <span class="number">-1</span> : s.top(); <span class="comment">// 这个元素身后的第一个高个</span></span><br><span class="line">        s.push(nums[i]); <span class="comment">// 入栈</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/06/13/LeetCode739-每日温度/栈.png" style="zoom: 80%;">
+<img src="/blog/2020/06/13/LeetCode739-每日温度/栈.png" style="zoom: 80%;">
 
 <p>以上图是栈中元素的变化情况，只有当新的高个子来临，才会有出栈的操作。</p>
 <h3 id="分析及代码实现"><a href="#分析及代码实现" class="headerlink" title="分析及代码实现"></a>分析及代码实现</h3><p>上面已经把单调栈阐述了一遍，本题唯一的区别是要返回还需要多少天，而不是那天的温度，所以要用栈来存储一下温度的坐标，根据当前温度的坐标与栈顶温度坐标的差作为返回值。</p>

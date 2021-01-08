@@ -89,19 +89,19 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面积。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/84.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-1.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-2.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-3.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-4.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-5.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-6.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-边界.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/84.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-3.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-4.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-5.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-6.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-边界.png">
 <meta property="og:updated_time" content="2020-12-27T12:22:05.018Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode84-柱状图中最大的矩形">
 <meta name="twitter:description" content="题目描述给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面积。">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/84.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/84.png">
 
 
 
@@ -445,38 +445,38 @@
 <p>求在该柱状图中，能够勾勒出来的矩形的最大面积。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/84.png">
+<img src="/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/84.png">
 
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>找到当前高度下的最大矩形面积，然后从所有得到的面积中挑出最大的那一个就是能够勾勒出来矩形的最大面积，如下：</p>
 <ol>
 <li>第1个高度，当前面积为2。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-1.png">
+<img src="/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-1.png">
 
 <ol start="2">
 <li>第2个高度，当前面积为6。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-2.png">
+<img src="/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-2.png">
 
 <ol start="3">
 <li>第3个高度，当前面积为10。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-3.png">
+<img src="/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-3.png">
 
 <ol start="4">
 <li>第4个高度，当前面积为6。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-4.png">
+<img src="/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-4.png">
 
 <ol start="5">
 <li>第5个高度，当前面积为8。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-5.png">
+<img src="/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-5.png">
 
 <ol start="6">
 <li>第6个高度，当前面积为3。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-6.png">
+<img src="/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-6.png">
 
 <p>综上，面积最大出现在第三个高度，此时面积为5。</p>
 <p>我们需要找到当前高度下可以构成矩形的左边界和右边界，再去计算矩形的面积，使用单调栈来实现：</p>
@@ -486,7 +486,7 @@
 <li><p>寻找边界：当前遍历到的坐标 $i$ 就是右边界，左边界就是 $st.top()+1$（对于示例，当遍历到第二个2时，坐标为4，作为<strong>右边界</strong>；经过一系列的出栈操作，栈中<strong>最后剩下</strong>的元素坐标为1，而<strong>左边界</strong>就应该是<strong>1+1​</strong>而不是1），<strong>如果栈为空，那么左边界就是0</strong>。如下图：</p>
 </li>
 </ul>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-边界.png">
+<img src="/blog/2020/12/26/LeetCode84-柱状图中最大的矩形/示例-边界.png">
 
 <p>所以为了提供坐标6，还需要给高度矩阵后面续上一个0。</p>
 <p>由于找到了下一个小于栈顶高度的值时才会计算面积，所以对于示例，最后得到的结果及顺序如下：</p>

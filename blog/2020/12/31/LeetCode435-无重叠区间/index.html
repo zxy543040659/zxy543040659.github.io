@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。 注意: 可以认为区间的终点总是大于它的起点。区间 [1,2] 和 [2,3] 的边界相互“接触”，但没有相互重叠。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/31/LeetCode435-无重叠区间/435.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/31/LeetCode435-无重叠区间/435.png">
 <meta property="og:updated_time" content="2021-01-08T01:50:35.445Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode435-无重叠区间">
 <meta name="twitter:description" content="题目描述给定一个区间的集合，找到需要移除区间的最小数量，使剩余区间互不重叠。 注意: 可以认为区间的终点总是大于它的起点。区间 [1,2] 和 [2,3] 的边界相互“接触”，但没有相互重叠。">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/31/LeetCode435-无重叠区间/435.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/31/LeetCode435-无重叠区间/435.png">
 
 
 
@@ -439,7 +439,7 @@
 <p>可以认为区间的终点总是大于它的起点。<br>区间 [1,2] 和 [2,3] 的边界相互“接触”，但没有相互重叠。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/31/LeetCode435-无重叠区间/435.png">
+<img src="/blog/2020/12/31/LeetCode435-无重叠区间/435.png">
 
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>首先对二维数组排序，对其中的每个一维数组，先按照元素的第一个升序排列，如果第一个元素相同，再按照第二个升序排列。</p>
 <p>如此一来，为了使移除的区间数最小，那么就需要<strong>从重叠的区间中选出右端点最小的一个</strong>，那样就可以尽可能留下更多不重叠的空间（所以说只按照第二个元素升序排列也是可以的）。</p>

@@ -88,17 +88,17 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="本次学习要点 I/O类 文件输入输出 string流">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/io类.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/条件状态.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/fstream.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/文件模式.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/stringstream.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/输入文件.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/io类.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/条件状态.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/fstream.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/文件模式.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/stringstream.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/输入文件.png">
 <meta property="og:updated_time" content="2020-11-21T14:30:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++标准库-I&#x2F;O库">
 <meta name="twitter:description" content="本次学习要点 I/O类 文件输入输出 string流">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/io类.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/io类.png">
 
 
 
@@ -448,10 +448,10 @@
 <h4 id="I-O类"><a href="#I-O类" class="headerlink" title="I/O类"></a>I/O类</h4><p><code>iostream</code>定义了用于读写流的基本类型。</p>
 <p><code>fstream</code>定义了用于读写命名文件的类型。</p>
 <p><code>sstream</code>定义了用于读写内存<code>string</code>对象的类型。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/io类.png" style="zoom:120%;">
+<img src="/blog/2020/11/21/C-标准库-I-O库/io类.png" style="zoom:120%;">
 
 <p><code>I/O</code>对象无拷贝或赋值，传递和引用不能是<code>const</code>的。</p>
-<h5 id="条件状态"><a href="#条件状态" class="headerlink" title="条件状态"></a>条件状态</h5><img src="/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/条件状态.png" style="zoom:120%;">
+<h5 id="条件状态"><a href="#条件状态" class="headerlink" title="条件状态"></a>条件状态</h5><img src="/blog/2020/11/21/C-标准库-I-O库/条件状态.png" style="zoom:120%;">
 
 <p>上表是<code>I/O</code>类所定义的一些函数和标志，可以访问和操作流的<strong>条件状态</strong>。</p>
 <p>由于流可能处于错误状态，因此代码通常应该在使用一个流之前检查它是否处于良好状态。确定一个流对象的状态最简单的方法是将它当作一个条件使用：</p>
@@ -465,7 +465,7 @@
 <li><strong>ofstream</strong>向一个给定文件写入数据。</li>
 <li><strong>fstream</strong>可以读写给定文件。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/fstream.png" style="zoom:120%;">
+<img src="/blog/2020/11/21/C-标准库-I-O库/fstream.png" style="zoom:120%;">
 
 <h5 id="使用文件流对象"><a href="#使用文件流对象" class="headerlink" title="使用文件流对象"></a>使用文件流对象</h5><p>创建文件流对象时，可以提供文件名（可选）。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ifstream <span class="title">in</span><span class="params">(ifile)</span></span>; <span class="comment">// 构造一个ifstream并打开给定文件</span></span><br><span class="line">ofstream out; <span class="comment">// 输出文件流未关联到任何文件</span></span><br></pre></td></tr></table></figure>
@@ -474,7 +474,7 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ifstream <span class="title">in</span><span class="params">(ifile)</span></span>;</span><br><span class="line">in.close();</span><br><span class="line">in.open(ifile + <span class="string">"2"</span>);</span><br></pre></td></tr></table></figure>
 
 <p>当一个<code>fstream</code>对象离开其作用域时，与之关联的文件会自动关闭。</p>
-<h5 id="文件模式"><a href="#文件模式" class="headerlink" title="文件模式"></a>文件模式</h5><img src="/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/文件模式.png" style="zoom:120%;">
+<h5 id="文件模式"><a href="#文件模式" class="headerlink" title="文件模式"></a>文件模式</h5><img src="/blog/2020/11/21/C-标准库-I-O库/文件模式.png" style="zoom:120%;">
 
 <p>指定文件模式有如下限制（部分）：</p>
 <ul>
@@ -489,11 +489,11 @@
 <h4 id="string流"><a href="#string流" class="headerlink" title="string流"></a>string流</h4><p><code>istringstream</code>从<code>string</code>中读取数据。</p>
 <p><code>ostringstream</code>向<code>string</code>中写入数据。</p>
 <p><code>stringstream</code>既可从<code>string</code>中读数据也可以向<code>string</code>中写数据。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/stringstream.png" style="zoom:120%;">
+<img src="/blog/2020/11/21/C-标准库-I-O库/stringstream.png" style="zoom:120%;">
 
 <h5 id="使用istringstream"><a href="#使用istringstream" class="headerlink" title="使用istringstream"></a>使用istringstream</h5><p>当我们的工作是对整行文本进行处理，而其他一些工作是处理行内的单个单词，通常可以用<code>istringstream</code>。</p>
 <p>假如一个文件，列出了一些人和他们所拥有的电话号码（一个或多个），输入文件可能如下：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/输入文件.png">
+<img src="/blog/2020/11/21/C-标准库-I-O库/输入文件.png">
 
 <p>定义一个类描述输入数据：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">PersonInfo</span>&#123;</span></span><br><span class="line">	<span class="built_in">string</span> name;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; phones;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>

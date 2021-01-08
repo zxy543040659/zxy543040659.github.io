@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述小扣出去秋游，途中收集了一些红叶和黄叶，他利用这些叶子初步整理了一份秋叶收藏集 leaves， 字符串 leaves 仅包含小写字符 r 和 y， 其中字符 r 表示一片红叶，字符 y 表示一片黄叶。出于美观整齐的考虑，小扣想要将收藏集中树叶的排列调整成「红、黄、红」三部分。每部分树叶数量可以不相等，但均需大于等于 1。每次调整操作，小扣可以将一片红叶替换成黄叶或者将一片黄叶替换成红叶。请">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/image-20201011112801516.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/image-20201011112801516.png">
 <meta property="og:updated_time" content="2020-10-12T09:27:57.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LCP19-秋叶收藏集">
 <meta name="twitter:description" content="题目描述小扣出去秋游，途中收集了一些红叶和黄叶，他利用这些叶子初步整理了一份秋叶收藏集 leaves， 字符串 leaves 仅包含小写字符 r 和 y， 其中字符 r 表示一片红叶，字符 y 表示一片黄叶。出于美观整齐的考虑，小扣想要将收藏集中树叶的排列调整成「红、黄、红」三部分。每部分树叶数量可以不相等，但均需大于等于 1。每次调整操作，小扣可以将一片红叶替换成黄叶或者将一片黄叶替换成红叶。请">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/image-20201011112801516.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/image-20201011112801516.png">
 
 
 
@@ -437,7 +437,7 @@
         <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>小扣出去秋游，途中收集了一些红叶和黄叶，他利用这些叶子初步整理了一份秋叶收藏集 leaves， 字符串 leaves 仅包含小写字符 r 和 y， 其中字符 r 表示一片红叶，字符 y 表示一片黄叶。<br>出于美观整齐的考虑，小扣想要将收藏集中树叶的排列调整成「红、黄、红」三部分。每部分树叶数量可以不相等，但均需大于等于 1。每次调整操作，小扣可以将一片红叶替换成黄叶或者将一片黄叶替换成红叶。请问小扣最少需要多少次调整操作才能将秋叶收藏集调整完毕。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/10/11/LCP19-秋叶收藏集/image-20201011112801516.png" style="zoom:80%;">
+<img src="/blog/2020/10/11/LCP19-秋叶收藏集/image-20201011112801516.png" style="zoom:80%;">
 
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>用三个状态来标记其中的每一个部分，0和2表示前面和后面的红色，1表示中间的黄色，于是三部分结构为「0、1、2」。</p>
 <p>定义<code>dp[i][j]</code>表示：对**[0..i]<strong>片叶子进行调整，并且第</strong>i<strong>片叶子处于</strong>j**状态的最小操作数，所以有下面三种情况：</p>

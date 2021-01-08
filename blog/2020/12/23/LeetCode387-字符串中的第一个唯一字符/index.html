@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="哈希表,字符串,">
+  <meta name="keywords" content="字符串,哈希表,">
 
 
 
@@ -82,19 +82,19 @@
 
 
 <meta name="description" content="题目描述给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。">
-<meta name="keywords" content="哈希表,字符串">
+<meta name="keywords" content="字符串,哈希表">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode387-字符串中的第一个唯一字符">
 <meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/12/23/LeetCode387-字符串中的第一个唯一字符/index.html">
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/23/LeetCode387-字符串中的第一个唯一字符/387.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/23/LeetCode387-字符串中的第一个唯一字符/387.png">
 <meta property="og:updated_time" content="2020-12-23T01:14:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode387-字符串中的第一个唯一字符">
 <meta name="twitter:description" content="题目描述给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/23/LeetCode387-字符串中的第一个唯一字符/387.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/23/LeetCode387-字符串中的第一个唯一字符/387.png">
 
 
 
@@ -437,7 +437,7 @@
         <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/23/LeetCode387-字符串中的第一个唯一字符/387.png" style="zoom:80%;">
+<img src="/blog/2020/12/23/LeetCode387-字符串中的第一个唯一字符/387.png" style="zoom:80%;">
 
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>用一个哈希表记录一下每个字母出现的次数，返回第一个出现次数为1的字母位置即可。</p>
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">firstUniqChar</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cnt[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;ch : s)</span><br><span class="line">            cnt[ch - <span class="string">'a'</span>]++;</span><br><span class="line">        <span class="keyword">int</span> pos = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); ++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(cnt[s[i] - <span class="string">'a'</span>] == <span class="number">1</span>)&#123;</span><br><span class="line">                pos = i;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;      </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -469,9 +469,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/哈希表/" rel="tag"># 哈希表</a>
-          
             <a href="/tags/字符串/" rel="tag"># 字符串</a>
+          
+            <a href="/tags/哈希表/" rel="tag"># 哈希表</a>
           
         </div>
       

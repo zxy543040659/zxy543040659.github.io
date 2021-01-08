@@ -88,15 +88,15 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="Verilog基础学习verilog基础语法1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image1">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image2">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image3">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image4">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image1">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image2">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image3">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image4">
 <meta property="og:updated_time" content="2020-07-15T00:55:10.843Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Verilog基础1">
 <meta name="twitter:description" content="Verilog基础学习verilog基础语法1">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image1">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image1">
 
 
 
@@ -515,14 +515,14 @@
 <li>译码器设计步骤与多数表决器相同，也是组合逻辑电路</li>
 <li><strong>IP核</strong>：点击顶部的<strong>Tools</strong>，然后点击<strong>Create and Package IP</strong>项，之后一直<strong>Next</strong>，进入以下页面：</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image1" style="zoom:80%;">
+<img src="/blog/2020/07/14/Verilog基础1/image1" style="zoom:80%;">
 
 <p>没什么问题后点击<strong>Review and Package</strong>中的<strong>Package IP</strong></p>
 <h4 id="调用IP核实现多数表决器"><a href="#调用IP核实现多数表决器" class="headerlink" title="调用IP核实现多数表决器"></a>调用IP核实现多数表决器</h4><h2 id="第四章-时序逻辑电路"><a href="#第四章-时序逻辑电路" class="headerlink" title="第四章 时序逻辑电路"></a>第四章 时序逻辑电路</h2><p>时钟同步状态机：时序电路的状态变化发生的时间有一个统一的时钟信号的指定边沿来激励。</p>
 <h4 id="实现11001序列发生器"><a href="#实现11001序列发生器" class="headerlink" title="实现11001序列发生器"></a>实现11001序列发生器</h4><ol>
 <li>画出状态转移图</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image2">
+<img src="/blog/2020/07/14/Verilog基础1/image2">
 
 <ol start="2">
 <li>画出状态转移表</li>
@@ -614,14 +614,14 @@
 <ol start="8">
 <li>仿真</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image3">
+<img src="/blog/2020/07/14/Verilog基础1/image3">
 
 <p>从图可知，和状态转移表一致</p>
 <h4 id="状态图直接描述法实现序列发生器"><a href="#状态图直接描述法实现序列发生器" class="headerlink" title="状态图直接描述法实现序列发生器"></a>状态图直接描述法实现序列发生器</h4><p>根据上部分<strong>1</strong>中的状态转移图可以直接实现<strong>11001</strong>序列发生器，实现代码如下：</p>
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> seq_11001_2(</span><br><span class="line">    <span class="keyword">input</span> clk,</span><br><span class="line">    <span class="keyword">output</span> led</span><br><span class="line">    );</span><br><span class="line"><span class="keyword">reg</span> led;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] divclk_cnt = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">reg</span> divclk = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] state = state_A;</span><br><span class="line"><span class="keyword">parameter</span> <span class="comment">// 符号常量</span></span><br><span class="line">state_A = <span class="number">3'b000</span>,state_B = <span class="number">3'b001</span>,state_C = <span class="number">3'b010</span>,state_D = <span class="number">3'b011</span>,state_E = <span class="number">3'b100</span>;</span><br><span class="line"><span class="keyword">always</span> @ ( <span class="keyword">posedge</span> clk )</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">if</span>(divclk_cnt == <span class="number">25</span>)</span><br><span class="line">	<span class="keyword">begin</span></span><br><span class="line">		divclk = ~divclk;</span><br><span class="line">		divclk_cnt = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">		divclk_cnt = divclk_cnt + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">always</span> @ ( <span class="keyword">posedge</span> divclk )</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">case</span>( state )</span><br><span class="line">		state_A:<span class="keyword">begin</span></span><br><span class="line">			state &lt;= state_B;</span><br><span class="line">			led &lt;= <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">		state_B:<span class="keyword">begin</span></span><br><span class="line">			state &lt;= state_C;</span><br><span class="line">			led &lt;= <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">		state_C:<span class="keyword">begin</span></span><br><span class="line">			state &lt;= state_D;</span><br><span class="line">			led &lt;= <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">		state_D:<span class="keyword">begin</span></span><br><span class="line">			state &lt;= state_E;</span><br><span class="line">			led &lt;= <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">		state_E:<span class="keyword">begin</span></span><br><span class="line">			state &lt;= state_A;</span><br><span class="line">			led &lt;= <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">        <span class="comment">// 表示当前状态不属于以上状态，让状态回到state_A</span></span><br><span class="line">		<span class="keyword">default</span>:<span class="keyword">begin</span></span><br><span class="line">			state &lt;= state_A;</span><br><span class="line">			led &lt;= <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">endcase</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
 
 <p>仿真图如下：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础1/image4">
+<img src="/blog/2020/07/14/Verilog基础1/image4">
 
 <p>当<code>state = 000</code>时，在<code>divclk</code>的下一个上升沿时<code>led = 1</code>，以此类推</p>
 

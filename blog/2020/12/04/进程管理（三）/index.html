@@ -88,16 +88,16 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="本次学习要点 进程同步、进程互斥 进程互斥软件/硬件实现方法 信号量机制及用其实现进程同步等 管程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/同步与互斥.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/进程互斥的软件实现方法.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/进程互斥的硬件实现方法.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/信号量实现同步与互斥.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/管程.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/同步与互斥.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/进程互斥的软件实现方法.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/进程互斥的硬件实现方法.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/信号量实现同步与互斥.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/管程.png">
 <meta property="og:updated_time" content="2020-12-14T08:15:20.127Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="进程管理（三）">
 <meta name="twitter:description" content="本次学习要点 进程同步、进程互斥 进程互斥软件/硬件实现方法 信号量机制及用其实现进程同步等 管程">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/同步与互斥.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/同步与互斥.png">
 
 
 
@@ -467,7 +467,7 @@
 <li>有限等待，请求访问的进程在有限时间内进入临界区（保证不会饥饿）。</li>
 <li>让权等待，进程不能进入临界区时，应立即释放处理机，防止进程忙等待。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/同步与互斥.png" style="zoom:120%;">
+<img src="/blog/2020/12/04/进程管理（三）/同步与互斥.png" style="zoom:120%;">
 
 <h4 id="进程互斥软件-硬件实现方法"><a href="#进程互斥软件-硬件实现方法" class="headerlink" title="进程互斥软件/硬件实现方法"></a>进程互斥软件/硬件实现方法</h4><h5 id="软件实现方法"><a href="#软件实现方法" class="headerlink" title="软件实现方法"></a>软件实现方法</h5><h6 id="单标志法"><a href="#单标志法" class="headerlink" title="单标志法"></a>单标志法</h6><p>实现思想：两个进程在<strong>访问完临界区后</strong>会把临界区的使用权转交给另一个进程，<strong>每个进程进入临界区的权限只能被另一个进程赋予</strong>。</p>
 <p>主要问题：违背<strong>空闲让进</strong>原则。</p>
@@ -477,7 +477,7 @@
 <p>主要问题：虽然解决了<strong>忙则等待</strong>，但是违背了<strong>空闲让进</strong>和<strong>有限等待</strong>原则，会因各进程都长期无法访问临界资源而产生<strong>饥饿</strong>现象。</p>
 <h6 id="Peterson算法"><a href="#Peterson算法" class="headerlink" title="Peterson算法"></a>Peterson算法</h6><p>实现思想：对比双标志后检查法，如果双方都争着想进入临界区，可以让进程主动让对方先使用临界区。</p>
 <p>主要问题：违背了<strong>让权等待</strong>原则。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/进程互斥的软件实现方法.png" style="zoom:120%;">
+<img src="/blog/2020/12/04/进程管理（三）/进程互斥的软件实现方法.png" style="zoom:120%;">
 
 <h5 id="硬件实现方法"><a href="#硬件实现方法" class="headerlink" title="硬件实现方法"></a>硬件实现方法</h5><h6 id="中断屏蔽方法"><a href="#中断屏蔽方法" class="headerlink" title="中断屏蔽方法"></a>中断屏蔽方法</h6><p>实现思想：利用”开/关中断指令“实现。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;</span><br><span class="line">关中断；// 关中断后不允许当前进程被中断，也必然不会发生进程切换</span><br><span class="line">临界区；</span><br><span class="line">开中断；// 直到当前进程访问完临界区，再执行开中断指令，才有可能有别的进程上处理机并访问临界区</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
@@ -494,7 +494,7 @@
 </ul>
 <h6 id="Swap指令-XCHG指令"><a href="#Swap指令-XCHG指令" class="headerlink" title="Swap指令(XCHG指令)"></a>Swap指令(XCHG指令)</h6><p>也叫Exchange指令，或者XCHG指令。</p>
 <p>逻辑上与TS指令相同。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/进程互斥的硬件实现方法.png" style="zoom:120%;">
+<img src="/blog/2020/12/04/进程管理（三）/进程互斥的硬件实现方法.png" style="zoom:120%;">
 
 <h4 id="信号量机制"><a href="#信号量机制" class="headerlink" title="信号量机制"></a>信号量机制</h4><p>信号量机制时一种功能较强的机制，可以用来解决互斥和同步问题，它只能被两个标准的原语<code>wait(S)</code>和<code>signal(S)</code>访问，简称<strong>P操作</strong>和<strong>V操作</strong>。</p>
 <p>信号量其实就是一个变量，可以是一个整数，也可以是更复杂的记录型变量，可以用一个信号量来<strong>表示系统中某种资源的数量</strong>。</p>
@@ -532,7 +532,7 @@
 <li>在”前操作“之后对相应的同步变量执行V操作。</li>
 <li>在”后操作“之前对相应的同步变量执行P操作。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/信号量实现同步与互斥.png" style="zoom:120%;">
+<img src="/blog/2020/12/04/进程管理（三）/信号量实现同步与互斥.png" style="zoom:120%;">
 
 <p>常见的使用场景</p>
 <ul>
@@ -556,7 +556,7 @@
 <li>一个进程只有通过调用管程内的过程才能进入管程访问共享数据。</li>
 <li><strong>每次仅允许一个进程在管程内执行某个内部过程，即同一时刻只有一个进程在管程内执行某个函数。</strong></li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/04/进程管理（三）/管程.png" style="zoom:120%;">
+<img src="/blog/2020/12/04/进程管理（三）/管程.png" style="zoom:120%;">
 
 
       

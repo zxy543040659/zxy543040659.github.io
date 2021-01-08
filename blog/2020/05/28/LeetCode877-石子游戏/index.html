@@ -89,16 +89,16 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述亚历克斯和李用几堆石子在做游戏。偶数堆石子排成一行，每堆都有正整数颗石子 piles[i] 。 游戏以谁手中的石子最多来决出胜负。石子的总数是奇数，所以没有平局。 亚历克斯和李轮流进行，亚历克斯先开始。 每回合，玩家从行的开始或结束处取走整堆石头。 这种情况一直持续到没有更多的石子堆为止，此时手中石子最多的玩家获胜。 假设亚历克斯和李都发挥出最佳水平，当亚历克斯赢得比赛时返回 true ，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/877.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/dp.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/dp1.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/dp2.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/dp3.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/877.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/dp.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/dp1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/dp2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/dp3.png">
 <meta property="og:updated_time" content="2020-05-28T11:56:57.307Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode877-石子游戏">
 <meta name="twitter:description" content="题目描述亚历克斯和李用几堆石子在做游戏。偶数堆石子排成一行，每堆都有正整数颗石子 piles[i] 。 游戏以谁手中的石子最多来决出胜负。石子的总数是奇数，所以没有平局。 亚历克斯和李轮流进行，亚历克斯先开始。 每回合，玩家从行的开始或结束处取走整堆石头。 这种情况一直持续到没有更多的石子堆为止，此时手中石子最多的玩家获胜。 假设亚历克斯和李都发挥出最佳水平，当亚历克斯赢得比赛时返回 true ，">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/877.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/877.png">
 
 
 
@@ -444,12 +444,12 @@
 <p>假设亚历克斯和李都发挥出最佳水平，当亚历克斯赢得比赛时返回 true ，当李赢得比赛时返回 false 。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/877.png" style="zoom:80%;">
+<img src="/blog/2020/05/28/LeetCode877-石子游戏/877.png" style="zoom:80%;">
 
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这个题其实一定是先手获胜，为了更具有一般性，假设<strong>石头的堆数可以是任意正整数</strong>，那么就能打破先手必定获胜的局面了，比如<code>piles = [1, 100, 3]</code>，先手不管拿1还是3，能够决胜的100都会被后手拿走，后手获胜。</p>
 <p><strong>博弈问题的难点在于，两个人要轮流进行选择，而且都很精明，应该如何编程表示这个过程呢？</strong>首先明确 dp 数组的含义，只要找到「状态」和「选择」，一切就水到渠成了。</p>
 <h4 id="一、定义-dp-数组的含义"><a href="#一、定义-dp-数组的含义" class="headerlink" title="一、定义 dp 数组的含义"></a>一、定义 dp 数组的含义</h4><p>先看一下dp数组的最终样子，再介绍其含义</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/dp.png" style="zoom:50%;">
+<img src="/blog/2020/05/28/LeetCode877-石子游戏/dp.png" style="zoom:50%;">
 
 <p>定义dp数组是二维的，并且每个单元包含first和second两个属性，将这两个属性简写为fir和sec。如按上图的数据，我们说 <code>dp[1][3].fir = 10</code>，<code>dp[0][1].sec = 3</code>。</p>
 <p><strong>以下是对 dp 数组含义的解释：</strong></p>
@@ -464,15 +464,15 @@
 <p>这道题的难点在于，两人是交替进行选择的，也就是说先手的选择会对后手有影响，这怎么表达出来呢？根据我们对 dp 数组的定义，很容易解决这个难点，<strong>写出状态转移方程：</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j].fir = max(piles[i] + dp[i+<span class="number">1</span>][j].sec, piles[j] + dp[i][j<span class="number">-1</span>].sec)</span><br><span class="line">left = piles[i] + dp[i+<span class="number">1</span>][j].sec <span class="comment">//选择最左边的石头堆</span></span><br><span class="line">right = piles[j] + dp[i][j<span class="number">-1</span>].sec <span class="comment">//选择最右边的石头堆</span></span><br><span class="line"># 解释：我作为先手，面对 piles[i...j] 时，有两种选择：</span><br><span class="line"># 要么我选择最左边的那一堆石头，然后面对 piles[i+<span class="number">1.</span>..j]</span><br><span class="line"># 在上一轮中，我是作为后手的；</span><br><span class="line"># 要么我选择最右边的那一堆石头，然后面对 piles[i...j<span class="number">-1</span>]</span><br><span class="line"># 在上一轮中，我是作为后手的。</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> 先手选择左边:</span><br><span class="line">    dp[i][j].sec = dp[i+<span class="number">1</span>][j].fir</span><br><span class="line"><span class="keyword">if</span> 先手选择右边:</span><br><span class="line">    dp[i][j].sec = dp[i][j<span class="number">-1</span>].fir</span><br><span class="line"># 解释：我作为后手，要等先手先选择，有两种情况：</span><br><span class="line"># 如果先手选择了最左边那堆，给我剩下了 piles[i+<span class="number">1.</span>..j]</span><br><span class="line"># 此时轮到我，我变成了先手；</span><br><span class="line"># 如果先手选择了最右边那堆，给我剩下了 piles[i...j<span class="number">-1</span>]</span><br><span class="line"># 此时轮到我，我变成了先手。</span><br><span class="line">根据 dp 数组的定义，我们也可以找出base <span class="keyword">case</span>，也就是最简单的情况：</span><br><span class="line"></span><br><span class="line">dp[i][j].fir = piles[i]</span><br><span class="line">dp[i][j].sec = <span class="number">0</span></span><br><span class="line">其中 <span class="number">0</span> &lt;= i == j &lt; n</span><br><span class="line"># 解释：i 和 j 相等就是说面前只有一堆石头 piles[i]，i != j时可以不需要初始化</span><br><span class="line"># 那么显然先手的得分为 piles[i]</span><br><span class="line"># 后手没有石头拿了，得分为 <span class="number">0</span></span><br></pre></td></tr></table></figure>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/dp1.png" style="zoom:50%;">
+<img src="/blog/2020/05/28/LeetCode877-石子游戏/dp1.png" style="zoom:50%;">
 
 <p>这里需要注意一点，我们发现 base case 是斜着的，而且我们推算<code>dp[i][j]</code>时需要用到<code>dp[i+1][j]</code>和<code>dp[i][j-1]</code>:</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/dp2.png" alt="dp2" style="zoom:50%;">
+<img src="/blog/2020/05/28/LeetCode877-石子游戏/dp2.png" alt="dp2" style="zoom:50%;">
 
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 举例：若i = <span class="number">0</span>, j = <span class="number">1</span></span><br><span class="line"># dp[i][j].fir = <span class="built_in">max</span>(piles[i] + dp[i+<span class="number">1</span>][j].sec, piles[j] + dp[i][j<span class="number">-1</span>].sec)</span><br><span class="line">dp[<span class="number">0</span>][<span class="number">1</span>].fir = <span class="built_in">max</span>(piles[<span class="number">0</span>] + dp[<span class="number">1</span>][<span class="number">1</span>].sec, piles[<span class="number">1</span>] + dp[<span class="number">0</span>][<span class="number">0</span>].sec)</span><br><span class="line">    		 = <span class="built_in">max</span>(<span class="number">3</span> + <span class="number">0</span>, <span class="number">9</span> + <span class="number">0</span>) = <span class="number">9</span></span><br><span class="line"># 先手选择右边第一堆</span><br><span class="line"># <span class="keyword">if</span> 先手选择右边: dp[i][j].sec = dp[i][j<span class="number">-1</span>].fir</span><br><span class="line">dp[<span class="number">0</span>][<span class="number">1</span>].sec = dp[<span class="number">0</span>][<span class="number">0</span>].fir = <span class="number">3</span></span><br><span class="line">dp[<span class="number">0</span>][<span class="number">1</span>] = &#123;<span class="number">9</span>, <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
 
 <p>所以说算法不能简单的一行一行遍历 dp 数组，<strong>而要斜着遍历数组：</strong></p>
-<img src="/www.xingyuzhao.ltd/blog/2020/05/28/LeetCode877-石子游戏/dp3.png" style="zoom:50%;">
+<img src="/blog/2020/05/28/LeetCode877-石子游戏/dp3.png" style="zoom:50%;">
 
 <p>如何斜着遍历二维数组是个问题，这里我不是很会，只是有个框架，具体的细节还需要再消化消化</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 遍历的是橘黄色的部分</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> l = <span class="number">2</span>; l &lt;= n; l++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n - l; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = l + i - <span class="number">1</span>;</span><br><span class="line">            <span class="comment">/*操作段*/</span></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

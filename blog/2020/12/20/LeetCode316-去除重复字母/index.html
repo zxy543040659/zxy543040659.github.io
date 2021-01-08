@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述给你一个字符串 s ，请你去除字符串中重复的字母，使得每个字母只出现一次。需保证 返回结果的字典序最小（要求不能打乱其他字符的相对位置）。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/20/LeetCode316-去除重复字母/316.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/20/LeetCode316-去除重复字母/316.png">
 <meta property="og:updated_time" content="2020-12-20T12:26:58.182Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode316-去除重复字母">
 <meta name="twitter:description" content="题目描述给你一个字符串 s ，请你去除字符串中重复的字母，使得每个字母只出现一次。需保证 返回结果的字典序最小（要求不能打乱其他字符的相对位置）。">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/20/LeetCode316-去除重复字母/316.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/20/LeetCode316-去除重复字母/316.png">
 
 
 
@@ -437,7 +437,7 @@
         <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给你一个字符串 <code>s</code> ，请你去除字符串中重复的字母，使得每个字母只出现一次。需保证 <strong>返回结果的字典序最小</strong>（要求不能打乱其他字符的相对位置）。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/20/LeetCode316-去除重复字母/316.png">
+<img src="/blog/2020/12/20/LeetCode316-去除重复字母/316.png">
 
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>对于一个字符串来说，如果 $s[i]&gt;s[i+1]$ ，去除此时的 $s[i]$ 可以使剩下的字符串字典序最小。我们将 $s[i]$ 称为<strong>关键字符</strong>。</p>
 <p>从前往后遍历字符串。假定在 $s[i-1]$ 之前所有的<strong>关键字符</strong>都已经去除，那么在扫描 $s[i]$ 时，新出现的<strong>关键字符</strong>只能出现在 $s[i]$ 或者其后的位置。</p>

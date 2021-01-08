@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述给你一个由 ‘1’（陆地）和 ‘0’（水）组成的的二维网格，请你计算网格中岛屿的数量。 岛屿总是被水包围，并且每座岛屿只能由水平方向或竖直方向上相邻的陆地连接形成。 此外，你可以假设该网格的四条边均被水包围。 使用并查集解决此问题">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/09/20/LeetCode200-岛屿数量/示例.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/09/20/LeetCode200-岛屿数量/示例.png">
 <meta property="og:updated_time" content="2020-09-20T15:08:03.319Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode200-岛屿数量">
 <meta name="twitter:description" content="题目描述给你一个由 ‘1’（陆地）和 ‘0’（水）组成的的二维网格，请你计算网格中岛屿的数量。 岛屿总是被水包围，并且每座岛屿只能由水平方向或竖直方向上相邻的陆地连接形成。 此外，你可以假设该网格的四条边均被水包围。 使用并查集解决此问题">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/09/20/LeetCode200-岛屿数量/示例.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/09/20/LeetCode200-岛屿数量/示例.png">
 
 
 
@@ -440,7 +440,7 @@
 <p><strong>使用并查集解决此问题</strong></p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/09/20/LeetCode200-岛屿数量/示例.png" style="zoom:80%;">
+<img src="/blog/2020/09/20/LeetCode200-岛屿数量/示例.png" style="zoom:80%;">
 
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>在<code>grid</code>中遇到<code>&#39;1&#39;</code>时，搜索其四周（上下左右），如果发现值也为<code>&#39;1&#39;</code>，那么将他们合并，同时将当前位置值置为<code>&#39;0&#39;</code>，直到遍历到最后一个元素。</p>
 <p>并查集进行初始化时，遇到<code>&#39;1&#39;</code>则增加计数值<code>count</code>，在后续的合并操作中，如果两者根节点不同，要进行合并时，计数值<code>count</code>要减1，说明两个节点进行了连接。</p>

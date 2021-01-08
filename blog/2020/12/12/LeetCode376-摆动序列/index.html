@@ -89,15 +89,15 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。 例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/376.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/1.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/2.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/3.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/376.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/3.png">
 <meta property="og:updated_time" content="2020-12-17T08:02:52.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode376-摆动序列">
 <meta name="twitter:description" content="题目描述如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为摆动序列。第一个差（如果存在的话）可能是正数或负数。少于两个元素的序列也是摆动序列。 例如， [1,7,4,9,2,5] 是一个摆动序列，因为差值 (6,-3,5,-7,3) 是正负交替出现的。相反, [1,4,7,2,5] 和 [1,7,4,5,5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/376.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/376.png">
 
 
 
@@ -442,21 +442,21 @@
 <p>给定一个整数序列，返回作为摆动序列的最长子序列的长度。 通过从原始序列中删除一些（也可以不删除）元素来获得子序列，剩下的元素保持其原始顺序。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/376.png" style="zoom:80%;">
+<img src="/blog/2020/12/12/LeetCode376-摆动序列/376.png" style="zoom:80%;">
 
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>可以找每次的拐点进行计数，最后再加上首尾两个点即可，比如序列$[1,7,4,9,2,5]$，有4个拐点，加上首尾一共6个点：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/1.png" style="zoom:80%;">
+<img src="/blog/2020/12/12/LeetCode376-摆动序列/1.png" style="zoom:80%;">
 
 <p>需要考虑特殊情况：</p>
 <ol>
 <li>连续几个相同的数恰好都是拐点，如$[1,12,12,12,1]$：</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/2.png" style="zoom:80%;">
+<img src="/blog/2020/12/12/LeetCode376-摆动序列/2.png" style="zoom:80%;">
 
 <ol start="2">
 <li>输入的序列没有拐点且全部是同一个数，如$[1,1,1]$：</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/12/LeetCode376-摆动序列/3.png" style="zoom:80%;">
+<img src="/blog/2020/12/12/LeetCode376-摆动序列/3.png" style="zoom:80%;">
 
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> guaidian = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.size() - <span class="number">1</span>; ++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i - <span class="number">1</span>] &gt; nums[i] &amp;&amp; nums[i + <span class="number">1</span>] &gt; nums[i])&#123;</span><br><span class="line">                guaidian++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nums[i - <span class="number">1</span>] &lt; nums[i] &amp;&amp; nums[i + <span class="number">1</span>] &lt; nums[i])&#123;</span><br><span class="line">                guaidian++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 这一步是为了去除相同的点，如果nums[i]与nums[i + 1]相同，</span></span><br><span class="line">            <span class="comment">// 那么就让nums[i]等于nums[i - 1]，</span></span><br><span class="line">            <span class="comment">// 可以保证nums[i + 1]与改变之后的nums[i]不同。</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(i + <span class="number">1</span> &lt; nums.size() - <span class="number">1</span> &amp;&amp; nums[i] == nums[i + <span class="number">1</span>])&#123;</span><br><span class="line">                nums[i] = nums[i - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(guaidian == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">auto</span> f = unique(nums.begin(), nums.end());</span><br><span class="line">            <span class="comment">// 输入的序列全部都是同一个数</span></span><br><span class="line">            <span class="keyword">if</span>(f - <span class="number">1</span> == nums.begin())&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> guaidian + <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 

@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述Dota2 的世界里有两个阵营：Radiant(天辉)和 Dire(夜魇) Dota2 参议院由来自两派的参议员组成。现在参议院希望对一个 Dota2 游戏里的改变作出决定。他们以一个基于轮为过程的投票进行。在每一轮中，每一位参议员都可以行使两项权利中的一项：  禁止一名参议员的权利：  参议员可以让另一位参议员在这一轮和随后的几轮中丧失所有的权利。  宣布胜利：  如果参议员发现有权利投">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/11/LeetCode649-Dota2参议院/649.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/11/LeetCode649-Dota2参议院/649.png">
 <meta property="og:updated_time" content="2020-12-17T08:06:32.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode649-Dota2参议院">
 <meta name="twitter:description" content="题目描述Dota2 的世界里有两个阵营：Radiant(天辉)和 Dire(夜魇) Dota2 参议院由来自两派的参议员组成。现在参议院希望对一个 Dota2 游戏里的改变作出决定。他们以一个基于轮为过程的投票进行。在每一轮中，每一位参议员都可以行使两项权利中的一项：  禁止一名参议员的权利：  参议员可以让另一位参议员在这一轮和随后的几轮中丧失所有的权利。  宣布胜利：  如果参议员发现有权利投">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/11/LeetCode649-Dota2参议院/649.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/11/LeetCode649-Dota2参议院/649.png">
 
 
 
@@ -449,7 +449,7 @@
 <p>给定一个字符串代表每个参议员的阵营。字母 “R” 和 “D” 分别代表了 <code>Radiant</code>（天辉）和 <code>Dire</code>（夜魇）。然后，如果有 <code>n</code> 个参议员，给定字符串的大小将是 <code>n</code>。</p>
 <p>以轮为基础的过程从给定顺序的第一个参议员开始到最后一个参议员结束。这一过程将持续到投票结束。所有失去权利的参议员将在过程中被跳过。</p>
 <p>假设每一位参议员都足够聪明，会为自己的政党做出最好的策略，你需要预测哪一方最终会宣布胜利并在 Dota2 游戏中决定改变。输出应该是 <code>Radiant</code> 或 <code>Dire</code>。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/11/LeetCode649-Dota2参议院/649.png" style="zoom:80%;">
+<img src="/blog/2020/12/11/LeetCode649-Dota2参议院/649.png" style="zoom:80%;">
 
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>只想到了暴力法解决。首先记录$senate$中R和D出现次数，再用一个长与$senate$相同的$bool$数组来记录当前字母是否被<strong>消灭</strong>了，初始化都为0，代表没有被<strong>消灭</strong>。遍历$senate$，如果遇到了R，就从R开始找第一个D的位置，直到下一轮循环到它之前的位置；对于D也是一样。这样保证它们能行使自己的权力，除非自己的阵营已经获胜了。</p>
 <p><strong>消灭的策略是：尽量消灭自己后面的对手，因为前面的对手已经使用过权利了，而后序的对手依然可以使用权利消灭自己的同伴。</strong></p>

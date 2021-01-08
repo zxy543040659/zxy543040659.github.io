@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/14/LeetCode49-字母异位词分组/49.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/14/LeetCode49-字母异位词分组/49.png">
 <meta property="og:updated_time" content="2020-12-20T12:18:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode49-字母异位词分组">
 <meta name="twitter:description" content="题目描述给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/14/LeetCode49-字母异位词分组/49.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/14/LeetCode49-字母异位词分组/49.png">
 
 
 
@@ -437,7 +437,7 @@
         <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/14/LeetCode49-字母异位词分组/49.png" style="zoom:80%;">
+<img src="/blog/2020/12/14/LeetCode49-字母异位词分组/49.png" style="zoom:80%;">
 
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>主要是理解哈希表的 $key$ 和 $value$ 表示什么数或者集合。对于字母构造相同的几个<code>string</code>，它们进行排序后的结果是一致的，所以可以将排序后的结果作为哈希表的 $key$，而对应的 $value$ 来存储排序后等于此 $key$ 的所有<code>string</code>。</p>
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">groupAnagrams</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="built_in">map</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; strs.size(); ++i)&#123;</span><br><span class="line">            <span class="built_in">string</span> str = strs[i];</span><br><span class="line">            sort(str.begin(), str.end());</span><br><span class="line">            <span class="built_in">map</span>[str].push_back(strs[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;m : <span class="built_in">map</span>)</span><br><span class="line">            res.push_back(m.second);</span><br><span class="line">        <span class="keyword">return</span> res;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>

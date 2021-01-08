@@ -88,21 +88,21 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="本次学习要点 再探迭代器 泛型算法结构 特定容器算法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/插入迭代器_note.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/istream_iterator操作.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/ostream_iterator操作.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/反向迭代器.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/反向迭代器_使用base.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/反向迭代器_note.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/迭代器类别.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/特定容器算法.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/list.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/splice.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/插入迭代器_note.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/istream_iterator操作.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/ostream_iterator操作.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/反向迭代器.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/反向迭代器_使用base.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/反向迭代器_note.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/迭代器类别.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/特定容器算法.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/list.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/splice.png">
 <meta property="og:updated_time" content="2020-12-20T12:49:02.989Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++泛型算法（二）">
 <meta name="twitter:description" content="本次学习要点 再探迭代器 泛型算法结构 特定容器算法">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/插入迭代器_note.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/插入迭代器_note.png">
 
 
 
@@ -463,7 +463,7 @@
 <li><strong>front_inserter</strong>：创建一个使用<code>push_front</code>的迭代器。</li>
 <li><strong>inserter</strong>创建一个使用<code>insert</code>的迭代器。此函数接受第二个参数，这个参数必须是一个指向给定容器的迭代器。<strong>元素将被插入到给定得到所表示的元素之前</strong>。</li>
 </ul>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/插入迭代器_note.png">
+<img src="/blog/2020/12/19/C-泛型算法（二）/插入迭代器_note.png">
 
 <p>当调用<code>inserter(c, iter)</code>时，会得到一个迭代器，接下来使用它时，会将元素插入到<code>iter</code>原来所指向的元素之前的位置。即，如果<code>it</code>是由<code>iterator</code>生成的迭代器，则下面两段代码效果一样：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*it = val;</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line">it = c.insert(it, val); <span class="comment">// it指向新加入的元素</span></span><br><span class="line">++it; <span class="comment">// 递增it使它指向原来的元素</span></span><br></pre></td></tr></table></figure>
@@ -482,14 +482,14 @@
 <p>上述程序可以改写如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">istream_iterator&lt;int&gt; in_iter(cin), eof; // 从cin读取int</span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">vec</span><span class="params">(in_iter, eof)</span></span>; <span class="comment">// 从迭代器范围构造vec</span></span><br></pre></td></tr></table></figure>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/istream_iterator操作.png" style="zoom: 80%;">
+<img src="/blog/2020/12/19/C-泛型算法（二）/istream_iterator操作.png" style="zoom: 80%;">
 
 <h6 id="使用算法操作流迭代器"><a href="#使用算法操作流迭代器" class="headerlink" title="使用算法操作流迭代器"></a>使用算法操作流迭代器</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">istream_iterator&lt;int&gt; in(cin), eof;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; accumulate(in, eof, <span class="number">0</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
 
 <p>此调用会计算出从标准输入读取的值的和。</p>
 <h6 id="istream-iterator允许使用懒惰求值"><a href="#istream-iterator允许使用懒惰求值" class="headerlink" title="istream_iterator允许使用懒惰求值"></a>istream_iterator允许使用懒惰求值</h6><p>当我们将一个<code>istream_iterator</code>绑定到一个流时，标准库并不保证迭代器立即从流读取数据。可以推迟从流中读取数据，直到我们使用迭代器时才真正读取。</p>
 <h6 id="ostream-iterator操作"><a href="#ostream-iterator操作" class="headerlink" title="ostream_iterator操作"></a>ostream_iterator操作</h6><p>我们可以对具有输出运算符<code>&lt;&lt;</code>的类型定义<code>ostream_iterator</code>。创建一个<code>ostream_iterator</code>时，可选第二个参数，它是一个<strong>C</strong>风格字符串（<strong>即，一个字符串字面常量或者一个指向以空字符结尾的字符数组的指针）</strong>。在输出的每个元素之后都会打印此字符串。并且必须将<code>ostream_iterator</code>绑定到一个指定的流，不允许空的或表示尾后位置的<code>ostream_iterator</code>。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/ostream_iterator操作.png" style="zoom:80%;">
+<img src="/blog/2020/12/19/C-泛型算法（二）/ostream_iterator操作.png" style="zoom:80%;">
 
 <p>我们可以用<code>ostream_iterator</code>来输出值的序列：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ostream_iterator&lt;<span class="keyword">int</span>&gt; <span class="title">out_iter</span><span class="params">(<span class="built_in">cout</span>, <span class="string">" "</span>)</span></span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> e : vec)</span><br><span class="line">	*out_iter++ = e; <span class="comment">// 赋值语句实际上将元素写到cout</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="comment">// 下面的也行，但不推荐</span></span><br><span class="line"><span class="function">ostream_iterator&lt;<span class="keyword">int</span>&gt; <span class="title">out_iter</span><span class="params">(<span class="built_in">cout</span>, <span class="string">" "</span>)</span></span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> e : vec)</span><br><span class="line">	out_iter = e; <span class="comment">// 赋值语句将元素写到cout</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
@@ -502,7 +502,7 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原始程序</span></span><br><span class="line">Sales_item total; <span class="comment">// 保存下一条交易记录的变量</span></span><br><span class="line"><span class="comment">// 读入第一条交易记录，并确保有数据可以处理</span></span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">cin</span> &gt;&gt; total)&#123;</span><br><span class="line">    Sales_item trans; <span class="comment">// 保存和的变量</span></span><br><span class="line">    <span class="comment">// 读入并处理剩余交易记录</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; trans)&#123;</span><br><span class="line">        <span class="comment">// 如果我们仍在处理相同的书</span></span><br><span class="line">        <span class="keyword">if</span>(total.isbn() == trans.isbn())</span><br><span class="line">            totao += trans; <span class="comment">// 更新销售总额</span></span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">// 打印前一本书的结果</span></span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; total &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            total = trans; <span class="comment">// total现在表示下一本书的销售额</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; total &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用IO迭代器重写</span></span><br><span class="line">istream_iterator&lt;Sales_item&gt; item_iter(cin), eof;</span><br><span class="line"><span class="function">ostream_iterator&lt;Sales_item&gt; <span class="title">out_iter</span><span class="params">(<span class="built_in">cout</span>, <span class="string">"\n"</span>)</span></span>;</span><br><span class="line"><span class="comment">// 将第一笔交易记录存在sum中，并读取下一条记录</span></span><br><span class="line">Sales_item sum = *item_iter++;</span><br><span class="line"><span class="keyword">while</span>(item_iter != eof)&#123;</span><br><span class="line">    <span class="comment">// 如果当前交易记录（存在item_iter中）有相同的ISBN号</span></span><br><span class="line">    <span class="keyword">if</span>(item_iter-&gt;isbn() == sum.isbn())</span><br><span class="line">        sum += *item_iter++;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        out_iter = sum;</span><br><span class="line">        sum = *item_iter++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">out_iter = sum;</span><br></pre></td></tr></table></figure>
 
 <h5 id="反向迭代器"><a href="#反向迭代器" class="headerlink" title="反向迭代器"></a>反向迭代器</h5><p>顾名思义，反向迭代器就是在容器中从尾元素向首元素反向移动的迭代器。对于反向迭代器，递增和递减含义会颠倒过来。递增一个反向迭代器（<code>++it</code>）会移动到前一个元素；递减一个反向迭代器（<code>--it</code>）会移动到后一个元素。反向迭代器也有<code>const</code>和非<code>const</code>版本。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/反向迭代器.png" style="zoom:80%;">
+<img src="/blog/2020/12/19/C-泛型算法（二）/反向迭代器.png" style="zoom:80%;">
 
 <p>下面是一个例子：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> r_iter = vec.crbegin(); r_iter != vec.crend(); ++r_iter)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; *r_iter &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="comment">// 打印6，5，4，3，2，1</span></span><br></pre></td></tr></table></figure>
@@ -522,13 +522,13 @@
 <p>需要做的是，将<code>rcomma</code>转换为一个普通迭代器，能在<code>line</code>中正向移动。可以调用<code>reverse_iterator</code>中的<code>base</code>成员来完成这一转换，此成员函数会返回其对应的普通迭代器：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="built_in">string</span>(rcomma.base(), line.cend()) &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/反向迭代器_使用base.png" style="zoom:80%;">
+<img src="/blog/2020/12/19/C-泛型算法（二）/反向迭代器_使用base.png" style="zoom:80%;">
 
 <p>需要注意的是：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/反向迭代器_note.png" style="zoom: 80%;">
+<img src="/blog/2020/12/19/C-泛型算法（二）/反向迭代器_note.png" style="zoom: 80%;">
 
 <h4 id="泛型算法结构"><a href="#泛型算法结构" class="headerlink" title="泛型算法结构"></a>泛型算法结构</h4><p>算法所要求的迭代器操作可以分为5个迭代器类别：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/迭代器类别.png" style="zoom:80%;">
+<img src="/blog/2020/12/19/C-泛型算法（二）/迭代器类别.png" style="zoom:80%;">
 
 <h5 id="5类迭代器"><a href="#5类迭代器" class="headerlink" title="5类迭代器"></a>5类迭代器</h5><p>对每个迭代器参数来说，其能力必须与规定的最小类别至少相当。向算法传递一个能力更差的迭代器会产生错误。<strong>而这种错误很多编译器不会给出任何警告和提示</strong>。</p>
 <h6 id="输入迭代器（input-iterator）"><a href="#输入迭代器（input-iterator）" class="headerlink" title="输入迭代器（input iterator）"></a>输入迭代器（input iterator）</h6><p>可以读取序列中的元素。一个输入迭代器必须支持：</p>
@@ -575,12 +575,12 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从v1中删除奇数元素</span></span><br><span class="line">remove_if(v1.begin(), v1.end(), </span><br><span class="line">          [](<span class="keyword">int</span> i) &#123; <span class="keyword">return</span> i % <span class="number">2</span>; &#125;);</span><br><span class="line"><span class="comment">// 将偶数元素从v1拷贝到v2，v1不变</span></span><br><span class="line">remove_copy_if(v1.begin(), v1.end(), back_inserter(v2),</span><br><span class="line">              [](<span class="keyword">int</span> i)&#123; <span class="keyword">return</span> i % <span class="number">2</span>&#125;);</span><br></pre></td></tr></table></figure>
 
 <h4 id="特定容器算法"><a href="#特定容器算法" class="headerlink" title="特定容器算法"></a>特定容器算法</h4><p>与其他容器不同，链表类型<code>list</code>和<code>forward_list</code>定义了几个成员函数形式的算法，它们定义了独有的<code>sort、merge、remove、reverse、unique</code>，这些独有的版本比通用版本好得多。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/特定容器算法.png" style="zoom:80%;">
+<img src="/blog/2020/12/19/C-泛型算法（二）/特定容器算法.png" style="zoom:80%;">
 
 <p>算法如下：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/list.png" style="zoom:80%;">
+<img src="/blog/2020/12/19/C-泛型算法（二）/list.png" style="zoom:80%;">
 
-<h5 id="splice成员"><a href="#splice成员" class="headerlink" title="splice成员"></a>splice成员</h5><img src="/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（二）/splice.png" style="zoom:80%;">
+<h5 id="splice成员"><a href="#splice成员" class="headerlink" title="splice成员"></a>splice成员</h5><img src="/blog/2020/12/19/C-泛型算法（二）/splice.png" style="zoom:80%;">
 
 <h5 id="链表特有的操作会改变容器"><a href="#链表特有的操作会改变容器" class="headerlink" title="链表特有的操作会改变容器"></a>链表特有的操作会改变容器</h5><p>链表特有版本会改变底层的容器，例如<code>remove</code>会删除指定的元素。<code>unique</code>会删除第二个和后继的重复元素。</p>
 <p>类似的，通用版本<code>merge</code>将合并的序列写到一个给定的目的迭代器，两个输入序列是不变的。而链表版本的<code>merge</code>会销毁给定的链表——元素从参数指定的链表中删除，被合并到调用<code>merge</code>的链表对象中。在<code>merge</code>之后，来自两个链表中的元素依然存在，但它们都已在同一个链表中。</p>

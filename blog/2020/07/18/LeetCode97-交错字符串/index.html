@@ -89,13 +89,13 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="在看了题解之后才慢慢意识到，这道题和63-不同路径Ⅱ，174-地下城游戏是非常相似的，题目虽然具有一定难度，但都是有迹可循。它们都可以抽象为在二维数组中，从起始到末尾找路径的问题。上面两个问题还未更新，跳转位置是题目链接。 题目描述给定三个字符串 s1, s2, s3, 验证 s3 是否是由 s1 和 s2 交错组成的。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/question1">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/question1_dp">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/question1">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/question1_dp">
 <meta property="og:updated_time" content="2020-07-19T10:20:07.368Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode97-交错字符串">
 <meta name="twitter:description" content="在看了题解之后才慢慢意识到，这道题和63-不同路径Ⅱ，174-地下城游戏是非常相似的，题目虽然具有一定难度，但都是有迹可循。它们都可以抽象为在二维数组中，从起始到末尾找路径的问题。上面两个问题还未更新，跳转位置是题目链接。 题目描述给定三个字符串 s1, s2, s3, 验证 s3 是否是由 s1 和 s2 交错组成的。">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/question1">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/question1">
 
 
 
@@ -439,7 +439,7 @@
 <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定三个字符串 <em>s1</em>, <em>s2</em>, <em>s3</em>, 验证 <em>s3</em> 是否是由 <em>s1</em> 和 <em>s2</em> 交错组成的。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/question1">
+<img src="/blog/2020/07/18/LeetCode97-交错字符串/question1">
 
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>交错的意思是：如果第一次取了<code>s1</code>，那么第二次必须取<code>s2</code>，反之亦然。取多少和哪一个先取都是不一定的，只是要求交错即可。</p>
 <p>对于<code>s1 = &quot;bacc&quot;, s2 = &quot;aabcce&quot;, s3 = &quot;abaacbccec&quot;</code>，这个示例是可以匹配的，按照<strong>可以匹配</strong>的过程分析如下：</p>
@@ -452,7 +452,7 @@
 <li>再取<code>s1</code>中的<code>c</code>，此时完全匹配</li>
 </ol>
 <h4 id="定义dp数组"><a href="#定义dp数组" class="headerlink" title="定义dp数组"></a>定义dp数组</h4><p><code>dp[i][j]</code>表示<code>s1</code>的前<code>i</code>个字符和<code>s2</code>的前<code>j</code>个字符是否匹配，我们可以将刚才的分析表示为下图：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-交错字符串/question1_dp" style="zoom:80%;">
+<img src="/blog/2020/07/18/LeetCode97-交错字符串/question1_dp" style="zoom:80%;">
 
 <p>上图是不是很像一个路径问题，而且只能向右或者向下移动，进一步说明是用动态规划来解决，如果还可以往上或者左，那就不能用动态规划来做了，得考虑<code>dfs</code>之类的算法。</p>
 <p>分析中的第二步，也就是图中<code>true</code>的其他可能。</p>

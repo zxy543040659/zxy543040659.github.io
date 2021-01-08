@@ -89,16 +89,16 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="本题与97交错字符串，174-地下城游戏分析与解法相似 题目描述一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。 现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question1">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution1">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution2">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution3">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question1">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution1">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution2">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution3">
 <meta property="og:updated_time" content="2020-09-20T14:55:31.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode63-不同路径Ⅱ">
 <meta name="twitter:description" content="本题与97交错字符串，174-地下城游戏分析与解法相似 题目描述一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。 现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question">
 
 
 
@@ -444,18 +444,18 @@
 <p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question" style="zoom:80%;">
+<img src="/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question" style="zoom:80%;">
 
-<img src="/www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question1" style="zoom:;">
+<img src="/blog/2020/07/26/LeetCode63-不同路径Ⅱ/question1" style="zoom:;">
 
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>对于输入为二维数组的题目中出现了只能向下或者向右移动的字眼，一般来说考虑动态规划。这道题的不同之处是设置了障碍物，如果遇到了1则表示<strong>不可达</strong>，假如<code>m = 2, n = 2</code>，并且无障碍物，我们可以得到下图：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution1" style="zoom:80%;">
+<img src="/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution1" style="zoom:80%;">
 
 <p>那么对于<code>(0,1)</code>和<code>(1,0)</code>位置，都只有一条通路可达：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution2" style="zoom:80%;">
+<img src="/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution2" style="zoom:80%;">
 
 <p>最后对于末尾处<code>(1,1)</code>，它的上边和左边可以到达，所以到达它的路径为<code>1 + 1 = 2</code>条：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution3" style="zoom:80%;">
+<img src="/blog/2020/07/26/LeetCode63-不同路径Ⅱ/solution3" style="zoom:80%;">
 
 <p>通过观察我们发现，在不遮挡的情况下，可以到达当前位置的路径数就是当前位置的上边和左边路径数的总和。</p>
 <p>对于存在障碍物的情况，我们直接令到达它的路径数为0，这样也就满足的题目的要求。</p>

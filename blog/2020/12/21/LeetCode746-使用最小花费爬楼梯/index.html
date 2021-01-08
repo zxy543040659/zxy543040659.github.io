@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述数组的每个索引作为一个阶梯，第i个阶梯对应着一个非负数的体力花费值 cost[i](索引从0开始)。 每当你爬上一个阶梯你都要花费对应的体力花费值，然后你可以选择继续爬一个阶梯或者爬两个阶梯。 您需要找到达到楼层顶部的最低花费。在开始时，你可以选择从索引为 0 或 1 的元素作为初始阶梯。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/LeetCode746-使用最小花费爬楼梯/746.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/21/LeetCode746-使用最小花费爬楼梯/746.png">
 <meta property="og:updated_time" content="2020-12-21T07:16:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode746-使用最小花费爬楼梯">
 <meta name="twitter:description" content="题目描述数组的每个索引作为一个阶梯，第i个阶梯对应着一个非负数的体力花费值 cost[i](索引从0开始)。 每当你爬上一个阶梯你都要花费对应的体力花费值，然后你可以选择继续爬一个阶梯或者爬两个阶梯。 您需要找到达到楼层顶部的最低花费。在开始时，你可以选择从索引为 0 或 1 的元素作为初始阶梯。">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/LeetCode746-使用最小花费爬楼梯/746.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/21/LeetCode746-使用最小花费爬楼梯/746.png">
 
 
 
@@ -439,7 +439,7 @@
 <p>您需要找到达到楼层顶部的最低花费。在开始时，你可以选择从索引为 0 或 1 的元素作为初始阶梯。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/21/LeetCode746-使用最小花费爬楼梯/746.png" style="zoom:80%;">
+<img src="/blog/2020/12/21/LeetCode746-使用最小花费爬楼梯/746.png" style="zoom:80%;">
 
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>像这种爬楼梯问题考虑动态规划，当前状态花费 $dp[i]$ 可以由上一次 $dp[i-1]$ 或者上上次 $dp[i-2]$ 中的最小花费得到（对应爬一层台阶和爬两层台阶），其次当前状态还有体力消耗 $cost[i]$，所以可以定义状态转移方程：<br>$$<br>dp[i]=min(dp[i-1],dp[i-2])+cost[i]<br>$$<br>当楼梯只有两阶时，假定有第三阶，那么到达第三阶的花费就为0，初始化如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="number">0</span>] = cost[<span class="number">0</span>];</span><br><span class="line">dp[<span class="number">1</span>] = cost[<span class="number">1</span>];</span><br><span class="line">cost.push_back(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>

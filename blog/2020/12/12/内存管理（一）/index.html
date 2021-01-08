@@ -88,22 +88,22 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="本次学习要点 内存的基础知识 内存管理的概念 覆盖与交换">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/程序的执行.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/三种装入方式.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/重定位寄存器.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/静态链接.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/装入时动态链接.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/运行时动态链接.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/内存的基本知识小节.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/内存保护方法二.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/内存管理的概念.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/覆盖技术.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/覆盖与交换小结.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/程序的执行.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/三种装入方式.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/重定位寄存器.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/静态链接.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/装入时动态链接.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/运行时动态链接.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/内存的基本知识小节.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/内存保护方法二.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/内存管理的概念.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/覆盖技术.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/覆盖与交换小结.png">
 <meta property="og:updated_time" content="2020-12-12T14:42:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内存管理（一）">
 <meta name="twitter:description" content="本次学习要点 内存的基础知识 内存管理的概念 覆盖与交换">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/程序的执行.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/程序的执行.png">
 
 
 
@@ -459,12 +459,12 @@
 <h5 id="逻辑地址与物理地址"><a href="#逻辑地址与物理地址" class="headerlink" title="逻辑地址与物理地址"></a>逻辑地址与物理地址</h5><p>编译时产生的指令只关心<strong>相对地址</strong>，实际放入内存中再想办法根据起始位置得到<strong>绝对地址</strong>。</p>
 <p>eg：编译时只需确定变量x的相对地址是100（也就是说相对于进程在内存中的起始地址而言的地址）。CPU想要找到x在内存中的实际存放位置，只需要用进程<em>起始地址+100</em>即可。</p>
 <p><strong>相对地址</strong>又称<strong>逻辑地址</strong>，<strong>绝对地址</strong>又称<strong>物理地址</strong>。</p>
-<h5 id="程序的装入和链接"><a href="#程序的装入和链接" class="headerlink" title="程序的装入和链接"></a>程序的装入和链接</h5><img src="/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/程序的执行.png" style="zoom:120%;">
+<h5 id="程序的装入和链接"><a href="#程序的装入和链接" class="headerlink" title="程序的装入和链接"></a>程序的装入和链接</h5><img src="/blog/2020/12/12/内存管理（一）/程序的执行.png" style="zoom:120%;">
 
 <p>编译：由编译程序将用户源代码编译成若干个目标模块（高级语言-&gt;机器语言）。</p>
 <p>链接：由链接程序将编译后形成的一组目标模块，以及所需库函数链接在一起，形成一个完整的装入模块。</p>
 <p>装入（装载）：由装入程序将装入模块装入内存运行。</p>
-<h5 id="装入的三种方式"><a href="#装入的三种方式" class="headerlink" title="装入的三种方式"></a>装入的三种方式</h5><img src="/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/三种装入方式.png" style="zoom:120%;">
+<h5 id="装入的三种方式"><a href="#装入的三种方式" class="headerlink" title="装入的三种方式"></a>装入的三种方式</h5><img src="/blog/2020/12/12/内存管理（一）/三种装入方式.png" style="zoom:120%;">
 
 <h6 id="绝对装入"><a href="#绝对装入" class="headerlink" title="绝对装入"></a>绝对装入</h6><p>在编译时，如果知道程序将放到内存中的哪个位置，编译程序将产生绝对地址的目标代码。装入程序按照装入模块中的地址，将程序和数据装入内存。</p>
 <p>绝对装入<strong>只适用于单道程序环境</strong>。</p>
@@ -472,7 +472,7 @@
 <h6 id="静态重定位"><a href="#静态重定位" class="headerlink" title="静态重定位"></a>静态重定位</h6><p>又称<strong>可重定位装入</strong>。编译、链接后的装入模块的地址都是从0开始的，指令中使用的地址、数据存放的地址都是相对于起始地址而言的逻辑地址。可根据内存的当前情况，将装入模块装入到内存的适当位置。装入时对地址仅从<strong>重定位</strong>，将逻辑地址变换为物理地址（地址变换实在装入时一次完成的）。</p>
 <p>静态重定位的特点是在一个作业装入内存时，<strong>必须分配其要求的全部内存空间</strong>，如果没有足够的内存，就不能装入该作业。作业一旦进入内存后，<strong>在运行期间就不能再移动</strong>，也不能再申请内存空间。</p>
 <h6 id="动态重定位"><a href="#动态重定位" class="headerlink" title="动态重定位"></a>动态重定位</h6><p>又称<strong>动态运行时装入</strong>。编译、链接后的装入模块的地址都是从0开始的。装入程序把装入模块装入内存后，并不会立即把逻辑地址转换为物理地址，而是<strong>把地址转换推迟到程序真正要执行时才进行。</strong>因此装入内存后所有的地址依然是逻辑地址，这种方式需要一个<strong>重定位寄存器支持</strong>。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/重定位寄存器.png" style="zoom:120%;">
+<img src="/blog/2020/12/12/内存管理（一）/重定位寄存器.png" style="zoom:120%;">
 
 <ul>
 <li>采取动态重定位时<strong>允许程序在内存中发生移动</strong>；</li>
@@ -481,15 +481,15 @@
 <li>运行期间根据需要动态申请分配内存。</li>
 </ul>
 <h5 id="链接的三种方式"><a href="#链接的三种方式" class="headerlink" title="链接的三种方式"></a>链接的三种方式</h5><h6 id="静态链接"><a href="#静态链接" class="headerlink" title="静态链接"></a>静态链接</h6><p>在程序运行之前，先将各目标模块及它们所需的库函数连接成一个完整的可执行文件（装入模块），之后不再拆开。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/静态链接.png" style="zoom: 80%;">
+<img src="/blog/2020/12/12/内存管理（一）/静态链接.png" style="zoom: 80%;">
 
 <h6 id="装入时动态链接"><a href="#装入时动态链接" class="headerlink" title="装入时动态链接"></a>装入时动态链接</h6><p>将各目标模块装入内存时，边装入边链接的链接方式。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/装入时动态链接.png" style="zoom:85%;">
+<img src="/blog/2020/12/12/内存管理（一）/装入时动态链接.png" style="zoom:85%;">
 
 <h6 id="运行时动态链接"><a href="#运行时动态链接" class="headerlink" title="运行时动态链接"></a>运行时动态链接</h6><p>在程序执行中需要该目标模块时，才对它进行链接。其优点是便于修改和更新，便于实现对目标模块的共享。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/运行时动态链接.png" style="zoom:90%;">
+<img src="/blog/2020/12/12/内存管理（一）/运行时动态链接.png" style="zoom:90%;">
 
-<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><img src="/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/内存的基本知识小节.png" style="zoom:120%;">
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2020/12/12/内存管理（一）/内存的基本知识小节.png" style="zoom:120%;">
 
 <h4 id="内存管理的概念"><a href="#内存管理的概念" class="headerlink" title="内存管理的概念"></a>内存管理的概念</h4><ol>
 <li><p>操作系统负责<strong>内存空间的分配与回收</strong>。</p>
@@ -506,9 +506,9 @@
 <li>在CPU中设置一对<strong>上、下限寄存器</strong>，存放进程的上、下限地址。进程的指令要访问某个地址时，CPU检查是否越界。</li>
 <li>采用<strong>重定位寄存器（基址寄存器）</strong>和<strong>界地址寄存器（限长寄存器）</strong>进行越界检查。重定位寄存器存放进程的<strong>起始物理地址</strong>。界地址寄存器存放进程的<strong>最大逻辑地址</strong>。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/内存保护方法二.png" style="zoom:80%;">
+<img src="/blog/2020/12/12/内存管理（一）/内存保护方法二.png" style="zoom:80%;">
 
-<h5 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h5><img src="/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/内存管理的概念.png" style="zoom:100%;">
+<h5 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2020/12/12/内存管理（一）/内存管理的概念.png" style="zoom:100%;">
 
 <h4 id="覆盖与交换"><a href="#覆盖与交换" class="headerlink" title="覆盖与交换"></a>覆盖与交换</h4><h5 id="覆盖技术"><a href="#覆盖技术" class="headerlink" title="覆盖技术"></a>覆盖技术</h5><p>引入<strong>覆盖技术</strong>，解决<strong>程序大小超过物理内存总和</strong>的问题。</p>
 <p>覆盖技术的思想：将<strong>程序分为多个段（多个模块）</strong>。常用的段常驻内存，不常用的段在需要时调入内存。内存中分为<strong>一个固定区</strong>和<strong>若干个覆盖区</strong>。</p>
@@ -516,7 +516,7 @@
 <li>需要常驻内存的段放在<strong>固定区</strong>中，<strong>调入后就不再调出（除非运行结束）</strong>。</li>
 <li>不常用的段放在<strong>覆盖区</strong>，<strong>需要用到时调入内存，用不到时调出内存</strong>。</li>
 </ul>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/覆盖技术.png" style="zoom:80%;">
+<img src="/blog/2020/12/12/内存管理（一）/覆盖技术.png" style="zoom:80%;">
 
 <p><em>必须由程序员声明覆盖结构</em>，操作系统完成自动覆盖。</p>
 <p><strong>缺点</strong>：对用户不透明，增加了用户编程负担，已成为历史。</p>
@@ -533,7 +533,7 @@
 </li>
 </ol>
 <p><em>PCB会常驻内存</em>，不会被换成外存。</p>
-<h5 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h5><img src="/www.xingyuzhao.ltd/blog/2020/12/12/内存管理（一）/覆盖与交换小结.png" style="zoom:120%;">
+<h5 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2020/12/12/内存管理（一）/覆盖与交换小结.png" style="zoom:120%;">
 
 
       

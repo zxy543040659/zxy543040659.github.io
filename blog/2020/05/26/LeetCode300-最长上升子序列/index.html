@@ -89,14 +89,14 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述给定一个无序的整数数组，找到其中最长上升子序列的长度。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/sl.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/ex1.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/ex2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/sl.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/ex1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/ex2.png">
 <meta property="og:updated_time" content="2020-05-28T12:02:57.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode300-最长上升子序列">
 <meta name="twitter:description" content="题目描述给定一个无序的整数数组，找到其中最长上升子序列的长度。">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/sl.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/sl.png">
 
 
 
@@ -439,17 +439,17 @@
         <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定一个无序的整数数组，找到其中最长上升子序列的长度。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/sl.png" style="zoom:80%;">
+<img src="/blog/2020/05/26/LeetCode300-最长上升子序列/sl.png" style="zoom:80%;">
 
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这是一道动态规划的经典入门题，这里的子序列不一定是连续的。比如示例中<code>[2, 3, 7, 101]</code>，只要是递增的，就是上升子序列，我需要找到这里面最长的上升子序列的长度。</p>
 <p>动态规划一般是由历史信息推断当前信息的，并且历史信息是是独立的子问题，相互之间不会影响。现在考虑一个dp数组，如果说dp[0]到dp[i-1]都可以得到了，如果可以推出dp[i]，就可以得到dp数组的全部结果。</p>
 <h4 id="一、定义dp数组的含义"><a href="#一、定义dp数组的含义" class="headerlink" title="一、定义dp数组的含义"></a>一、定义dp数组的含义</h4><p>我们可以定义dp[i]表示以nums[i]这个数结尾的最长上升子序列的长度。举两个例子：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/ex1.png" style="zoom:80%;">
+<img src="/blog/2020/05/26/LeetCode300-最长上升子序列/ex1.png" style="zoom:80%;">
 
 <p>根据这个定义，最终结果(子序列的最大长度)就是dp数组中的最大值。</p>
 <h4 id="二、状态转移方程"><a href="#二、状态转移方程" class="headerlink" title="二、状态转移方程"></a>二、状态转移方程</h4><p>这就是动态规划的重头戏了，要思考如何进行状态转移，这里就可以使用数学归纳的思想：</p>
 <p>我们已经知道了 dp[0]到dp[4] 的所有结果，我们如何通过这些已知结果推出 dp[5] 呢？</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/05/26/LeetCode300-最长上升子序列/ex2.png" style="zoom:80%;">
+<img src="/blog/2020/05/26/LeetCode300-最长上升子序列/ex2.png" style="zoom:80%;">
 
 <p>根据刚才我们对 dp 数组的定义，现在想求 dp[5] 的值，也就是想求以 nums[5] 为结尾的最长递增子序列。</p>
 <p>nums[5] = 7，既然是递增子序列，我们只要找到前面那些结尾比 7 小的子序列，然后把 7 接到最后，就可以形成一个新的递增子序列，而且这个新的子序列长度加一。</p>

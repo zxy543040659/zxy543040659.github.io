@@ -89,19 +89,19 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述老师想给孩子们分发糖果，有 N 个孩子站成了一条直线，老师会根据每个孩子的表现，预先给他们评分。 你需要按照以下要求，帮助老师给这些孩子分发糖果：  每个孩子至少分配到 1 个糖果。 相邻的孩子中，评分高的孩子必须获得更多的糖果。  那么这样下来，老师至少需要准备多少颗糖果呢？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/135.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/评分数组.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从后往前1.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从后往前2.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从后往前3.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从前往后1.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从前往后2.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从前往后3.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/135.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/评分数组.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从后往前1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从后往前2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从后往前3.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从前往后1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从前往后2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从前往后3.png">
 <meta property="og:updated_time" content="2020-12-24T10:13:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode135-分发糖果">
 <meta name="twitter:description" content="题目描述老师想给孩子们分发糖果，有 N 个孩子站成了一条直线，老师会根据每个孩子的表现，预先给他们评分。 你需要按照以下要求，帮助老师给这些孩子分发糖果：  每个孩子至少分配到 1 个糖果。 相邻的孩子中，评分高的孩子必须获得更多的糖果。  那么这样下来，老师至少需要准备多少颗糖果呢？">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/135.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/135.png">
 
 
 
@@ -450,15 +450,15 @@
 <p>那么这样下来，老师至少需要准备多少颗糖果呢？</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/135.png">
+<img src="/blog/2020/12/24/LeetCode135-分发糖果/135.png">
 
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>用数组 $store$ 记录每个孩子得到的糖果数，$store[i]$ 表示第 $i$ 个孩子获得的糖果数。</p>
 <p>首先找到最低的评分，这个位置记为 $pos$，最低分孩子的糖果数必为1，所以可以得到 $store[pos]=1$ ，以 $pos$为界，将评分数组分为两个部分分别操作，两个部分是<strong>互不影响</strong>的。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/评分数组.png" style="zoom:80%;">
+<img src="/blog/2020/12/24/LeetCode135-分发糖果/评分数组.png" style="zoom:80%;">
 
 <ol>
 <li><p>对于 $pos$ 之前（包括 $pos$），往回遍历评分数组，在不越界的条件下可以得到：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从后往前1.png" style="zoom:80%;">
+<img src="/blog/2020/12/24/LeetCode135-分发糖果/从后往前1.png" style="zoom:80%;">
 
 <ol>
 <li><p>如果前一个评分小于当前评分：</p>
@@ -468,10 +468,10 @@
 <li><p>当前糖果数为1，那么前一个孩子获得的糖果置为1，但是当前孩子的糖果数必须要大于前一个孩子获得的糖果数（前一个评分小于当前评分）。所以需要从前一个位置开始往后遍历：</p>
 <ol>
 <li><p>如果遇到<strong>后一个评分大于当前评分，并且后一个的糖果等于当前糖果数（上图红线）</strong>，需要给后一个糖果数加1，保证后一个的糖果大于当前糖果数。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从后往前2.png" style="zoom:80%;">
+<img src="/blog/2020/12/24/LeetCode135-分发糖果/从后往前2.png" style="zoom:80%;">
 </li>
 <li><p>如果后一个评分等于当前评分，直接退出即可。因为如果相等的评分相邻，没有糖果数的大小关系约束。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从后往前3.png" style="zoom:80%;">
+<img src="/blog/2020/12/24/LeetCode135-分发糖果/从后往前3.png" style="zoom:80%;">
 </li>
 </ol>
 </li>
@@ -484,7 +484,7 @@
 </ol>
 </li>
 <li><p>对于 $pos$ 之后（包括 $pos$），往后遍历评分数组，在不越界的条件下：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从前往后1.png" style="zoom:80%;">
+<img src="/blog/2020/12/24/LeetCode135-分发糖果/从前往后1.png" style="zoom:80%;">
 
 <ol>
 <li><p>如果后一个评分小于当前评分：</p>
@@ -494,10 +494,10 @@
 <li><p>当前糖果数为1，那么后一个孩子获得的糖果置为1，但是当前孩子的糖果数必须要大于后一个孩子获得的糖果数（后一个评分小于当前评分）。所以需要从后一个位置开始往前遍历：</p>
 <ol>
 <li><p>如果遇到<strong>前一个评分大于当前评分，并且前一个的糖果等于当前糖果数（上图红线）</strong>，需要给前一个糖果数加1，保证前一个的糖果大于当前糖果数。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从前往后2.png" style="zoom: 80%;">
+<img src="/blog/2020/12/24/LeetCode135-分发糖果/从前往后2.png" style="zoom: 80%;">
 </li>
 <li><p>如果前一个评分等于当前评分，直接退出即可。因为如果相等的评分相邻，没有糖果数的大小关系约束。</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/24/LeetCode135-分发糖果/从前往后3.png" style="zoom:80%;">
+<img src="/blog/2020/12/24/LeetCode135-分发糖果/从前往后3.png" style="zoom:80%;">
 </li>
 </ol>
 </li>

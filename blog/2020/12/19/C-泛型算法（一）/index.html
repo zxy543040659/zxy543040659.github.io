@@ -88,14 +88,14 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="本次学习要点 概述 初识泛型算法 定制操作">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（一）/重排_输入.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（一）/重排_输出.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（一）/after_unique.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（一）/重排_输入.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（一）/重排_输出.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（一）/after_unique.png">
 <meta property="og:updated_time" content="2020-12-20T12:35:54.151Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++泛型算法（一）">
 <meta name="twitter:description" content="本次学习要点 概述 初识泛型算法 定制操作">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（一）/重排_输入.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（一）/重排_输入.png">
 
 
 
@@ -488,16 +488,16 @@
 
 <p>经过此调用，<code>ilist</code>并未改变，<code>ivec</code>包含<code>ilist</code>的一份拷贝，不过原来在<code>ilist</code>中值为0的元素在<code>ivec</code>中都变为42。</p>
 <h5 id="重排容器元素的算法"><a href="#重排容器元素的算法" class="headerlink" title="重排容器元素的算法"></a>重排容器元素的算法</h5><p>假定已经有一个<code>vector</code>，保存了多个故事的文本，简化这个<code>vector</code>，使得每个单词只出现一次。输入如下：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（一）/重排_输入.png" style="zoom:80%;">
+<img src="/blog/2020/12/19/C-泛型算法（一）/重排_输入.png" style="zoom:80%;">
 
 <p>要求得到的结果如下：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（一）/重排_输出.png">
+<img src="/blog/2020/12/19/C-泛型算法（一）/重排_输出.png">
 
 <p>为了消除重复单词，先对<code>vector</code>排序，使得重复的单词相邻出现，之后可以使用另一个称为<code>unique</code>的标准库算法来重排<code>vector</code>，使得不重复的元素出现在<code>vector</code>的开始部分。由于算法不能执行容器的操作，可以使用<code>vector</code>的成员<code>erase</code>来完成真正的删除操作：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">elimDups</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;words)</span></span>&#123;</span><br><span class="line">	sort(words.begin(), words.end());</span><br><span class="line">    <span class="function"><span class="keyword">auto</span> <span class="title">end_unique</span><span class="params">(words.begin(), words.end())</span></span>;</span><br><span class="line">    words.erase(end_unique, words.end());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>words</code>排序完毕后，使用<code>unique</code>算法重排输入序列，将相邻的重复项”消除“，并<strong>返回一个指向最后一个不重复元素之后的位置的迭代器</strong>。调用<code>unique</code>后，<code>vector</code>将变为：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/C-泛型算法（一）/after_unique.png">
+<img src="/blog/2020/12/19/C-泛型算法（一）/after_unique.png">
 
 <p>如上图所示，<code>unique</code>并不真的删除任何元素，它只是覆盖相邻的重复元素，使得不重复元素出现在序列的开始部分。<code>unique</code>返回的迭代器位置之后的元素依旧存在，但不知道是什么。</p>
 <p><strong>标准库算法对迭代器而不是容器进行操作。因此，算法不能（直接）添加或删除元。素</strong></p>

@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述有两个容量分别为 x 升和 y 升的水壶以及无限多的水。请判断能否通过使用这两个水壶，从而可以得到恰好 z 升的水？ 如果可以，最后请用以上水壶中的一或两个来盛放取得的 z 升水。 你允许：  装满任意一个水壶 清空任意一个水壶 从一个水壶向另外一个水壶倒水，直到装满或者倒空">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/25/LeetCode365-水壶问题/365.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/25/LeetCode365-水壶问题/365.png">
 <meta property="og:updated_time" content="2020-12-27T12:23:01.343Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode365-水壶问题">
 <meta name="twitter:description" content="题目描述有两个容量分别为 x 升和 y 升的水壶以及无限多的水。请判断能否通过使用这两个水壶，从而可以得到恰好 z 升的水？ 如果可以，最后请用以上水壶中的一或两个来盛放取得的 z 升水。 你允许：  装满任意一个水壶 清空任意一个水壶 从一个水壶向另外一个水壶倒水，直到装满或者倒空">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/25/LeetCode365-水壶问题/365.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/25/LeetCode365-水壶问题/365.png">
 
 
 
@@ -444,7 +444,7 @@
 </ul>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/25/LeetCode365-水壶问题/365.png">
+<img src="/blog/2020/12/25/LeetCode365-水壶问题/365.png">
 
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>这道题实际上是一个数学问题，需要有先验知识——<a href="https://baike.baidu.com/item/%E8%A3%B4%E8%9C%80%E5%AE%9A%E7%90%86/5186593?fromtitle=%E8%B4%9D%E7%A5%96%E5%AE%9A%E7%90%86&fromid=5185441" target="_blank" rel="noopener">贝祖定理</a>：若 $a, b$ 是整数，且$gcd(a,b)=d$，那么对于任意的整数 $x$$，y$，$ax+by$ 都一定是 $d$ 的倍数，特别地，一定存在整数 $x$,  $y$，使 $ax+by=d$ 成立。$gcd(a,b)$ 用来求 $a, b$ 的最大公约数，称为辗转相除法。</p>
 <p>实际上，每次操作只会让桶里的水增加<code>x</code>或增加<code>y</code>，减少<code>x</code>或减少<code>y</code>，两个桶不可能同时有水且不满，观察所有的操作都至少有一个桶是空的或满的。如果往一个不满的桶里加水或将其倒空是没有意义的，这是因为：</p>

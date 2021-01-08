@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。 问总共有多少条不同的路径？ 与此类似：LeetCode-不同路径Ⅱ，LeetCode97-交错字符串，LeetCode174-地下城游戏。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/09/LeetCode62-不同路径/62.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/09/LeetCode62-不同路径/62.png">
 <meta property="og:updated_time" content="2020-12-17T08:08:34.464Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode62-不同路径">
 <meta name="twitter:description" content="题目描述一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。 问总共有多少条不同的路径？ 与此类似：LeetCode-不同路径Ⅱ，LeetCode97-交错字符串，LeetCode174-地下城游戏。">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/09/LeetCode62-不同路径/62.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/09/LeetCode62-不同路径/62.png">
 
 
 
@@ -440,7 +440,7 @@
 <p>与此类似：<a href="http://www.xingyuzhao.ltd/blog/2020/07/26/LeetCode63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84%E2%85%A1/">LeetCode-不同路径Ⅱ</a>，<a href="http://www.xingyuzhao.ltd/blog/2020/07/18/LeetCode97-%E4%BA%A4%E9%94%99%E5%AD%97%E7%AC%A6%E4%B8%B2/#more">LeetCode97-交错字符串</a>，<a href="https://leetcode-cn.com/problems/dungeon-game/" target="_blank" rel="noopener">LeetCode174-地下城游戏</a>。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/09/LeetCode62-不同路径/62.png" style="zoom:80%;">
+<img src="/blog/2020/12/09/LeetCode62-不同路径/62.png" style="zoom:80%;">
 
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>机器人只能往右或者往下，考虑动态规划（如果四个方向都可以走就不可以用动态规划了，得用DFS或者BFS），对于机器人所在的行和列，都只有一条路径可以到达，初始化为1。而除此之外的位置都是可以由其上边和其左边到达，以此类推得到可以到达最终位置的路径总数。</p>
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">dp</span><span class="params">(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n, <span class="number">1</span>))</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; m; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; n; ++j)&#123;</span><br><span class="line">                dp[i][j] = dp[i][j - <span class="number">1</span>] + dp[i - <span class="number">1</span>][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[m - <span class="number">1</span>][n - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>

@@ -89,18 +89,18 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="本次学习要点 死锁的概念 预防死锁 避免死锁 死锁的检测和解除">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁、饥饿、死循环区别.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁的概念.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/预防死锁.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁的检测.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁的检测1.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁的检测2.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/总结.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁、饥饿、死循环区别.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁的概念.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/预防死锁.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁的检测.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁的检测1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁的检测2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/总结.png">
 <meta property="og:updated_time" content="2020-12-20T12:47:12.638Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="进程管理（四）-死锁">
 <meta name="twitter:description" content="本次学习要点 死锁的概念 预防死锁 避免死锁 死锁的检测和解除">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁、饥饿、死循环区别.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁、饥饿、死循环区别.png">
 
 
 
@@ -449,7 +449,7 @@
 <a id="more"></a>
 
 <h4 id="死锁的概念"><a href="#死锁的概念" class="headerlink" title="死锁的概念"></a>死锁的概念</h4><h5 id="什么是死锁？"><a href="#什么是死锁？" class="headerlink" title="什么是死锁？"></a>什么是死锁？</h5><p>在并发的环境下，各进程因竞争资源而造成的一种互相等待对方手里的资源，导致各进程都阻塞，都无法推进的现象，就是<strong>死锁</strong>。发生死锁后若无外力干涉，这些进程都将无法向前推进。</p>
-<h5 id="死锁、饥饿、死循环区别"><a href="#死锁、饥饿、死循环区别" class="headerlink" title="死锁、饥饿、死循环区别"></a>死锁、饥饿、死循环区别</h5><img src="/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁、饥饿、死循环区别.png" style="zoom:120%;">
+<h5 id="死锁、饥饿、死循环区别"><a href="#死锁、饥饿、死循环区别" class="headerlink" title="死锁、饥饿、死循环区别"></a>死锁、饥饿、死循环区别</h5><img src="/blog/2020/12/07/进程管理（四）-死锁/死锁、饥饿、死循环区别.png" style="zoom:120%;">
 
 <h5 id="死锁产生的必要条件"><a href="#死锁产生的必要条件" class="headerlink" title="死锁产生的必要条件"></a>死锁产生的必要条件</h5><p>产生死锁必须同时满足以下四个条件：</p>
 <ul>
@@ -470,7 +470,7 @@
 <li>避免死锁：用某种方法防止系统进入不安全状态，从而避免死锁（银行家算法）。</li>
 <li>死锁的检测和解除：允许死锁的发生，不过操作系统会负责检测出死锁的发生，然后采取某种措施解除死锁。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁的概念.png" style="zoom:120%;">
+<img src="/blog/2020/12/07/进程管理（四）-死锁/死锁的概念.png" style="zoom:120%;">
 
 <h4 id="预防死锁"><a href="#预防死锁" class="headerlink" title="预防死锁"></a>预防死锁</h4><h5 id="破坏互斥条件"><a href="#破坏互斥条件" class="headerlink" title="破坏互斥条件"></a>破坏互斥条件</h5><p>如果把只能互斥使用的资源改造成允许共享使用，则系统不会进入死锁状态。如：<code>SPOOLing</code>技术。</p>
 <p>缺点：并不是所有的资源都可以改造成可共享使用的资源。并且为了系统安全，很多地方还必须保护这种互斥性。因此，<strong>很多时候都无法破坏互斥条件</strong>。</p>
@@ -493,7 +493,7 @@
 <li>进程实际使用资源的顺序可能和编号递增顺序不一致，会导致资源的浪费。</li>
 <li>必须按规定的次序申请资源，用户编程麻烦。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/预防死锁.png" style="zoom:120%;">
+<img src="/blog/2020/12/07/进程管理（四）-死锁/预防死锁.png" style="zoom:120%;">
 
 <h4 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h4><p>不破坏死锁的必要条件，而是在在资源动态分配的过程中，防止系统进入不安全状态。</p>
 <h5 id="系统安全状态"><a href="#系统安全状态" class="headerlink" title="系统安全状态"></a>系统安全状态</h5><p>指系统能按某种推进顺序（P1,P2,…,Pn）为每个进程Pi分配其所需的资源，直至满足每个进程对资源的最大需求，使每个进程都可顺序完成。此时称P1,P2,…,Pn为安全序列，若系统无法找到一个安全序列，则称系统处于不安全状态。</p>
@@ -528,16 +528,16 @@
 <li>用<strong>某种数据结构</strong>来保存资源的请求和分配信息。</li>
 <li>提供<strong>一种算法</strong>，利用上述信息来检测系统是否已进入死锁状态。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁的检测.png" style="zoom:120%;">
+<img src="/blog/2020/12/07/进程管理（四）-死锁/死锁的检测.png" style="zoom:120%;">
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁的检测1.png" style="zoom:80%;">
+<img src="/blog/2020/12/07/进程管理（四）-死锁/死锁的检测1.png" style="zoom:80%;">
 
 <p>检测死锁的算法：</p>
 <ol>
 <li>在资源分配图中，找出既不阻塞又不是孤点的进程Pi (即找出一条有向边与它相连，且该有向边对应资源的申请数量小于等于系统中己有空闲资源数景。如下图中，R1没有空闲资源，R2有 —个空闲资源。若所有的连接该进程的边均满足上述条件，则这个进程能继续运行直至完成，然后释放它所占有的所有资源）。消去它所有的请求边和分配变，使之称为孤立的结点。在下图中P1是满足这一条件的进程结点，于是将P1的所有边消去。</li>
 <li>进程Pi所释放的资源，可以唤醒某些因等待这些资源而阻塞的进程，原来的阻塞进程可能变为非阻塞进程。在下图中，P2就满足这样的条件。根据1中的方法进行一系列简化后，若能消去途中所有的边，则称该图是可完全简化的。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/死锁的检测2.png" style="zoom:80%;">
+<img src="/blog/2020/12/07/进程管理（四）-死锁/死锁的检测2.png" style="zoom:80%;">
 
 <p><strong>死锁定理</strong>：如果某时刻系统的资源分配图是<strong>不可完全简化</strong>的，那么此时系统死锁。</p>
 <h5 id="死锁的解除"><a href="#死锁的解除" class="headerlink" title="死锁的解除"></a>死锁的解除</h5><p>—旦检测出死锁的发生，就应该立即解除死锁。<br>补充：并不是系统中所有的进程都是死锁状态，用死锁检测算法化简资源分配图后，还连着边的那些进程就是死锁进程 。<br>解除死锁的主要方法有：</p>
@@ -557,7 +557,7 @@
 <li>进程已经使用了多少资源：拥有更多资源的先牺牲。</li>
 <li>进程是交互式的还是批处理式的？：先牺牲批处理式的。</li>
 </ol>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/07/进程管理（四）-死锁/总结.png" style="zoom:120%;">
+<img src="/blog/2020/12/07/进程管理（四）-死锁/总结.png" style="zoom:120%;">
       
     </div>
     

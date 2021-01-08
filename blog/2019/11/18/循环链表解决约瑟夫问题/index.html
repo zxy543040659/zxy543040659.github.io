@@ -88,14 +88,14 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="本次学习要点 编写循环链表，由单链表修改得到 使用循环链表解决约瑟夫问题">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/非空循环链表.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/空循环链表.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/结果.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/非空循环链表.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/空循环链表.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/结果.png">
 <meta property="og:updated_time" content="2020-09-06T05:39:09.469Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="循环链表解决约瑟夫问题">
 <meta name="twitter:description" content="本次学习要点 编写循环链表，由单链表修改得到 使用循环链表解决约瑟夫问题">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/非空循环链表.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/非空循环链表.png">
 
 
 
@@ -442,10 +442,10 @@
 <a id="more"></a>
 
 <h3 id="循环链表与单链表的不同之处"><a href="#循环链表与单链表的不同之处" class="headerlink" title="循环链表与单链表的不同之处"></a>循环链表与单链表的不同之处</h3><p>循环链表是另外一种线性表链式存储结构，它的节点结构与单链表相同，与单链表不同的是在循环链表中的表尾节点的<code>next</code>不为空（NULL），而是指向头节点，所以循环链表为空的条件为<code>head-&gt;next==head</code>,如图所示：</p>
-<img src="/www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/非空循环链表.png" style="zoom: 67%;">
+<img src="/blog/2019/11/18/循环链表解决约瑟夫问题/非空循环链表.png" style="zoom: 67%;">
 
 <p>​                                                                                    (a)非空循环链表</p>
-<img src="/www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/空循环链表.png" style="zoom: 67%;">
+<img src="/blog/2019/11/18/循环链表解决约瑟夫问题/空循环链表.png" style="zoom: 67%;">
 
 <p>​                                                                                        (b)空循环链表</p>
 <p>循环链表的操作与线性表的操作基本相同，只是将算法中的循环条件改为<code>temPtr</code>是否等于头指针，以下给出与单链表不同之处：</p>
@@ -461,7 +461,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">//main.cpp</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&quot;alg.h&quot;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template&lt;typename ElemType&gt;</span><br><span class="line">void display(ElemType &amp;e)</span><br><span class="line">&#123;</span><br><span class="line">	cout &lt;&lt; e &lt;&lt; &quot; &quot;;</span><br><span class="line">&#125;</span><br><span class="line">//循环链表解决约瑟夫问题</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	SimpleCircLinkList&lt;int&gt; la;</span><br><span class="line">	int n = 8, m = 3;</span><br><span class="line">	int position = 1;</span><br><span class="line">	int out, winer;</span><br><span class="line">	for (int k = 1; k &lt;= n; k++)</span><br><span class="line">	&#123;</span><br><span class="line">		la.Insert(k, k);</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i = 1; i &lt; n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		for (int j = 1; j &lt;= m; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			if (position &gt; la.Length())</span><br><span class="line">			&#123;</span><br><span class="line">				position = 1;</span><br><span class="line">			&#125;</span><br><span class="line">			position++;</span><br><span class="line">		&#125;</span><br><span class="line">		position--;</span><br><span class="line">		la.Delete(position, out);</span><br><span class="line">		cout &lt;&lt; out &lt;&lt; &quot; &quot;;</span><br><span class="line">	&#125;</span><br><span class="line">		la.GetElem(1, winer);</span><br><span class="line">		cout &lt;&lt; endl &lt;&lt; &quot;优胜者：&quot; &lt;&lt; winer &lt;&lt; endl;</span><br><span class="line">		return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>执行结果：</p>
-<img src="/www.xingyuzhao.ltd/blog/2019/11/18/循环链表解决约瑟夫问题/结果.png">
+<img src="/blog/2019/11/18/循环链表解决约瑟夫问题/结果.png">
 
 
       

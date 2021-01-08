@@ -88,13 +88,13 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="Verilog基础学习verilog基础语法2">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础2/image1">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础2/image2">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础2/image1">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础2/image2">
 <meta property="og:updated_time" content="2020-07-15T00:55:00.488Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Verilog基础2">
 <meta name="twitter:description" content="Verilog基础学习verilog基础语法2">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础2/image1">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础2/image1">
 
 
 
@@ -443,10 +443,10 @@
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> sim3;</span><br><span class="line"><span class="keyword">reg</span> clk;</span><br><span class="line"><span class="keyword">reg</span> rst;</span><br><span class="line"><span class="keyword">wire</span> led;</span><br><span class="line"></span><br><span class="line">v1 uut( clk, rst, led );</span><br><span class="line"><span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">    clk = <span class="number">0</span>;</span><br><span class="line">    rst = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">always</span> #<span class="number">10</span> clk = ~clk; <span class="comment">// 每隔10ns反转，周期是20ns，频率也就是50MHz</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
 
 <p>仿真图如下：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础2/image1">
+<img src="/blog/2020/07/14/Verilog基础2/image1">
 
 <p>从<strong>ledtemp</strong>可以看出进行了左移的操作</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/07/14/Verilog基础2/image2">
+<img src="/blog/2020/07/14/Verilog基础2/image2">
 
 <p>完成一次循环之后回到<strong>00000001</strong></p>
 

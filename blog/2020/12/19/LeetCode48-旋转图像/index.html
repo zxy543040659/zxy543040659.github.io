@@ -89,14 +89,14 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="题目描述给定一个 $n × n$ 的二维矩阵表示一个图像。 将图像顺时针旋转 90 度。 说明： 你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/LeetCode48-旋转图像/48.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/LeetCode48-旋转图像/48_思路.png">
-<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/LeetCode48-旋转图像/48_思路.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/LeetCode48-旋转图像/48.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/LeetCode48-旋转图像/48_思路.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/LeetCode48-旋转图像/48_思路.png">
 <meta property="og:updated_time" content="2020-12-20T12:56:07.564Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode48-旋转图像">
 <meta name="twitter:description" content="题目描述给定一个 $n × n$ 的二维矩阵表示一个图像。 将图像顺时针旋转 90 度。 说明： 你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。">
-<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/19/LeetCode48-旋转图像/48.png">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/12/19/LeetCode48-旋转图像/48.png">
 
 
 
@@ -442,18 +442,18 @@
 <p>你必须在<strong>原地</strong>旋转图像，这意味着你需要直接修改输入的二维矩阵。<strong>请不要</strong>使用另一个矩阵来旋转图像。</p>
 <a id="more"></a>
 
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/LeetCode48-旋转图像/48.png" style="zoom:80%;">
+<img src="/blog/2020/12/19/LeetCode48-旋转图像/48.png" style="zoom:80%;">
 
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>不好意思，一开始我还是用了新的数组。</p>
 <p>从最后一列往前，从第一行往后，每一列都是由相应的行复制过来，如下图（示例二）：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/LeetCode48-旋转图像/48_思路.png" style="zoom:80%;">
+<img src="/blog/2020/12/19/LeetCode48-旋转图像/48_思路.png" style="zoom:80%;">
 
 <p>新建数组保存原始数组的拷贝，然后再根据原始数组拷贝来修改原始数组。</p>
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> scale = matrix.size();</span><br><span class="line">        <span class="keyword">auto</span> matrixHelper = matrix;</span><br><span class="line">        <span class="keyword">int</span> pos = <span class="number">0</span>; <span class="comment">// 表示当前遍历到拷贝数组的第pos行</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = scale - <span class="number">1</span>; j &gt;= <span class="number">0</span>; --j)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; scale; ++i)&#123;</span><br><span class="line">                <span class="comment">// 前面的i表示原始数组的行，后面的i表示拷贝数组的列</span></span><br><span class="line">                matrix[i][j] = matrixHelper[pos][i];</span><br><span class="line">            &#125;</span><br><span class="line">            pos++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>时间复杂度和空间复杂度都是$O(N^2)$。</p>
 <h4 id="更进一步"><a href="#更进一步" class="headerlink" title="更进一步"></a>更进一步</h4><h5 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h5><p>仔细观察旋转后的图：</p>
-<img src="/www.xingyuzhao.ltd/blog/2020/12/19/LeetCode48-旋转图像/48_思路.png" style="zoom:80%;">
+<img src="/blog/2020/12/19/LeetCode48-旋转图像/48_思路.png" style="zoom:80%;">
 
 <p>对于矩阵中第 $i$ 行的第 $j$ 个元素，在旋转后，它出现在倒数第 $i $ 列的第 $j$ 个位置。即：<br>$$<br>matrix_{new}[col][n-row-1]=matrix[row][col]<br>$$<br>这样可以得到以下代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = matrix.size();</span><br><span class="line">        <span class="keyword">auto</span> matrixHelper = matrix;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j)&#123;</span><br><span class="line">                matrix[j][n - i - <span class="number">1</span>] = matrixHelper[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
