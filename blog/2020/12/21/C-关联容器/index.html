@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本次学习要点 使用关联容器 关联容器概述 关联容器操作 无序容器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++关联容器">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="本次学习要点 使用关联容器 关联容器概述 关联容器操作 无序容器">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/关联容器类型.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/pair上的操作.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/关联容器额外的类型别名.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/关联容器insert操作.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/关联容器erase操作.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/map和unordered_map的下标操作.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/map_note.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/map下标_note.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/在一个关联容器种查找元素的操作.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/multimap或multiset中查找元素_note.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/lower_bound和upper_bound_note.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/无序容器管理操作.png">
+<meta property="og:updated_time" content="2020-12-24T14:50:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++关联容器">
+<meta name="twitter:description" content="本次学习要点 使用关联容器 关联容器概述 关联容器操作 无序容器">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/关联容器类型.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/">
+
+
+
+
+
+  <title>C++关联容器 | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">长风破浪会有时，直挂云帆济沧海</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingyu_Zhao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++关联容器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-21T19:50:14+08:00">
+                2020-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2020/12/21/C-关联容器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2020/12/21/C-关联容器/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h4><ol>
+<li>使用关联容器</li>
+<li>关联容器概述</li>
+<li>关联容器操作</li>
+<li>无序容器</li>
+</ol>
+<a id="more"></a>
+
+<p>关联容器支持高效的关键字查找和访问。两个主要的关联容器类型是<strong>map</strong>和<strong>set</strong>。</p>
+<ul>
+<li><code>map</code>中元素是一些关键字-值（key-value）对，关键字起到索引的作用，值则表示于索引相关联的数据。</li>
+<li><code>set</code>中每个元素只包含一个关键字，支持高效的关键字查询操作-检查一个给定的关键字是否在set中。</li>
+</ul>
+<img src="/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/关联容器类型.png">
+
+<p>类型<code>map</code>和<code>multimap</code>定义在头文件<code>map</code>中；<code>set</code>和<code>multiset</code>定义在头文件<code>set</code>中；无序容器定义在头文件<code>unordered_map</code>和<code>unordered_set</code>中。</p>
+<h4 id="使用关联容器"><a href="#使用关联容器" class="headerlink" title="使用关联容器"></a>使用关联容器</h4><h5 id="使用map"><a href="#使用map" class="headerlink" title="使用map"></a>使用map</h5><p>单词计数程序：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt; word_count;</span><br><span class="line"><span class="built_in">string</span> count;</span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; word)</span><br><span class="line">	++word_count[word];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp;w : word_count)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; w.first &lt;&lt; <span class="string">" occurs "</span> &lt;&lt; w.second</span><br><span class="line">    &lt;&lt; ((w.second &gt; <span class="number">1</span>) ? <span class="string">" times"</span> : <span class="string">" time"</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+
+<p>此程序读取输入，报告每个单词出现多少次。<code>map</code>保存的每个元素中，关键字是<code>string</code>，值是<code>size_t</code>类型。如果<code>word</code>还未在<code>map</code>中。下标运算符会创建一个新元素。从<code>map</code>中提取一个元素时，会得到一个<code>pair</code>类型的对象，<code>pair</code>用<code>first</code>成员保存关键字，用<code>second</code>成员保存对应的值。</p>
+<h5 id="使用set"><a href="#使用set" class="headerlink" title="使用set"></a>使用set</h5><p>对上一个程序扩展，忽略常见单词，如“the”、“and”、“or”等。可以用<code>set</code>保存想忽略的单词，只对不在集合中的单词统计出现次数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt; word_count;</span><br><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; exclude = &#123;<span class="string">"The"</span>, <span class="string">"But"</span>, <span class="string">"And"</span>, <span class="string">"Or"</span>, <span class="string">"An"</span>, <span class="string">"A"</span>,</span><br><span class="line">                       <span class="string">"the"</span>, <span class="string">"but"</span>, <span class="string">"and"</span>, <span class="string">"or"</span>, <span class="string">"an"</span>, <span class="string">"a"</span>&#125;;</span><br><span class="line"><span class="built_in">string</span> count;</span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; word)</span><br><span class="line">    <span class="keyword">if</span>(exclude.find(word) == exclude.end())</span><br><span class="line">		++word_count[word];</span><br></pre></td></tr></table></figure>
+
+<p>在<code>if</code>中，<code>find</code>返回一个迭代器。如果给定关键字在<code>set</code>中，迭代器指向该关键字。否则，<code>find</code>返回尾后迭代器。</p>
+<h4 id="关联容器概述"><a href="#关联容器概述" class="headerlink" title="关联容器概述"></a>关联容器概述</h4><h5 id="定义关联容器"><a href="#定义关联容器" class="headerlink" title="定义关联容器"></a>定义关联容器</h5><p>当定义一个<code>map</code>时，必须指明<strong>关键字类型</strong>和<strong>值类型</strong>；而定义一个<code>set</code>时，只需要指明<strong>关键字类型</strong>。每个关联容器都定义了一个默认构造函数，它创建一个指定类型的空容器。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt; word_count; <span class="comment">// 空容器</span></span><br><span class="line"><span class="comment">// 列表初始化</span></span><br><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; exclude = &#123;<span class="string">"The"</span>, <span class="string">"But"</span>, <span class="string">"And"</span>, <span class="string">"Or"</span>, <span class="string">"An"</span>, <span class="string">"A"</span>,</span><br><span class="line">                       <span class="string">"the"</span>, <span class="string">"but"</span>, <span class="string">"and"</span>, <span class="string">"or"</span>, <span class="string">"an"</span>, <span class="string">"a"</span>&#125;;</span><br><span class="line"><span class="comment">// 三个元素；authors将姓映射为名</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; authors = &#123; &#123;<span class="string">"zhao"</span>, <span class="string">"xingyu"</span>&#125;,</span><br><span class="line">                                &#123;<span class="string">"zhou"</span>, <span class="string">"yanxuan"</span>&#125;&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>初始化<code>map</code>时，每对映射用花括号包含：{<em>key</em>, <em>value</em>}。</p>
+<h5 id="初始化multimap或multiset"><a href="#初始化multimap或multiset" class="headerlink" title="初始化multimap或multiset"></a>初始化multimap或multiset</h5><p><code>map</code>和<code>set</code>的关键字都是唯一的。容器<code>multiset</code>和<code>multimap</code>没有此限制，它们都允许多个元素具有相同的关键字。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个有20哥元素的vector，保存0到9每个整数的两个拷贝</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ivec;</span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::size_type i = <span class="number">0</span>; i != <span class="number">10</span>; ++i)&#123;</span><br><span class="line">    ivec.push_back(i);</span><br><span class="line">    ivec.push_back(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// iset包含来自ivec的不重复的元素；miset包含所有20个元素</span></span><br><span class="line"><span class="function"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; <span class="title">iset</span><span class="params">(ivec.begin(), ivec.end())</span></span>;</span><br><span class="line"><span class="function"><span class="built_in">multiset</span>&lt;<span class="keyword">int</span>&gt; <span class="title">miset</span><span class="params">(ivec.begin(), ivec.end())</span></span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; ivec.size() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; iset.size() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; miset.size() &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="关键字类型的要求"><a href="#关键字类型的要求" class="headerlink" title="关键字类型的要求"></a>关键字类型的要求</h5><h6 id="有序容器的关键字类型"><a href="#有序容器的关键字类型" class="headerlink" title="有序容器的关键字类型"></a>有序容器的关键字类型</h6><p>所提供的操作必须在关键字类型上定义一个<strong>严格弱序</strong>。可以将严格弱序看作“小于”（<strong>书上是”小于等于”，网上查到为小于</strong>），它必须具备以下性质：</p>
+<ul>
+<li>两个关键字不能同时“小于”对方</li>
+<li>如果k1”小于”k2，k2“小于”k3，那么k1必须”小于“k3</li>
+<li>如果存在两个关键字，任何一个都不”小于“另一个，那么我们称这两个关键字是”等价“的。并且等价具有传递性。</li>
+</ul>
+<p>如果两个关键字等价，那么容器将它们视作相等来处理。</p>
+<h6 id="使用关键字类型的比较函数"><a href="#使用关键字类型的比较函数" class="headerlink" title="使用关键字类型的比较函数"></a>使用关键字类型的比较函数</h6><p>在尖括号中出现的每个类型，就仅仅是一个类型而已。当我们创建一个容器（对象）时，才会以构造函数的形式提供真正的比较操作（其类型必须与尖括号中指定的类型相吻合）。</p>
+<p>例如：我们不能直接定义一个<code>Sales_data</code>的<code>multiset</code>，因为<code>Sales_data</code>没有<code>&lt;</code>运算符。以下函数在<code>ISBN</code>成员上定义一个严格弱序：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compareIsbn</span><span class="params">(<span class="keyword">const</span> Sales_data &amp;lhs, <span class="keyword">const</span> Sales_data &amp;rhs)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> lhs.isbn() &lt; rhs.isbn();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>要使用自己定义的操作</strong>，在定义<code>multiset</code>时必须提供两个类型：<strong>关键字类型</strong>Sales_data以及<strong>比较操作类型</strong>——应该是一种函数指针类型，可以指向<code>compareIsbn</code>：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bookstore中多条记录可以有相同的ISBN</span></span><br><span class="line"><span class="comment">// bookstore中的元素以ISBN的顺序进行排列</span></span><br><span class="line">multiset&lt;Sales_data, decltype(compareIsbn)*&gt; bookstore(compareIsbn);</span><br></pre></td></tr></table></figure>
+
+<p>*<em>当用decltype来获得一个函数指针类型时，必须加上一个</em>来指出我们要使用一个给定函数的指针**。<code>bookstore</code>中的元素将按它们的<code>ISBN</code>成员的值升序排列。</p>
+<h5 id="pair类型"><a href="#pair类型" class="headerlink" title="pair类型"></a>pair类型</h5><p><code>pair</code>标注库类型定义在头文件<code>utility</code>中。<code>pair</code>保存两个数据成员，它是一个用来生成特定类型的模板。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;<span class="built_in">string</span>, <span class="built_in">string</span> &gt; anon;</span><br><span class="line">pair&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt; word_count;</span><br><span class="line">pair&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; line;</span><br></pre></td></tr></table></figure>
+
+<p><code>pair</code>的默认构造函数对数据成员进行值初始化。以下三种初始化都是可以的：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; p = &#123;<span class="number">1</span>,<span class="number">1</span>&#125;;</span><br><span class="line">pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; q&#123;<span class="number">1</span>,<span class="number">1</span>&#125;;</span><br><span class="line">pair&lt;int, int&gt; m(1,1);</span><br></pre></td></tr></table></figure>
+
+<img src="/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/pair上的操作.png">
+
+<h6 id="创建pair对象的函数"><a href="#创建pair对象的函数" class="headerlink" title="创建pair对象的函数"></a>创建pair对象的函数</h6><p>新标准下，可以对返回值进行列表初始化：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;string, int&gt; process(vector&lt;string&gt; &amp;v)&#123;</span><br><span class="line">	<span class="comment">// 处理v</span></span><br><span class="line">    <span class="keyword">if</span>(!v.empty())</span><br><span class="line">        <span class="keyword">return</span> &#123;v.back(), v.back().size()&#125;; <span class="comment">// 列表初始化</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> pair&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;(); <span class="comment">// 隐式构造返回值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>早期版本必须显式的构造返回值：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!v.empty())</span><br><span class="line">    <span class="keyword">return</span> pair&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;(v.back(), v.back().size());</span><br></pre></td></tr></table></figure>
+
+<p>还可以使用<code>make_pair</code>来生成<code>pair</code>对象，<code>pair</code>的两个类型来自于<code>make_pair</code>的参数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!v.empty())</span><br><span class="line">	<span class="keyword">return</span> make_pair(v.back(), v.back().size());</span><br></pre></td></tr></table></figure>
+
+<h4 id="关联容器操作"><a href="#关联容器操作" class="headerlink" title="关联容器操作"></a>关联容器操作</h4><img src="/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/关联容器额外的类型别名.png">
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;::value_type v1; <span class="comment">// v1是一个string</span></span><br><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;::key_value v2; <span class="comment">// v2是一个string</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;::value_type v3; <span class="comment">// v3是一个pair&lt;const string, int&gt;</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;::key_type v4; <span class="comment">// v4是一个string</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;::mapped_type v5; <span class="comment">// v5是一个int</span></span><br></pre></td></tr></table></figure>
+
+<p>只有<code>map</code>类型（<code>unordered_map、unordered_multimap、multimap、map</code>）才定义了<code>mapped_type</code>;</p>
+<h5 id="关联容器迭代器"><a href="#关联容器迭代器" class="headerlink" title="关联容器迭代器"></a>关联容器迭代器</h5><p>解引用一个关联容器的迭代器时，得到一个类型为容器的<code>value_type</code>的值的<strong>引用</strong>。对<code>map</code>而言，<code>value_type</code>是一个<code>pair</code>类型，其<code>first</code>成员保存<code>cosnt</code>的关键字，<code>second</code>成员保存值。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获得指向word_count中一个元素的迭代器</span></span><br><span class="line"><span class="keyword">auto</span> map_it = word_count.begin();</span><br><span class="line"><span class="comment">// *map_it是指向一个pair&lt;const string, size_t&gt;对象的引用</span></span><br><span class="line"><span class="comment">// 或者使用(*map_it).first，(*map_it).second</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; map_it-&gt;first; <span class="comment">// 打印此元素的关键字</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; map_it-&gt;second; <span class="comment">// 打印此元素的值</span></span><br><span class="line">map_it-&gt;first = <span class="string">"new key"</span>; <span class="comment">// 错误：关键字是const的</span></span><br><span class="line">++map_it-&gt;second; <span class="comment">// 正确：可以通过迭代器改变元素</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="set的迭代器是const的"><a href="#set的迭代器是const的" class="headerlink" title="set的迭代器是const的"></a>set的迭代器是const的</h6><p>虽然<code>set</code>类型同时定义了<code>iterator</code>和<code>const_iterator</code>类型， 但两种类型都只允许读<code>set</code>中的元素。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; iset = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;;</span><br><span class="line"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;::iterator set_it = iset.begin();</span><br><span class="line"><span class="keyword">if</span>(set_it != iset.end())&#123;</span><br><span class="line">    *set_it = <span class="number">42</span>; <span class="comment">// 错误：set中的关键字是只读的</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; *set_it &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 正确：可以读关键字</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="遍历关联容器"><a href="#遍历关联容器" class="headerlink" title="遍历关联容器"></a>遍历关联容器</h6><p><code>map</code>和<code>set</code>都支持之前所说的<code>begin</code>和<code>end</code>操作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> map_it = word_count.cbegin();</span><br><span class="line"><span class="keyword">while</span>(map_it != word_count.cbegin())&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; map_it-&gt;first &lt;&lt; <span class="string">" occurs"</span></span><br><span class="line">         &lt;&lt; map_it-&gt;second &lt;&lt; <span class="string">" times"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    ++map_it;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="关联容器和算法"><a href="#关联容器和算法" class="headerlink" title="关联容器和算法"></a>关联容器和算法</h6><p>通常不对关联容器使用泛型算法，有其专用算法。如果真要对一个关联容器使用算法，要么是将它当作一个源序列，要么当作一个目的位置。</p>
+<h5 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h5><p>使用关联容器的<code>insert</code>成员向容器中添加一个元素或一个元素范围：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ivec = &#123;<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>&#125;; <span class="comment">// ivec有8个元素</span></span><br><span class="line"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; set2;</span><br><span class="line">set2.insert(ivec.cbegin(), ivec.cend()); <span class="comment">// set2有4个元素</span></span><br><span class="line">set2.insert(&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>&#125;); <span class="comment">// set2现在有8个元素</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="向map添加元素"><a href="#向map添加元素" class="headerlink" title="向map添加元素"></a>向map添加元素</h6><p>对一个<code>map</code>进行<code>insert</code>操作时，必须记住元素类型是<code>pair</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 向word_count插入word的4种方法</span></span><br><span class="line">word_count.insert(&#123;word, <span class="number">1</span>&#125;);</span><br><span class="line">word_count.insert(make_pair(word, <span class="number">1</span>));</span><br><span class="line">word_count.insert(pair&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt;(word, <span class="number">1</span>));</span><br><span class="line">word_count.insert(<span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt;::value_type(word, <span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+
+<img src="/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/关联容器insert操作.png">
+
+<h6 id="检测insert返回值"><a href="#检测insert返回值" class="headerlink" title="检测insert返回值"></a>检测insert返回值</h6><p><code>insert</code>(或<code>emplace</code>)返回的值依赖于容器类型和参数。对于<strong>不包含重复关键字</strong>的容器，添加单一元素的<code>insert</code>和<code>emplace</code>版本返回一个<code>pair</code>，告诉我们插入操作是否成功。<code>pair</code>的<code>first</code>成员是一个<strong>迭代器</strong>，指向<strong>具有给定关键字的元素</strong>；<code>second</code>成员是一个<code>bool</code>值，指出元素是插入成功还是已经存在于容器中。如果关键字已在容器中，则<code>insert</code>什么事情也不做，且返回值中的<code>bool</code>部分为<code>false</code>。如果关键字不存在，元素被插入容器中，且<code>bool</code>值为<code>true</code>。</p>
+<p>例子，重写单词计数程序：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt; word_count;</span><br><span class="line"><span class="built_in">string</span> word;</span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; word)&#123;</span><br><span class="line">    <span class="keyword">auto</span> ret = word_count.insert(&#123;word, <span class="number">1</span>&#125;);</span><br><span class="line">    <span class="keyword">if</span>(!ret.second)</span><br><span class="line">        ++ret.first-&gt;second;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="展开递增语句"><a href="#展开递增语句" class="headerlink" title="展开递增语句"></a>展开递增语句</h6><ul>
+<li><strong>ret</strong>：保存<code>insert</code>返回的值，是一个<strong>pair</strong></li>
+<li><strong>ret.first</strong>：是一个<code>map</code>迭代器，指向具有给定关键字的元素</li>
+<li>**ret.first-&gt;**：解引用此迭代器，提取<code>map</code>种元素，元素也是一个<code>pair</code></li>
+<li><strong>ret.first-&gt;second</strong>：<code>map</code>中元素的值部分</li>
+<li><strong>++ret.first-&gt;second</strong>：递增此值</li>
+</ul>
+<h6 id="向multiset或multimap添加元素"><a href="#向multiset或multimap添加元素" class="headerlink" title="向multiset或multimap添加元素"></a>向multiset或multimap添加元素</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">multimap</span>&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; authors;</span><br><span class="line"><span class="comment">// 插入第一个元素，关键字为zxy</span></span><br><span class="line">authors.insert(&#123;<span class="string">"zxy"</span>, <span class="string">"c++泛型算法"</span>&#125;);</span><br><span class="line"><span class="comment">// 正确：添加第二个元素，关键字也是zxy"</span></span><br><span class="line">authors.insert(&#123;<span class="string">"zxy"</span>, <span class="string">"c++关联容器"</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这里<code>insert</code>操作返回一个指向新元素的迭代器。无需返回一个<code>bool</code>值，因为<code>insert</code>总是向这类容器中加入一个新元素。</p>
+<h5 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h5><p>关联容器定义了三个版本的<code>erase</code>，如下：</p>
+<img src="/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/关联容器erase操作.png">
+
+<p>后两个与顺序容器一样，第一个是关联容器额外提供的，它接受一个<code>key_type</code>类型。此版本删除所有匹配给定关键字的元素（如果存在的话），返回实际删除元素的数量。</p>
+<ul>
+<li>对于保存不重复关键字的容器，<code>erase</code>的返回值总是0或1。0表示要删除的元素不在容器中</li>
+<li>对于允许重复关键字的容器，删除元素的数量可能大于1</li>
+</ul>
+<h5 id="map的下标操作"><a href="#map的下标操作" class="headerlink" title="map的下标操作"></a>map的下标操作</h5><p><code>map</code>和<code>unordered_map</code>容器提供了下标运算符和一个对应的<code>at</code>函数：</p>
+<img src="/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/map和unordered_map的下标操作.png">
+
+<p><strong><code>set</code>类型不支持下标，因为<code>set</code>中元素本身就是关键字，同时也不能对<code>multimap</code>或者<code>unordered_multimap</code>进行下标操作，因为这些容器中可能有多个值与一个关键字相关联</strong>。</p>
+<img src="/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/map_note.png">
+
+<h6 id="使用下标操作的返回值"><a href="#使用下标操作的返回值" class="headerlink" title="使用下标操作的返回值"></a>使用下标操作的返回值</h6><p>当对一个<code>map</code>进行下标操作时，会获得一个<code>mapped_type</code>对象；但当解引用一个<code>map</code>迭代器时，会得到一个<code>value_type</code>对象。与其他下标运算符相同的是，<code>map</code>的下标运算符返回一个左值，所以既可以读也可以写元素。</p>
+<img src="/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/map下标_note.png">
+
+<h5 id="访问元素"><a href="#访问元素" class="headerlink" title="访问元素"></a>访问元素</h5><p>关联容器提供多种查找一个指定元素的方法，应该使用哪个取决我们要解决什么问题。</p>
+<img src="/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/在一个关联容器种查找元素的操作.png">
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; iset&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;;</span><br><span class="line">iset.find(<span class="number">1</span>); <span class="comment">// 返回一个迭代器，指向key = 1的元素</span></span><br><span class="line">iset.find(<span class="number">11</span>); <span class="comment">// 返回一个迭代器，其值等于iset.end()</span></span><br><span class="line">iset.count(<span class="number">1</span>); <span class="comment">// 返回1</span></span><br><span class="line">iset.count(<span class="number">11</span>); <span class="comment">// 返回0</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="对map和find代替下标操作"><a href="#对map和find代替下标操作" class="headerlink" title="对map和find代替下标操作"></a>对map和find代替下标操作</h6><p>如果我们只是想知道一个给定的关键字是否在<code>map</code>中，而不想改变<code>map</code>（下标操作会插入一个未在<code>map</code>的元素）。这种情况下应该使用<code>find</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(word_count.find(<span class="string">"foobar"</span>) == word_count.end())</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"foobar is not in the map"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+
+<h6 id="在multimap或multiset中查找元素"><a href="#在multimap或multiset中查找元素" class="headerlink" title="在multimap或multiset中查找元素"></a>在multimap或multiset中查找元素</h6><p>如果一个<code>multimap</code>或<code>multiset</code>中有多个元素具有给定关键字，则这些元素在容器中会相邻存储。</p>
+<p>例如，给定一个从作者到著作题目的映射，我们可能想打印一个特定作者的所有著作。可以用三种不同方法来解决这个问题。最直观的方法是使用<code>find</code>和<code>count</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">search_item</span><span class="params">(<span class="string">"zxy"</span>)</span></span>; <span class="comment">// 作者</span></span><br><span class="line"><span class="keyword">auto</span> entries = authors.count(search_item); <span class="comment">// 元素的数量</span></span><br><span class="line"><span class="keyword">auto</span> iter = authors.find(search_item); <span class="comment">// 作者的第一本书</span></span><br><span class="line"><span class="comment">// 查找此作者所有著作</span></span><br><span class="line"><span class="keyword">while</span>(entries)&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; iter-&gt;second &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 打印书名</span></span><br><span class="line">    ++iter; <span class="comment">// 下一本</span></span><br><span class="line">    --entries; <span class="comment">// 打印一次，计数减一</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/multimap或multiset中查找元素_note.png">
+
+<h6 id="一种不同的，面向迭代器的解决办法"><a href="#一种不同的，面向迭代器的解决办法" class="headerlink" title="一种不同的，面向迭代器的解决办法"></a>一种不同的，面向迭代器的解决办法</h6><p>可以使用<code>lower_bound</code>和<code>upper_bound</code>来解决。</p>
+<ul>
+<li>关键字在容器中，<code>lower_bound</code>返回迭代器将指向第一个具有给定关键字的元素，<code>upper_bound</code>返回迭代器指向最后一个匹配关键字元素之后的位置</li>
+<li>关键字不在容器中，两者返回一个不影响排序的关键字插入位置</li>
+</ul>
+<p>因此，使用相同关键字调用<code>lower_bound</code>和<code>upper_bound</code>会得到关键字元素的范围。我们可以重写程序：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> beg = authors.lower_bound(search_item),</span><br><span class="line">    end = authors.upper_bound(search_item);</span><br><span class="line">    beg != end; ++ beg)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; beg-&gt;second &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+
+<img src="/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/lower_bound和upper_bound_note.png">
+
+<h6 id="equal-range函数"><a href="#equal-range函数" class="headerlink" title="equal_range函数"></a>equal_range函数</h6><p>此函数接受一个关键字，返回一个**迭代器<code>pair</code>**（不是<code>pair</code>对象）。若关键字存在，则第一个迭代器指向第一个与关键字匹配的元素，第二个迭代器指向最后一个匹配元素之后的位置。若未找到匹配元素，则两个迭代器都指向关键字可以插入的位置。再次修改程序</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> pos = authors.equal_range(search_item);</span><br><span class="line">	pos.first != pos.second; ++pos.first)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; pos.first-&gt;second &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="一个单词转换的map"><a href="#一个单词转换的map" class="headerlink" title="一个单词转换的map"></a>一个单词转换的map</h5><p>程序功能：给定一个<code>string</code>，将它转换为另一个<code>string</code>。我们需要根据单词转换文件将待转换的文本转换为我们想要的样子：</p>
+<p>单词转换文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">k okay?</span><br><span class="line">y why</span><br><span class="line">r are</span><br><span class="line">u you</span><br><span class="line">pic picture</span><br><span class="line">thk thank!</span><br><span class="line">l8r later</span><br></pre></td></tr></table></figure>
+
+<p>待转换文本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">where r u</span><br><span class="line">y dont u send me a pic</span><br><span class="line">k thk l8r</span><br></pre></td></tr></table></figure>
+
+<p>转换结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">where are you</span><br><span class="line">why dont you send me a picture</span><br><span class="line">okay? thanks! later</span><br></pre></td></tr></table></figure>
+
+<h6 id="单词转换程序"><a href="#单词转换程序" class="headerlink" title="单词转换程序"></a>单词转换程序</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// map_file 转换规则</span></span><br><span class="line"><span class="comment">// input 待转换文本</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">word_transform</span><span class="params">(ifstream &amp;map_file, ifstream &amp;input, ofstream &amp;output)</span></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> trans_map = buildMap(map_file);</span><br><span class="line">    <span class="built_in">string</span> text; <span class="comment">// 保存输入中的每一行</span></span><br><span class="line">    <span class="keyword">while</span>(getline(input, text))&#123; <span class="comment">// 读取每一行输入</span></span><br><span class="line">        <span class="function"><span class="built_in">istringstream</span> <span class="title">stream</span><span class="params">(text)</span></span>; <span class="comment">// 读取每个单词</span></span><br><span class="line">        <span class="built_in">string</span> word;</span><br><span class="line">        <span class="keyword">bool</span> firstword = <span class="literal">true</span>; <span class="comment">// 控制是否打印空格</span></span><br><span class="line">        <span class="keyword">while</span>(stream &gt;&gt; word)&#123;</span><br><span class="line">            <span class="keyword">if</span>(firstword)</span><br><span class="line">                firstword = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                output &lt;&lt; <span class="string">" "</span>; <span class="comment">// 单词间打印一个空格</span></span><br><span class="line">            output &lt;&lt; transform(word, trans_map); <span class="comment">// 打印输出</span></span><br><span class="line">        &#125;</span><br><span class="line">        output &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 完成一行的转换</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="建立转换映射"><a href="#建立转换映射" class="headerlink" title="建立转换映射"></a>建立转换映射</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string, string&gt; buildMap(ifstream &amp; map_file)&#123;</span><br><span class="line">	<span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; trans_map; <span class="comment">// 保存转换规则</span></span><br><span class="line">    <span class="built_in">string</span> key; <span class="comment">// 要转换的单词</span></span><br><span class="line">    <span class="built_in">string</span> value; <span class="comment">// 替换后的内容</span></span><br><span class="line">    <span class="comment">// 读取第一个单词存入key，剩余存入value（包括标点）</span></span><br><span class="line">    <span class="comment">// map_file&gt;&gt;key流只读取第一个空格前string，剩下的流由getline读取到value中</span></span><br><span class="line">    <span class="keyword">while</span>(map_file &gt;&gt; key &amp;&amp; getline(map_file, value))</span><br><span class="line">        <span class="keyword">if</span>(value.size() &gt; <span class="number">1</span>) <span class="comment">// 检查是否有转换规则</span></span><br><span class="line">            trans_map[key] = value.substr(<span class="number">1</span>); <span class="comment">// 跳过前导空格，getline不会跳过前导空格</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">throw</span> runtime_error(<span class="string">"no rule for "</span> + key);</span><br><span class="line">    <span class="keyword">return</span> trans_map;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="生成转换文本"><a href="#生成转换文本" class="headerlink" title="生成转换文本"></a>生成转换文本</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> <span class="built_in">string</span>&amp; <span class="title">transform</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s, <span class="keyword">const</span> <span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; &amp;m)</span></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> map_it = m.find(s);</span><br><span class="line">    <span class="keyword">if</span>(map_it != m.cend())</span><br><span class="line">        <span class="keyword">return</span> map_it-&gt;second; <span class="comment">// 使用替换短语</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> s; <span class="comment">// 否则返回原string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="无序容器"><a href="#无序容器" class="headerlink" title="无序容器"></a>无序容器</h4><p>新标准定义了<strong>4</strong>个<strong>无序关联容器</strong>，这些容器使用一个哈希函数和关键字类型的<code>==</code>运算符。</p>
+<h6 id="使用无序容器"><a href="#使用无序容器" class="headerlink" title="使用无序容器"></a>使用无序容器</h6><p>用于<code>map</code>和<code>set</code>的操作也能用于<code>unordered_map</code>和<code>unordered_set</code>，如<code>find、insert</code>等。无序容器也有允许重复关键字的版本。</p>
+<h6 id="管理桶"><a href="#管理桶" class="headerlink" title="管理桶"></a>管理桶</h6><p>无序容器在存储上组织为<strong>一组桶</strong>，每个桶保存零个或多个元素。<strong>无序容器使用一个哈希函数将元素映射到桶</strong>。</p>
+<ul>
+<li><p>为了访问一个元素，容器首先计算元素的哈希值，它指出应该搜索哪个桶。</p>
+</li>
+<li><p>容器将具有一个特定哈希值的所有元素都保存在相同的桶中。</p>
+</li>
+<li><p>如果容器允许重复关键字，所有具有相同关键字的元素也都会在同一个桶中。</p>
+</li>
+</ul>
+<p>因此，无序容器的性能依赖于<strong>哈希函数的质量</strong>和<strong>桶的数量和大小</strong>。</p>
+<p>对于相同的参数，哈希函数必须总是产生相同的结果。<strong>理想情况下，哈希函数将每个特定的值映射到唯一的桶</strong>。但是，<strong>将不同关键字的元素映射到相同的桶也是允许的</strong>。</p>
+<ul>
+<li>当一个桶保存多个元素时，需要顺序搜索这些元素来查找我们想要的那个。</li>
+<li>计算一个元素的哈希值和在桶中搜索通常都是很快的操作。</li>
+<li>如果一个桶中保存了很多元素，那么查找一个特定元素就需要大量比较操作。</li>
+</ul>
+<p>以下这些成员函数允许我们查询容器的状态以及在必要时强制容器进行重组。</p>
+<img src="/www.xingyuzhao.ltd/blog/2020/12/21/C-关联容器/无序容器管理操作.png">
+
+<h6 id="无序容器对关键字类型的要求"><a href="#无序容器对关键字类型的要求" class="headerlink" title="无序容器对关键字类型的要求"></a>无序容器对关键字类型的要求</h6><p>默认情况下，无序容器使用关键字类型<code>==</code>运算符来比较元素，它们还使用一个<code>hash&lt;key_type&gt;</code>类型的对象来<strong>生成每个元素的哈希值</strong>。</p>
+<ul>
+<li>无序容器支持关键字是<strong>内置类型(包括指针类型)**、</strong><code>string</code><strong>或者</strong>智能指针**类型的无序容器。</li>
+<li>无序容器<strong>不能</strong>直接定义<strong>关键字类型为自定义类类型的无序容器</strong>。与容器不同，不能直接使用哈希模板，而必须提供我们自己的<code>hash</code>模板版本。</li>
+<li>不使用默认的<code>hash</code>，而是使用一种类似于<strong>为有序容器重载关键字类型</strong>的默认比较操作。</li>
+</ul>
+<p>为了能将<code>Sale_data</code>用作关键字，我们需要提供函数来替代<code>==</code>运算符和哈希值计算函数。我们从定义这些重载函数开始：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">hasher</span><span class="params">(<span class="keyword">const</span> Sales_data &amp;sd)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> hash&lt;<span class="built_in">string</span>&gt;()(sd.isbn());</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">eqOp</span><span class="params">(<span class="keyword">const</span> Sales_data &amp;lhs, <span class="keyword">const</span> Sales_data &amp;rhs)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> lhs.isbn() == rhs.isbn();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>hasher</code>函数使用标准库<code>hash</code>类型对象计算<code>ISBN</code>成员的哈希值，该哈希值建立在<code>string</code>之上。</p>
+<p><code>eqOp</code>函数通过比较<code>ISBN</code>号来比较两个<code>Salas_data</code>。</p>
+<p>使用以上函数来定义一个<code>unordered_multiset</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> SD_multiset = <span class="built_in">unordered_multiset</span>&lt;Sales_data, <span class="keyword">decltype</span>(hasher)*, <span class="keyword">decltype</span>(eqOp)*&gt;;</span><br><span class="line"><span class="comment">// 参数是桶大小、哈希函数指针和相等性判断运算符指针</span></span><br><span class="line"><span class="function">SD_miltiset <span class="title">bookstore</span><span class="params">(<span class="number">42</span>, hasher, eqOp)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>此集合的哈希和相等性判断操作与<code>hasher</code>和<code>eqOp</code>函数有着相同的类型。在定义<code>bookstore</code>时可以将我们希望它使用的函数的指针传递给它。</p>
+<p>如果类定义了<code>==</code>运算符，则可以只重载哈希函数：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用FooHash生成哈希值；Foo必须有==运算符</span></span><br><span class="line">unordered_set&lt;Foo, decltype(FooHash)*&gt; fooSet(10, FoolHash);</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2020/12/21/LeetCode746-使用最小花费爬楼梯/" rel="next" title="LeetCode746-使用最小花费爬楼梯">
+                <i class="fa fa-chevron-left"></i> LeetCode746-使用最小花费爬楼梯
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2020/12/22/LeetCode103-二叉树的锯齿形层序遍历/" rel="prev" title="LeetCode103-二叉树的锯齿形层序遍历">
+                LeetCode103-二叉树的锯齿形层序遍历 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xingyu_Zhao</p>
+              <p class="site-description motion-element" itemprop="description">Email: 543040659@qq.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用关联容器"><span class="nav-number">2.</span> <span class="nav-text">使用关联容器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用map"><span class="nav-number">2.1.</span> <span class="nav-text">使用map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用set"><span class="nav-number">2.2.</span> <span class="nav-text">使用set</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关联容器概述"><span class="nav-number">3.</span> <span class="nav-text">关联容器概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义关联容器"><span class="nav-number">3.1.</span> <span class="nav-text">定义关联容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#初始化multimap或multiset"><span class="nav-number">3.2.</span> <span class="nav-text">初始化multimap或multiset</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#关键字类型的要求"><span class="nav-number">3.3.</span> <span class="nav-text">关键字类型的要求</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#有序容器的关键字类型"><span class="nav-number">3.3.1.</span> <span class="nav-text">有序容器的关键字类型</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#使用关键字类型的比较函数"><span class="nav-number">3.3.2.</span> <span class="nav-text">使用关键字类型的比较函数</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pair类型"><span class="nav-number">3.4.</span> <span class="nav-text">pair类型</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#创建pair对象的函数"><span class="nav-number">3.4.1.</span> <span class="nav-text">创建pair对象的函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关联容器操作"><span class="nav-number">4.</span> <span class="nav-text">关联容器操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#关联容器迭代器"><span class="nav-number">4.1.</span> <span class="nav-text">关联容器迭代器</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#set的迭代器是const的"><span class="nav-number">4.1.1.</span> <span class="nav-text">set的迭代器是const的</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#遍历关联容器"><span class="nav-number">4.1.2.</span> <span class="nav-text">遍历关联容器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#关联容器和算法"><span class="nav-number">4.1.3.</span> <span class="nav-text">关联容器和算法</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#添加元素"><span class="nav-number">4.2.</span> <span class="nav-text">添加元素</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#向map添加元素"><span class="nav-number">4.2.1.</span> <span class="nav-text">向map添加元素</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#检测insert返回值"><span class="nav-number">4.2.2.</span> <span class="nav-text">检测insert返回值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#展开递增语句"><span class="nav-number">4.2.3.</span> <span class="nav-text">展开递增语句</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#向multiset或multimap添加元素"><span class="nav-number">4.2.4.</span> <span class="nav-text">向multiset或multimap添加元素</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除元素"><span class="nav-number">4.3.</span> <span class="nav-text">删除元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map的下标操作"><span class="nav-number">4.4.</span> <span class="nav-text">map的下标操作</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用下标操作的返回值"><span class="nav-number">4.4.1.</span> <span class="nav-text">使用下标操作的返回值</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#访问元素"><span class="nav-number">4.5.</span> <span class="nav-text">访问元素</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#对map和find代替下标操作"><span class="nav-number">4.5.1.</span> <span class="nav-text">对map和find代替下标操作</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#在multimap或multiset中查找元素"><span class="nav-number">4.5.2.</span> <span class="nav-text">在multimap或multiset中查找元素</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#一种不同的，面向迭代器的解决办法"><span class="nav-number">4.5.3.</span> <span class="nav-text">一种不同的，面向迭代器的解决办法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#equal-range函数"><span class="nav-number">4.5.4.</span> <span class="nav-text">equal_range函数</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一个单词转换的map"><span class="nav-number">4.6.</span> <span class="nav-text">一个单词转换的map</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#单词转换程序"><span class="nav-number">4.6.1.</span> <span class="nav-text">单词转换程序</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#建立转换映射"><span class="nav-number">4.6.2.</span> <span class="nav-text">建立转换映射</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#生成转换文本"><span class="nav-number">4.6.3.</span> <span class="nav-text">生成转换文本</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无序容器"><span class="nav-number">5.</span> <span class="nav-text">无序容器</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用无序容器"><span class="nav-number">5.0.1.</span> <span class="nav-text">使用无序容器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#管理桶"><span class="nav-number">5.0.2.</span> <span class="nav-text">管理桶</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#无序容器对关键字类型的要求"><span class="nav-number">5.0.3.</span> <span class="nav-text">无序容器对关键字类型的要求</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">88.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

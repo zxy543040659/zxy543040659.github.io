@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本次学习要点 读取一个图 深度优先搜索DFS 广度优先搜索BFS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图论（二）">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/11/03/图论2/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="本次学习要点 读取一个图 深度优先搜索DFS 广度优先搜索BFS">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/03/图论2/dfs1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/03/图论2/testG1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/03/图论2/testG2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/03/图论2/dfs2.png">
+<meta property="og:updated_time" content="2020-11-14T15:49:33.294Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图论（二）">
+<meta name="twitter:description" content="本次学习要点 读取一个图 深度优先搜索DFS 广度优先搜索BFS">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/03/图论2/dfs1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2020/11/03/图论2/">
+
+
+
+
+
+  <title>图论（二） | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">长风破浪会有时，直挂云帆济沧海</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2020/11/03/图论2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingyu_Zhao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">图论（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-03T16:06:02+08:00">
+                2020-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2020/11/03/图论2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2020/11/03/图论2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h4><ol>
+<li>读取一个图</li>
+<li>深度优先搜索DFS</li>
+<li>广度优先搜索BFS</li>
+</ol>
+<a id="more"></a>
+
+<h4 id="从文件中读取一个图"><a href="#从文件中读取一个图" class="headerlink" title="从文件中读取一个图"></a>从文件中读取一个图</h4><p>如果要从已有的文件中读取并构建一张图，需要使用到C++的IO库，使用头文件<code>fstream</code>和<code>sstream</code>，类型如下:</p>
+<p><strong>fstream:</strong></p>
+<ul>
+<li><code>ifstream, wifstream</code>从文件中读取数据</li>
+<li><code>ofstream, wofstram</code>向文件中写入数据</li>
+<li><code>fstream, wfstream</code>读写文件</li>
+</ul>
+<p><strong>sstream:</strong></p>
+<ul>
+<li><code>istringstream, wistringfstream</code>从<code>string</code>中读取数据</li>
+<li><code>ostringstream, wosringstream</code>向<code>string</code>中写入数据</li>
+<li><code>stringstream, wstringstream</code>读写<code>string</code></li>
+</ul>
+<h5 id="读文件—类的实现"><a href="#读文件—类的实现" class="headerlink" title="读文件—类的实现"></a>读文件—类的实现</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Graph&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReadGraph</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ReadGraph(Graph &amp;graph, <span class="keyword">const</span> <span class="built_in">string</span> &amp;filename)&#123;</span><br><span class="line">        <span class="function">ifstream <span class="title">file</span><span class="params">(filename)</span></span>;</span><br><span class="line">        <span class="built_in">string</span> line;</span><br><span class="line">        <span class="keyword">int</span> V, E;</span><br><span class="line"></span><br><span class="line">        assert(file.is_open());</span><br><span class="line">        assert(getline(file, line));</span><br><span class="line">        <span class="comment">// 首先读入顶点数和边数</span></span><br><span class="line">        <span class="function"><span class="built_in">stringstream</span> <span class="title">ss</span><span class="params">(line)</span></span>;</span><br><span class="line">        ss &gt;&gt; V &gt;&gt; E;</span><br><span class="line">        assert(V == graph.V());</span><br><span class="line">        <span class="comment">// 读入每一条边</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; E; ++i)&#123;</span><br><span class="line">            assert(getline(file, line));</span><br><span class="line">            <span class="function"><span class="built_in">stringstream</span> <span class="title">ss</span><span class="params">(line)</span></span>;</span><br><span class="line">            <span class="keyword">int</span> a, b;</span><br><span class="line">            ss &gt;&gt; a &gt;&gt; b;</span><br><span class="line">            assert(a &gt;= <span class="number">0</span> &amp;&amp; a &lt; V);</span><br><span class="line">            assert(b &gt;= <span class="number">0</span> &amp;&amp; b &lt; V);</span><br><span class="line">            graph.addEdge(a, b);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h6 id="测试主函数"><a href="#测试主函数" class="headerlink" title="测试主函数"></a>测试主函数</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> filename = <span class="string">"testG2.txt"</span>;</span><br><span class="line">    <span class="comment">// G2是有6个顶点的无向图</span></span><br><span class="line">    <span class="function">SparseGraph <span class="title">g1</span><span class="params">(<span class="number">6</span>, <span class="literal">false</span>)</span></span>;</span><br><span class="line">    <span class="function">ReadGraph&lt;SparseGraph&gt; <span class="title">readGraph1</span><span class="params">(g1, filename)</span></span>;</span><br><span class="line">    <span class="comment">// 在两种头文件中新加show函数打印结果</span></span><br><span class="line">    g1.show();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">DenseGraph <span class="title">g2</span><span class="params">(<span class="number">6</span>, <span class="literal">false</span>)</span></span>;</span><br><span class="line">    <span class="function">ReadGraph&lt;DenseGraph&gt; <span class="title">readGraph2</span><span class="params">(g2, filename)</span></span>;</span><br><span class="line">    g2.show();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出</span></span><br><span class="line">vertex <span class="number">0</span>:       <span class="number">1</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line">vertex <span class="number">1</span>:       <span class="number">0</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></span><br><span class="line">vertex <span class="number">2</span>:       <span class="number">0</span> <span class="number">1</span></span><br><span class="line">vertex <span class="number">3</span>:       <span class="number">1</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line">vertex <span class="number">4</span>:       <span class="number">1</span> <span class="number">3</span></span><br><span class="line">vertex <span class="number">5</span>:       <span class="number">0</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line">vertex <span class="number">0</span>:       <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span></span><br><span class="line">vertex <span class="number">1</span>:       <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span></span><br><span class="line">vertex <span class="number">2</span>:       <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></span><br><span class="line">vertex <span class="number">3</span>:       <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span></span><br><span class="line">vertex <span class="number">4</span>:       <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span></span><br><span class="line">vertex <span class="number">5</span>:       <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="深度优先搜索（DFS）"><a href="#深度优先搜索（DFS）" class="headerlink" title="深度优先搜索（DFS）"></a>深度优先搜索（DFS）</h4><p>与二叉树的深度优先搜索遍历不同，二叉树总会遇到空，但是图可能成环，或者无向图，所以遍历时应记录每个节点是否被遍历了。</p>
+<h5 id="连通分量"><a href="#连通分量" class="headerlink" title="连通分量"></a>连通分量</h5><p>无向图Graph的极大连通子图称为G的<strong>连通分量</strong>( Connected Component)。任何<strong>连通图</strong>的连通分量只有一个，即是其自身，<strong>非连通的无向图</strong>有多个连通分量。如图所示，无向图共有4个连通分量：</p>
+<img src="/www.xingyuzhao.ltd/blog/2020/11/03/图论2/dfs1.png">
+
+<p>对于一个非连通的无向图来说，可以用DFS得到Graph共有几个连通分量。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Graph&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Components</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Graph &amp;G;</span><br><span class="line">    <span class="keyword">bool</span> *visited; <span class="comment">// 当前节点是否被遍历过</span></span><br><span class="line">    <span class="keyword">int</span> ccount;	<span class="comment">// 记录连通分量总数</span></span><br><span class="line">    <span class="keyword">int</span> *id;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">    	visited[v] = <span class="literal">true</span>;</span><br><span class="line">    	<span class="comment">// 相当于并查集，让同一个联通分量中的节点指向同一个数</span></span><br><span class="line">    	id[v] = ccount;</span><br><span class="line">    	<span class="comment">// 编译器无法判断是Graph的一个类型还是一个成员变量，需加关键字typename</span></span><br><span class="line">    	<span class="function"><span class="keyword">typename</span> Graph::adjIterator <span class="title">adj</span><span class="params">(G, v)</span></span>;</span><br><span class="line">    	<span class="keyword">for</span>(<span class="keyword">int</span> i = adj.begin(); !adj.end(); i = adj.next())&#123;</span><br><span class="line">        	<span class="keyword">if</span>(!visited[i])</span><br><span class="line">            	dfs(i);</span><br><span class="line">    	&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Components(Graph &amp;graph): G(graph)&#123;</span><br><span class="line">        visited = <span class="keyword">new</span> <span class="keyword">bool</span>[G.V()];</span><br><span class="line">        id = <span class="keyword">new</span> <span class="keyword">int</span>[G.v()];</span><br><span class="line">        ccount = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 初始化</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G.V(); ++i)&#123;</span><br><span class="line">            visited[i] = <span class="literal">false</span>;</span><br><span class="line">            id[i] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G.V(); ++i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!visited[i])&#123;</span><br><span class="line">                dfs(i);</span><br><span class="line">                ccount++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ~Components()&#123;</span><br><span class="line">        <span class="keyword">delete</span>[] visited;</span><br><span class="line">        <span class="keyword">delete</span>[] id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">count</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ccount;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 查询两个节点是否相连</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isConnected</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">        assert(v &gt;= <span class="number">0</span> &amp;&amp; v &lt; G.V());</span><br><span class="line">        assert(w &gt;= <span class="number">0</span> &amp;&amp; w &lt; G.V());</span><br><span class="line">        <span class="keyword">return</span> id[v] == id[w];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h6 id="测试主函数-1"><a href="#测试主函数-1" class="headerlink" title="测试主函数"></a>测试主函数</h6><p>对于图<code>testG1.txt</code>和<code>testG2.txt</code>，先从文件中读取到稀疏图中，再对此图进行DFS得到连通分量的个数，两个文件内容分别为：</p>
+<ul>
+<li>testG1:</li>
+</ul>
+<img src="/www.xingyuzhao.ltd/blog/2020/11/03/图论2/testG1.png">
+
+<ul>
+<li>testG2:</li>
+</ul>
+<img src="/www.xingyuzhao.ltd/blog/2020/11/03/图论2/testG2.png">
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> filename1 = <span class="string">"testG1.txt"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">SparseGraph <span class="title">g1</span><span class="params">(<span class="number">13</span>, <span class="literal">false</span>)</span></span>;</span><br><span class="line">    <span class="function">ReadGraph&lt;SparseGraph&gt; <span class="title">readGraph1</span><span class="params">(g1, filename1)</span></span>;</span><br><span class="line">    <span class="function">Components&lt;SparseGraph&gt; <span class="title">component1</span><span class="params">(g1)</span></span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"TestG1.txt, Component Count: "</span>&lt;&lt; component1.count() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">string</span> filename2 = <span class="string">"testG2.txt"</span>;</span><br><span class="line">    <span class="function">SparseGraph <span class="title">g2</span><span class="params">(<span class="number">6</span>, <span class="literal">false</span>)</span></span>;</span><br><span class="line">    <span class="function">ReadGraph&lt;SparseGraph&gt; <span class="title">readGraph2</span><span class="params">(g2, filename2)</span></span>;</span><br><span class="line">    <span class="function">Components&lt;SparseGraph&gt; <span class="title">component2</span><span class="params">(g2)</span></span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"TestG2.txt, Component Count: "</span> &lt;&lt; component2.count() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出</span></span><br><span class="line">TestG1.txt, Component Count: <span class="number">3</span></span><br><span class="line">TestG2.txt, Component Count: <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="获得两点之间的一条路径"><a href="#获得两点之间的一条路径" class="headerlink" title="获得两点之间的一条路径"></a>获得两点之间的一条路径</h5><p>使用DFS可以找连通图两点之间的一条路径，但不一定是最短路径。对于稀疏图，复杂度为O(V+E)，对于稠密图，复杂度为O(V^2)。对于下图，寻找节点0到节点6的一条路径。</p>
+<img src="/www.xingyuzhao.ltd/blog/2020/11/03/图论2/dfs2.png">
+
+<p>在遍历每个节点时，可以存储当前节点是由哪个节点遍历到的，以此可以反推出原始节点到当前节点的一条路径。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Graph&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Path</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Graph &amp;G;</span><br><span class="line">    <span class="keyword">int</span> s; <span class="comment">// 源节点</span></span><br><span class="line">    <span class="keyword">bool</span> *visited;</span><br><span class="line">    <span class="keyword">int</span> *from; <span class="comment">// 当前节点是由哪个节点遍历到的</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">        visited[v] = <span class="literal">true</span>;</span><br><span class="line">        <span class="function"><span class="keyword">typename</span> Graph::adjIterator <span class="title">adj</span><span class="params">(G, v)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = adj.begin(); !adj.end(); i = adj.next())&#123;</span><br><span class="line">            <span class="keyword">if</span>(!visited[i])&#123;</span><br><span class="line">                <span class="comment">// 节点i是由节点v遍历到的</span></span><br><span class="line">                from[i] = v;</span><br><span class="line">                dfs(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Path(Graph &amp;graph, <span class="keyword">int</span> s): G(graph)&#123;</span><br><span class="line">        <span class="comment">// 算法初始化</span></span><br><span class="line">        assert(s &gt;= <span class="number">0</span> &amp;&amp; s &lt; G.V());</span><br><span class="line"></span><br><span class="line">        visited = <span class="keyword">new</span> <span class="keyword">bool</span>[G.V()];</span><br><span class="line">        from = <span class="keyword">new</span> <span class="keyword">int</span>[G.V()];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G.V(); ++i)&#123;</span><br><span class="line">            visited[i] = <span class="literal">false</span>;</span><br><span class="line">            from[i] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>-&gt;s = s;</span><br><span class="line">        <span class="comment">// 寻路</span></span><br><span class="line">        dfs(s);</span><br><span class="line">    &#125;</span><br><span class="line">    ~Path()&#123;</span><br><span class="line">        <span class="keyword">delete</span> [] visited;</span><br><span class="line">        <span class="keyword">delete</span> [] from;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasPath</span><span class="params">(<span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">        assert( w &gt;= <span class="number">0</span> &amp;&amp; w &lt; G.V() );</span><br><span class="line">        <span class="keyword">return</span> visited[w];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">path</span><span class="params">(<span class="keyword">int</span> w, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;vec)</span></span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">        <span class="keyword">int</span> p = w;</span><br><span class="line">        <span class="comment">// 找到从源节点到目标节点所经过的每一个节点入栈</span></span><br><span class="line">        <span class="keyword">while</span>(p != <span class="number">-1</span>)&#123;</span><br><span class="line">            s.push(p);</span><br><span class="line">            <span class="comment">// 将p更新为可以到达p的一个节点</span></span><br><span class="line">            p = from[p];</span><br><span class="line">        &#125;</span><br><span class="line">        vec.clear();</span><br><span class="line">        <span class="keyword">while</span>(!s.empty())&#123;</span><br><span class="line">            <span class="comment">// 出栈是正向路径</span></span><br><span class="line">            vec.push_back(s.top());</span><br><span class="line">            s.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showPath</span><span class="params">(<span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</span><br><span class="line">        path(w, vec);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vec.size(); ++i) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; vec[i];</span><br><span class="line">            <span class="keyword">if</span> (i == vec.size() - <span class="number">1</span>)</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">" -&gt; "</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h6 id="测试主函数-2"><a href="#测试主函数-2" class="headerlink" title="测试主函数"></a>测试主函数</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> filename = <span class="string">"testG2.txt"</span>;</span><br><span class="line">    SparseGraph g = SparseGraph(<span class="number">7</span>, <span class="literal">false</span>);</span><br><span class="line">    <span class="function">ReadGraph&lt;SparseGraph&gt; <span class="title">readGraph</span><span class="params">(g, filename)</span></span>;</span><br><span class="line">    g.show();</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">Path&lt;SparseGraph&gt; <span class="title">dfs</span><span class="params">(g, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"DFS : "</span>;</span><br><span class="line">    dfs.showPath(<span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出</span></span><br><span class="line">vertex <span class="number">0</span>:       <span class="number">1</span>       <span class="number">2</span>       <span class="number">5</span>       <span class="number">6</span></span><br><span class="line">vertex <span class="number">1</span>:       <span class="number">0</span></span><br><span class="line">vertex <span class="number">2</span>:       <span class="number">0</span></span><br><span class="line">vertex <span class="number">3</span>:       <span class="number">4</span>       <span class="number">5</span></span><br><span class="line">vertex <span class="number">4</span>:       <span class="number">3</span>       <span class="number">5</span>       <span class="number">6</span></span><br><span class="line">vertex <span class="number">5</span>:       <span class="number">0</span>       <span class="number">3</span>       <span class="number">4</span></span><br><span class="line">vertex <span class="number">6</span>:       <span class="number">0</span>       <span class="number">4</span></span><br><span class="line"></span><br><span class="line">DFS : <span class="number">0</span> -&gt; <span class="number">5</span> -&gt; <span class="number">3</span> -&gt; <span class="number">4</span> -&gt; <span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="广度优先搜索（BFS）"><a href="#广度优先搜索（BFS）" class="headerlink" title="广度优先搜索（BFS）"></a>广度优先搜索（BFS）</h4><p>使用深度优先搜索可以找到无权图两个节点之间的最短路径，复杂度与DFS相同。</p>
+<h5 id="最短路径—类的实现"><a href="#最短路径—类的实现" class="headerlink" title="最短路径—类的实现"></a>最短路径—类的实现</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Graph&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ShortestPath</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Graph &amp;G;</span><br><span class="line">    <span class="keyword">int</span> s;</span><br><span class="line">    <span class="keyword">bool</span> *visited;</span><br><span class="line">    <span class="keyword">int</span> *from;</span><br><span class="line">    <span class="keyword">int</span> *ord; <span class="comment">// 当前点到源节点的最短距离</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ShortestPath(Graph &amp;graph, <span class="keyword">int</span> s): G(graph)&#123;</span><br><span class="line">        <span class="comment">// 算法初始化</span></span><br><span class="line">        assert(s &gt;= <span class="number">0</span> &amp;&amp; s &lt; G.V());</span><br><span class="line"></span><br><span class="line">        visited = <span class="keyword">new</span> <span class="keyword">bool</span>[graph.V()];</span><br><span class="line">        from = <span class="keyword">new</span> <span class="keyword">int</span>[graph.V()];</span><br><span class="line">        ord = <span class="keyword">new</span> <span class="keyword">int</span>[graph.V()];</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; graph.V() ; i ++ )&#123;</span><br><span class="line">            visited[i] = <span class="literal">false</span>;</span><br><span class="line">            from[i] = <span class="number">-1</span>;</span><br><span class="line">            ord[i] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>-&gt;s = s;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">        <span class="comment">// 无向图最短路径算法</span></span><br><span class="line">        q.push(s);</span><br><span class="line">        visited[s] = <span class="literal">true</span>;</span><br><span class="line">        ord[s] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">            <span class="keyword">int</span> v = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="function"><span class="keyword">typename</span> Graph::adjIterator <span class="title">adj</span><span class="params">(G, v)</span></span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = adj.begin(); !adj.end(); i = adj.next())&#123;</span><br><span class="line">                <span class="keyword">if</span>(!visited[i])&#123;</span><br><span class="line">                    q.push(i);</span><br><span class="line">                    visited[i] = <span class="literal">true</span>;</span><br><span class="line">                    from[i] = v;</span><br><span class="line">                    ord[i] = ord[v] + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ~ShortestPath()&#123;</span><br><span class="line">        <span class="keyword">delete</span> [] visited;</span><br><span class="line">        <span class="keyword">delete</span> [] from;</span><br><span class="line">        <span class="keyword">delete</span> [] ord;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasPath</span><span class="params">(<span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">        assert( w &gt;= <span class="number">0</span> &amp;&amp; w &lt; G.V() );</span><br><span class="line">        <span class="keyword">return</span> visited[w];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">path</span><span class="params">(<span class="keyword">int</span> w, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;vec)</span></span>&#123;</span><br><span class="line">        assert( w &gt;= <span class="number">0</span> &amp;&amp; w &lt; G.V() );</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">        <span class="keyword">int</span> p = w;</span><br><span class="line">        <span class="keyword">while</span>( p != <span class="number">-1</span> )&#123;</span><br><span class="line">            s.push(p);</span><br><span class="line">            p = from[p];</span><br><span class="line">        &#125;</span><br><span class="line">        vec.clear();</span><br><span class="line">        <span class="keyword">while</span>( !s.empty() )&#123;</span><br><span class="line">            vec.push_back( s.top() );</span><br><span class="line">            s.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showPath</span><span class="params">(<span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">        assert( w &gt;= <span class="number">0</span> &amp;&amp; w &lt; G.V() );</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</span><br><span class="line">        path(w, vec);</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; vec.size() ; i ++ )&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;vec[i];</span><br><span class="line">            <span class="keyword">if</span>( i == vec.size()<span class="number">-1</span> )</span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt;<span class="string">" -&gt; "</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">length</span><span class="params">(<span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">        assert( w &gt;= <span class="number">0</span> &amp;&amp; w &lt; G.V() );</span><br><span class="line">        <span class="keyword">return</span> ord[w];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h6 id="测试主函数-3"><a href="#测试主函数-3" class="headerlink" title="测试主函数"></a>测试主函数</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> filename = <span class="string">"testG2.txt"</span>;</span><br><span class="line">    SparseGraph g = SparseGraph(<span class="number">7</span>, <span class="literal">false</span>);</span><br><span class="line">    <span class="function">ReadGraph&lt;SparseGraph&gt; <span class="title">readGraph</span><span class="params">(g, filename)</span></span>;</span><br><span class="line">    g.show();</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">Path&lt;SparseGraph&gt; <span class="title">dfs</span><span class="params">(g,<span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"DFS : "</span>;</span><br><span class="line">    dfs.showPath(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function">ShortestPath&lt;SparseGraph&gt; <span class="title">bfs</span><span class="params">(g,<span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"BFS : "</span>;</span><br><span class="line">    bfs.showPath(<span class="number">4</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt; <span class="string">"Shortest length : "</span> &lt;&lt; bfs.length(<span class="number">4</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出</span></span><br><span class="line">vertex <span class="number">0</span>:       <span class="number">1</span> <span class="number">2</span> <span class="number">5</span> <span class="number">6</span></span><br><span class="line">vertex <span class="number">1</span>:       <span class="number">0</span></span><br><span class="line">vertex <span class="number">2</span>:       <span class="number">0</span></span><br><span class="line">vertex <span class="number">3</span>:       <span class="number">4</span> <span class="number">5</span></span><br><span class="line">vertex <span class="number">4</span>:       <span class="number">3</span> <span class="number">5</span> <span class="number">6</span></span><br><span class="line">vertex <span class="number">5</span>:       <span class="number">0</span> <span class="number">3</span> <span class="number">4</span></span><br><span class="line">vertex <span class="number">6</span>:       <span class="number">0</span> <span class="number">4</span></span><br><span class="line"></span><br><span class="line">DFS : <span class="number">0</span> -&gt; <span class="number">5</span> -&gt; <span class="number">3</span> -&gt; <span class="number">4</span></span><br><span class="line">BFS : <span class="number">0</span> -&gt; <span class="number">5</span> -&gt; <span class="number">4</span></span><br><span class="line">Shortest Length : <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="完整工程："><a href="#完整工程：" class="headerlink" title="完整工程："></a>完整工程：</h4><p><a href="https://gitee.com/settlezxy/algorithm_and_data_structure.git" target="_blank" rel="noopener">https://gitee.com/settlezxy/algorithm_and_data_structure.git</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2020/10/27/图论1/" rel="next" title="图论（一）">
+                <i class="fa fa-chevron-left"></i> 图论（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2020/11/11/进程管理（一）/" rel="prev" title="进程管理（一）">
+                进程管理（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xingyu_Zhao</p>
+              <p class="site-description motion-element" itemprop="description">Email: 543040659@qq.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从文件中读取一个图"><span class="nav-number">2.</span> <span class="nav-text">从文件中读取一个图</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#读文件—类的实现"><span class="nav-number">2.1.</span> <span class="nav-text">读文件—类的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#测试主函数"><span class="nav-number">2.1.1.</span> <span class="nav-text">测试主函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深度优先搜索（DFS）"><span class="nav-number">3.</span> <span class="nav-text">深度优先搜索（DFS）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#连通分量"><span class="nav-number">3.1.</span> <span class="nav-text">连通分量</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#测试主函数-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">测试主函数</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获得两点之间的一条路径"><span class="nav-number">3.2.</span> <span class="nav-text">获得两点之间的一条路径</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#测试主函数-2"><span class="nav-number">3.2.1.</span> <span class="nav-text">测试主函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#广度优先搜索（BFS）"><span class="nav-number">4.</span> <span class="nav-text">广度优先搜索（BFS）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#最短路径—类的实现"><span class="nav-number">4.1.</span> <span class="nav-text">最短路径—类的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#测试主函数-3"><span class="nav-number">4.1.1.</span> <span class="nav-text">测试主函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完整工程："><span class="nav-number">5.</span> <span class="nav-text">完整工程：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">88.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
