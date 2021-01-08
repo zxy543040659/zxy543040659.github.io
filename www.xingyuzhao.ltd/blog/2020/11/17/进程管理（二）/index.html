@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本次学习要点 处理机调度概念、层次 进程调度的时机/切换与过程/方式 调度算法的评价指标 非交互性调度算法 交互性调度算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进程管理（二）">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="本次学习要点 处理机调度概念、层次 进程调度的时机/切换与过程/方式 调度算法的评价指标 非交互性调度算法 交互性调度算法">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/7states.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/三层调度的联系及对比.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/进程调度的时机.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/调度算法的评价指标.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/先来先服务.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/SJF.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/HRRN.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/RR.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/优先级调度算法.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/多级反馈队列调度算法.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/总结.png">
+<meta property="og:updated_time" content="2020-11-21T16:13:45.524Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="进程管理（二）">
+<meta name="twitter:description" content="本次学习要点 处理机调度概念、层次 进程调度的时机/切换与过程/方式 调度算法的评价指标 非交互性调度算法 交互性调度算法">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/7states.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/">
+
+
+
+
+
+  <title>进程管理（二） | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">长风破浪会有时，直挂云帆济沧海</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingyu_Zhao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">进程管理（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-17T22:24:00+08:00">
+                2020-11-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/www.xingyuzhao.ltd/blog/2020/11/17/进程管理（二）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h4><ol>
+<li>处理机调度概念、层次</li>
+<li>进程调度的时机/切换与过程/方式</li>
+<li>调度算法的评价指标</li>
+<li>非交互性调度算法</li>
+<li>交互性调度算法</li>
+</ol>
+<a id="more"></a>
+
+<h4 id="处理机调度概念、层次"><a href="#处理机调度概念、层次" class="headerlink" title="处理机调度概念、层次"></a>处理机调度概念、层次</h4><p><strong>处理机调度</strong>是对处理机进行分配，即从就绪队列中按照一定的算法（公平、高效）选择一个进程并将处理及分配给它运行，以实现进程并发的执行。</p>
+<p><strong>调度的三个层次</strong></p>
+<ol>
+<li><p>高级调度（作业调度）</p>
+<ul>
+<li>按一定的原则从外存上处于后备状态的作业中挑选一个（或多个）作业，给他们分配内存等必要资源，并建立相应的进程（建立PCB），以使他（们）获得竞争处理机的权利。</li>
+<li><strong>作业调入一次（建立PCB），调出一次（撤销PCB）。</strong></li>
+<li>高级调度主要是指调入的问题，只有调入的时机需要操作系统来确定，调出必然是作业结束时刻。</li>
+<li>执行频率低。</li>
+</ul>
+</li>
+<li><p>中级调度（内存调度）</p>
+<ul>
+<li><p>引入虚拟存储技术后，可将在暂时不能运行的进程调至外存等待，此时状态称为<strong>挂起态。</strong></p>
+</li>
+<li><p>PCB不会调到外存，而是常驻内存，被挂起的进程PCB会被放到挂起队列中。</p>
+</li>
+<li><p>中级调度就是决定将哪个处于挂起态的进程重新调入内存。</p>
+</li>
+<li><p>一个进程可能会被多次调出、调入内存，中级调度频率高于高级调度。</p>
+</li>
+<li><p>进程的挂起态与七状态模型。</p>
+</li>
+</ul>
+<img src="/blog/2020/11/17/进程管理（二）/7states.png">
+</li>
+<li><p>低级调度（进程调度）</p>
+<ul>
+<li>按照某种方法从就绪队列中选取一个进程，将处理机分配给他。</li>
+<li>是<strong>最基本的一种调度。</strong></li>
+<li>频率很高，一般几十毫秒一次。</li>
+</ul>
+<p><strong>三层调度的联系、对比</strong></p>
+</li>
+</ol>
+<img src="/blog/2020/11/17/进程管理（二）/三层调度的联系及对比.png">
+
+<p><em>调度算法要研究的问题</em>：<strong>高级调度、进程调度</strong></p>
+<h4 id="进程调度的时机-切换与过程-方式"><a href="#进程调度的时机-切换与过程-方式" class="headerlink" title="进程调度的时机/切换与过程/方式"></a>进程调度的时机/切换与过程/方式</h4><h5 id="进程调度的时机"><a href="#进程调度的时机" class="headerlink" title="进程调度的时机"></a>进程调度的时机</h5><img src="/blog/2020/11/17/进程管理（二）/进程调度的时机.png">
+
+<p>需要注意：</p>
+<ol>
+<li>进程在<strong>操作系统内核程序临界区</strong>中<em>不能</em>进行调度与切换<ul>
+<li>内核程序临界区时用来访问某种内核数据结构的（如进程的就绪队列，由各就绪进程的PCB组成）。</li>
+<li>内核程序临界区访问的临界资源如果不尽快释放的话，极有可能影响到操作系统内核的其他管理工作。</li>
+</ul>
+</li>
+<li>进程处于<strong>临界区</strong>时<em>可以</em>进行处理机调度<ul>
+<li>如打印机在打印完成之前，进程一直处于临界区内并将临界资源上锁，但打印机是慢速设备，如果此时不允许进程调度会导致CPU一直空闲。</li>
+<li>普通临界区访问的临界资源不会直接影响操作系统内核的管理工作，因此普通临界区可以进行调度和切换。</li>
+</ul>
+</li>
+</ol>
+<h5 id="进程调度的切换与过程"><a href="#进程调度的切换与过程" class="headerlink" title="进程调度的切换与过程"></a>进程调度的切换与过程</h5><p><em>狭义的进程调度</em>指的是从就绪队列中选中一个要运行的进程，可以是刚刚被暂停的进程，也可能是另外一个进程，后者需要进程切换。</p>
+<p><em>广义的进程调度</em>指包含了选择一个进程和进程切换两个步骤。</p>
+<p><em>进程切换</em>是指一个进程让出处理机，由另一个进程占用处理机的过程。进程切换的过程主要完成了：</p>
+<ol>
+<li>对原来运行进程各种数据的保存。</li>
+<li>对新的进程各种数据的恢复。</li>
+</ol>
+<p><strong>注意</strong>：进程切换时由代价的，过于频繁的进行进程调度、切换，会使整个系统的效率降低。</p>
+<h5 id="进程调度的方式"><a href="#进程调度的方式" class="headerlink" title="进程调度的方式"></a>进程调度的方式</h5><ol>
+<li>非剥夺调度方式，又称非抢占方式。即，只允许进程主动放弃处理机。实现简单，系统开销小但是无法及时处理紧急任务，适合于早期的批处理系统。</li>
+<li>剥夺调度方式，又称抢占方式。可以优先处理更紧急的进程，也可实现让各进程按时间片轮流执行的功能（通过时钟中断）。适合与分时操作系统、实时操作系统。</li>
+</ol>
+<h4 id="调度算法的评价指标"><a href="#调度算法的评价指标" class="headerlink" title="调度算法的评价指标"></a>调度算法的评价指标</h4><img src="/blog/2020/11/17/进程管理（二）/调度算法的评价指标.png">
+
+<h5 id="CPU利用率"><a href="#CPU利用率" class="headerlink" title="CPU利用率"></a>CPU利用率</h5><p>$$<br>利用率=\frac{忙碌的时间}{总时间}<br>$$</p>
+<h5 id="系统吞吐量"><a href="#系统吞吐量" class="headerlink" title="系统吞吐量"></a>系统吞吐量</h5><p>单位时间内完成作业的数量。<br>$$<br>系统吞吐量=\frac{总共完成了多少道作业}{总共花了多少时间}、<br>$$</p>
+<h5 id="周转时间"><a href="#周转时间" class="headerlink" title="周转时间"></a>周转时间</h5><p>从<strong>作业被提交给系统开始</strong>，到<strong>作业完成为止</strong>的这段时间间隔，它包括4个部分：</p>
+<ol>
+<li>作业在外存后备队列上等待作业调度（高级调度）的时间。</li>
+<li>进程在就绪队列上等待进程调度（低级调度）的时间。</li>
+<li>进程在CPU上执行的时间。</li>
+<li>进程等待I/O操作完成的时间。</li>
+</ol>
+<p>后三项可能发生多次。<br>$$<br>周转时间=作业完成时间-作业提交时间<br>$$</p>
+<p>$$<br>平均周转时间=\frac{各作业周转时间之和}{作业数}<br>$$</p>
+<p>$$<br>带权周转时间=\frac{作业周转时间}{作业实际运行的时间}=\frac{作业完成时间-作业提交时间}{作业实际运行的时间}<br>$$</p>
+<p>$$<br>平均带权周转时间=\frac{各作业带权周转时间之和}{作业数}<br>$$</p>
+<p>后两个比较重要，带权周转时间和周转时间都是越短越好。</p>
+<h5 id="等待时间"><a href="#等待时间" class="headerlink" title="等待时间"></a>等待时间</h5><p>进程/作业处于等待处理机状态时间之和。</p>
+<p>对于<strong>进程</strong>来说，等待时间就是指建立进程后等待被服务的时间之和，在等待I/O完成的期间其实进程也是被服务的，不计入等待时间内。</p>
+<p>对于<strong>作业</strong>来说，不仅考虑建立进程后的等待时间，还要加上作业在外存后备队列中等待的时间。</p>
+<h5 id="响应时间"><a href="#响应时间" class="headerlink" title="响应时间"></a>响应时间</h5><p>从用户<strong>提交请求</strong>到<strong>首次产生响应</strong>所用的时间。</p>
+<h4 id="非交互性调度算法"><a href="#非交互性调度算法" class="headerlink" title="非交互性调度算法"></a>非交互性调度算法</h4><h5 id="先来先服务（FCFS-First-Come-First-Serve）"><a href="#先来先服务（FCFS-First-Come-First-Serve）" class="headerlink" title="先来先服务（FCFS, First Come First Serve）"></a>先来先服务（FCFS, First Come First Serve）</h5><img src="/blog/2020/11/17/进程管理（二）/先来先服务.png">
+
+<h5 id="最短作业优先（SJF-Shortest-Job-First）"><a href="#最短作业优先（SJF-Shortest-Job-First）" class="headerlink" title="最短作业优先（SJF, Shortest Job First）"></a>最短作业优先（SJF, Shortest Job First）</h5><p>最短作业/进程优先得到服务；既可用于作业调度，也可用于进程调度，用于进程调度时称为“短进程优先（SPF, Shortest Process First）算法”；SJF和SPF是<strong>非抢占式的算法</strong>，也有<strong>抢占式的版本</strong>—<strong>最短剩余时间优先</strong>算法（SRTN, Shortest Remaining Time Next）。</p>
+<p>短作业/进程优先调度算法：每次调度时选择<strong>当前已到达</strong>且<strong>运行时间最短</strong>的作业/进程，对比FCFS，SPF的平均等待/周转/带权周转的时间都要低。</p>
+<p>最短剩余时间优先算法：每当有进程加入，就绪队列改变时就需要调度，如果新到达的进程剩余时间比当前运行的进程剩余时间<strong>更短</strong>，则由新进程<strong>抢占</strong>处理机，当前运行进程重新回到就绪队列。另外，当一个进程完成时也需要调度。对比非抢占式的算法，其平均等待/周转/带权周转的时间都要低。</p>
+<img src="/blog/2020/11/17/进程管理（二）/SJF.png">
+
+<h5 id="最高响应比优先（HRRN-Highest-Response-Ratio-Next）"><a href="#最高响应比优先（HRRN-Highest-Response-Ratio-Next）" class="headerlink" title="最高响应比优先（HRRN, Highest Response Ratio Next）"></a>最高响应比优先（HRRN, Highest Response Ratio Next）</h5><p>非抢占式的调度算法，只有当前运行的进程<strong>主动放弃CPU时</strong>，才需要进行调度，调度时计算所有就绪进程的响应比，选响应比最高的进程上处理机。<br>$$<br>响应比=\frac{等待时间+要求服务时间}{要求服务时间}<br>$$<br><img src="/blog/2020/11/17/进程管理（二）/HRRN.png"></p>
+<h4 id="交互性调度算法"><a href="#交互性调度算法" class="headerlink" title="交互性调度算法"></a>交互性调度算法</h4><h5 id="时间片轮转（RR-Round-Robin）"><a href="#时间片轮转（RR-Round-Robin）" class="headerlink" title="时间片轮转（RR, Round-Robin）"></a>时间片轮转（RR, Round-Robin）</h5><p>轮流让就绪队列中的进程依次执行一个时间片（每次选择的都是排在就绪队列头的进程），常用于分时操作系统。</p>
+<p>如果<strong>时间片过大</strong>，使得每个进程可以在一个时间片内完成，则时间片轮转调度算法退化为<strong>先来先服务</strong>算法，且会增加进程响应时间。</p>
+<p>如果<strong>时间片过小</strong>，会导致进程切换过于频繁，系统会花大量的时间来处理进程切换，从而导致实际用于进程执行的时间比列减少。</p>
+<p>一般来说，设计时间片时要让切换进程的开销占比不超过1%。</p>
+<img src="/blog/2020/11/17/进程管理（二）/RR.png">
+
+<h5 id="优先级调度算法"><a href="#优先级调度算法" class="headerlink" title="优先级调度算法"></a>优先级调度算法</h5><p><em>非抢占式的优先级调度算法</em>：每次调度时选择当前已到达且优先级最高的进程。当前进程<strong>主动</strong>放弃处理机时发生调度。</p>
+<p><em>抢占式的优先级调度算法</em>：每次调度时选择当前已到达且优先级最高的进程。当前进程<strong>主动</strong>放弃处理机时发生调度。另外，当<strong>就绪队列发生改变时</strong>也需要检查是否会发生抢占。</p>
+<ol>
+<li><em>静态优先级</em>：创建进程时确定，之后一直不变。</li>
+<li><em>动态优先级</em>：创建进程时有一个初始值，之后会根据情况动态的调整优先级。</li>
+</ol>
+<p>如何合理设置优先级，通常情况下：</p>
+<ul>
+<li>系统进程优先级<strong>高于</strong>用户进程</li>
+<li>前台进程优先级<strong>高于</strong>后台进程</li>
+<li>操作系统<strong>更偏好I/O型进程（I/O繁忙型进程）</strong><ul>
+<li>I/O设备和CPU可以并行工作，最好让其尽早投入工作</li>
+</ul>
+</li>
+</ul>
+<p>采取动态优先级，何时调整：</p>
+<ul>
+<li>某进程在就绪队列中等待很长时间，可适当提高其优先级</li>
+<li>某进程占用处理机运行了很长时间，可适当降低其优先级</li>
+<li>某进程频繁进行I/O操作，可适当提升其优先级</li>
+</ul>
+<img src="/blog/2020/11/17/进程管理（二）/优先级调度算法.png">
+
+<h5 id="多级反馈队列调度算法"><a href="#多级反馈队列调度算法" class="headerlink" title="多级反馈队列调度算法"></a>多级反馈队列调度算法</h5><img src="/blog/2020/11/17/进程管理（二）/多级反馈队列调度算法.png">
+
+<p><strong>总结</strong>：</p>
+<img src="/blog/2020/11/17/进程管理（二）/总结.png">
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/www.xingyuzhao.ltd/blog/2020/11/11/进程管理（一）/" rel="next" title="进程管理（一）">
+                <i class="fa fa-chevron-left"></i> 进程管理（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/www.xingyuzhao.ltd/blog/2020/11/21/C-标准库-I-O库/" rel="prev" title="C++标准库-I/O库">
+                C++标准库-I/O库 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xingyu_Zhao</p>
+              <p class="site-description motion-element" itemprop="description">Email: 543040659@qq.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理机调度概念、层次"><span class="nav-number">2.</span> <span class="nav-text">处理机调度概念、层次</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程调度的时机-切换与过程-方式"><span class="nav-number">3.</span> <span class="nav-text">进程调度的时机/切换与过程/方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进程调度的时机"><span class="nav-number">3.1.</span> <span class="nav-text">进程调度的时机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程调度的切换与过程"><span class="nav-number">3.2.</span> <span class="nav-text">进程调度的切换与过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程调度的方式"><span class="nav-number">3.3.</span> <span class="nav-text">进程调度的方式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调度算法的评价指标"><span class="nav-number">4.</span> <span class="nav-text">调度算法的评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CPU利用率"><span class="nav-number">4.1.</span> <span class="nav-text">CPU利用率</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#系统吞吐量"><span class="nav-number">4.2.</span> <span class="nav-text">系统吞吐量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#周转时间"><span class="nav-number">4.3.</span> <span class="nav-text">周转时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#等待时间"><span class="nav-number">4.4.</span> <span class="nav-text">等待时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#响应时间"><span class="nav-number">4.5.</span> <span class="nav-text">响应时间</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非交互性调度算法"><span class="nav-number">5.</span> <span class="nav-text">非交互性调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#先来先服务（FCFS-First-Come-First-Serve）"><span class="nav-number">5.1.</span> <span class="nav-text">先来先服务（FCFS, First Come First Serve）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最短作业优先（SJF-Shortest-Job-First）"><span class="nav-number">5.2.</span> <span class="nav-text">最短作业优先（SJF, Shortest Job First）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最高响应比优先（HRRN-Highest-Response-Ratio-Next）"><span class="nav-number">5.3.</span> <span class="nav-text">最高响应比优先（HRRN, Highest Response Ratio Next）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交互性调度算法"><span class="nav-number">6.</span> <span class="nav-text">交互性调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#时间片轮转（RR-Round-Robin）"><span class="nav-number">6.1.</span> <span class="nav-text">时间片轮转（RR, Round-Robin）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优先级调度算法"><span class="nav-number">6.2.</span> <span class="nav-text">优先级调度算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多级反馈队列调度算法"><span class="nav-number">6.3.</span> <span class="nav-text">多级反馈队列调度算法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">88.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

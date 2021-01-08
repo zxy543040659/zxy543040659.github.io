@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="string,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="总结一下C++中string的常见用法，包括但不局限于：  初始化 string对象上的操作（包括取子串） 查找/删除/替换 与数值的相互转换">
+<meta name="keywords" content="string">
+<meta property="og:type" content="article">
+<meta property="og:title" content="string操作总结(不定期更新)">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/06/25/string操作总结/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="总结一下C++中string的常见用法，包括但不局限于：  初始化 string对象上的操作（包括取子串） 查找/删除/替换 与数值的相互转换">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-25T12:50:31.442Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="string操作总结(不定期更新)">
+<meta name="twitter:description" content="总结一下C++中string的常见用法，包括但不局限于：  初始化 string对象上的操作（包括取子串） 查找/删除/替换 与数值的相互转换">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/06/25/string操作总结/">
+
+
+
+
+
+  <title>string操作总结(不定期更新) | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">长风破浪会有时，直挂云帆济沧海</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/www.xingyuzhao.ltd/blog/2020/06/25/string操作总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingyu_Zhao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">string操作总结(不定期更新)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-25T17:25:18+08:00">
+                2020-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/www.xingyuzhao.ltd/blog/2020/06/25/string操作总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/www.xingyuzhao.ltd/blog/2020/06/25/string操作总结/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>总结一下C++中string的常见用法，包括但不局限于：</p>
+<ol>
+<li>初始化</li>
+<li>string对象上的操作（包括取子串）</li>
+<li>查找/删除/替换</li>
+<li>与数值的相互转换</li>
+</ol>
+<a id="more"></a>
+
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认初始化，s1为空</span></span><br><span class="line"><span class="built_in">string</span> s1;</span><br><span class="line"><span class="comment">//用s1初始化s2</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s2</span><span class="params">(s1)</span></span>;</span><br><span class="line"><span class="comment">//s3为字面值"value"的副本，直接初始化</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s3</span><span class="params">(<span class="string">"value"</span>)</span></span>;</span><br><span class="line"><span class="comment">//与上述等价，不同之处在于这里是拷贝初始化</span></span><br><span class="line"><span class="built_in">string</span> s3 = <span class="string">"value"</span>;</span><br><span class="line"><span class="comment">//类似vector，n个'c'组成字符串s4</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s4</span><span class="params">(n, <span class="string">'c'</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="string对象上的操作"><a href="#string对象上的操作" class="headerlink" title="string对象上的操作"></a>string对象上的操作</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//从is读取一行给s，返回is</span></span><br><span class="line">getline(is, s)</span><br><span class="line"><span class="comment">//判断是否为空</span></span><br><span class="line">s.empty()</span><br><span class="line"><span class="comment">//s的长度</span></span><br><span class="line">s.size() / s.length()</span><br><span class="line"><span class="comment">//完全一样则相等，大小写敏感</span></span><br><span class="line">s1 == s2</span><br><span class="line"><span class="comment">//字典序比较，大小写敏感</span></span><br><span class="line">&lt;, &lt;=, &gt;, &gt;=</span><br></pre></td></tr></table></figure>
+
+<h4 id="两个string对象相加"><a href="#两个string对象相加" class="headerlink" title="两个string对象相加"></a>两个string对象相加</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s1 = <span class="string">"hello, "</span>, s2 = <span class="string">"world"</span>;</span><br><span class="line"><span class="comment">//s3 = "hello, world"</span></span><br><span class="line"><span class="built_in">string</span> s3 = s1 + s2;</span><br><span class="line"><span class="comment">//s1 = "hello, world"</span></span><br><span class="line">s1 += s2;</span><br></pre></td></tr></table></figure>
+
+<h4 id="字面值和string对象相加"><a href="#字面值和string对象相加" class="headerlink" title="字面值和string对象相加"></a>字面值和string对象相加</h4><p>当把string对象和字符字面值及字符串字面值混在一起相加时，必须确保<code>+</code>的两侧运算对象至少有一个string：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s4 = s1 + <span class="string">","</span>; 		<span class="comment">//√</span></span><br><span class="line"><span class="built_in">string</span> s5 = <span class="string">"hello"</span> + <span class="string">","</span>	<span class="comment">//×</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：字符串字面值与string是不同类型，以上操作是自动进行了类型转换。</p>
+<h4 id="处理string对象中的字符"><a href="#处理string对象中的字符" class="headerlink" title="处理string对象中的字符"></a>处理string对象中的字符</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义在头文件cctype中</span></span><br><span class="line"><span class="built_in">isalnum</span>(c)		<span class="comment">//当c是字母或数字为真</span></span><br><span class="line"><span class="built_in">isalpha</span>(c)		<span class="comment">//当c是字母为真</span></span><br><span class="line"><span class="built_in">iscntrl</span>(c)		<span class="comment">//当c是控制字符为真，ASCII码前32</span></span><br><span class="line"><span class="built_in">isdigit</span>(c)		<span class="comment">//当c是数字为真</span></span><br><span class="line"><span class="built_in">islower</span>(c)		<span class="comment">//当c是小写字母为真</span></span><br><span class="line"><span class="built_in">isupper</span>(c)		<span class="comment">//当c是大写字母为真</span></span><br><span class="line"><span class="built_in">ispunct</span>(c)		<span class="comment">//当c是标点符号为真</span></span><br><span class="line"><span class="built_in">isspace</span>(c)		<span class="comment">//当c是空白为真(空格，回车，制表符等)</span></span><br><span class="line"><span class="built_in">tolower</span>(c)		<span class="comment">//如果c为大写字母，转为小写，否则不变</span></span><br><span class="line"><span class="built_in">toupper</span>(c)		<span class="comment">//如果c为小写字母，转为大写，否则不变</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>范围for语句</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//打印s1的所有内容</span></span><br><span class="line"><span class="comment">//仅访问时可加上const</span></span><br><span class="line"><span class="comment">//简化类型名可用auto代替</span></span><br><span class="line"><span class="built_in">string</span> s1 = <span class="string">"zhaoxingyu"</span></span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">string</span> s : s1)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; s;</span><br><span class="line"><span class="comment">//同时修改s1内容全为a</span></span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">string</span> &amp;s : s1)</span><br><span class="line">    s = <span class="string">'a'</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="取子串"><a href="#取子串" class="headerlink" title="取子串"></a>取子串</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//s.substr(pos, n)</span></span><br><span class="line"><span class="comment">//取s中从pos开始长度为n的子串</span></span><br><span class="line"><span class="comment">//如果pos超过s.size()则抛出out_of_range异常</span></span><br><span class="line"><span class="comment">//如果pos+n超过s.size()则substr自动调整n值，只拷贝到s末尾</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="built_in">string</span> str = s.substr(<span class="number">0</span>, <span class="number">5</span>);	<span class="comment">//str = "hello"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="查找-删除-替换"><a href="#查找-删除-替换" class="headerlink" title="查找/删除/替换"></a>查找/删除/替换</h3><h4 id="查找函数find"><a href="#查找函数find" class="headerlink" title="查找函数find"></a>查找函数find</h4><p>string中的find函数返回子串/字符第一次出现在母串中的位置，类型为size_t，可以把它视为一个范围很大的int类型。如果没有找到，返回一个npos标记，是一个很大的整数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//size_t pos = s.find(str, startPos)</span></span><br><span class="line"><span class="comment">//str为子串或字符，startPos为开始搜索位置，缺省时默认为0</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="built_in">string</span> str = <span class="string">"world"</span>;</span><br><span class="line"><span class="keyword">size_t</span> pos = s.find(str);	<span class="comment">//等价于pos = s.find("world")，返回6</span></span><br><span class="line"><span class="keyword">size_t</span> pos1 = s.find(<span class="string">"c"</span>);	<span class="comment">//等价于pos1 = s.find('c')，返回npos</span></span><br></pre></td></tr></table></figure>
+
+<p>还可以从后往前反向查找，函数为rfind</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="keyword">size_t</span> pos = s.rfind(<span class="string">"l"</span>); 	<span class="comment">//返回9</span></span><br></pre></td></tr></table></figure>
+
+<p>其他一些find函数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回子串首次出现位置</span></span><br><span class="line">pos = s.find_first_of(str);</span><br><span class="line"><span class="comment">//返回字串最后出现位置</span></span><br><span class="line">pos = s.find_last_of(str);</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除函数erase"><a href="#删除函数erase" class="headerlink" title="删除函数erase"></a>删除函数erase</h4><p>string中提供的成员函数可以用来删除字符串中的字符，这里主要介绍<code>erase</code>方法</p>
+<ol>
+<li>从给定位置pos开始删除长度为n的字符串</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//basic_string &amp; erase(size_type pos=0, size_type n=npos)</span></span><br><span class="line"><span class="comment">//n缺省时默认为删除到末尾</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line">s.erase(<span class="number">5</span>);			<span class="comment">//从位置5开始全部删除，s = "hello";</span></span><br><span class="line">s.erase(<span class="number">0</span>, <span class="number">2</span>); 		<span class="comment">//从0开始删除长度为2的字符串，s = "llo"</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>删除迭代器位置处的单个字符，并返回<strong>下个元素</strong>的迭代器</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//iterator erase(const_iterator position)</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line">s.erase(s.begin());	<span class="comment">//s = "ello world";</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>删除迭代器<code>[first, last)</code>区间的所有字符,返回一个指向被删除的最后一个元素的下一个字符的迭代器.</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//iterator erase(const_iterator first, const_iterator last)</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="comment">//iter = s.erase(s.begin() + 1, s.end() - 1); 	 //可以直接删除</span></span><br><span class="line"><span class="keyword">auto</span> iter = s.erase(s.begin() + <span class="number">1</span>, s.end() - <span class="number">1</span>); <span class="comment">//删除并返回迭代器</span></span><br><span class="line"><span class="comment">//s = "hd"，*iter = d</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注：也可以用pop_back()删除最后一个元素</strong></p>
+<h4 id="替换函数replace"><a href="#替换函数replace" class="headerlink" title="替换函数replace"></a>替换函数replace</h4><ol>
+<li>用str替换指定字符串从pos开始长度为len的字符串</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//string&amp; replace(size_t pos, size_t len, const string&amp; str)</span></span><br><span class="line"><span class="comment">//注意这里的str必须是string对象，不能是char字符</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="built_in">string</span> str = <span class="string">"#"</span>;</span><br><span class="line">s = s.replace(<span class="number">0</span>, <span class="number">5</span>, str);	<span class="comment">//s = "# world"</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>用str替换迭代器起始位置到终止位置的字符串</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//string&amp; replace(const_iterator it1, const_iterator it2, const string&amp; str)</span></span><br><span class="line"><span class="comment">//注意这里的str必须是string对象，不能是char字符</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="built_in">string</span> str = <span class="string">"#"</span>;</span><br><span class="line">s = s.replace(s.begin(), s.begin() + <span class="number">5</span>, str);	<span class="comment">//s = "# world"</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>用重复n次的c字符替换从指定位置pos长度为len的字符串</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//string&amp; replace(size_t pos, size_t len, size_t n, char c)</span></span><br><span class="line"><span class="comment">//注意这里的c必须是char类型，不能是string对象</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="keyword">char</span> c = <span class="string">'#'</span>;</span><br><span class="line">s = s.replace(<span class="number">0</span>, <span class="number">5</span>, <span class="number">2</span>, c);	<span class="comment">//s = "## world"</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>用重复n次的c字符替换从指定迭代器位置到终止位置的字符串</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//string&amp; replace (const_iterator i1, const_iterator i2, size_t n, char c)</span></span><br><span class="line"><span class="comment">//注意这里的c必须是char类型，不能是string对象</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="keyword">char</span> c = <span class="string">'#'</span>;</span><br><span class="line">s = s.replace(s.begin(), s.end(), <span class="number">2</span>, c);	<span class="comment">//s = "## world"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="string与int相互转换"><a href="#string与int相互转换" class="headerlink" title="string与int相互转换"></a>string与int相互转换</h3><h4 id="string转int"><a href="#string转int" class="headerlink" title="string转int"></a>string转int</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># string直接转int</span></span><br><span class="line"><span class="comment">//stoi(s, pos, b) 把字符串s从pos开始转换成b进制的int</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"123"</span>;</span><br><span class="line"><span class="comment">//a = 123，如果里面含有非数字，那么从pos开始连续的字符串型数字才会被转为数字</span></span><br><span class="line"><span class="keyword">int</span> a = stoi(s, <span class="number">0</span>, <span class="number">10</span>);	</span><br><span class="line"><span class="comment">//stol(s,p,b)	把字符串s从p开始转换成b进制的long</span></span><br><span class="line"><span class="comment">//stoul(s,p,b)	把字符串s从p开始转换成b进制的unsigned long</span></span><br><span class="line"><span class="comment">//stoll(s,p,b)	把字符串s从p开始转换成b进制的long long</span></span><br><span class="line"><span class="comment">//stoull(s,p,b)	把字符串s从p开始转换成b进制的unsigned long long</span></span><br><span class="line"><span class="comment">//stof(s,p)		把字符串s从p开始转换成float</span></span><br><span class="line"><span class="comment">//stod(s,p)		把字符串s从p开始转换成double</span></span><br><span class="line"><span class="comment">//stold(s,p)	把字符串s从p开始转换成long double</span></span><br><span class="line"><span class="meta"># char型数组字符串转int</span></span><br><span class="line"><span class="comment">//c_str()函数返回一个指向正规C字符串的指针, 内容与string串相同</span></span><br><span class="line"><span class="comment">//string类对象的成员函数c_str()把string转换为c类型字符串</span></span><br><span class="line"><span class="comment">//如果string不是数字形式的则转换结果为0</span></span><br><span class="line"><span class="comment">//实际步骤为string-&gt;char*-&gt;int</span></span><br><span class="line"><span class="built_in">string</span> s = <span class="string">"123"</span>;</span><br><span class="line"><span class="keyword">int</span> a = atoi(s.c_str());	<span class="comment">//a = 123</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="int转string"><a href="#int转string" class="headerlink" title="int转string"></a>int转string</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//to_string(val) 将val转为string</span></span><br><span class="line"><span class="keyword">int</span> val = <span class="number">100</span>;</span><br><span class="line"><span class="built_in">string</span> s = to_string(val);	<span class="comment">//s = "100"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>查找/删除/替换：</p>
+<ol>
+<li><p><a href="https://www.cnblogs.com/xzxl/p/7243490.html" target="_blank" rel="noopener">https://www.cnblogs.com/xzxl/p/7243490.html</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/cai_niaocainiao/article/details/81260902?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase" target="_blank" rel="noopener">https://blog.csdn.net/cai_niaocainiao/article/details/81260902?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/u010472607/article/details/80431604" target="_blank" rel="noopener">https://blog.csdn.net/u010472607/article/details/80431604</a></p>
+</li>
+</ol>
+<p>字符串转数值</p>
+<p><a href="https://blog.csdn.net/sinat_40872274/article/details/81367815" target="_blank" rel="noopener">https://blog.csdn.net/sinat_40872274/article/details/81367815</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/string/" rel="tag"># string</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/www.xingyuzhao.ltd/blog/2020/06/25/git提交失败-ssh重置/" rel="next" title="git提交失败-ssh重置">
+                <i class="fa fa-chevron-left"></i> git提交失败-ssh重置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/www.xingyuzhao.ltd/blog/2020/06/27/堆排序-heap-sort/" rel="prev" title="堆排序(heap sort)">
+                堆排序(heap sort) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xingyu_Zhao</p>
+              <p class="site-description motion-element" itemprop="description">Email: 543040659@qq.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string对象上的操作"><span class="nav-number">2.</span> <span class="nav-text">string对象上的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两个string对象相加"><span class="nav-number">2.1.</span> <span class="nav-text">两个string对象相加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字面值和string对象相加"><span class="nav-number">2.2.</span> <span class="nav-text">字面值和string对象相加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理string对象中的字符"><span class="nav-number">2.3.</span> <span class="nav-text">处理string对象中的字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取子串"><span class="nav-number">2.4.</span> <span class="nav-text">取子串</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找-删除-替换"><span class="nav-number">3.</span> <span class="nav-text">查找/删除/替换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查找函数find"><span class="nav-number">3.1.</span> <span class="nav-text">查找函数find</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除函数erase"><span class="nav-number">3.2.</span> <span class="nav-text">删除函数erase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#替换函数replace"><span class="nav-number">3.3.</span> <span class="nav-text">替换函数replace</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string与int相互转换"><span class="nav-number">4.</span> <span class="nav-text">string与int相互转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#string转int"><span class="nav-number">4.1.</span> <span class="nav-text">string转int</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#int转string"><span class="nav-number">4.2.</span> <span class="nav-text">int转string</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">88.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
