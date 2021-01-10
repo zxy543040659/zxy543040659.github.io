@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="虚拟内存,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本次学习要点 虚拟内存基本概念 请求分页管理方式 页面置换算法 页面分配策略">
+<meta name="keywords" content="虚拟内存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存管理（五）">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="本次学习要点 虚拟内存基本概念 请求分页管理方式 页面置换算法 页面分配策略">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/虚拟内存的实现.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/虚拟内存基本概念小结.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/请求分页管理方式.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/页表机制.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/缺页中断机构.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/地址变化机构.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/地址变化机构步骤.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/地址变化机构小结.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/页面置换算法.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/简单clock.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/页面置换算法小结.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/页面置换策略.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/何处调入1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/何处调入2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/何处调入3.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/工作集.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/页面分配策略小结.png">
+<meta property="og:updated_time" content="2021-01-10T15:32:06.303Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="内存管理（五）">
+<meta name="twitter:description" content="本次学习要点 虚拟内存基本概念 请求分页管理方式 页面置换算法 页面分配策略">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/虚拟内存的实现.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/">
+
+
+
+
+
+  <title>内存管理（五） | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">长风破浪会有时，直挂云帆济沧海</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2021/01/08/内存管理（五）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingyu_Zhao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">内存管理（五）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-08T17:41:08+08:00">
+                2021-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2021/01/08/内存管理（五）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2021/01/08/内存管理（五）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h4><ol>
+<li>虚拟内存基本概念</li>
+<li>请求分页管理方式</li>
+<li>页面置换算法</li>
+<li>页面分配策略</li>
+</ol>
+<a id="more"></a>
+
+<h4 id="虚拟内存基本概念"><a href="#虚拟内存基本概念" class="headerlink" title="虚拟内存基本概念"></a>虚拟内存基本概念</h4><h5 id="传统存储管理方式的特征、缺点"><a href="#传统存储管理方式的特征、缺点" class="headerlink" title="传统存储管理方式的特征、缺点"></a>传统存储管理方式的特征、缺点</h5><p>传统存储管理特点：</p>
+<ol>
+<li>一次性：作业必须<strong>一次性全部装入内存</strong>才能开始运行。</li>
+<li>驻留性：一旦作业被装入内存，就<strong>会一直驻留在内存中</strong>。</li>
+</ol>
+<p>很多暂时用不到的数据也会长期占用内存，导致内存利用率不高。</p>
+<h5 id="局部性原理"><a href="#局部性原理" class="headerlink" title="局部性原理"></a>局部性原理</h5><ul>
+<li>时间局部性</li>
+<li>空间局部性</li>
+</ul>
+<h5 id="虚拟内存的定义和特征"><a href="#虚拟内存的定义和特征" class="headerlink" title="虚拟内存的定义和特征"></a>虚拟内存的定义和特征</h5><p>虚拟内存：若内存空间不够，由<strong>操作系统</strong>负责将内存中暂时用不到的信息换出到外存。在操作系统的管理下，在用户看来似乎有一个比实际内存大得多的内存，这就是<strong>虚拟内存</strong>。虚拟性体现在：实际的物理内存大小没有变，只是在逻辑上进行了扩充。</p>
+<ul>
+<li>虚拟内存最大容量：计算机的地址结构（CPU寻址范围）确定。</li>
+<li>虚拟内存实际容量：<em>min</em>(内存和外存容量之和，CPU寻址范围)。</li>
+</ul>
+<p>虚拟内存有以下三个特征：</p>
+<ol>
+<li>多次性（对应一次性）：允许作业被分成多次调入内存。</li>
+<li>对换性（对应驻留性）：允许作业运行中，将作业换出、换入内存。</li>
+<li>虚拟性：从逻辑上扩充了内存的容量。</li>
+</ol>
+<h5 id="如何实现虚拟内存技术"><a href="#如何实现虚拟内存技术" class="headerlink" title="如何实现虚拟内存技术"></a>如何实现虚拟内存技术</h5><img src="/blog/2021/01/08/内存管理（五）/虚拟内存的实现.png">
+
+<p>虚拟内存技术基于<strong>离散分配</strong>的内存管理方式。<strong>请求分页存储管理</strong>与<strong>基本分页存储管理</strong>的<strong>主要区别</strong>是：操作系统需要提供<strong>请求调页</strong>和<strong>页面置换</strong>功能。</p>
+<ul>
+<li>请求调页：程序执行过程中，当所访问信息<strong>不在内存中</strong>时，由操作系统负责<strong>将所需信息从外存调入内存</strong>。</li>
+<li>页面置换：若内存空间不够，由操作系统将<strong>内存中暂时用不到的信息换出到外存</strong>。</li>
+</ul>
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/01/08/内存管理（五）/虚拟内存基本概念小结.png" style="zoom:120%;">
+
+<h4 id="请求分页管理方式"><a href="#请求分页管理方式" class="headerlink" title="请求分页管理方式"></a>请求分页管理方式</h4><img src="/blog/2021/01/08/内存管理（五）/请求分页管理方式.png">
+
+<h5 id="页表机制"><a href="#页表机制" class="headerlink" title="页表机制"></a>页表机制</h5><ul>
+<li>为了实现<strong>请求调页</strong>，操作系统需要知道每个页面是否已经调入内存；如果没调入，那么也需要知道该页面在外存中存放的位置。</li>
+<li>为了实现<strong>内存置换</strong>，操作系统需要通过某些指标来决定到底换出哪个页面。需要记录各个页面是否被修改过，修改过才需要换出，将外存中的旧数据覆盖。</li>
+</ul>
+<img src="/blog/2021/01/08/内存管理（五）/页表机制.png">
+
+<h5 id="缺页中断机构"><a href="#缺页中断机构" class="headerlink" title="缺页中断机构"></a>缺页中断机构</h5><p>请求分页系统中，若访问页面<strong>不在内存中</strong>时，便产生一个<strong>缺页中断</strong>。然后由操作系统的<strong>缺页中断处理程序</strong>处理中断。此时<strong>缺页的进程阻塞</strong>，放入阻塞队列，调页完成后再将其唤醒，放回就绪队列。</p>
+<ul>
+<li><p>如果内存中<strong>有空闲块</strong>，则为进程分配一个空闲块，将所缺页面装入该块，并修改页表中对应页表项。</p>
+</li>
+<li><p>如果内存中<strong>无空闲块</strong>，则由<strong>页面置换算法</strong>选择<strong>淘汰</strong>一个页面，若该页面在内存期间被<strong>修改过</strong>，则要将其<strong>写回外存</strong>。未修改过的页面不用写回外存。</p>
+</li>
+</ul>
+<p>缺页中断是由于当前指令想要访问的目标页面未调入内存而产生的，因此属于<strong>内中断</strong>。一条指令在执行期间，可能产生<strong>多次</strong>缺页中断。</p>
+<img src="/blog/2021/01/08/内存管理（五）/缺页中断机构.png">
+
+<h5 id="地址变换机构"><a href="#地址变换机构" class="headerlink" title="地址变换机构"></a>地址变换机构</h5><img src="/blog/2021/01/08/内存管理（五）/地址变化机构.png">
+
+<ul>
+<li>新增步骤1：请求调页（查到页表项时进行判断）。</li>
+<li>新增步骤2：页面置换（需要调入页面，但没有空闲内存块时进行）。</li>
+<li>新增步骤3：需要修改请求页表中新增的表项。</li>
+</ul>
+<img src="/blog/2021/01/08/内存管理（五）/地址变化机构步骤.png" style="zoom:120%;">
+
+<p>补充：</p>
+<ol>
+<li>换入/换出页面需要启动慢速I/O操作，如果过于频繁，会有很大开销。</li>
+<li>页面调入内存后，需要修改慢表，同时也需要将表项复制到快表中。</li>
+</ol>
+<p>在具有快表的请求分页系统中，访问一个逻辑地址时，若发生缺页，地址变换步骤为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查快表（未命中）-&gt;查慢表（发现未调入内存）-&gt;调页（调入的页面对应的表项会直接加入快表）</span><br><span class="line">-&gt;查快表（命中）-&gt;访问目标内存单元</span><br></pre></td></tr></table></figure>
+
+<h5 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/01/08/内存管理（五）/地址变化机构小结.png" style="zoom:120%;">
+
+<h4 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h4><img src="/blog/2021/01/08/内存管理（五）/页面置换算法.png" style="zoom:80%;">
+
+<h5 id="最佳置换算法（OPT）"><a href="#最佳置换算法（OPT）" class="headerlink" title="最佳置换算法（OPT）"></a>最佳置换算法（OPT）</h5><p>每次选择淘汰的页面<strong>以后永不使用</strong>或<strong>最长时间内不再被访问</strong>，保证最低缺页率。</p>
+<p>缺点：只有进程执行的过程中才能知道接下来会访问到哪个页面，操作系统无法提前预判访问序列。因此，最佳置换算法<strong>无法实现</strong>。</p>
+<h5 id="先进先出置换算法（FIFO）"><a href="#先进先出置换算法（FIFO）" class="headerlink" title="先进先出置换算法（FIFO）"></a>先进先出置换算法（FIFO）</h5><p>每次选择淘汰的页面是<strong>最早进入内存的页面</strong>。</p>
+<p>Belady异常：当为进程分配的物理块数增大时，缺页次数不减反增的异常现象。</p>
+<p>缺点：只有FIFO算法会产生<strong>Belady异常</strong>，虽然其实现简单，但是与进程实际运行时规律不适应，因为先进入的页面也有可能最经常被访问。因此算法<strong>性能差</strong>。</p>
+<h5 id="最近最久未使用置换算法（LRU）"><a href="#最近最久未使用置换算法（LRU）" class="headerlink" title="最近最久未使用置换算法（LRU）"></a>最近最久未使用置换算法（LRU）</h5><p>每次选择淘汰的页面是<strong>最近最久未使用的页面</strong>。用每个页面页表项中的<strong>访问字段</strong>记录该页面自上次被访问以来所经历的时间 t 。淘汰时选择 t 最大的页面。</p>
+<p>缺点：实现需要专门的硬件支持，虽然算法性能好，但<strong>实现困难，开销大</strong>。</p>
+<h5 id="时钟置换算法（CLOCK）"><a href="#时钟置换算法（CLOCK）" class="headerlink" title="时钟置换算法（CLOCK）"></a>时钟置换算法（CLOCK）</h5><p>此算法是一种性能和开销较均衡的算法，也称<strong>最近未用算法（NRU，Not Recently Used）</strong>。</p>
+<p>简单的CLOCK算法实现方法：为每个页面设置一个访问位，再将内存中的页面都通过链接指针链接成一个<strong>循环队列</strong>。当某页被访问时，其<strong>访问位置为1</strong>。<strong>当需要淘汰一个页面时，只需检查页的访问位</strong>。</p>
+<img src="/blog/2021/01/08/内存管理（五）/简单clock.png">
+
+<ul>
+<li>如果是0，就选择该页换出；如果是1，则将它置为0，暂不换出，继续检查下一个页面。</li>
+<li>若第一轮扫描中所有页面都是1，则将这些页面的访问位依次置为0后，再进行第二轮扫描（第二轮扫描中一定会有访问位为0的页面，因此简单的CLOCK算法选择一个淘汰页面最多会经过两轮扫描）。</li>
+</ul>
+<h6 id="改进型的时钟置换算法"><a href="#改进型的时钟置换算法" class="headerlink" title="改进型的时钟置换算法"></a>改进型的时钟置换算法</h6><p>简单的CLOCK算法<strong>仅考虑一个页面最近是否被访问过</strong>，如果被淘汰的页面没有被修改过，就不需要执行I/O操作写回外存。<strong>只有被淘汰的页面被修改过，才需要写回外存</strong>。</p>
+<p>因此，在其他条件都相同时，应<strong>优先淘汰没有修改过的页面</strong>，避免I/O操作。修改位为0时表示没有修改过，修改位为1，表示页面被修改过。</p>
+<p>改进型CLOCK置换算法选择一个淘汰页面最多会进行<strong>四轮扫描</strong>。</p>
+<h5 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/01/08/内存管理（五）/页面置换算法小结.png">
+
+<h4 id="页面分配策略"><a href="#页面分配策略" class="headerlink" title="页面分配策略"></a>页面分配策略</h4><h5 id="页面分配、置换策略"><a href="#页面分配、置换策略" class="headerlink" title="页面分配、置换策略"></a>页面分配、置换策略</h5><p>驻留集：请求分页存储管理中给进程分配的物理块的集合。驻留集大小一般小于进程的总大小。</p>
+<ul>
+<li>若驻留集太小，会导致缺页频繁。</li>
+<li>若驻留集太大，会导致多道程序并发度下降。</li>
+</ul>
+<p>固定分配：操作系统为每个进程分配一组固定数目的物理块。进程运行期间驻留集<strong>大小不变</strong>。</p>
+<p>可变分配：驻留集<strong>大小可变</strong>。</p>
+<p>局部置换：缺页时只能选进程自己的物理块进行置换。</p>
+<p>全局置换：操作系统保留的空闲物理块和别的进程持有的物理块（先置换到外存）都可以分配给缺页进程。</p>
+<img src="/blog/2021/01/08/内存管理（五）/页面置换策略.png">
+
+<p>可变分配<strong>全局</strong>置换：只要缺页就给分配新物理块。</p>
+<p>可变分配<strong>局部</strong>置换：根据<strong>缺页的频率</strong>来动态地增加或减少进程的物理块。</p>
+<h5 id="何时调入页面"><a href="#何时调入页面" class="headerlink" title="何时调入页面"></a>何时调入页面</h5><ol>
+<li>预调页策略：根据空间局部性，一次调入若干相邻的页面可能比一次调入一个页面更高效。主要用于<strong>进程的首次调入</strong>，由程序员指出（<strong>运行前调入</strong>）。</li>
+<li>请求调页策略：进程在<strong>运行期间</strong>发现缺页时才将所缺页面调入内存。I/O开销较大（每次只能调入一页，每次调页都要进行磁盘I/O）。</li>
+</ol>
+<h5 id="何处调入页面"><a href="#何处调入页面" class="headerlink" title="何处调入页面"></a>何处调入页面</h5><h6 id="系统拥有足够的对换区空间"><a href="#系统拥有足够的对换区空间" class="headerlink" title="系统拥有足够的对换区空间"></a>系统拥有足够的对换区空间</h6><img src="/blog/2021/01/08/内存管理（五）/何处调入1.png">
+
+<h6 id="系统缺少足够的对换区空间"><a href="#系统缺少足够的对换区空间" class="headerlink" title="系统缺少足够的对换区空间"></a>系统缺少足够的对换区空间</h6><img src="/blog/2021/01/08/内存管理（五）/何处调入2.png">
+
+<h6 id="UNIX方式"><a href="#UNIX方式" class="headerlink" title="UNIX方式"></a>UNIX方式</h6><img src="/blog/2021/01/08/内存管理（五）/何处调入3.png">
+
+<h5 id="抖动（颠簸）现象"><a href="#抖动（颠簸）现象" class="headerlink" title="抖动（颠簸）现象"></a>抖动（颠簸）现象</h5><p>刚换出的页面马上要换入内存，或刚换入的需要换出，这种频繁的页面调度行为称为<strong>抖动（颠簸）</strong>。主要原因是进程频繁访问的页面数目高于可用的物理块数（<strong>分配给进程的物理块不够</strong>）。</p>
+<h5 id="工作集"><a href="#工作集" class="headerlink" title="工作集"></a>工作集</h5><p>驻留集：指请求分页存储管理中给进程分配的内存块的集合。</p>
+<p>工作集：指在某段时间间隔里，进程实际访问页面的集合。</p>
+<img src="/blog/2021/01/08/内存管理（五）/工作集.png">
+
+<p><strong>窗口尺寸为4</strong>。</p>
+<p><strong>工作集大小</strong>可能小于窗口尺寸，一般来说，驻留集大小不能<strong>小于</strong>工作集大小，否则进程运行过程中将频繁缺页。</p>
+<h5 id="小结-3"><a href="#小结-3" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/01/08/内存管理（五）/页面分配策略小结.png" style="zoom:120%;">
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/虚拟内存/" rel="tag"># 虚拟内存</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2021/01/07/LeetCode547-省份数量/" rel="next" title="LeetCode547-省份数量">
+                <i class="fa fa-chevron-left"></i> LeetCode547-省份数量
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2021/01/08/LeetCode189-旋转数组/" rel="prev" title="LeetCode189-旋转数组">
+                LeetCode189-旋转数组 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xingyu_Zhao</p>
+              <p class="site-description motion-element" itemprop="description">Email: 543040659@qq.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟内存基本概念"><span class="nav-number">2.</span> <span class="nav-text">虚拟内存基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#传统存储管理方式的特征、缺点"><span class="nav-number">2.1.</span> <span class="nav-text">传统存储管理方式的特征、缺点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#局部性原理"><span class="nav-number">2.2.</span> <span class="nav-text">局部性原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#虚拟内存的定义和特征"><span class="nav-number">2.3.</span> <span class="nav-text">虚拟内存的定义和特征</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何实现虚拟内存技术"><span class="nav-number">2.4.</span> <span class="nav-text">如何实现虚拟内存技术</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结"><span class="nav-number">2.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求分页管理方式"><span class="nav-number">3.</span> <span class="nav-text">请求分页管理方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#页表机制"><span class="nav-number">3.1.</span> <span class="nav-text">页表机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缺页中断机构"><span class="nav-number">3.2.</span> <span class="nav-text">缺页中断机构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#地址变换机构"><span class="nav-number">3.3.</span> <span class="nav-text">地址变换机构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结-1"><span class="nav-number">3.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#页面置换算法"><span class="nav-number">4.</span> <span class="nav-text">页面置换算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#最佳置换算法（OPT）"><span class="nav-number">4.1.</span> <span class="nav-text">最佳置换算法（OPT）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#先进先出置换算法（FIFO）"><span class="nav-number">4.2.</span> <span class="nav-text">先进先出置换算法（FIFO）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最近最久未使用置换算法（LRU）"><span class="nav-number">4.3.</span> <span class="nav-text">最近最久未使用置换算法（LRU）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#时钟置换算法（CLOCK）"><span class="nav-number">4.4.</span> <span class="nav-text">时钟置换算法（CLOCK）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#改进型的时钟置换算法"><span class="nav-number">4.4.1.</span> <span class="nav-text">改进型的时钟置换算法</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结-2"><span class="nav-number">4.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#页面分配策略"><span class="nav-number">5.</span> <span class="nav-text">页面分配策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#页面分配、置换策略"><span class="nav-number">5.1.</span> <span class="nav-text">页面分配、置换策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#何时调入页面"><span class="nav-number">5.2.</span> <span class="nav-text">何时调入页面</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#何处调入页面"><span class="nav-number">5.3.</span> <span class="nav-text">何处调入页面</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#系统拥有足够的对换区空间"><span class="nav-number">5.3.1.</span> <span class="nav-text">系统拥有足够的对换区空间</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#系统缺少足够的对换区空间"><span class="nav-number">5.3.2.</span> <span class="nav-text">系统缺少足够的对换区空间</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#UNIX方式"><span class="nav-number">5.3.3.</span> <span class="nav-text">UNIX方式</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#抖动（颠簸）现象"><span class="nav-number">5.4.</span> <span class="nav-text">抖动（颠簸）现象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#工作集"><span class="nav-number">5.5.</span> <span class="nav-text">工作集</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结-3"><span class="nav-number">5.6.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">96.3k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
