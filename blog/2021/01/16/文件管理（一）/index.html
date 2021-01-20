@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="文件的逻辑结构,文件目录,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本次学习要点 初识文件管理 文件的逻辑结构 文件目录">
+<meta name="keywords" content="文件的逻辑结构,文件目录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件管理（一）">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="本次学习要点 初识文件管理 文件的逻辑结构 文件目录">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/文件内部数据的组织.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/操作系统应该向上提供的功能.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/初识文件管理小结.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/文件的逻辑结构.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/有结构文件的逻辑结构.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/顺序文件存储方式.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/顺序文件存储方式+结构.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/索引表.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/索引顺序文件.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/多级索引顺序文件.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/文件的逻辑结构小结.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/文件目录.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/文件控制块FCB.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/单级目录结构.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/两级目录结构.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/多级目录结构.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/无环图目录结构.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/索引节点.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/文件目录小结.png">
+<meta property="og:updated_time" content="2021-01-20T02:30:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文件管理（一）">
+<meta name="twitter:description" content="本次学习要点 初识文件管理 文件的逻辑结构 文件目录">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/文件内部数据的组织.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/">
+
+
+
+
+
+  <title>文件管理（一） | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">长风破浪会有时，直挂云帆济沧海</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2021/01/16/文件管理（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingyu_Zhao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">文件管理（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-16T11:17:11+08:00">
+                2021-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2021/01/16/文件管理（一）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2021/01/16/文件管理（一）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h4><ol>
+<li>初识文件管理</li>
+<li>文件的逻辑结构</li>
+<li>文件目录</li>
+</ol>
+<a id="more"></a>
+
+<h4 id="初识文件管理"><a href="#初识文件管理" class="headerlink" title="初识文件管理"></a>初识文件管理</h4><p>文件：一组有意义的信息/数据集合。</p>
+<h5 id="文件的属性"><a href="#文件的属性" class="headerlink" title="文件的属性"></a>文件的属性</h5><p>文件名：由创建文件的用户决定，同一目录下不允许有重名文件。</p>
+<p>标识符：操作系统用于区分各个文件（文件名相同更应如此）的一种内部名称。</p>
+<p>类型：指明文件的类型。</p>
+<p>位置：文件存放的路径、在外存中的地址。</p>
+<p>大小：指明文件的大小。</p>
+<p>创建时间、上次修改时间、文件所有者信息。</p>
+<p>保护信息：对文件进行保护的访问控制信息。</p>
+<h5 id="文件内部数据的组织"><a href="#文件内部数据的组织" class="headerlink" title="文件内部数据的组织"></a>文件内部数据的组织</h5><img src="/blog/2021/01/16/文件管理（一）/文件内部数据的组织.png">
+
+<h5 id="操作系统应该向上提供的功能"><a href="#操作系统应该向上提供的功能" class="headerlink" title="操作系统应该向上提供的功能"></a>操作系统应该向上提供的功能</h5><img src="/blog/2021/01/16/文件管理（一）/操作系统应该向上提供的功能.png">
+
+<ul>
+<li><p>创建文件：新建后，图形化交互进程调用了<strong>create系统调用</strong>。</p>
+</li>
+<li><p>读文件：使用<strong>read系统调用</strong>，将文件数据从外存读入内存。</p>
+</li>
+<li><p>写文件：使用<strong>write系统调用</strong>，将文件数据从内存写回外存。</p>
+</li>
+<li><p>删除文件：删除后，图形化交互进程调用了<strong>delete系统调用</strong>。</p>
+</li>
+<li><p>打开文件：读/写文件之前，需要打开文件，使用<strong>open系统调用</strong>。</p>
+</li>
+<li><p>关闭文件：读/写文件结束之后，需要关闭文件，使用<strong>close系统调用</strong>。</p>
+</li>
+</ul>
+<h5 id="从上往下看，文件应如何存放在外存？"><a href="#从上往下看，文件应如何存放在外存？" class="headerlink" title="从上往下看，文件应如何存放在外存？"></a>从上往下看，文件应如何存放在外存？</h5><p>类似于内存分为一个个“内存块”，外存会分为一个个“块/磁盘块/物理块”。每个磁盘块的大小是相等的，每块一般包含2的整数幂个地址。每个存储单元对应一个物理地址。</p>
+<h5 id="其他需要由操作系统实现的功能"><a href="#其他需要由操作系统实现的功能" class="headerlink" title="其他需要由操作系统实现的功能"></a>其他需要由操作系统实现的功能</h5><ul>
+<li>文件共享：使多个用户可以共享使用要给文件。</li>
+<li>文件保护：不同的用户对文件有不同的操作权限。</li>
+</ul>
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/01/16/文件管理（一）/初识文件管理小结.png">
+
+<h4 id="文件的逻辑结构"><a href="#文件的逻辑结构" class="headerlink" title="文件的逻辑结构"></a>文件的逻辑结构</h4><img src="/blog/2021/01/16/文件管理（一）/文件的逻辑结构.png" style="zoom:80%;">
+
+<h5 id="无结构文件"><a href="#无结构文件" class="headerlink" title="无结构文件"></a>无结构文件</h5><p>文件内部的数据就是一系列的二进制流或字符流组成。又称<strong>流式文件</strong>。如 <code>txt</code> 文件。</p>
+<h5 id="有结构文件"><a href="#有结构文件" class="headerlink" title="有结构文件"></a>有结构文件</h5><p>由一组相似的记录组成，又称<strong>记录式文件</strong>。每条记录由若干个数据项组成，如数据库表文件。一般每条记录有一个数据项可作为<strong>关键字</strong>。根据各条记录的长度是否相等，可分为<strong>定长记录</strong>和<strong>可变长记录</strong>。</p>
+<h5 id="有结构文件的逻辑结构"><a href="#有结构文件的逻辑结构" class="headerlink" title="有结构文件的逻辑结构"></a>有结构文件的逻辑结构</h5><img src="/blog/2021/01/16/文件管理（一）/有结构文件的逻辑结构.png" style="zoom:80%;">
+
+<h6 id="顺序文件"><a href="#顺序文件" class="headerlink" title="顺序文件"></a>顺序文件</h6><p>文件中记录连续排列（逻辑上），记录可以是<strong>定长</strong>或<strong>可变长</strong>的。各个记录再物理上可以是<strong>顺序存储</strong>或<strong>链式存储</strong>。</p>
+<img src="/blog/2021/01/16/文件管理（一）/顺序文件存储方式.png">
+
+<ul>
+<li>串结构：记录之间的顺序与关键字无关。</li>
+<li>顺序结构：记录之间的顺序按关键字顺序排列。</li>
+</ul>
+<img src="/blog/2021/01/16/文件管理（一）/顺序文件存储方式+结构.png" style="zoom:80%;">
+
+<p>结论：定长记录的顺序文件，若物理上采用顺序存储，可实现随机存取；若能再保证记录的顺序结构，则可实现快速检索。</p>
+<h6 id="索引文件"><a href="#索引文件" class="headerlink" title="索引文件"></a>索引文件</h6><p><strong>可变长记录</strong>文件时查找第 <code>i</code> 个记录必须先查找前 <code>i-1</code> 个记录，如何解决这个问题？</p>
+<hr>
+<p>索引表：<strong>定长记录</strong>的<strong>顺序文件</strong>，可以快速找到第 <code>i</code> 个记录对应的索引项。应用于对信息处理的及时性要求比较好的场合。</p>
+<img src="/blog/2021/01/16/文件管理（一）/索引表.png" style="zoom:80%;">
+
+<h6 id="索引顺序文件"><a href="#索引顺序文件" class="headerlink" title="索引顺序文件"></a>索引顺序文件</h6><p>与索引文件不同的是，不对每个记录都建立索引表项，而是<strong>一组记录对应一个索引表项</strong>。下图中，学生记录按照学生姓名的开头字母进行分组。每个分组就是一个顺序文件，分组内的记录不许眼按关键字排序。<strong>索引顺序文件指索引表中的项是按关键字排列的</strong>。</p>
+<img src="/blog/2021/01/16/文件管理（一）/索引顺序文件.png" style="zoom:80%;">
+
+<p><strong>多级索引顺序文件</strong></p>
+<p>为了进一步提高检索效率，可以为顺序文件建立多级索引表。</p>
+<img src="/blog/2021/01/16/文件管理（一）/多级索引顺序文件.png" style="zoom:80%;">
+
+<h5 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/01/16/文件管理（一）/文件的逻辑结构小结.png">
+
+<h4 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h4><img src="/blog/2021/01/16/文件管理（一）/文件目录.png" style="zoom:80%;">
+
+<h5 id="文件控制块"><a href="#文件控制块" class="headerlink" title="文件控制块"></a>文件控制块</h5><img src="/blog/2021/01/16/文件管理（一）/文件控制块FCB.png" style="zoom:80%;">
+
+<p><strong>FCB</strong>的有序集合称为“文件目录”，一个<strong>FCB</strong>就是一个文件<strong>目录项</strong>。</p>
+<p><strong>FCB</strong>包含了文件的基本信息（文件名、物理地址、逻辑地址、物理结构等），存储控制信息（是否可读/可写、禁止访问的用户名单等），使用信息（文件的建立时间、修改时间等）。</p>
+<p><strong>最基本的是</strong>：文件名、文件存放的物理地址。</p>
+<p>对目录进行的操作：</p>
+<ul>
+<li>搜索：系统根据文件名搜索目录，找到该文件对应的目录项。</li>
+<li>创建文件：创建一个新文件时，需要在其所属的目录中增加一个目录项。</li>
+<li>删除文件：当删除一个文件时，需要在目录中删除对应的目录项。</li>
+<li>显示目录：用户可以请求显示目录的内容，如显示该目录中的所有文件及相应属性。</li>
+<li>修改目录：目录中保存了某些文件属性，这些属性变化时需要修改相应的目录项（如文件重命名）。</li>
+</ul>
+<h5 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h5><h6 id="单级目录结构"><a href="#单级目录结构" class="headerlink" title="单级目录结构"></a>单级目录结构</h6><p>实现了<strong>按名存取</strong>，但是<strong>不允许文件重名</strong>。不适合多用户操作系统</p>
+<img src="/blog/2021/01/16/文件管理（一）/单级目录结构.png" style="zoom:80%;">
+
+<h6 id="两级目录结构"><a href="#两级目录结构" class="headerlink" title="两级目录结构"></a>两级目录结构</h6><p>分为<strong>主文件目录</strong>和<strong>用户文件目录</strong>。</p>
+<img src="/blog/2021/01/16/文件管理（一）/两级目录结构.png" style="zoom:80%;">
+
+<h6 id="多级目录结构（树形目录结构）"><a href="#多级目录结构（树形目录结构）" class="headerlink" title="多级目录结构（树形目录结构）"></a>多级目录结构（树形目录结构）</h6><p>文件路径名是个字符串，各级目录之间用”/“隔开， 从根目录出发的路径称为<strong>绝对路径</strong>。系统根据绝对路径一层一层的找到下一级目录。树形结构<strong>不利于实现文件共享</strong>。</p>
+<img src="/blog/2021/01/16/文件管理（一）/多级目录结构.png" style="zoom:80%;">
+
+<p><code>自拍.jpg</code>的绝对路径为<code>/照片/2015-0/自拍.jpg</code>。找到此文件需要3次读磁盘I/O操作。</p>
+<p>每次从根目录查找很低效，可以设置<strong>当前目录</strong>，当用户访问某个文件时，可以使用<strong>从当前目录出发</strong>的<strong>相对路径</strong>。</p>
+<h6 id="无环图目录结构"><a href="#无环图目录结构" class="headerlink" title="无环图目录结构"></a>无环图目录结构</h6><img src="/blog/2021/01/16/文件管理（一）/无环图目录结构.png" style="zoom:80%;">
+
+<p>用户提出删除节点时，只删除该用户的PCB，并使共享计数器减1，不会直接删去共享节点。只要共有计数器减为0时才删除节点。</p>
+<h5 id="索引节点（FCB的改进）"><a href="#索引节点（FCB的改进）" class="headerlink" title="索引节点（FCB的改进）"></a>索引节点（FCB的改进）</h5><p>一般查找只需要用到<strong>文件名</strong>这个信息，文件名匹配时才需要读出文件的其他信息，所以可以使目录表包含最有用的信息来提高效率，如下图：</p>
+<img src="/blog/2021/01/16/文件管理（一）/索引节点.png" style="zoom:80%;">
+
+<p>存放在<strong>外存</strong>的索引节点称为<strong>磁盘索引节点</strong>，当索引节点<strong>放入内存</strong>后称为<strong>内存索引节点</strong>。内存索引节点需要增加一些信息，如：文件是否被修改，此时有几个进程在访问该文件等。</p>
+<h5 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/01/16/文件管理（一）/文件目录小结.png">
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/文件的逻辑结构/" rel="tag"># 文件的逻辑结构</a>
+          
+            <a href="/tags/文件目录/" rel="tag"># 文件目录</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2021/01/15/LeetCode947-移除最多的同行或同列石头/" rel="next" title="LeetCode947-移除最多的同行或同列石头">
+                <i class="fa fa-chevron-left"></i> LeetCode947-移除最多的同行或同列石头
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xingyu_Zhao</p>
+              <p class="site-description motion-element" itemprop="description">Email: 543040659@qq.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初识文件管理"><span class="nav-number">2.</span> <span class="nav-text">初识文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#文件的属性"><span class="nav-number">2.1.</span> <span class="nav-text">文件的属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件内部数据的组织"><span class="nav-number">2.2.</span> <span class="nav-text">文件内部数据的组织</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#操作系统应该向上提供的功能"><span class="nav-number">2.3.</span> <span class="nav-text">操作系统应该向上提供的功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从上往下看，文件应如何存放在外存？"><span class="nav-number">2.4.</span> <span class="nav-text">从上往下看，文件应如何存放在外存？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他需要由操作系统实现的功能"><span class="nav-number">2.5.</span> <span class="nav-text">其他需要由操作系统实现的功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结"><span class="nav-number">2.6.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件的逻辑结构"><span class="nav-number">3.</span> <span class="nav-text">文件的逻辑结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#无结构文件"><span class="nav-number">3.1.</span> <span class="nav-text">无结构文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#有结构文件"><span class="nav-number">3.2.</span> <span class="nav-text">有结构文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#有结构文件的逻辑结构"><span class="nav-number">3.3.</span> <span class="nav-text">有结构文件的逻辑结构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#顺序文件"><span class="nav-number">3.3.1.</span> <span class="nav-text">顺序文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#索引文件"><span class="nav-number">3.3.2.</span> <span class="nav-text">索引文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#索引顺序文件"><span class="nav-number">3.3.3.</span> <span class="nav-text">索引顺序文件</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结-1"><span class="nav-number">3.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件目录"><span class="nav-number">4.</span> <span class="nav-text">文件目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#文件控制块"><span class="nav-number">4.1.</span> <span class="nav-text">文件控制块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#目录结构"><span class="nav-number">4.2.</span> <span class="nav-text">目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#单级目录结构"><span class="nav-number">4.2.1.</span> <span class="nav-text">单级目录结构</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#两级目录结构"><span class="nav-number">4.2.2.</span> <span class="nav-text">两级目录结构</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#多级目录结构（树形目录结构）"><span class="nav-number">4.2.3.</span> <span class="nav-text">多级目录结构（树形目录结构）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#无环图目录结构"><span class="nav-number">4.2.4.</span> <span class="nav-text">无环图目录结构</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索引节点（FCB的改进）"><span class="nav-number">4.3.</span> <span class="nav-text">索引节点（FCB的改进）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结-2"><span class="nav-number">4.4.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">101.4k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
