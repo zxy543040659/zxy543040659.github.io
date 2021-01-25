@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="文件的物理结构,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本次学习要点 文件的物理结构 文件存储空间管理">
+<meta name="keywords" content="文件的物理结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件管理（二）">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="本次学习要点 文件的物理结构 文件存储空间管理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/连续分配目录.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/隐式链接.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/显式链接.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/索引分配.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/索引分配-链接方案.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/索引分配-多层索引.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/索引分配-混合索引.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/文件的物理结构小结.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/空闲盘块链.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/空闲盘区链.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/位示图法.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/超级块.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/超级块1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/超级块2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/超级块3.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/超级块4.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/超级块5.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/超级块6.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/文件的存储空间管理小结.png">
+<meta property="og:updated_time" content="2021-01-25T14:57:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文件管理（二）">
+<meta name="twitter:description" content="本次学习要点 文件的物理结构 文件存储空间管理">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/连续分配目录.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/">
+
+
+
+
+
+  <title>文件管理（二） | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">长风破浪会有时，直挂云帆济沧海</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2021/01/20/文件管理（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingyu_Zhao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">文件管理（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-20T10:53:35+08:00">
+                2021-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2021/01/20/文件管理（二）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2021/01/20/文件管理（二）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h4><ol>
+<li>文件的物理结构</li>
+<li>文件存储空间管理</li>
+</ol>
+<a id="more"></a>
+
+<h4 id="文件的物理结构"><a href="#文件的物理结构" class="headerlink" title="文件的物理结构"></a>文件的物理结构</h4><p>对非空闲磁盘块的管理。磁盘中的存储单元被划分为一个个的“块、磁盘块、物理块”。<strong>磁盘块的大小与内存块、页面的大小相同</strong>。</p>
+<h5 id="连续分配"><a href="#连续分配" class="headerlink" title="连续分配"></a>连续分配</h5><p>连续分配方式要求每个文件在磁盘上占有一组连续的块。</p>
+<img src="/blog/2021/01/20/文件管理（二）/连续分配目录.png">
+
+<p>优点：</p>
+<ul>
+<li>支持<strong>顺序访问和直接访问（即随机访问）</strong>。</li>
+<li>连续分配的文件在顺序访问时速度最快。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>不方便文件拓展。</li>
+<li>存储空间利用率低，会产生磁盘碎片。</li>
+</ul>
+<h5 id="链接分配"><a href="#链接分配" class="headerlink" title="链接分配"></a>链接分配</h5><p>链接分配采取<strong>离散</strong>分配的方式，可以为文件分配离散的磁盘块。分为<strong>隐式链接</strong>和显示链接。</p>
+<h6 id="隐式链接"><a href="#隐式链接" class="headerlink" title="隐式链接"></a>隐式链接</h6><p>除文件的最后一个盘块之外，每个盘块中都存有指向下一个盘块的指针。文件目录包括文件第一块的指针和最后一块的指针。</p>
+<img src="/blog/2021/01/20/文件管理（二）/隐式链接.png" style="zoom:80%;">
+
+<p>优点：</p>
+<ul>
+<li>方便文件拓展，不会有碎片问题，外存利用率高。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>只能顺序访问，查找效率低，指向下一个盘块的指针也需要消耗少量的存储空间。</li>
+</ul>
+<h6 id="显式链接"><a href="#显式链接" class="headerlink" title="显式链接"></a>显式链接</h6><p>把用于链接文件各物理块的指针显式地存放在一张表中，即<strong>文件分配表（FAT，File Allocation Table）</strong>。</p>
+<img src="/blog/2021/01/20/文件管理（二）/显式链接.png" style="zoom:80%;">
+
+<p><em>一个磁盘仅设置一张FAT，开机时，将FAT读入内存，并常驻内存</em>。</p>
+<p>优点：</p>
+<ul>
+<li>方便文件拓展，不会有碎片问题，外存利用率高，并且支持<strong>随机访问</strong>。</li>
+<li>相比于隐式链接，地址转换不需要访问磁盘，因此文件的访问效率更高。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>文件分配表需要占用一定的存储空间。</li>
+</ul>
+<h5 id="索引分配"><a href="#索引分配" class="headerlink" title="索引分配"></a>索引分配</h5><p>索引分配允许文件离散地分配在各个磁盘块中，系统会为<strong>每个文件</strong>建立一张索引表，索引表中记录了文件的各个逻辑块对应的物理块。索引表存放的磁盘块称为<strong>索引块</strong>。文件数据存放的磁盘块称为<strong>数据块</strong>。</p>
+<img src="/blog/2021/01/20/文件管理（二）/索引分配.png" style="zoom:80%;">
+
+<h6 id="链接方案"><a href="#链接方案" class="headerlink" title="链接方案"></a>链接方案</h6><p>如果索引表太大，一个索引块装不下，那么可以将多个索引块链接起来存放。</p>
+<img src="/blog/2021/01/20/文件管理（二）/索引分配-链接方案.png" style="zoom:80%;">
+
+<p>缺点：若文件很大，索引表很长，就需要将很多个索引块链接起来。想要找到 i 号索引块，必须先依次读入 0~i-1 号索引块，导致磁盘 I/O 过多，查找效率低下。</p>
+<h6 id="多层索引"><a href="#多层索引" class="headerlink" title="多层索引"></a>多层索引</h6><p>建立多层索引（类似于多级页表）。使第一层索引块指向第二层的索引块。还可根据文件大小的要求再建立第三层、第四层索引块。</p>
+<img src="/blog/2021/01/20/文件管理（二）/索引分配-多层索引.png" style="zoom:80%;">
+
+<p><em>采用 K 层索引结构，且顶级索引表未调入内存，则访问一个数据块只需要 K + 1 次读磁盘操作</em>。</p>
+<p>缺点：即使是小文件，访问一个数据块依然需要 K + 1 次读磁盘。</p>
+<h6 id="混合索引"><a href="#混合索引" class="headerlink" title="混合索引"></a>混合索引</h6><p>多种索引分配方式的结合。例如，一个文件的顶级索引中，既包含<strong>直接地址索引（直接指向数据块）</strong>，又包含<strong>一级、二级间接索引</strong>。</p>
+<img src="/blog/2021/01/20/文件管理（二）/索引分配-混合索引.png" style="zoom:80%;">
+
+<p>优点：对于小文件来说，访问要给数据块所需的读磁盘次数更少。</p>
+<h5 id="文件的物理结构小结"><a href="#文件的物理结构小结" class="headerlink" title="文件的物理结构小结"></a>文件的物理结构小结</h5><img src="/blog/2021/01/20/文件管理（二）/文件的物理结构小结.png">
+
+<h4 id="文件存储空间管理"><a href="#文件存储空间管理" class="headerlink" title="文件存储空间管理"></a>文件存储空间管理</h4><p>对空闲磁盘块的管理。</p>
+<p>存储空间的初始化：将各个文件卷划分为目录区、文件区。</p>
+<ul>
+<li>目录区存放文件目录信息（FCB）、用于词牌存储空间管理的信息。</li>
+<li>文件区用于存放文件数据。</li>
+</ul>
+<h5 id="存储空间管理——空闲表法"><a href="#存储空间管理——空闲表法" class="headerlink" title="存储空间管理——空闲表法"></a>存储空间管理——空闲表法</h5><p>适用于连续分配方式。</p>
+<p><strong>如何分配连续的存储空间</strong>：与内存管理中的动态分区分配类似，为一个文件分配连续的存储空间。同样可采用首次适应、最佳适应、最坏适应等算法来决定要为文件分配哪个区间。</p>
+<p><strong>如何回收磁盘块</strong>：</p>
+<ol>
+<li>回收区前后都没有相邻空闲区。</li>
+<li>回收区的前后都是空闲区。</li>
+<li>回收区前面是空闲区。</li>
+<li>回收区后面是空闲区。</li>
+</ol>
+<p><em>回收时注意表项的合并问题</em>。</p>
+<h5 id="存储空间管理——空闲链表法"><a href="#存储空间管理——空闲链表法" class="headerlink" title="存储空间管理——空闲链表法"></a>存储空间管理——空闲链表法</h5><h6 id="空闲盘块链"><a href="#空闲盘块链" class="headerlink" title="空闲盘块链"></a>空闲盘块链</h6><img src="/blog/2021/01/20/文件管理（二）/空闲盘块链.png" style="zoom:80%;">
+
+<p>操作系统保存着<strong>链头、链尾指针</strong>。</p>
+<p><strong>如何分配</strong>：若某文件申请 K 个盘块，则从链头开始依次摘下 K 个盘块分配，并修改空闲链的链头指针。</p>
+<p><strong>如何回收</strong>：回收的盘块依次挂到链尾，并修改空闲链的链尾指针。</p>
+<h6 id="空闲盘区链"><a href="#空闲盘区链" class="headerlink" title="空闲盘区链"></a>空闲盘区链</h6><img src="/blog/2021/01/20/文件管理（二）/空闲盘区链.png" style="zoom:80%;">
+
+<p><strong>如何分配</strong>：若某文件申请 K 个盘块，可采用首次适应、最佳适应等算法从链头开始检索，找到符合的一个空闲盘区；若没有合适的连续空闲块，可将不同盘区的盘块分配给文件。</p>
+<p><strong>如何回收</strong>：若回收区和某个空闲盘区相邻，则需要将回收区合并到空闲盘区中。若回收区没有和任何空闲区相邻，将回收区作为一个单独的空闲盘区挂到链尾。</p>
+<h5 id="存储空间管理——位示图法"><a href="#存储空间管理——位示图法" class="headerlink" title="存储空间管理——位示图法"></a>存储空间管理——位示图法</h5><img src="/blog/2021/01/20/文件管理（二）/位示图法.png">
+
+<p><strong>位示图</strong>：每个二进制位对应一个盘号，空闲为 0，已分配为 1。位示图用<strong>字</strong>来表示，上图字长为16。可以用<strong>（字号，位号）</strong>对应一个盘块号。</p>
+<ul>
+<li><p>$（字号，位号）=(i,j)$ 的<strong>二进制位</strong>对应的<strong>盘块号</strong> $b=n\times i + j$。</p>
+</li>
+<li><p>$b$ 号<strong>盘块</strong>对应的<strong>字号</strong> $i=b/n$，位号 $j=b%n$。</p>
+</li>
+</ul>
+<p><strong>如何分配</strong>：若文件需要 K 个块：</p>
+<ol>
+<li>顺序扫描位示图，找到 K 个相邻或不相邻的 0。</li>
+<li>根据字号、位号算出对应的盘块号，将相应盘块分配给文件。</li>
+<li>将相应位设置为 1。</li>
+</ol>
+<p><strong>如何回收</strong>：</p>
+<ol>
+<li>根据回收的盘块号计算出对应的字号、位号。</li>
+<li>将相应的二进制位设为 0。</li>
+</ol>
+<h5 id="存储空间管理——成组链接法"><a href="#存储空间管理——成组链接法" class="headerlink" title="存储空间管理——成组链接法"></a>存储空间管理——成组链接法</h5><p>文件卷目录区用一个磁盘块作为<strong>超级块</strong>，系统启动时将其调入内存，并保证内外存超级块数据一致。</p>
+<img src="/blog/2021/01/20/文件管理（二）/超级块.png">
+
+<p><strong>超级块（空闲盘块号栈）</strong></p>
+<p>① 存放下一组空闲盘块的<strong>盘块号</strong>（不超过100）。</p>
+<p>② 此组空闲盘的<strong>空闲块总数</strong> N。</p>
+<p><strong>我的理解</strong>：超级块大小等于其他块中的第一个空闲块。都是用来存储下一组空闲块信息的，主要针对<strong>分配时只剩下一个空闲块</strong>（此空闲块存储了下一组空闲块信息）或<strong>回收时已经回收够100个空闲块</strong>的特殊情况。<strong>类似于链表中的哑节点</strong>。</p>
+<img src="/blog/2021/01/20/文件管理（二）/超级块1.png" style="zoom:120%;">
+
+<p>最后一组的 <code>s.free[0] = -1</code>，表示空闲盘块链的结尾标志。</p>
+<p><strong>N 兼做栈顶指针</strong></p>
+<p>例如，当 <code>N = 100</code> 时，它指向<code>s.free(99)</code>，即 N 指向 <code>s.free(N - 1)</code>。</p>
+<h6 id="空间分配"><a href="#空间分配" class="headerlink" title="空间分配"></a>空间分配</h6><p>将盘块 <code>4</code> 分配给文件，先将 <code>4</code> 出栈，再将 N 减1。同理再将 <code>3</code> 分配给文件，可得：</p>
+<img src="/blog/2021/01/20/文件管理（二）/超级块2.png" style="zoom:120%;">
+
+<p>如果此时还要将 <code>2</code> 分配给文件（<code>2</code> 保存了下一个盘块的信息），需要进行以下操作：</p>
+<ol>
+<li>将 <code>2</code> 的信息保存到超级块中，将 <code>2</code> 分配给文件。</li>
+<li>更新指针。</li>
+</ol>
+<img src="/blog/2021/01/20/文件管理（二）/超级块3.png" style="zoom:120%;">
+
+<h6 id="空间回收"><a href="#空间回收" class="headerlink" title="空间回收"></a>空间回收</h6><p>假如回收盘块 <code>4</code>，先将 <code>4</code> 压入栈中，再更新 N：</p>
+<img src="/blog/2021/01/20/文件管理（二）/超级块4.png" style="zoom:120%;">
+
+<p>当栈满时，<strong>会将超级块的内容复制到新回收的块中</strong>，再更新指针，假如新回收的盘块为 <code>3</code>，可以得到下图:</p>
+<img src="/blog/2021/01/20/文件管理（二）/超级块5.png" style="zoom:120%;">
+
+<p>再根据磁盘块 <code>3</code> 更新超级块中的栈和 N，显然 N 为1，超级块指向的下一个盘块只有 <code>3</code>，将 <code>3</code> 压入栈中，此时新回收盘块 <code>2</code>，将其压入栈中，N 再加1即可：</p>
+<img src="/blog/2021/01/20/文件管理（二）/超级块6.png" style="zoom:120%;">
+
+<h5 id="文件的存储空间管理小结"><a href="#文件的存储空间管理小结" class="headerlink" title="文件的存储空间管理小结"></a>文件的存储空间管理小结</h5><img src="/blog/2021/01/20/文件管理（二）/文件的存储空间管理小结.png">
+
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><p>成组链接法bilibili：<a href="https://www.bilibili.com/video/av71840093/" target="_blank" rel="noopener">https://www.bilibili.com/video/av71840093/</a></p>
+<p>实例讲解成组链接法：<a href="https://blog.csdn.net/smartab/article/details/81285353" target="_blank" rel="noopener">https://blog.csdn.net/smartab/article/details/81285353</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/文件的物理结构/" rel="tag"># 文件的物理结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2021/01/19/LeetCode1584-连接所有点的最小费用/" rel="next" title="LeetCode1584-连接所有点的最小费用">
+                <i class="fa fa-chevron-left"></i> LeetCode1584-连接所有点的最小费用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2021/01/20/C-动态内存与智能指针/" rel="prev" title="C++动态内存与智能指针">
+                C++动态内存与智能指针 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xingyu_Zhao</p>
+              <p class="site-description motion-element" itemprop="description">Email: 543040659@qq.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">104</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件的物理结构"><span class="nav-number">2.</span> <span class="nav-text">文件的物理结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#连续分配"><span class="nav-number">2.1.</span> <span class="nav-text">连续分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#链接分配"><span class="nav-number">2.2.</span> <span class="nav-text">链接分配</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#隐式链接"><span class="nav-number">2.2.1.</span> <span class="nav-text">隐式链接</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#显式链接"><span class="nav-number">2.2.2.</span> <span class="nav-text">显式链接</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索引分配"><span class="nav-number">2.3.</span> <span class="nav-text">索引分配</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#链接方案"><span class="nav-number">2.3.1.</span> <span class="nav-text">链接方案</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#多层索引"><span class="nav-number">2.3.2.</span> <span class="nav-text">多层索引</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#混合索引"><span class="nav-number">2.3.3.</span> <span class="nav-text">混合索引</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件的物理结构小结"><span class="nav-number">2.4.</span> <span class="nav-text">文件的物理结构小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件存储空间管理"><span class="nav-number">3.</span> <span class="nav-text">文件存储空间管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#存储空间管理——空闲表法"><span class="nav-number">3.1.</span> <span class="nav-text">存储空间管理——空闲表法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#存储空间管理——空闲链表法"><span class="nav-number">3.2.</span> <span class="nav-text">存储空间管理——空闲链表法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#空闲盘块链"><span class="nav-number">3.2.1.</span> <span class="nav-text">空闲盘块链</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#空闲盘区链"><span class="nav-number">3.2.2.</span> <span class="nav-text">空闲盘区链</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#存储空间管理——位示图法"><span class="nav-number">3.3.</span> <span class="nav-text">存储空间管理——位示图法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#存储空间管理——成组链接法"><span class="nav-number">3.4.</span> <span class="nav-text">存储空间管理——成组链接法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#空间分配"><span class="nav-number">3.4.1.</span> <span class="nav-text">空间分配</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#空间回收"><span class="nav-number">3.4.2.</span> <span class="nav-text">空间回收</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件的存储空间管理小结"><span class="nav-number">3.5.</span> <span class="nav-text">文件的存储空间管理小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">109.9k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
