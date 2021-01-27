@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="并查集,图论,">
 
 
 
@@ -81,16 +81,20 @@
 
 
 
-<meta name="description" content="Email: 543040659@qq.com">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Zxy&#39;s blog">
-<meta property="og:url" content="http://www.xingyuzhao.ltd/tags/二叉搜索树/index.html">
+<meta name="description" content="题目描述Alice 和 Bob 共有一个无向图，其中包含 n 个节点和 3 种类型的边：  类型 1：只能由 Alice 遍历。 类型 2：只能由 Bob 遍历。 类型 3：Alice 和 Bob 都可以遍历。  给你一个数组 $edges$ ，其中 $edges[i] = [type_i, u_i, v_i]$ 表示节点 $u_i$ 和 $v_i$ 之间存在类型为 $type_i$ 的双向边。请">
+<meta name="keywords" content="并查集,图论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode1579-保证图可完全遍历">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2021/01/27/LeetCode1579-保证图可完全遍历/index.html">
 <meta property="og:site_name" content="Zxy&#39;s blog">
-<meta property="og:description" content="Email: 543040659@qq.com">
+<meta property="og:description" content="题目描述Alice 和 Bob 共有一个无向图，其中包含 n 个节点和 3 种类型的边：  类型 1：只能由 Alice 遍历。 类型 2：只能由 Bob 遍历。 类型 3：Alice 和 Bob 都可以遍历。  给你一个数组 $edges$ ，其中 $edges[i] = [type_i, u_i, v_i]$ 表示节点 $u_i$ 和 $v_i$ 之间存在类型为 $type_i$ 的双向边。请">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/27/LeetCode1579-保证图可完全遍历/1567.png">
+<meta property="og:updated_time" content="2021-01-27T15:12:51.758Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zxy&#39;s blog">
-<meta name="twitter:description" content="Email: 543040659@qq.com">
+<meta name="twitter:title" content="LeetCode1579-保证图可完全遍历">
+<meta name="twitter:description" content="题目描述Alice 和 Bob 共有一个无向图，其中包含 n 个节点和 3 种类型的边：  类型 1：只能由 Alice 遍历。 类型 2：只能由 Bob 遍历。 类型 3：Alice 和 Bob 都可以遍历。  给你一个数组 $edges$ ，其中 $edges[i] = [type_i, u_i, v_i]$ 表示节点 $u_i$ 和 $v_i$ 之间存在类型为 $type_i$ 的双向边。请">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2021/01/27/LeetCode1579-保证图可完全遍历/1567.png">
 
 
 
@@ -120,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xingyuzhao.ltd/tags/二叉搜索树/">
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2021/01/27/LeetCode1579-保证图可完全遍历/">
 
 
 
 
 
-  <title>标签: 二叉搜索树 | Zxy's blog</title>
+  <title>LeetCode1579-保证图可完全遍历 | Zxy's blog</title>
   
 
 
@@ -145,7 +149,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -281,52 +285,255 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>二叉搜索树<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2021/01/27/LeetCode1579-保证图可完全遍历/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingyu_Zhao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/blog/2020/10/09/LeetCode701-二叉搜索树中的插入操作/" itemprop="url">
-              
-                <span itemprop="name">LeetCode701-二叉搜索树中的插入操作</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">LeetCode1579-保证图可完全遍历</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-10-09T22:12:04+08:00" content="2020-10-09">
-          10-09
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-27T22:21:51+08:00">
+                2021-01-27
+              </time>
+            
 
-    </header>
-  </article>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2021/01/27/LeetCode1579-保证图可完全遍历/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2021/01/27/LeetCode1579-保证图可完全遍历/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  894
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>Alice 和 Bob 共有一个无向图，其中包含 n 个节点和 3 种类型的边：</p>
+<ul>
+<li>类型 1：只能由 Alice 遍历。</li>
+<li>类型 2：只能由 Bob 遍历。</li>
+<li>类型 3：Alice 和 Bob 都可以遍历。</li>
+</ul>
+<p>给你一个数组 $edges$ ，其中 $edges[i] = [type_i, u_i, v_i]$ 表示节点 $u_i$ 和 $v_i$ 之间存在类型为 $type_i$ 的双向边。请你在保证图仍能够被 Alice和 Bob 完全遍历的前提下，找出可以删除的最大边数。如果从任何节点开始，Alice 和 Bob 都可以到达所有其他节点，则认为图是可以完全遍历的。</p>
+<p>返回可以删除的最大边数，如果 Alice 和 Bob 无法完全遍历图，则返回 -1。</p>
+<a id="more"></a>
+
+<img src="/blog/2021/01/27/LeetCode1579-保证图可完全遍历/1567.png" style="zoom:120%;">
+
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>本题和<a href="http://www.xingyuzhao.ltd/blog/2021/01/23/LeetCode1319-%E8%BF%9E%E9%80%9A%E7%BD%91%E7%BB%9C%E7%9A%84%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/#more">LeetCode1319-连通网络的操作次数</a>很相似，可以说是1319的加强版。这道题需要给两位主角分别建立一个并查集，并且要解决下面三个问题：</p>
+<p><strong>1. 如何判断边重复？</strong></p>
+<p>在进行 <code>union</code> 操作前后，如果 <code>count</code> 变化（减一），代表进行了合并；否则，说明此边重复，可以删掉。</p>
+<p><strong>2. 什么是公共边？</strong></p>
+<p>对于此题来说，$type$ 为 3 的边既可以被 Alice 遍历，也可以被 Bob 遍历。所以此种类型的边就是公共边。</p>
+<p><strong>3. 如何处理公共边？</strong></p>
+<p>这是本题的重点，对 Alice 和 Bob 分别根据公共边进行合并。</p>
+<ul>
+<li>如果先对 Alice 根据公共边合并，当发现边重复时，就需要删掉此边，不会对节点之间的连通性造成任何影响。</li>
+<li>再对 Bob 根据公共边合并时，就不需要删边了，因为上一步已经删去了重复公共边，不需要再一次删除了。两者的联通集是一致的。</li>
+</ul>
+<p>总而言之，<strong>公共边只能删除一次。</strong></p>
+<p>经历上述操作后，再分别对两个人按照自己可以遍历的类型进行合并，同样遇到了重复边可以删掉。将重复公共边总数和非公共边重复总数求和，就是最终结果了。</p>
+<p>当然，如果合并结束后，两个并查集中有一个或多个不止一个联通集，说明无法全部遍历，返回 -1。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>顺序可能不太一致，但不影响最终结果。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">unionFind</span>&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; parent;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; rank;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    unionFind(<span class="keyword">int</span> n)&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;count = n;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">            parent.push_back(i);</span><br><span class="line">            rank.push_back(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> p)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> p == parent[p] ? p : parent[p] = find(parent[p]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unionElem</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> pRoot = find(p);</span><br><span class="line">        <span class="keyword">int</span> qRoot = find(q);</span><br><span class="line">        <span class="keyword">if</span>(pRoot == qRoot) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(rank[pRoot] &lt; rank[qRoot])&#123;</span><br><span class="line">            parent[pRoot] = qRoot;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(rank[pRoot] &gt; rank[qRoot])&#123;</span><br><span class="line">            parent[qRoot] = pRoot;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            parent[pRoot] = qRoot;</span><br><span class="line">            rank[qRoot]++;</span><br><span class="line">        &#125;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxNumEdgesToRemove</span><span class="params">(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges)</span> </span>&#123;</span><br><span class="line">        <span class="function">unionFind <span class="title">Alice</span><span class="params">(n)</span></span>;</span><br><span class="line">        <span class="function">unionFind <span class="title">Bob</span><span class="params">(n)</span></span>;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// Alice</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;edge : edges)&#123;</span><br><span class="line">            <span class="keyword">int</span> type = edge[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">int</span> u = edge[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> v = edge[<span class="number">2</span>];</span><br><span class="line">            <span class="keyword">if</span>(type != <span class="number">3</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> count = Alice.getCount();</span><br><span class="line">            Alice.unionElem(u - <span class="number">1</span>, v - <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(Alice.getCount() == count)</span><br><span class="line">                cnt++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;edge : edges)&#123;</span><br><span class="line">            <span class="keyword">int</span> type = edge[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">int</span> u = edge[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> v = edge[<span class="number">2</span>];</span><br><span class="line">            <span class="keyword">if</span>(type != <span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> count = Alice.getCount();</span><br><span class="line">            Alice.unionElem(u - <span class="number">1</span>, v - <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(Alice.getCount() == count)</span><br><span class="line">                cnt++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// Bob</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;edge : edges)&#123;</span><br><span class="line">            <span class="keyword">int</span> type = edge[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">int</span> u = edge[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> v = edge[<span class="number">2</span>];</span><br><span class="line">            <span class="keyword">if</span>(type != <span class="number">3</span>) <span class="keyword">continue</span>;</span><br><span class="line">            Bob.unionElem(u - <span class="number">1</span>, v - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;edge : edges)&#123;</span><br><span class="line">            <span class="keyword">int</span> type = edge[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">int</span> u = edge[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">int</span> v = edge[<span class="number">2</span>];</span><br><span class="line">            <span class="keyword">if</span>(type != <span class="number">2</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> count = Bob.getCount();</span><br><span class="line">            Bob.unionElem(u - <span class="number">1</span>, v - <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(Bob.getCount() == count)</span><br><span class="line">                cnt++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Alice.getCount() == <span class="number">1</span> &amp;&amp; Bob.getCount() == <span class="number">1</span> ? cnt : <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/并查集/" rel="tag"># 并查集</a>
+          
+            <a href="/tags/图论/" rel="tag"># 图论</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2021/01/25/LeetCode959-由斜杠划分区域/" rel="next" title="LeetCode959-由斜杠划分区域">
+                <i class="fa fa-chevron-left"></i> LeetCode959-由斜杠划分区域
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -334,6 +541,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -354,8 +568,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -460,6 +683,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -632,6 +871,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
