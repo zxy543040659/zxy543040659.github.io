@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="磁盘,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本次学习要点 磁盘的结构 磁盘调度算法 减少磁盘延迟时间的方法 磁盘的管理">
+<meta name="keywords" content="磁盘">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件管理（四）">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2021/01/28/文件管理（四）/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="本次学习要点 磁盘的结构 磁盘调度算法 减少磁盘延迟时间的方法 磁盘的管理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/28/文件管理（四）/磁道与扇区.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/28/文件管理（四）/盘面、柱面.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/28/文件管理（四）/磁盘的结构小结.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/28/文件管理（四）/磁盘调度算法小结.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/28/文件管理（四）/交替编号.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/28/文件管理（四）/错位命名.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/28/文件管理（四）/减少延迟时间的方法.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/28/文件管理（四）/自举程序.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/01/28/文件管理（四）/磁盘的管理.png">
+<meta property="og:updated_time" content="2021-02-01T03:42:32.483Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文件管理（四）">
+<meta name="twitter:description" content="本次学习要点 磁盘的结构 磁盘调度算法 减少磁盘延迟时间的方法 磁盘的管理">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2021/01/28/文件管理（四）/磁道与扇区.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2021/01/28/文件管理（四）/">
+
+
+
+
+
+  <title>文件管理（四） | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">长风破浪会有时，直挂云帆济沧海</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2021/01/28/文件管理（四）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingyu_Zhao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">文件管理（四）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-28T21:15:44+08:00">
+                2021-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2021/01/28/文件管理（四）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2021/01/28/文件管理（四）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h4><ol>
+<li>磁盘的结构</li>
+<li>磁盘调度算法</li>
+<li>减少磁盘延迟时间的方法</li>
+<li>磁盘的管理</li>
+</ol>
+<a id="more"></a>
+
+<h4 id="磁盘的结构"><a href="#磁盘的结构" class="headerlink" title="磁盘的结构"></a>磁盘的结构</h4><h5 id="磁盘、磁道、扇区"><a href="#磁盘、磁道、扇区" class="headerlink" title="磁盘、磁道、扇区"></a>磁盘、磁道、扇区</h5><p>磁盘：磁盘的表面由一些磁性物质组成，可以用这些磁性物质来记录二进制数据。</p>
+<p>磁道与扇区：</p>
+<img src="/blog/2021/01/28/文件管理（四）/磁道与扇区.png" style="zoom:80%;">
+
+<h5 id="如何在磁盘中读-写数据"><a href="#如何在磁盘中读-写数据" class="headerlink" title="如何在磁盘中读/写数据"></a>如何在磁盘中读/写数据</h5><p>将<strong>磁头</strong>移动到想要读/写扇区所在的磁道，磁盘转动，让目标扇区从磁头下面划过，才能完成对扇区的读/写操作。</p>
+<h5 id="盘面、柱面"><a href="#盘面、柱面" class="headerlink" title="盘面、柱面"></a>盘面、柱面</h5><img src="/blog/2021/01/28/文件管理（四）/盘面、柱面.png" style="zoom:80%;">
+
+<h5 id="磁盘的物理地址"><a href="#磁盘的物理地址" class="headerlink" title="磁盘的物理地址"></a>磁盘的物理地址</h5><p>地址形式：（柱面号，盘面号，扇区号）。</p>
+<p><strong>如何读写？</strong></p>
+<ol>
+<li>根据柱面号移动磁臂，让磁头指向指定柱面。</li>
+<li>激活指定盘面对应的磁头。</li>
+<li>磁盘旋转的过程中，指定的扇区会从磁头下面划过，完成读写。</li>
+</ol>
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/01/28/文件管理（四）/磁盘的结构小结.png">
+
+<h4 id="磁盘调度算法"><a href="#磁盘调度算法" class="headerlink" title="磁盘调度算法"></a>磁盘调度算法</h4><h5 id="一次磁盘读写操作需要的时间"><a href="#一次磁盘读写操作需要的时间" class="headerlink" title="一次磁盘读写操作需要的时间"></a>一次磁盘读写操作需要的时间</h5><p><strong>寻道时间</strong> $T_s$：在读写数据前，将磁头移动到指定磁道所花的时间。<br>$$<br>T_s = s + m\times n<br>$$<br>其中，$s$ 为启动磁头臂时间；$m$ 为跨越一个磁道耗时；$n$ 为跨越磁道总数。</p>
+<p><strong>延迟时间</strong> $T_R$：通过旋转磁盘，使磁头定位到目标扇区所需要的时间。<br>$$<br>T_R = \frac{1}{2} \times \frac{1}{r} = \frac{1}{2r}<br>$$<br>其中，$\frac{1}{2}$ 为平均找到目标扇区所走的圈数；$r$ 为磁盘转速。</p>
+<p><strong>传输时间</strong> $T_t$：从磁盘读写数据所需时间。<br>$$<br>T_t = \frac{1}{r} \times \frac{b}{N} = \frac{b}{rN}<br>$$<br>其中，$r$ 为磁盘转速；$b$ 为此次读写的字节数；$N$ 为每个磁道上的字节数。</p>
+<p><strong>后两个是磁盘固有时间消耗，无法优化</strong>。总消耗时间 $T_a$ 如下：<br>$$<br>T_a = T_s + \frac{1}{2r} + \frac{b}{rN}<br>$$<br><strong>消耗时间的优化主要从寻道时间入手</strong>。</p>
+<h5 id="先来先服务算法（FCFS）"><a href="#先来先服务算法（FCFS）" class="headerlink" title="先来先服务算法（FCFS）"></a>先来先服务算法（FCFS）</h5><p>根据进程请求访问磁盘的先后顺序进行调度。</p>
+<ul>
+<li>优点：公平；如果请求访问的磁道比较集中，性能还行。</li>
+<li>缺点：如果大量进程竞争使用磁盘且较分散，性能差，寻到时间长，</li>
+</ul>
+<h5 id="最短寻找时间优先（SSTF）"><a href="#最短寻找时间优先（SSTF）" class="headerlink" title="最短寻找时间优先（SSTF）"></a>最短寻找时间优先（SSTF）</h5><p>此算法优先处理与当前磁头最近的磁道。可保证每次的寻道时间最短，但不保证总寻道时间最短。</p>
+<ul>
+<li>优点：性能较好，平均寻道时间短。</li>
+<li>缺点：可能产生<strong>饥饿</strong>现象。</li>
+</ul>
+<h5 id="扫描算法（SCAN）"><a href="#扫描算法（SCAN）" class="headerlink" title="扫描算法（SCAN）"></a>扫描算法（SCAN）</h5><p>在 SSTF 算法的基础上规定：只有磁头移动到嘴最外侧磁道的时候才能往内移动，移动到最内侧磁道的时候才能往外移动，也叫电梯算法。</p>
+<ul>
+<li>优点：性能较好，平均寻道时间短，不会产生饥饿现象。</li>
+<li>缺点：①只有到最边上才会改变磁头方向；②各个位置磁道的响应频率不平均，靠边的响应频率更高一些。</li>
+</ul>
+<h5 id="LOOK-调度算法"><a href="#LOOK-调度算法" class="headerlink" title="LOOK 调度算法"></a>LOOK 调度算法</h5><p><strong>为解决 SCAN 缺点①。</strong></p>
+<p>在 SCAN 算法的基础上规定：如果在磁头移动的方向上已经没有别的请求，就可以立即改变磁头移动方向。</p>
+<ul>
+<li>优点：较 SCAN 算法寻道时间进一步缩短。</li>
+</ul>
+<h5 id="循环扫描算法（C-SCAN）"><a href="#循环扫描算法（C-SCAN）" class="headerlink" title="循环扫描算法（C-SCAN）"></a>循环扫描算法（C-SCAN）</h5><p><strong>为解决 SCAN 缺点②。</strong></p>
+<p>在 SCAN 算法的基础上规定：只有朝某个方向移动磁头时才处理磁道访问请求，返回时直接移动至起始端。</p>
+<ul>
+<li>优点：磁道响应平均。</li>
+<li>缺点：到最边上才改变磁头方向。</li>
+</ul>
+<h5 id="C-LOOK-调度算法"><a href="#C-LOOK-调度算法" class="headerlink" title="C-LOOK 调度算法"></a>C-LOOK 调度算法</h5><p>在 C-SCAN 算法的基础上规定：如果磁头移动的方向上已经没有磁道访问请求了，可以让磁头立即返回有磁道访问请求的位置。</p>
+<h5 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/01/28/文件管理（四）/磁盘调度算法小结.png">
+
+<h4 id="减少延迟时间的方法"><a href="#减少延迟时间的方法" class="headerlink" title="减少延迟时间的方法"></a>减少延迟时间的方法</h4><p>磁头读入一个扇区数据后需要一小段时间处理，如果逻辑上相邻的扇区在物理上也相邻，则读入几个连续的逻辑扇区，需要较长延迟时间。</p>
+<h5 id="交替编号"><a href="#交替编号" class="headerlink" title="交替编号"></a>交替编号</h5><p>让逻辑上相邻的扇区在物理上有一定的间隔，可以使读取连续的逻辑扇区所需要的延迟时间更小。</p>
+<img src="/blog/2021/01/28/文件管理（四）/交替编号.png" style="zoom:80%;">
+
+<h5 id="错位命名"><a href="#错位命名" class="headerlink" title="错位命名"></a>错位命名</h5><p>相邻盘面的扇区编号错位。</p>
+<img src="/blog/2021/01/28/文件管理（四）/错位命名.png" style="zoom:80%;">
+
+<h5 id="磁盘地址结构的设计"><a href="#磁盘地址结构的设计" class="headerlink" title="磁盘地址结构的设计"></a>磁盘地址结构的设计</h5><p>为什么磁盘的物理地址是 （柱面号，盘面号，扇区号）而不是（盘面号，柱面号，扇区号）？</p>
+<p>答：读取地址连续的磁盘块时，采用前者可以减少磁头移动消耗的时间。</p>
+<h4 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h4><img src="/blog/2021/01/28/文件管理（四）/减少延迟时间的方法.png">
+
+<h4 id="磁盘的管理"><a href="#磁盘的管理" class="headerlink" title="磁盘的管理"></a>磁盘的管理</h4><h5 id="磁盘初始化"><a href="#磁盘初始化" class="headerlink" title="磁盘初始化"></a>磁盘初始化</h5><ol>
+<li>低级初始化（物理格式化）：将磁盘的各个磁道划分为扇区。一个扇区分为 头、数据区域（如512B大小）、尾 三个部分。</li>
+<li>将磁盘分区，每个分区由若干<strong>柱面</strong>组成（C、D、E盘等）。</li>
+<li>逻辑格式化，创建文件系统。创建文件根目录，初始化存储空间管理所用的数据结构，如位示图、空闲分区表等。</li>
+</ol>
+<h5 id="引导块"><a href="#引导块" class="headerlink" title="引导块"></a>引导块</h5><p>计算机开机时需要初始化，通过执行<strong>初始化程序（自举程序）</strong>完成。</p>
+<img src="/blog/2021/01/28/文件管理（四）/自举程序.png" style="zoom:80%;">
+
+<p>完整的自举程序放在磁盘的启动块（引导块/启动分区）上，启动块位于磁盘的固定位置，拥有启动分区的磁盘称为启动磁盘或系统磁盘（C盘）。</p>
+<h5 id="坏块的管理"><a href="#坏块的管理" class="headerlink" title="坏块的管理"></a>坏块的管理</h5><p>简单磁盘可以在<strong>逻辑格式化</strong>时，对磁盘进行坏块检查，标明坏扇区，如：在 FAT 表上标明，坏块对操作系统不透明。</p>
+<p>复杂磁盘会有一个<strong>磁盘控制器</strong>（磁盘中的一个硬件）来维护坏块链表。同时会保留一些“备用扇区”，用于替换坏块。此种方式坏块对操作系统透明。</p>
+<h5 id="小结-3"><a href="#小结-3" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/01/28/文件管理（四）/磁盘的管理.png">
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/磁盘/" rel="tag"># 磁盘</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2021/01/28/文件管理（三）/" rel="next" title="文件管理（三）">
+                <i class="fa fa-chevron-left"></i> 文件管理（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2021/01/29/LeetCode1631-最小体力消耗路径/" rel="prev" title="LeetCode1631-最小体力消耗路径">
+                LeetCode1631-最小体力消耗路径 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xingyu_Zhao</p>
+              <p class="site-description motion-element" itemprop="description">Email: 543040659@qq.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#磁盘的结构"><span class="nav-number">2.</span> <span class="nav-text">磁盘的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#磁盘、磁道、扇区"><span class="nav-number">2.1.</span> <span class="nav-text">磁盘、磁道、扇区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何在磁盘中读-写数据"><span class="nav-number">2.2.</span> <span class="nav-text">如何在磁盘中读/写数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#盘面、柱面"><span class="nav-number">2.3.</span> <span class="nav-text">盘面、柱面</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#磁盘的物理地址"><span class="nav-number">2.4.</span> <span class="nav-text">磁盘的物理地址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结"><span class="nav-number">2.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#磁盘调度算法"><span class="nav-number">3.</span> <span class="nav-text">磁盘调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一次磁盘读写操作需要的时间"><span class="nav-number">3.1.</span> <span class="nav-text">一次磁盘读写操作需要的时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#先来先服务算法（FCFS）"><span class="nav-number">3.2.</span> <span class="nav-text">先来先服务算法（FCFS）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最短寻找时间优先（SSTF）"><span class="nav-number">3.3.</span> <span class="nav-text">最短寻找时间优先（SSTF）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#扫描算法（SCAN）"><span class="nav-number">3.4.</span> <span class="nav-text">扫描算法（SCAN）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#LOOK-调度算法"><span class="nav-number">3.5.</span> <span class="nav-text">LOOK 调度算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#循环扫描算法（C-SCAN）"><span class="nav-number">3.6.</span> <span class="nav-text">循环扫描算法（C-SCAN）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#C-LOOK-调度算法"><span class="nav-number">3.7.</span> <span class="nav-text">C-LOOK 调度算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结-1"><span class="nav-number">3.8.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#减少延迟时间的方法"><span class="nav-number">4.</span> <span class="nav-text">减少延迟时间的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#交替编号"><span class="nav-number">4.1.</span> <span class="nav-text">交替编号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#错位命名"><span class="nav-number">4.2.</span> <span class="nav-text">错位命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#磁盘地址结构的设计"><span class="nav-number">4.3.</span> <span class="nav-text">磁盘地址结构的设计</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结-2"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#磁盘的管理"><span class="nav-number">6.</span> <span class="nav-text">磁盘的管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#磁盘初始化"><span class="nav-number">6.1.</span> <span class="nav-text">磁盘初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#引导块"><span class="nav-number">6.2.</span> <span class="nav-text">引导块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#坏块的管理"><span class="nav-number">6.3.</span> <span class="nav-text">坏块的管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结-3"><span class="nav-number">6.4.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">116.2k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
