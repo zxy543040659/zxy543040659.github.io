@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Zxy&#39;s blog</title>
   
-  <subtitle>长风破浪会有时，直挂云帆济沧海</subtitle>
+  <subtitle>Hello, world!</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.xingyuzhao.ltd/"/>
-  <updated>2021-01-31T08:31:40.990Z</updated>
+  <updated>2021-02-02T13:57:15.583Z</updated>
   <id>http://www.xingyuzhao.ltd/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>I/O控制（二）</title>
+    <link href="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O%E6%8E%A7%E5%88%B6%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>http://www.xingyuzhao.ltd/blog/2021/02/02/I-O%E6%8E%A7%E5%88%B6%EF%BC%88%E4%BA%8C%EF%BC%89/</id>
+    <published>2021-02-02T02:30:41.000Z</published>
+    <updated>2021-02-02T13:57:15.583Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h4><ol><li>假脱机技术（SPOOLing技术）</li><li>设备的分配与回收</li><li>缓冲区管理</li></ol><a id="more"></a><h4 id="假脱机技术（SPOOLing技术）"><a href="#假脱机技术（SPOOLing技术）" class="headerlink" title="假脱机技术（SPOOLing技术）"></a>假脱机技术（SPOOLing技术）</h4><h5 id="什么是脱机技术"><a href="#什么是脱机技术" class="headerlink" title="什么是脱机技术"></a>什么是脱机技术</h5><p>脱离主机的控制进行输入/输出操作。</p><h5 id="假脱机技术"><a href="#假脱机技术" class="headerlink" title="假脱机技术"></a>假脱机技术</h5><p>又称SPOOLing技术，使用软件方式模拟脱机技术。组成如下：</p><img src="/blog/2021/02/02/I-O控制（二）/输入井和输出井.png" style="zoom:80%;"><p>输入进程模拟脱机输入时的外围控制机，在其控制下，输入缓冲区暂存从输入设备输入的数据，之后再转存到输入井中。</p><p>输出进程模拟脱机输出时的外围控制机，在其控制下，输出缓冲区暂存从输出井送来的数据，之后再传送到输出设备上。</p><p>输入缓冲区和输出缓冲区是在<strong>内存中</strong>的缓冲区。</p><h4 id="设备的分配与回收"><a href="#设备的分配与回收" class="headerlink" title="设备的分配与回收"></a>设备的分配与回收</h4><p>设备可分为三种：独占设备、共享设备、虚拟设备。</p><p>独占设备：一个时段只能分配给一个进程（如打印机）。</p><p>共享设备：可同时分配给多个进程使用，宏观同时使用设备，微观交替使用设备（如磁盘）。</p><p>虚拟设备：采用SPOOLing技术将独占设备改造成虚拟的共享设备，可同时分配给多个进程（共享打印机）。</p><h5 id="设备分配时应考虑因素"><a href="#设备分配时应考虑因素" class="headerlink" title="设备分配时应考虑因素"></a>设备分配时应考虑因素</h5><p>安全分配方式：为进程分配一个设备后将其阻塞，直到本次 I/O 完成后才将其唤醒。</p><ul><li>优点：不会死锁。</li><li>缺点：同一进程 CPU 与 I/O 串行工作。</li></ul><p>不安全分配方式：进程发出 I/O 请求后，系统为其分配 I/O 设备，进程可继续执行，之后还可以发出新的 I/O 请求。只有某个 I/O 请求得不到满足时才将其阻塞。</p><ul><li>优点：进程的计算任务和 I/O 任务可并行处理。</li><li>缺点：可能发生死锁。</li></ul><h5 id="静态-动态分配"><a href="#静态-动态分配" class="headerlink" title="静态/动态分配"></a>静态/动态分配</h5><p>静态分配：进程运行前为其分配所需资源，运行结束后归还资源。</p><p>动态分配：进程运行过程中动态申请设备资源。</p><h5 id="设备分配管理中的数据结构"><a href="#设备分配管理中的数据结构" class="headerlink" title="设备分配管理中的数据结构"></a>设备分配管理中的数据结构</h5><p>设备、控制器、通道之间的关系：</p><img src="/blog/2021/02/02/I-O控制（二）/设备、控制器、通道关系.png" style="zoom:80%;"><p>一个通道可以控制多个设备控制器，每个设备控制器可控制多个设备。</p><h6 id="设备控制表（DCT）"><a href="#设备控制表（DCT）" class="headerlink" title="设备控制表（DCT）"></a>设备控制表（DCT）</h6><p>系统为每个设备配置一张 DCT，用于记录设备情况。</p><img src="/blog/2021/02/02/I-O控制（二）/DCT.PNG" style="zoom:80%;"><h6 id="控制器控制表（COCT）"><a href="#控制器控制表（COCT）" class="headerlink" title="控制器控制表（COCT）"></a>控制器控制表（COCT）</h6><p>每个设备控制器都会对应一张 COCT，操作系统根据 COCT 的信息对控制器进行操作和管理。</p><img src="/blog/2021/02/02/I-O控制（二）/COCT.PNG" style="zoom:80%;"><h6 id="通道控制表（CHCT）"><a href="#通道控制表（CHCT）" class="headerlink" title="通道控制表（CHCT）"></a>通道控制表（CHCT）</h6><p>每个通道都会对应一张 CHCT，操作系统根据 CHCT 的信息对通道进行操作和管理。</p><img src="/blog/2021/02/02/I-O控制（二）/CHCT.PNG" style="zoom:80%;"><h6 id="系统设备表（SDT）"><a href="#系统设备表（SDT）" class="headerlink" title="系统设备表（SDT）"></a>系统设备表（SDT）</h6><p>记录了系统中全部设备的情况，每个设备对应一个表目。</p><img src="/blog/2021/02/02/I-O控制（二）/SDT.PNG" style="zoom:80%;"><h5 id="设备分配的步骤"><a href="#设备分配的步骤" class="headerlink" title="设备分配的步骤"></a>设备分配的步骤</h5><ol><li>根据进程请求的逻辑设备名查找 SDT (注：用户变成时提供的逻辑设备名就是“设备类型”)。</li><li>根据 SDT 找到用户进程<strong>指定类型且空闲的设备</strong>，将其分配给该进程。操作系统在逻辑设备表（LUT）中新增一个表项。</li><li>根据 DCT 找到 COCT，若控制器忙碌则将进程 PCB 挂到控制器等待队列中，不忙碌则将控制器分配给进程。</li><li>根据 COCT 找到 CHCT ，若通道忙碌则将进程 PCB 挂到通道等待队列中，不忙碌则将通道分配给进<br>程。</li></ol><img src="/blog/2021/02/02/I-O控制（二）/设备分配的步骤.PNG" style="zoom:80%;"><p><strong>逻辑设备表（LUT）</strong></p><p>建立逻辑设备名与物理设备名之间的映射关系。</p><img src="/blog/2021/02/02/I-O控制（二）/LUT.PNG"><h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/02/02/I-O控制（二）/设备的分配与回收小结.PNG"><h4 id="缓冲区管理"><a href="#缓冲区管理" class="headerlink" title="缓冲区管理"></a>缓冲区管理</h4><h5 id="缓冲区概念及作用"><a href="#缓冲区概念及作用" class="headerlink" title="缓冲区概念及作用"></a>缓冲区概念及作用</h5><p>缓冲区：一个存储区域，可以由专门的硬件组成，也可利用内存作为缓冲区，一般使用内存作为缓冲区。</p><p>作用：</p><ol><li>缓和 CPU 与 I/O 设备之间速度不匹配的矛盾。</li><li>减少对 CPU 的中断频率，放宽对 CPU 中断响应时间的限制。</li><li>解决数据粒度不匹配的问题（输出进程每次生成一块数据，而 I/O 设备每次只能输出一个字符）。</li><li>提高 CPU 与 I/O 设备之间的并行性。</li></ol><h5 id="单缓冲"><a href="#单缓冲" class="headerlink" title="单缓冲"></a>单缓冲</h5><p>操作系统在主存中为其分配一个缓冲区（一般为一个块）。</p><p><strong>缓冲区写满之后才能读，读空之后才能写</strong>。</p><p>处理一块数据平均耗时：$MAX(C,T) + M$。字符意思如下：</p><img src="/blog/2021/02/02/I-O控制（二）/单缓冲区.PNG" style="zoom:80%;"><h5 id="双缓冲"><a href="#双缓冲" class="headerlink" title="双缓冲"></a>双缓冲</h5><p>操作系统在主存中为其分配两个缓冲区。</p><img src="/blog/2021/02/02/I-O控制（二）/双缓冲区.PNG" style="zoom:80%;"><p>处理一块数据平均耗时：$MAX(T,C+M)$。</p><h5 id="使用单-双缓冲在通信时的区别"><a href="#使用单-双缓冲在通信时的区别" class="headerlink" title="使用单/双缓冲在通信时的区别"></a>使用单/双缓冲在通信时的区别</h5><p>单缓冲区同一时间只能单向传输，而双缓冲区同一时刻可以实现双向的数据传输。</p><h5 id="循环缓冲区"><a href="#循环缓冲区" class="headerlink" title="循环缓冲区"></a>循环缓冲区</h5><p>将多个大小相等的缓冲区链接成一个<strong>循环队列</strong>。</p><img src="/blog/2021/02/02/I-O控制（二）/循环缓冲区.PNG" style="zoom:80%;"><h5 id="缓冲池"><a href="#缓冲池" class="headerlink" title="缓冲池"></a>缓冲池</h5><p>缓冲池由系统中共用的缓冲区组成。这些缓冲区按使用状况可分为：空缓冲队列、装满输入数据的缓冲队列（输出队列）、装满输出数据的缓冲队列（输出队列）。</p><img src="/blog/2021/02/02/I-O控制（二）/缓冲池.PNG" style="zoom:80%;"><p>hin：用于收容输入数据的工作缓冲区。</p><p>sin：用于提取收入数据的工作缓冲区。</p><p>hout：用于收容输出数据的工作缓冲区。</p><p>sout：用于提取输出数据的工作缓冲区。</p><img src="/blog/2021/02/02/I-O控制（二）/队列.PNG" style="zoom:80%;"><ol><li>输入进程请求输入数据：</li></ol><img src="/blog/2021/02/02/I-O控制（二）/输入进程请求输入数据.PNG" style="zoom:80%;"><ol start="2"><li>计算进程想要取得一块输入数据：</li></ol><img src="/blog/2021/02/02/I-O控制（二）/计算进程想要取得一块输入数据.PNG" style="zoom:80%;"><ol start="3"><li>计算进程想要将准备好的数据冲入缓冲区：</li></ol><img src="/blog/2021/02/02/I-O控制（二）/计算进程想要将准备好的数据冲入缓冲区.PNG" style="zoom:80%;"><ol start="4"><li>输出进程请求输出数据：</li></ol><img src="/blog/2021/02/02/I-O控制（二）/输出进程请求输出数据.PNG" style="zoom:80%;"><h5 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/02/02/I-O控制（二）/缓冲区管理小结.PNG">]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;本次学习要点&quot;&gt;&lt;a href=&quot;#本次学习要点&quot; class=&quot;headerlink&quot; title=&quot;本次学习要点&quot;&gt;&lt;/a&gt;本次学习要点&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;假脱机技术（SPOOLing技术）&lt;/li&gt;
+&lt;li&gt;设备的分配与回收&lt;/li&gt;
+&lt;li&gt;缓冲区管理&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="操作系统" scheme="http://www.xingyuzhao.ltd/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>I/O控制（一）</title>
+    <link href="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O%E6%8E%A7%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://www.xingyuzhao.ltd/blog/2021/02/02/I-O%E6%8E%A7%E5%88%B6%EF%BC%88%E4%B8%80%EF%BC%89/</id>
+    <published>2021-02-02T02:30:34.000Z</published>
+    <updated>2021-02-02T09:54:08.653Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h4><ol><li>I/O设备的基本概念和分类</li><li>I/O控制器</li><li>I/O控制方式</li><li>I/O软件层次结构</li><li>I/O核心子系统</li></ol><a id="more"></a><h4 id="I-O设备的基本概念和分类"><a href="#I-O设备的基本概念和分类" class="headerlink" title="I/O设备的基本概念和分类"></a>I/O设备的基本概念和分类</h4><h5 id="什么是I-O设备？"><a href="#什么是I-O设备？" class="headerlink" title="什么是I/O设备？"></a>什么是I/O设备？</h5><p>I/O设备就是可以将数据输入到计算机，或从计算机接收数据的外部设备，属于计算机中的硬件部件。</p><ul><li><code>write</code> 操作：向外部设备写出数据。</li><li><code>read</code> 操作：从外部设备读入数据。</li></ul><h5 id="I-O设备分类"><a href="#I-O设备分类" class="headerlink" title="I/O设备分类"></a>I/O设备分类</h5><p><strong>按使用特性分类</strong>：</p><ol><li>人机交互类设备</li><li>存储设备</li><li>网络通信设备</li></ol><p><strong>按传输速率分类</strong>：</p><ol><li>低速设备</li><li>中速设备</li><li>高速设备</li></ol><p><strong>按信息交换的单位分类</strong>：</p><ol><li>块设备（传输快，可寻址）</li><li>字符设备（传输慢，不可寻址，常采用中断驱动方式）</li></ol><h4 id="I-O控制器"><a href="#I-O控制器" class="headerlink" title="I/O控制器"></a>I/O控制器</h4><p>I/O设备由<strong>机械设备</strong>和<strong>电子设备</strong>构成。</p><p><strong>机械部件</strong>：执行具体的 I/O 操作，如鼠标键盘等。</p><p><strong>电子部件</strong>：插入主板扩充槽的印刷电路板。</p><hr><p>电子部件（I/O控制器）</p><p>I/O 控制器是 CPU 和 I/O 设备机械部件之间的<strong>桥梁</strong>。CPU 可控制 I/O 控制器，再由 I/O 控制器来控制设备的机械部件。</p><hr><h5 id="I-O控制器的功能"><a href="#I-O控制器的功能" class="headerlink" title="I/O控制器的功能"></a>I/O控制器的功能</h5><ol><li>接受和识别 CPU 发出的命令（I/O 控制器中的<strong>控制寄存器</strong>存放命令和参数）。</li><li>向 CPU 报告设备的状态（I/O 控制器中的<strong>状态寄存器</strong>记录 I/O 设备的当前状态）。</li><li>数据交换（I/O 控制器中的 <strong>数据寄存器</strong>，作为 CPU 与设备数据交换的桥梁）。</li><li>地址识别（I/O 控制器通过 CPU 提供的地址来判断 CPU 读写哪个寄存器）。</li></ol><h5 id="I-O控制器的组成"><a href="#I-O控制器的组成" class="headerlink" title="I/O控制器的组成"></a>I/O控制器的组成</h5><img src="/blog/2021/02/02/I-O控制（一）/I-O控制器的组成.png" style="zoom: 67%;"><p>上述寄存器如果地址占用内存地址的一部分，称为<strong>内存映像 I/O</strong> ；如果采用 I/O 专用地址，称为<strong>寄存器独立编址</strong>。</p><p>两者区别如下：</p><img src="/blog/2021/02/02/I-O控制（一）/内存映像与寄存器独立编址.png" style="zoom: 67%;"><h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/02/02/I-O控制（一）/I-O控制器小结.png"><h4 id="I-O控制方式"><a href="#I-O控制方式" class="headerlink" title="I/O控制方式"></a>I/O控制方式</h4><h5 id="程序直接控制方式"><a href="#程序直接控制方式" class="headerlink" title="程序直接控制方式"></a>程序直接控制方式</h5><img src="/blog/2021/02/02/I-O控制（一）/程序直接控制方式.png" style="zoom: 67%;"><ol><li>CPU 干预的频率高，等待 I/O 的过程中一直轮询检查。</li><li>每次读写一个<strong>字</strong>。</li><li>数据流向：<ol><li>数据输入： I/O 设备 -&gt; CPU -&gt; 内存</li><li>数据输出： 内存 -&gt; CPU -&gt;  I/O 设备</li></ol></li><li>优点：实现简单。</li><li>缺点：CPU 和 I/O设备只能串行工作，CPU 长期处于<strong>忙等</strong>状态，利用率低。</li></ol><h5 id="中断驱动方式"><a href="#中断驱动方式" class="headerlink" title="中断驱动方式"></a>中断驱动方式</h5><img src="/blog/2021/02/02/I-O控制（一）/中断驱动方式.png"><ol><li><p>I/O 操作开始前、完成后需要 CPU 介入。</p></li><li><p>每次读写一个<strong>字</strong>。</p></li><li><p>数据流向：</p><ol><li>数据输入： I/O 设备 -&gt; CPU -&gt; 内存</li><li>数据输出： 内存 -&gt; CPU -&gt;  I/O 设备</li></ol></li><li><p>优点：CPU 和 I/O 设备可并行工作。</p></li><li><p>缺点：每个字传输时，都需要中断，频繁中断消耗较多的 CPU 时间。</p></li></ol><h5 id="DMA方式"><a href="#DMA方式" class="headerlink" title="DMA方式"></a>DMA方式</h5><p>DMA（Direct Memory Access，直接存储器存取），主要用于<strong>块设备</strong> I/O 控制，<strong>不需要经过 CPU</strong>。</p><img src="/blog/2021/02/02/I-O控制（一）/DMA方式.png" style="zoom:80%;"><p><strong>DMA控制器</strong></p><img src="/blog/2021/02/02/I-O控制（一）/DMA控制器.PNG" style="zoom:80%;"><p>DR（Data Register，数据寄存器）：暂存从设备到内存，或从内存到设备的数据，<strong>也是一个字一个字的存入</strong>。<br>MAR（Memory Address Register，内存地址寄存器）：在输入时，MAR 表示数据应放到内存中的什么位置；输出时 MAR 表示要输出的数据放在内存中的什么位置。<br>DC（Data Counter，数据计数器）：表示剩余要读/写的字节数。<br>CR（Command Register，命令/状态寄存器）：用于存放 CPU 发来的 I/O 命令，或设备的状态信息。</p><ol><li><p>仅在传送开始或结束时，才需要 CPU 干预。</p></li><li><p>每次读写<strong>一个或多个块（必须连续）</strong>。</p></li><li><p>数据流向：</p><ol><li>数据输入： I/O 设备  -&gt; 内存</li><li>数据输出： 内存 -&gt;  I/O 设备</li></ol></li><li><p>优点：数据传输以<strong>块</strong>为单位，且 CPU 接入频率进一步降低，进一步提高了 CPU 和 I/O 设备的并行性。</p></li><li><p>缺点：只能读写一个或多个连续的数据块。如果数据块离散，CPU 需发出多次 I/O 指令。</p></li></ol><h5 id="通道控制方式"><a href="#通道控制方式" class="headerlink" title="通道控制方式"></a>通道控制方式</h5><p>通道：一种硬件，可以理解为<strong>弱化版的 CPU</strong>，可以识别并执行一系列的通道指令，通道执行的指令很单一，与 CPU 共享内存。</p><img src="/blog/2021/02/02/I-O控制（一）/通道.PNG" style="zoom:80%;"><ol><li><p>CPU 干预频率极低，通道完成一组数据块的读写后才发出中断信号。</p></li><li><p>每次读写<strong>一组数据块</strong>。</p></li><li><p>数据流向：</p><ol><li>数据输入： I/O 设备  -&gt; 内存</li><li>数据输出： 内存 -&gt;  I/O 设备</li></ol></li><li><p>优点：CPU、通道、I/O 设备并行工作，资源利用率高。</p></li><li><p>缺点：实现复杂，，需要专门的通道硬件支持。</p></li></ol><h5 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/02/02/I-O控制（一）/I-O控制方式.PNG" style="zoom: 67%;"><h4 id="I-O软件层次结构"><a href="#I-O软件层次结构" class="headerlink" title="I/O软件层次结构"></a>I/O软件层次结构</h4><img src="/blog/2021/02/02/I-O控制（一）/I-O软件层次结构.PNG" style="zoom: 80%;"><h5 id="用户层软件"><a href="#用户层软件" class="headerlink" title="用户层软件"></a>用户层软件</h5><p>实现与用户交互的接口，用户可直接使用该层提供的，与 I/O 操作相关的库函数对设备进行操作。用户层软件将用户请求翻译为格式化的 I/O 请求，通过<strong>系统调用</strong>请求操作系统内核的服务。</p><h5 id="设备独立性软件"><a href="#设备独立性软件" class="headerlink" title="设备独立性软件"></a>设备独立性软件</h5><p>又称设备无关性软件，与设备的硬件特性无关的功能几乎都在这一层实现。</p><p>主要实现的功能：</p><ol><li>向上层提供统一的调用接口。</li><li>设备的保护。设备被看作是一种特殊的文件，不同用户的访问权限不同。</li><li>差错处理。</li><li>设备的分配与回收。</li><li>数据缓冲区管理。</li><li>建立逻辑设备名到物理设备名的映射关系，根据设备类型选择调用相应的驱动程序。</li></ol><p>设备独立性软件需要通过<strong>逻辑设备表（LUT， Logical Unit Table）</strong>来确定逻辑设备对应的物理设备，并找到该设备对应的设备驱动程序。有两种方式：①整个系统只设置一张 LUT，只适合单用户操作系统；②为每个用户设置一张 LUT。</p><p><strong>不同设备需要不同设备驱动程序的原因</strong>？</p><p>答：不同设备有不同的硬件特性，具体细节只有厂家知道。驱动程序一般会以一个独立进程的方式存在。</p><h5 id="中断处理程序"><a href="#中断处理程序" class="headerlink" title="中断处理程序"></a>中断处理程序</h5><img src="/blog/2021/02/02/I-O控制（一）/中断处理程序.png" style="zoom:80%;"><h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5><p>中断处理程序和设备驱动程序会和硬件打交道。</p><h4 id="I-O核心子系统"><a href="#I-O核心子系统" class="headerlink" title="I/O核心子系统"></a>I/O核心子系统</h4><p> I/O 核心子系统要实现的功能就是中间三层要实现的功能，主要有： I/O 调度、设备保护、设备分配与回收、缓冲区管理，还有假脱机技术（SPOOLing技术），<strong>其中假脱机技术是在用户层软件实现的</strong>。</p><h5 id="I-O调度"><a href="#I-O调度" class="headerlink" title="I/O调度"></a>I/O调度</h5><p>用某种算法确定一个好的顺序来处理各个 I/O 请求。</p><p>如磁盘调度：先来先服务算法、最短寻道优先算法等确定 I/O 请求的顺序。</p><p>同理，打印机等设备也可以用先来先服务、优先级算法等确定 I/O 请求的顺序。</p><h5 id="设备保护"><a href="#设备保护" class="headerlink" title="设备保护"></a>设备保护</h5><p>不同用户对各个文件拥有不同的访问权限。可参考<strong>文件保护</strong>小节。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;本次学习要点&quot;&gt;&lt;a href=&quot;#本次学习要点&quot; class=&quot;headerlink&quot; title=&quot;本次学习要点&quot;&gt;&lt;/a&gt;本次学习要点&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;I/O设备的基本概念和分类&lt;/li&gt;
+&lt;li&gt;I/O控制器&lt;/li&gt;
+&lt;li&gt;I/O控制方式&lt;/li&gt;
+&lt;li&gt;I/O软件层次结构&lt;/li&gt;
+&lt;li&gt;I/O核心子系统&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="操作系统" scheme="http://www.xingyuzhao.ltd/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>LeetCode839-相似字符串组</title>
@@ -66,9 +118,9 @@
       <category term="LeetCode" scheme="http://www.xingyuzhao.ltd/categories/LeetCode/"/>
     
     
-      <category term="BFS" scheme="http://www.xingyuzhao.ltd/tags/BFS/"/>
-    
       <category term="图论" scheme="http://www.xingyuzhao.ltd/tags/%E5%9B%BE%E8%AE%BA/"/>
+    
+      <category term="BFS" scheme="http://www.xingyuzhao.ltd/tags/BFS/"/>
     
       <category term="二分法" scheme="http://www.xingyuzhao.ltd/tags/%E4%BA%8C%E5%88%86%E6%B3%95/"/>
     
@@ -95,9 +147,9 @@
       <category term="LeetCode" scheme="http://www.xingyuzhao.ltd/categories/LeetCode/"/>
     
     
-      <category term="BFS" scheme="http://www.xingyuzhao.ltd/tags/BFS/"/>
-    
       <category term="图论" scheme="http://www.xingyuzhao.ltd/tags/%E5%9B%BE%E8%AE%BA/"/>
+    
+      <category term="BFS" scheme="http://www.xingyuzhao.ltd/tags/BFS/"/>
     
       <category term="二分法" scheme="http://www.xingyuzhao.ltd/tags/%E4%BA%8C%E5%88%86%E6%B3%95/"/>
     
@@ -514,63 +566,6 @@
     
     
       <category term="并查集" scheme="http://www.xingyuzhao.ltd/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode228-汇总区间</title>
-    <link href="http://www.xingyuzhao.ltd/blog/2021/01/10/LeetCode228-%E6%B1%87%E6%80%BB%E5%8C%BA%E9%97%B4/"/>
-    <id>http://www.xingyuzhao.ltd/blog/2021/01/10/LeetCode228-%E6%B1%87%E6%80%BB%E5%8C%BA%E9%97%B4/</id>
-    <published>2021-01-10T09:05:25.000Z</published>
-    <updated>2021-01-10T09:11:46.000Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个无重复元素的有序整数数组 <code>nums</code> 。</p><p>返回 <strong>恰好覆盖数组中所有数字</strong> 的 <strong>最小有序</strong> 区间范围列表。也就是说，<code>nums</code> 的每个元素都恰好被某个区间范围所覆盖，并且不存在属于某个范围但不属于 <code>nums</code> 的数字 <code>x</code> 。</p><p>列表中的每个区间范围 <code>[a,b]</code> 应该按如下格式输出：</p><ul><li><code>&quot;a-&gt;b&quot;</code> ，如果 <code>a != b</code></li><li><code>&quot;a&quot;</code> ，如果 <code>a == b</code></li></ul><a id="more"></a><img src="/blog/2021/01/10/LeetCode228-汇总区间/228.png"><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>如果序列满足 <code>nums[i] == nums[i - 1]</code> 代表它们是同一个区间。</p><p>需要记录区间的起始位置的终止位置，使用双指针，<code>i</code> 代表当前区间的起始位置， <code>j</code> 代表当前区间的终止位置。</p><p>遍历结束时，还需要<strong>把最后一个区间加入答案中</strong>，如果最后一个区间的 <code>j - i == 1</code>，说明最后一个区间只有一个数，否则，需要再加入一个新的区间。</p><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">summaryRanges</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.empty()) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ret;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(j &lt; nums.size())&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[j] == nums[j - <span class="number">1</span>] + <span class="number">1</span>)&#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(j == i + <span class="number">1</span>)&#123;</span><br><span class="line">                    ret.push_back(to_string(nums[i]));</span><br><span class="line">                    j++;</span><br><span class="line">                    i++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    ret.push_back(to_string(nums[i]) + <span class="string">"-&gt;"</span> + to_string(nums[j - <span class="number">1</span>]));</span><br><span class="line">                    i = j;</span><br><span class="line">                    j++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i == j - <span class="number">1</span>) ret.push_back(to_string(nums[i]));</span><br><span class="line">        <span class="keyword">if</span>(i != j - <span class="number">1</span>) ret.push_back(to_string(nums[i]) + <span class="string">"-&gt;"</span> + to_string(nums[j - <span class="number">1</span>]));</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h4&gt;&lt;p&gt;给定一个无重复元素的有序整数数组 &lt;code&gt;nums&lt;/code&gt; 。&lt;/p&gt;
-&lt;p&gt;返回 &lt;strong&gt;恰好覆盖数组中所有数字&lt;/strong&gt; 的 &lt;strong&gt;最小有序&lt;/strong&gt; 区间范围列表。也就是说，&lt;code&gt;nums&lt;/code&gt; 的每个元素都恰好被某个区间范围所覆盖，并且不存在属于某个范围但不属于 &lt;code&gt;nums&lt;/code&gt; 的数字 &lt;code&gt;x&lt;/code&gt; 。&lt;/p&gt;
-&lt;p&gt;列表中的每个区间范围 &lt;code&gt;[a,b]&lt;/code&gt; 应该按如下格式输出：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;&amp;quot;a-&amp;gt;b&amp;quot;&lt;/code&gt; ，如果 &lt;code&gt;a != b&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;&amp;quot;a&amp;quot;&lt;/code&gt; ，如果 &lt;code&gt;a == b&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="LeetCode" scheme="http://www.xingyuzhao.ltd/categories/LeetCode/"/>
-    
-    
-      <category term="双指针" scheme="http://www.xingyuzhao.ltd/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode189-旋转数组</title>
-    <link href="http://www.xingyuzhao.ltd/blog/2021/01/08/LeetCode189-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/"/>
-    <id>http://www.xingyuzhao.ltd/blog/2021/01/08/LeetCode189-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84/</id>
-    <published>2021-01-08T15:12:16.000Z</published>
-    <updated>2021-01-10T09:28:02.000Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给定一个数组，将数组中的元素向右移动 <code>k</code> 个位置，其中 <code>k</code> 是非负数。</p><p><strong>进阶</strong>：</p><ul><li>尽可能想出更多的解决方案，<del>至少有三种不同的方法可以解决这个问题</del>。</li><li>你可以使用空间复杂度为 O(1) 的 <strong>原地</strong> 算法解决这个问题吗？</li></ul><a id="more"></a><img src="/blog/2021/01/08/LeetCode189-旋转数组/189.png"><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>根据 <code>k</code> 值，将 <code>nums</code> 数组分为前后两个部分。将后 <code>k</code> 个值截取出来得到的数组，拼接到剩余数组之前即可。空间复杂度为 <code>O(n)</code>。</p><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 99% 9%</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        k %= nums.size(); <span class="comment">// 如果k大于nums的长度，取余之后再进行处理</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">buf1</span><span class="params">(nums.begin() + nums.size() - k, nums.end())</span></span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">buf2</span><span class="params">(nums.begin(), nums.begin() + nums.size() - k)</span></span>;</span><br><span class="line">        buf1.insert(buf1.end(), buf2.begin(), buf2.end());</span><br><span class="line">        nums = buf1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h4 id="更进一步"><a href="#更进一步" class="headerlink" title="更进一步"></a>更进一步</h4><p>上述的空间复杂度为 <code>O(n)</code>，可以进一步压缩空间，使空间复杂度降为 <code>O(1)</code>。</p><h5 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h5><p>具体思路如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">k = 3;</span><br><span class="line">----&gt;--&gt; 移动后得到 --&gt;----&gt;</span><br><span class="line">可以对原始序列进行如下操作：</span><br><span class="line">----&gt;--&gt; 反转后 &lt;--&lt;----</span><br><span class="line">其中&lt;-- 反转后 --&gt;&lt;----</span><br><span class="line">其中&lt;---- 反转后 --&gt;----&gt;</span><br></pre></td></tr></table></figure><h5 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 库函数 50.50% 84.77%</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        k %= nums.size();</span><br><span class="line">        reverse(nums.begin(), nums.end());</span><br><span class="line">        reverse(nums.begin(), nums.begin() + k);</span><br><span class="line">        reverse(nums.begin() + k, nums.end());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 非库函数 50.50% 74.88%</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        k %= nums.size();</span><br><span class="line">        reverse(nums, <span class="number">0</span>, nums.size() - <span class="number">1</span>);</span><br><span class="line">        reverse(nums, <span class="number">0</span>, k - <span class="number">1</span>);</span><br><span class="line">        reverse(nums, k, nums.size() - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(start &lt; end)&#123;</span><br><span class="line">            swap(nums[start], nums[end]);</span><br><span class="line">            start++;</span><br><span class="line">            end--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>虽然速度慢了点（实际上为 <code>O(2n) = O(n)</code> ），不过空间使用较之前还是低了很多。</p><h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><p>官方题解及其评论区：<a href="https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-by-leetcode-solution-nipk/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/rotate-array/solution/xuan-zhuan-shu-zu-by-leetcode-solution-nipk/</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h4&gt;&lt;p&gt;给定一个数组，将数组中的元素向右移动 &lt;code&gt;k&lt;/code&gt; 个位置，其中 &lt;code&gt;k&lt;/code&gt; 是非负数。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;进阶&lt;/strong&gt;：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;尽可能想出更多的解决方案，&lt;del&gt;至少有三种不同的方法可以解决这个问题&lt;/del&gt;。&lt;/li&gt;
-&lt;li&gt;你可以使用空间复杂度为 O(1) 的 &lt;strong&gt;原地&lt;/strong&gt; 算法解决这个问题吗？&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="LeetCode" scheme="http://www.xingyuzhao.ltd/categories/LeetCode/"/>
-    
-    
-      <category term="数组" scheme="http://www.xingyuzhao.ltd/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   

@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本次学习要点 I/O设备的基本概念和分类 I/O控制器 I/O控制方式 I/O软件层次结构 I/O核心子系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="I&#x2F;O控制（一）">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="本次学习要点 I/O设备的基本概念和分类 I/O控制器 I/O控制方式 I/O软件层次结构 I/O核心子系统">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/I-O控制器的组成.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/内存映像与寄存器独立编址.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/I-O控制器小结.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/程序直接控制方式.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/中断驱动方式.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/DMA方式.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/DMA控制器.PNG">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/通道.PNG">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/I-O控制方式.PNG">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/I-O软件层次结构.PNG">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/中断处理程序.png">
+<meta property="og:updated_time" content="2021-02-02T09:54:08.653Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="I&#x2F;O控制（一）">
+<meta name="twitter:description" content="本次学习要点 I/O设备的基本概念和分类 I/O控制器 I/O控制方式 I/O软件层次结构 I/O核心子系统">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/I-O控制器的组成.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/">
+
+
+
+
+
+  <title>I/O控制（一） | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello, world!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2021/02/02/I-O控制（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingyu_Zhao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">I/O控制（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-02T10:30:34+08:00">
+                2021-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2021/02/02/I-O控制（一）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2021/02/02/I-O控制（一）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h4><ol>
+<li>I/O设备的基本概念和分类</li>
+<li>I/O控制器</li>
+<li>I/O控制方式</li>
+<li>I/O软件层次结构</li>
+<li>I/O核心子系统</li>
+</ol>
+<a id="more"></a>
+
+<h4 id="I-O设备的基本概念和分类"><a href="#I-O设备的基本概念和分类" class="headerlink" title="I/O设备的基本概念和分类"></a>I/O设备的基本概念和分类</h4><h5 id="什么是I-O设备？"><a href="#什么是I-O设备？" class="headerlink" title="什么是I/O设备？"></a>什么是I/O设备？</h5><p>I/O设备就是可以将数据输入到计算机，或从计算机接收数据的外部设备，属于计算机中的硬件部件。</p>
+<ul>
+<li><code>write</code> 操作：向外部设备写出数据。</li>
+<li><code>read</code> 操作：从外部设备读入数据。</li>
+</ul>
+<h5 id="I-O设备分类"><a href="#I-O设备分类" class="headerlink" title="I/O设备分类"></a>I/O设备分类</h5><p><strong>按使用特性分类</strong>：</p>
+<ol>
+<li>人机交互类设备</li>
+<li>存储设备</li>
+<li>网络通信设备</li>
+</ol>
+<p><strong>按传输速率分类</strong>：</p>
+<ol>
+<li>低速设备</li>
+<li>中速设备</li>
+<li>高速设备</li>
+</ol>
+<p><strong>按信息交换的单位分类</strong>：</p>
+<ol>
+<li>块设备（传输快，可寻址）</li>
+<li>字符设备（传输慢，不可寻址，常采用中断驱动方式）</li>
+</ol>
+<h4 id="I-O控制器"><a href="#I-O控制器" class="headerlink" title="I/O控制器"></a>I/O控制器</h4><p>I/O设备由<strong>机械设备</strong>和<strong>电子设备</strong>构成。</p>
+<p><strong>机械部件</strong>：执行具体的 I/O 操作，如鼠标键盘等。</p>
+<p><strong>电子部件</strong>：插入主板扩充槽的印刷电路板。</p>
+<hr>
+<p>电子部件（I/O控制器）</p>
+<p>I/O 控制器是 CPU 和 I/O 设备机械部件之间的<strong>桥梁</strong>。CPU 可控制 I/O 控制器，再由 I/O 控制器来控制设备的机械部件。</p>
+<hr>
+<h5 id="I-O控制器的功能"><a href="#I-O控制器的功能" class="headerlink" title="I/O控制器的功能"></a>I/O控制器的功能</h5><ol>
+<li>接受和识别 CPU 发出的命令（I/O 控制器中的<strong>控制寄存器</strong>存放命令和参数）。</li>
+<li>向 CPU 报告设备的状态（I/O 控制器中的<strong>状态寄存器</strong>记录 I/O 设备的当前状态）。</li>
+<li>数据交换（I/O 控制器中的 <strong>数据寄存器</strong>，作为 CPU 与设备数据交换的桥梁）。</li>
+<li>地址识别（I/O 控制器通过 CPU 提供的地址来判断 CPU 读写哪个寄存器）。</li>
+</ol>
+<h5 id="I-O控制器的组成"><a href="#I-O控制器的组成" class="headerlink" title="I/O控制器的组成"></a>I/O控制器的组成</h5><img src="/blog/2021/02/02/I-O控制（一）/I-O控制器的组成.png" style="zoom: 67%;">
+
+<p>上述寄存器如果地址占用内存地址的一部分，称为<strong>内存映像 I/O</strong> ；如果采用 I/O 专用地址，称为<strong>寄存器独立编址</strong>。</p>
+<p>两者区别如下：</p>
+<img src="/blog/2021/02/02/I-O控制（一）/内存映像与寄存器独立编址.png" style="zoom: 67%;">
+
+<h5 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/02/02/I-O控制（一）/I-O控制器小结.png">
+
+<h4 id="I-O控制方式"><a href="#I-O控制方式" class="headerlink" title="I/O控制方式"></a>I/O控制方式</h4><h5 id="程序直接控制方式"><a href="#程序直接控制方式" class="headerlink" title="程序直接控制方式"></a>程序直接控制方式</h5><img src="/blog/2021/02/02/I-O控制（一）/程序直接控制方式.png" style="zoom: 67%;">
+
+<ol>
+<li>CPU 干预的频率高，等待 I/O 的过程中一直轮询检查。</li>
+<li>每次读写一个<strong>字</strong>。</li>
+<li>数据流向：<ol>
+<li>数据输入： I/O 设备 -&gt; CPU -&gt; 内存</li>
+<li>数据输出： 内存 -&gt; CPU -&gt;  I/O 设备</li>
+</ol>
+</li>
+<li>优点：实现简单。</li>
+<li>缺点：CPU 和 I/O设备只能串行工作，CPU 长期处于<strong>忙等</strong>状态，利用率低。</li>
+</ol>
+<h5 id="中断驱动方式"><a href="#中断驱动方式" class="headerlink" title="中断驱动方式"></a>中断驱动方式</h5><img src="/blog/2021/02/02/I-O控制（一）/中断驱动方式.png">
+
+<ol>
+<li><p>I/O 操作开始前、完成后需要 CPU 介入。</p>
+</li>
+<li><p>每次读写一个<strong>字</strong>。</p>
+</li>
+<li><p>数据流向：</p>
+<ol>
+<li>数据输入： I/O 设备 -&gt; CPU -&gt; 内存</li>
+<li>数据输出： 内存 -&gt; CPU -&gt;  I/O 设备</li>
+</ol>
+</li>
+<li><p>优点：CPU 和 I/O 设备可并行工作。</p>
+</li>
+<li><p>缺点：每个字传输时，都需要中断，频繁中断消耗较多的 CPU 时间。</p>
+</li>
+</ol>
+<h5 id="DMA方式"><a href="#DMA方式" class="headerlink" title="DMA方式"></a>DMA方式</h5><p>DMA（Direct Memory Access，直接存储器存取），主要用于<strong>块设备</strong> I/O 控制，<strong>不需要经过 CPU</strong>。</p>
+<img src="/blog/2021/02/02/I-O控制（一）/DMA方式.png" style="zoom:80%;">
+
+<p><strong>DMA控制器</strong></p>
+<img src="/blog/2021/02/02/I-O控制（一）/DMA控制器.PNG" style="zoom:80%;">
+
+<p>DR（Data Register，数据寄存器）：暂存从设备到内存，或从内存到设备的数据，<strong>也是一个字一个字的存入</strong>。<br>MAR（Memory Address Register，内存地址寄存器）：在输入时，MAR 表示数据应放到内存中的什么位置；输出时 MAR 表示要输出的数据放在内存中的什么位置。<br>DC（Data Counter，数据计数器）：表示剩余要读/写的字节数。<br>CR（Command Register，命令/状态寄存器）：用于存放 CPU 发来的 I/O 命令，或设备的状态信息。</p>
+<ol>
+<li><p>仅在传送开始或结束时，才需要 CPU 干预。</p>
+</li>
+<li><p>每次读写<strong>一个或多个块（必须连续）</strong>。</p>
+</li>
+<li><p>数据流向：</p>
+<ol>
+<li>数据输入： I/O 设备  -&gt; 内存</li>
+<li>数据输出： 内存 -&gt;  I/O 设备</li>
+</ol>
+</li>
+<li><p>优点：数据传输以<strong>块</strong>为单位，且 CPU 接入频率进一步降低，进一步提高了 CPU 和 I/O 设备的并行性。</p>
+</li>
+<li><p>缺点：只能读写一个或多个连续的数据块。如果数据块离散，CPU 需发出多次 I/O 指令。</p>
+</li>
+</ol>
+<h5 id="通道控制方式"><a href="#通道控制方式" class="headerlink" title="通道控制方式"></a>通道控制方式</h5><p>通道：一种硬件，可以理解为<strong>弱化版的 CPU</strong>，可以识别并执行一系列的通道指令，通道执行的指令很单一，与 CPU 共享内存。</p>
+<img src="/blog/2021/02/02/I-O控制（一）/通道.PNG" style="zoom:80%;">
+
+<ol>
+<li><p>CPU 干预频率极低，通道完成一组数据块的读写后才发出中断信号。</p>
+</li>
+<li><p>每次读写<strong>一组数据块</strong>。</p>
+</li>
+<li><p>数据流向：</p>
+<ol>
+<li>数据输入： I/O 设备  -&gt; 内存</li>
+<li>数据输出： 内存 -&gt;  I/O 设备</li>
+</ol>
+</li>
+<li><p>优点：CPU、通道、I/O 设备并行工作，资源利用率高。</p>
+</li>
+<li><p>缺点：实现复杂，，需要专门的通道硬件支持。</p>
+</li>
+</ol>
+<h5 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h5><img src="/blog/2021/02/02/I-O控制（一）/I-O控制方式.PNG" style="zoom: 67%;">
+
+<h4 id="I-O软件层次结构"><a href="#I-O软件层次结构" class="headerlink" title="I/O软件层次结构"></a>I/O软件层次结构</h4><img src="/blog/2021/02/02/I-O控制（一）/I-O软件层次结构.PNG" style="zoom: 80%;">
+
+<h5 id="用户层软件"><a href="#用户层软件" class="headerlink" title="用户层软件"></a>用户层软件</h5><p>实现与用户交互的接口，用户可直接使用该层提供的，与 I/O 操作相关的库函数对设备进行操作。用户层软件将用户请求翻译为格式化的 I/O 请求，通过<strong>系统调用</strong>请求操作系统内核的服务。</p>
+<h5 id="设备独立性软件"><a href="#设备独立性软件" class="headerlink" title="设备独立性软件"></a>设备独立性软件</h5><p>又称设备无关性软件，与设备的硬件特性无关的功能几乎都在这一层实现。</p>
+<p>主要实现的功能：</p>
+<ol>
+<li>向上层提供统一的调用接口。</li>
+<li>设备的保护。设备被看作是一种特殊的文件，不同用户的访问权限不同。</li>
+<li>差错处理。</li>
+<li>设备的分配与回收。</li>
+<li>数据缓冲区管理。</li>
+<li>建立逻辑设备名到物理设备名的映射关系，根据设备类型选择调用相应的驱动程序。</li>
+</ol>
+<p>设备独立性软件需要通过<strong>逻辑设备表（LUT， Logical Unit Table）</strong>来确定逻辑设备对应的物理设备，并找到该设备对应的设备驱动程序。有两种方式：①整个系统只设置一张 LUT，只适合单用户操作系统；②为每个用户设置一张 LUT。</p>
+<p><strong>不同设备需要不同设备驱动程序的原因</strong>？</p>
+<p>答：不同设备有不同的硬件特性，具体细节只有厂家知道。驱动程序一般会以一个独立进程的方式存在。</p>
+<h5 id="中断处理程序"><a href="#中断处理程序" class="headerlink" title="中断处理程序"></a>中断处理程序</h5><img src="/blog/2021/02/02/I-O控制（一）/中断处理程序.png" style="zoom:80%;">
+
+<h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5><p>中断处理程序和设备驱动程序会和硬件打交道。</p>
+<h4 id="I-O核心子系统"><a href="#I-O核心子系统" class="headerlink" title="I/O核心子系统"></a>I/O核心子系统</h4><p> I/O 核心子系统要实现的功能就是中间三层要实现的功能，主要有： I/O 调度、设备保护、设备分配与回收、缓冲区管理，还有假脱机技术（SPOOLing技术），<strong>其中假脱机技术是在用户层软件实现的</strong>。</p>
+<h5 id="I-O调度"><a href="#I-O调度" class="headerlink" title="I/O调度"></a>I/O调度</h5><p>用某种算法确定一个好的顺序来处理各个 I/O 请求。</p>
+<p>如磁盘调度：先来先服务算法、最短寻道优先算法等确定 I/O 请求的顺序。</p>
+<p>同理，打印机等设备也可以用先来先服务、优先级算法等确定 I/O 请求的顺序。</p>
+<h5 id="设备保护"><a href="#设备保护" class="headerlink" title="设备保护"></a>设备保护</h5><p>不同用户对各个文件拥有不同的访问权限。可参考<strong>文件保护</strong>小节。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2021/01/31/LeetCode839-相似字符串组/" rel="next" title="LeetCode839-相似字符串组">
+                <i class="fa fa-chevron-left"></i> LeetCode839-相似字符串组
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2021/02/02/I-O控制（二）/" rel="prev" title="I/O控制（二）">
+                I/O控制（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Xingyu_Zhao</p>
+              <p class="site-description motion-element" itemprop="description">Email: 543040659@qq.com</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">113</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#I-O设备的基本概念和分类"><span class="nav-number">2.</span> <span class="nav-text">I/O设备的基本概念和分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是I-O设备？"><span class="nav-number">2.1.</span> <span class="nav-text">什么是I/O设备？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I-O设备分类"><span class="nav-number">2.2.</span> <span class="nav-text">I/O设备分类</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#I-O控制器"><span class="nav-number">3.</span> <span class="nav-text">I/O控制器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#I-O控制器的功能"><span class="nav-number">3.1.</span> <span class="nav-text">I/O控制器的功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#I-O控制器的组成"><span class="nav-number">3.2.</span> <span class="nav-text">I/O控制器的组成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结"><span class="nav-number">3.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#I-O控制方式"><span class="nav-number">4.</span> <span class="nav-text">I/O控制方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#程序直接控制方式"><span class="nav-number">4.1.</span> <span class="nav-text">程序直接控制方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#中断驱动方式"><span class="nav-number">4.2.</span> <span class="nav-text">中断驱动方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DMA方式"><span class="nav-number">4.3.</span> <span class="nav-text">DMA方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通道控制方式"><span class="nav-number">4.4.</span> <span class="nav-text">通道控制方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小结-1"><span class="nav-number">4.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#I-O软件层次结构"><span class="nav-number">5.</span> <span class="nav-text">I/O软件层次结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#用户层软件"><span class="nav-number">5.1.</span> <span class="nav-text">用户层软件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设备独立性软件"><span class="nav-number">5.2.</span> <span class="nav-text">设备独立性软件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#中断处理程序"><span class="nav-number">5.3.</span> <span class="nav-text">中断处理程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他"><span class="nav-number">5.4.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#I-O核心子系统"><span class="nav-number">6.</span> <span class="nav-text">I/O核心子系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#I-O调度"><span class="nav-number">6.1.</span> <span class="nav-text">I/O调度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设备保护"><span class="nav-number">6.2.</span> <span class="nav-text">设备保护</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">119.3k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
