@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Class,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本次学习要点 基本概念 输入和输出运算符 算术和关系运算符 赋值运算符 下标运算符 递增和递减运算符 成员访问运算符 函数调用运算符 重载、类型转换与运算符">
+<meta name="keywords" content="Class">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++操作重载与类型转换">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="本次学习要点 基本概念 输入和输出运算符 算术和关系运算符 赋值运算符 下标运算符 递增和递减运算符 成员访问运算符 函数调用运算符 重载、类型转换与运算符">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/可重载的运算符.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/不应该被重载的运算符.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/输入输出运算符.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/相等运算符.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/关系运算符.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/下标运算符.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/标准库函数对象.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/function.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/类型转换运算符note.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/转换为bool.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/二义性类型转换note.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/函数匹配与重载运算符.png">
+<meta property="og:updated_time" content="2021-02-06T14:17:18.088Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++操作重载与类型转换">
+<meta name="twitter:description" content="本次学习要点 基本概念 输入和输出运算符 算术和关系运算符 赋值运算符 下标运算符 递增和递减运算符 成员访问运算符 函数调用运算符 重载、类型转换与运算符">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/可重载的运算符.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/">
+
+
+
+
+
+  <title>C++操作重载与类型转换 | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我见青山多妩媚，料青山见我应如是。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2021/02/04/C-操作重载与类型转换/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zxy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++操作重载与类型转换</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-04T15:47:06+08:00">
+                2021-02-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2021/02/04/C-操作重载与类型转换/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2021/02/04/C-操作重载与类型转换/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h4><ol>
+<li>基本概念</li>
+<li>输入和输出运算符</li>
+<li>算术和关系运算符</li>
+<li>赋值运算符</li>
+<li>下标运算符</li>
+<li>递增和递减运算符</li>
+<li>成员访问运算符</li>
+<li>函数调用运算符</li>
+<li>重载、类型转换与运算符</li>
+</ol>
+<a id="more"></a>
+
+<h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>对于一个运算符函数来说，它或者是类的成员，或者至少含有一个类类型的参数。</p>
+<p>当一个重载的运算符是成员函数时，<code>this</code> 绑定到左侧运算对象。成员运算符函数的参数数量比运算对象的数量少一个。</p>
+<p><strong>可以被重载的运算符</strong></p>
+<img src="/blog/2021/02/04/C-操作重载与类型转换/可重载的运算符.png">
+
+<h5 id="直接调用一个重载的运算符函数"><a href="#直接调用一个重载的运算符函数" class="headerlink" title="直接调用一个重载的运算符函数"></a>直接调用一个重载的运算符函数</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一个非成员运算符函数的等价调用</span></span><br><span class="line">data1 + data2;</span><br><span class="line"><span class="keyword">operator</span>+(data1, data2);</span><br><span class="line"><span class="comment">// 成员运算符函数</span></span><br><span class="line">data1 += data2;</span><br><span class="line">data1.<span class="keyword">operator</span>+=(data2);</span><br></pre></td></tr></table></figure>
+
+<h5 id="某些运算符不应被重载"><a href="#某些运算符不应被重载" class="headerlink" title="某些运算符不应被重载"></a>某些运算符不应被重载</h5><img src="/blog/2021/02/04/C-操作重载与类型转换/不应该被重载的运算符.png">
+
+<h5 id="选择作为成员或者非成员"><a href="#选择作为成员或者非成员" class="headerlink" title="选择作为成员或者非成员"></a>选择作为成员或者非成员</h5><ul>
+<li>赋值（=）、下标（[ ]）、调用（( )）、和成员访问箭头（-&gt;）运算符必须为成员。</li>
+<li>复合赋值运算符一般为成员。</li>
+<li>递增、递减、解引用通常为成员。</li>
+<li>对称性运算符通常为非成员函数，如算术、相等性、关系和位运算符等。</li>
+</ul>
+<h4 id="输入和输出运算符"><a href="#输入和输出运算符" class="headerlink" title="输入和输出运算符"></a>输入和输出运算符</h4><h5 id="重载输出运算符-lt-lt"><a href="#重载输出运算符-lt-lt" class="headerlink" title="重载输出运算符&lt;&lt;"></a>重载输出运算符&lt;&lt;</h5><p>第一个形参是一个非常量 <code>ostream</code> 对象的引用；第二个形参是一个常量的引用，该常量是我们想要打印类类型。为了和其他输出运算符保持一致，<code>operator&lt;&lt;</code> 一般要返回它的 <code>ostream</code> 形参。 </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ostream &amp;<span class="keyword">operator</span>&lt;&lt;(ostream &amp;os, Sales_data &amp;item)&#123;</span><br><span class="line">    os &lt;&lt; item.isbn() &lt;&lt; <span class="string">" "</span> &lt;&lt; item.units_sold &lt;&lt; <span class="string">" "</span></span><br><span class="line">       &lt;&lt; item.revenue &lt;&lt; <span class="string">" "</span> &lt;&lt; item.avg_price();</span><br><span class="line">    <span class="keyword">return</span> os;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="输入输出运算符必须是非成员函数"><a href="#输入输出运算符必须是非成员函数" class="headerlink" title="输入输出运算符必须是非成员函数"></a>输入输出运算符必须是非成员函数</h6><p>除此之外，<code>I/O</code>运算符一般被声明为友元。</p>
+<h5 id="重载输出运算符-gt-gt"><a href="#重载输出运算符-gt-gt" class="headerlink" title="重载输出运算符&gt;&gt;"></a>重载输出运算符&gt;&gt;</h5><p>第一个形参是将要读取的流的引用；第二个形参是将要读入到的（非常量）对象的引用。该运算符返回某个给定流的引用。 </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">istream &amp;<span class="keyword">operator</span>&gt;&gt;(istream &amp;is, Sale_data &amp;item)&#123;</span><br><span class="line">	<span class="keyword">double</span> price;</span><br><span class="line">    is &gt;&gt; item.bookNo &gt;&gt; item.units_sold &gt;&gt; price;</span><br><span class="line">    <span class="keyword">if</span>(is) <span class="comment">// 输入成功</span></span><br><span class="line">        item.revenue = item.units_sold * price;</span><br><span class="line">    <span class="keyword">else</span> <span class="comment">// 失败，对象被赋予默认状态</span></span><br><span class="line">        item = Sales_data();</span><br><span class="line">    <span class="keyword">return</span> is;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2021/02/04/C-操作重载与类型转换/输入输出运算符.png">
+
+<h4 id="算术和关系运算符"><a href="#算术和关系运算符" class="headerlink" title="算术和关系运算符"></a>算术和关系运算符</h4><p>算术和关系运算符通常定义为非成员函数。</p>
+<h5 id="相等运算符"><a href="#相等运算符" class="headerlink" title="相等运算符"></a>相等运算符</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>==(<span class="keyword">const</span> Sales_data &amp;lhs, <span class="keyword">const</span> Sales_data &amp;rhs)&#123;</span><br><span class="line">    <span class="keyword">return</span> lhs.isbn() == rhs.isbn() &amp;&amp;</span><br><span class="line">           lhs.units_sold == rhs.units_sold &amp;&amp;</span><br><span class="line">           lhs.revenue == rhs.revenue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>!=(<span class="keyword">const</span> Sales_data &amp;lhs, <span class="keyword">const</span> Sales_data &amp;rhs)&#123;</span><br><span class="line">    <span class="keyword">return</span> !(lhs == rhs);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2021/02/04/C-操作重载与类型转换/相等运算符.png">
+
+<h5 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h5><img src="/blog/2021/02/04/C-操作重载与类型转换/关系运算符.png">
+
+<h4 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h4><p>赋值运算符必须定义为类的成员，复合赋值运算符通常情况下也应该这样做。这两类运算符都应该返回左侧运算对象的引用。</p>
+<h4 id="下标运算符"><a href="#下标运算符" class="headerlink" title="下标运算符"></a>下标运算符</h4><p>下标运算符必须是成员函数。</p>
+<img src="/blog/2021/02/04/C-操作重载与类型转换/下标运算符.png">
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrVec</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">string</span>&amp; <span class="keyword">operator</span>[](<span class="built_in">std</span>::<span class="keyword">size_t</span> n)&#123;</span><br><span class="line">        <span class="keyword">return</span> elements[n];</span><br><span class="line">    &#125;</span><br><span class="line">    cosnt <span class="built_in">std</span>::<span class="built_in">string</span>&amp; <span class="keyword">operator</span>[](<span class="built_in">std</span>::<span class="keyword">size_t</span> n) <span class="keyword">const</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> elements[n];</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> *elements;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/********************************/</span></span><br><span class="line"><span class="keyword">const</span> StrVec cvec = svec; <span class="comment">// 假设svec是一个StrVec对象</span></span><br><span class="line"><span class="keyword">if</span>(svec.size() &amp;&amp; svec[<span class="number">0</span>].empty())&#123;</span><br><span class="line">    svec[<span class="number">0</span>] = <span class="string">"zero"</span>; <span class="comment">// 正确：下标运算符返回string的引用</span></span><br><span class="line">    cvec[<span class="number">0</span>] = <span class="string">"Zip"</span>; <span class="comment">// 错误：对cvec区取下标返回是常量引用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="递增和递减运算符"><a href="#递增和递减运算符" class="headerlink" title="递增和递减运算符"></a>递增和递减运算符</h4><p>建议将它们设为成员函数。</p>
+<h5 id="定义前置递增-递减运算符"><a href="#定义前置递增-递减运算符" class="headerlink" title="定义前置递增/递减运算符"></a>定义前置递增/递减运算符</h5><p>为了与内置版本保持一致，前置运算符应该返回递增或递减后对象的引用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrBlobPtr</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	StrBlobPtr&amp; <span class="keyword">operator</span>++();</span><br><span class="line">	StrBlobPtr&amp; <span class="keyword">operator</span>--();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="区分前置和后置运算符"><a href="#区分前置和后置运算符" class="headerlink" title="区分前置和后置运算符"></a>区分前置和后置运算符</h5><p>为了和前置区分，后置接受一个额外的（不被使用）<code>int</code> 类型的形参。</p>
+<p>为了和内置版本保持一致，后置运算符应该返回对象的原值，返回的是一个值而非引用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrBlobPtr</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	StrBlobPtr <span class="keyword">operator</span>++(<span class="keyword">int</span>);</span><br><span class="line">	StrBlobPtr <span class="keyword">operator</span>--(<span class="keyword">int</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="显示的调用后置运算符"><a href="#显示的调用后置运算符" class="headerlink" title="显示的调用后置运算符"></a>显示的调用后置运算符</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">StrBlobPtr <span class="title">p</span><span class="params">(a1)</span></span>; <span class="comment">// p 指向 a1 中的 vector</span></span><br><span class="line">p.<span class="keyword">operator</span>(<span class="number">0</span>); <span class="comment">// 调用后置版本的 operator</span></span><br><span class="line">p.<span class="keyword">operator</span>(); <span class="comment">// 前置版本</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="成员访问运算符"><a href="#成员访问运算符" class="headerlink" title="成员访问运算符"></a>成员访问运算符</h4><p>箭头运算符必须是类的成员，解引用运算符通常是类的成员。</p>
+<p><strong>重载的箭头运算符必须返回类的指针或者自定义了箭头运算符的某个类的对象</strong>。</p>
+<h4 id="函数调用运算符"><a href="#函数调用运算符" class="headerlink" title="函数调用运算符"></a>函数调用运算符</h4><p>函数调用运算符必须是成员函数。一个类可以定义多个不同版本的调用运算符，相互之间应该在参数数量或类型上有所区别。</p>
+<ul>
+<li><p>如果类定义了调用运算符，则该类的对象称作<strong>函数对象</strong>。这些对象“行为像函数一样”。</p>
+<h5 id="lambda是函数对象"><a href="#lambda是函数对象" class="headerlink" title="lambda是函数对象"></a>lambda是函数对象</h5></li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据单词长度对其进行排序，对于长度相同的单词按照字母表顺序排序</span></span><br><span class="line">stable_sort(words.begin(), words.end(), [](<span class="keyword">const</span> <span class="built_in">string</span> &amp;a, <span class="keyword">const</span> <span class="built_in">string</span> &amp;b)&#123;</span><br><span class="line">	<span class="keyword">return</span> a.size() &lt; b.size();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>其行为类似与下面这个类的一个未命名对象：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ShorterString</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s1, <span class="keyword">const</span> <span class="built_in">string</span> &amp;s2)</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> s1.size() &lt; s2.size();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*****************************/</span></span><br><span class="line">stable_sort(words.begin(), words.end(), ShorterString());</span><br></pre></td></tr></table></figure>
+
+<h6 id="表示lambda及相应捕获行为的类"><a href="#表示lambda及相应捕获行为的类" class="headerlink" title="表示lambda及相应捕获行为的类"></a>表示lambda及相应捕获行为的类</h6><p>引用捕获变量不需多加考虑。</p>
+<p>值捕获的变量被拷贝到 <code>lambda</code> 中：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获得第一个指向满足条件的迭代器，该元素满足其size() &gt;= sz</span></span><br><span class="line"><span class="keyword">auto</span> wc = find_if(words.begin(), words.end(), [sz](<span class="keyword">const</span> <span class="built_in">string</span> &amp;a)&#123;</span><br><span class="line">	<span class="keyword">return</span> a.size() &gt;= sz;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>该 <code>lambda</code> 表达式产生的类将形如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SizeComp</span>&#123;</span></span><br><span class="line">	SizeComp(<span class="keyword">size_t</span> n): sz(n)&#123;&#125;;</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s)</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> s.size() &gt;= sz;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">size_t</span> sz;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*****************************/</span></span><br><span class="line"><span class="keyword">auto</span> wc = find_if(word.begin(), words.end(), SizeComp(sz));</span><br></pre></td></tr></table></figure>
+
+<h5 id="标准库定义的函数对象"><a href="#标准库定义的函数对象" class="headerlink" title="标准库定义的函数对象"></a>标准库定义的函数对象</h5><img src="/blog/2021/02/04/C-操作重载与类型转换/标准库函数对象.png" style="zoom:80%;">
+
+<ul>
+<li><code>greater</code> 类型的对象执行降序排列（<code>&gt;</code>）。</li>
+</ul>
+<h5 id="可调用对象与function"><a href="#可调用对象与function" class="headerlink" title="可调用对象与function"></a>可调用对象与function</h5><p>不同类型可能具有相同的调用形式，下述可调用对象共享调用形式 <code>int(int, int)</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 普通函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123; <span class="keyword">return</span> i + j; &#125;</span><br><span class="line"><span class="comment">// lambda</span></span><br><span class="line"><span class="keyword">auto</span> mod = [](<span class="keyword">int</span> i, <span class="keyword">int</span> j)&#123; <span class="keyword">return</span> i % j; &#125;;</span><br><span class="line"><span class="comment">// 函数对象类</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">divide</span>&#123;</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">int</span> denominator, <span class="keyword">int</span> divisor)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> denominator / divisor;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>如果使用 <code>map&lt;string, int(*)(int,int) binops;</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">binops.insert(&#123;<span class="string">"+"</span>, add&#125;); <span class="comment">// 正确</span></span><br><span class="line"><span class="comment">// 但是不能将 mod 和 divide 存入 binops，类型不匹配</span></span><br></pre></td></tr></table></figure>
+
+<p> 为了解决上述问题，可以使用 <code>function</code>。</p>
+<h6 id="标准库function类型"><a href="#标准库function类型" class="headerlink" title="标准库function类型"></a>标准库function类型</h6><p><code>function</code> 定义在头文件 <code>functional</code> 中。</p>
+<img src="/blog/2021/02/04/C-操作重载与类型转换/function.png" style="zoom:80%;">
+
+<p>使用 <code>funtion</code> 可以解决上小节问题：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function&lt;<span class="keyword">int</span>(<span class="keyword">int</span>, <span class="keyword">int</span>)&gt; f1 = add;</span><br><span class="line">function&lt;<span class="keyword">int</span>(<span class="keyword">int</span>, <span class="keyword">int</span>)&gt; f2 = divide();</span><br><span class="line">function&lt;<span class="keyword">int</span>(<span class="keyword">int</span>, <span class="keyword">int</span>)&gt; f3 = [](<span class="keyword">int</span> i, <span class="keyword">int</span> j)&#123; <span class="keyword">return</span> i * j; &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>可以用 <code>map&lt;string, function&lt;int(int, int)&gt;&gt; binops</code> 将上述类型添加。</p>
+<p><strong>不能直接将重载函数的名字存入function类型的对象中</strong>。</p>
+<h4 id="重载、类型转换与运算符"><a href="#重载、类型转换与运算符" class="headerlink" title="重载、类型转换与运算符"></a>重载、类型转换与运算符</h4><h5 id="类型转换运算符"><a href="#类型转换运算符" class="headerlink" title="类型转换运算符"></a>类型转换运算符</h5><p>是类的一种特殊成员函数，它负责将一个类类型的值转换成其他类型：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">type</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>type</code> 表示某种类型。</p>
+<img src="/blog/2021/02/04/C-操作重载与类型转换/类型转换运算符note.png">
+
+<h6 id="类型转换运算可能产生意外结果"><a href="#类型转换运算可能产生意外结果" class="headerlink" title="类型转换运算可能产生意外结果"></a>类型转换运算可能产生意外结果</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int i = 42;</span><br><span class="line">cin &lt;&lt; i; // 如果 bool 的类型转换不是显式的，则编译可通过</span><br></pre></td></tr></table></figure>
+
+<p>该代码使用 <code>istream</code> 的 <code>bool</code> 类型转换运算符将 <code>cin</code> 转换成 <code>bool</code>（P516）。</p>
+<h6 id="显式的类型转换运算符（explicit-conversion-operator）"><a href="#显式的类型转换运算符（explicit-conversion-operator）" class="headerlink" title="显式的类型转换运算符（explicit conversion operator）"></a>显式的类型转换运算符（explicit conversion operator）</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SmallInt</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">// 编译器不会自动执行这一类型转换</span></span><br><span class="line">	<span class="function"><span class="keyword">explicit</span> <span class="keyword">operator</span> <span class="title">int</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> val; &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SmallInt si = <span class="number">3</span>;</span><br><span class="line">si + <span class="number">3</span>; <span class="comment">// 错误，无隐式类型转换</span></span><br><span class="line"><span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(si) + <span class="number">3</span>; <span class="comment">// 正确</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>该规定存在一个例外</strong>，如果表达式被用作条件，则编译器会将显示的类型转换自动应用于它：</p>
+<ol>
+<li><code>if</code>、<code>while </code>及 <code>do</code> 语句的条件部分。</li>
+<li><code>for</code> 语句头的条件表达式。</li>
+<li><code>!</code>、<code>||</code>、<code>&amp;&amp;</code> 的运算对象。</li>
+<li><code>?:</code> 的条件表达式。</li>
+</ol>
+<h6 id="转换为bool"><a href="#转换为bool" class="headerlink" title="转换为bool"></a>转换为bool</h6><p>无论何时在条件中使用流对象，都会使用为 <code>IO</code> 类型定义的 <code>operator bool</code>。</p>
+<img src="/blog/2021/02/04/C-操作重载与类型转换/转换为bool.png">
+
+<h5 id="避免有二义性的类型转换"><a href="#避免有二义性的类型转换" class="headerlink" title="避免有二义性的类型转换"></a>避免有二义性的类型转换</h5><ol>
+<li>最好不要在两个类之间构建相同的类型转换。</li>
+<li>最好不要创建两个转换源/转换对象都是算术类型的类型转换。</li>
+</ol>
+<img src="/blog/2021/02/04/C-操作重载与类型转换/二义性类型转换note.png">
+
+<h5 id="函数匹配与重载运算符"><a href="#函数匹配与重载运算符" class="headerlink" title="函数匹配与重载运算符"></a>函数匹配与重载运算符</h5><img src="/blog/2021/02/04/C-操作重载与类型转换/函数匹配与重载运算符.png">
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Class/" rel="tag"># Class</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2021/02/03/C-拷贝控制/" rel="next" title="C++拷贝控制">
+                <i class="fa fa-chevron-left"></i> C++拷贝控制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2021/02/05/LeetCode1208-尽可能使字符串相等/" rel="prev" title="LeetCode1208-尽可能使字符串相等">
+                LeetCode1208-尽可能使字符串相等 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zxy</p>
+              <p class="site-description motion-element" itemprop="description">写作即思考</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">121</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com/u/zxy-70/" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#直接调用一个重载的运算符函数"><span class="nav-number">2.1.</span> <span class="nav-text">直接调用一个重载的运算符函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#某些运算符不应被重载"><span class="nav-number">2.2.</span> <span class="nav-text">某些运算符不应被重载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#选择作为成员或者非成员"><span class="nav-number">2.3.</span> <span class="nav-text">选择作为成员或者非成员</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入和输出运算符"><span class="nav-number">3.</span> <span class="nav-text">输入和输出运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#重载输出运算符-lt-lt"><span class="nav-number">3.1.</span> <span class="nav-text">重载输出运算符&lt;&lt;</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#输入输出运算符必须是非成员函数"><span class="nav-number">3.1.1.</span> <span class="nav-text">输入输出运算符必须是非成员函数</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重载输出运算符-gt-gt"><span class="nav-number">3.2.</span> <span class="nav-text">重载输出运算符&gt;&gt;</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算术和关系运算符"><span class="nav-number">4.</span> <span class="nav-text">算术和关系运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#相等运算符"><span class="nav-number">4.1.</span> <span class="nav-text">相等运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#关系运算符"><span class="nav-number">4.2.</span> <span class="nav-text">关系运算符</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#赋值运算符"><span class="nav-number">5.</span> <span class="nav-text">赋值运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下标运算符"><span class="nav-number">6.</span> <span class="nav-text">下标运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递增和递减运算符"><span class="nav-number">7.</span> <span class="nav-text">递增和递减运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义前置递增-递减运算符"><span class="nav-number">7.1.</span> <span class="nav-text">定义前置递增/递减运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区分前置和后置运算符"><span class="nav-number">7.2.</span> <span class="nav-text">区分前置和后置运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#显示的调用后置运算符"><span class="nav-number">7.3.</span> <span class="nav-text">显示的调用后置运算符</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#成员访问运算符"><span class="nav-number">8.</span> <span class="nav-text">成员访问运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数调用运算符"><span class="nav-number">9.</span> <span class="nav-text">函数调用运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#lambda是函数对象"><span class="nav-number">9.1.</span> <span class="nav-text">lambda是函数对象</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#表示lambda及相应捕获行为的类"><span class="nav-number">9.1.1.</span> <span class="nav-text">表示lambda及相应捕获行为的类</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#标准库定义的函数对象"><span class="nav-number">9.2.</span> <span class="nav-text">标准库定义的函数对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#可调用对象与function"><span class="nav-number">9.3.</span> <span class="nav-text">可调用对象与function</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#标准库function类型"><span class="nav-number">9.3.1.</span> <span class="nav-text">标准库function类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重载、类型转换与运算符"><span class="nav-number">10.</span> <span class="nav-text">重载、类型转换与运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类型转换运算符"><span class="nav-number">10.1.</span> <span class="nav-text">类型转换运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#类型转换运算可能产生意外结果"><span class="nav-number">10.1.1.</span> <span class="nav-text">类型转换运算可能产生意外结果</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#显式的类型转换运算符（explicit-conversion-operator）"><span class="nav-number">10.1.2.</span> <span class="nav-text">显式的类型转换运算符（explicit conversion operator）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#转换为bool"><span class="nav-number">10.1.3.</span> <span class="nav-text">转换为bool</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#避免有二义性的类型转换"><span class="nav-number">10.2.</span> <span class="nav-text">避免有二义性的类型转换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#函数匹配与重载运算符"><span class="nav-number">10.3.</span> <span class="nav-text">函数匹配与重载运算符</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">127.9k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

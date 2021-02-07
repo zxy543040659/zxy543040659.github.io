@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Class,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本次学习要点 拷贝、赋值与销毁 拷贝控制和资源管理 交换操作 拷贝控制示例 动态内存管理类 对象移动">
+<meta name="keywords" content="Class">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++拷贝控制">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2021/02/03/C-拷贝控制/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="本次学习要点 拷贝、赋值与销毁 拷贝控制和资源管理 交换操作 拷贝控制示例 动态内存管理类 对象移动">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/03/C-拷贝控制/对象移动_note.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/03/C-拷贝控制/move_note.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/03/C-拷贝控制/合成的移动操作_note.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/03/C-拷贝控制/右值拷贝.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/03/C-拷贝控制/不要随意使用移动操作.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/03/C-拷贝控制/引用限定符_note.png">
+<meta property="og:updated_time" content="2021-02-05T07:13:02.318Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++拷贝控制">
+<meta name="twitter:description" content="本次学习要点 拷贝、赋值与销毁 拷贝控制和资源管理 交换操作 拷贝控制示例 动态内存管理类 对象移动">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2021/02/03/C-拷贝控制/对象移动_note.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2021/02/03/C-拷贝控制/">
+
+
+
+
+
+  <title>C++拷贝控制 | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我见青山多妩媚，料青山见我应如是。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2021/02/03/C-拷贝控制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zxy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++拷贝控制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-03T23:22:39+08:00">
+                2021-02-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2021/02/03/C-拷贝控制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2021/02/03/C-拷贝控制/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h4><ol>
+<li>拷贝、赋值与销毁</li>
+<li>拷贝控制和资源管理</li>
+<li>交换操作</li>
+<li>拷贝控制示例</li>
+<li>动态内存管理类</li>
+<li>对象移动</li>
+</ol>
+<a id="more"></a>
+
+<h4 id="拷贝、赋值与销毁"><a href="#拷贝、赋值与销毁" class="headerlink" title="拷贝、赋值与销毁"></a>拷贝、赋值与销毁</h4><h5 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h5><p>如果一个构造函数的第一个参数是自身类型的引用，且任何额外的参数都有默认值，则此构造函数是拷贝构造函数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Foo(); <span class="comment">// 默认构造函数</span></span><br><span class="line">    Foo(<span class="keyword">const</span> Foo&amp;); <span class="comment">// 拷贝构造函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h6 id="合成拷贝构造函数"><a href="#合成拷贝构造函数" class="headerlink" title="合成拷贝构造函数"></a>合成拷贝构造函数</h6><p>如果没有为一个类定义拷贝构造函数，编译器会自动定义一个，称为合成拷贝构造函数。</p>
+<p>对某些类来说，<strong>合成拷贝构造函数用来阻止拷贝该类型的对象</strong>。除此之外，合成拷贝构造函数会将参数的成员依次拷贝到正在创建的对象中。</p>
+<h6 id="拷贝初始化"><a href="#拷贝初始化" class="headerlink" title="拷贝初始化"></a>拷贝初始化</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">dots</span><span class="params">(<span class="number">10</span>, <span class="string">'.'</span>)</span></span>; <span class="comment">// 直接初始化</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s</span><span class="params">(dots)</span></span>; <span class="comment">// 直接初始化</span></span><br><span class="line"><span class="comment">// 拷贝初始化，将右侧的对象拷贝到新创建的对象中</span></span><br><span class="line"><span class="built_in">string</span> s2 = dots;</span><br></pre></td></tr></table></figure>
+
+<h6 id="参数和返回值"><a href="#参数和返回值" class="headerlink" title="参数和返回值"></a>参数和返回值</h6><p>在函数调用过程中，具有<strong>非引用类型</strong>的参数要进行拷贝初始化。</p>
+<p>拷贝构造函数被用来初始化<strong>非引用类型参数</strong>，所以拷贝构造函数自己的参数必须是<strong>引用类型</strong>，从而可以拷贝实参。</p>
+<h6 id="拷贝初始化的限制"><a href="#拷贝初始化的限制" class="headerlink" title="拷贝初始化的限制"></a>拷贝初始化的限制</h6><p>拷贝构造函数通常不应该是 <code>explicit</code> 的。</p>
+<h6 id="编译器可以绕过拷贝构造函数"><a href="#编译器可以绕过拷贝构造函数" class="headerlink" title="编译器可以绕过拷贝构造函数"></a>编译器可以绕过拷贝构造函数</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> null_book = <span class="string">"9-999-99999-9"</span>; <span class="comment">// 拷贝初始化</span></span><br><span class="line"><span class="comment">// 等价</span></span><br><span class="line"><span class="function"><span class="built_in">string</span>  <span class="title">null_book</span><span class="params">(<span class="string">"9-999-99999-9"</span>)</span></span>; <span class="comment">// 编译器忽略拷贝构造函数</span></span><br></pre></td></tr></table></figure>
+
+<p>拷贝/移动构造函数必须是存在且可访问的（不能为 <code>private</code> ）。</p>
+<h5 id="拷贝赋值运算符"><a href="#拷贝赋值运算符" class="headerlink" title="拷贝赋值运算符"></a>拷贝赋值运算符</h5><h6 id="重载赋值运算符"><a href="#重载赋值运算符" class="headerlink" title="重载赋值运算符"></a>重载赋值运算符</h6><p>赋值运算符就是一个 <code>operator=</code> 的函数，它有一个返回类型和一个参数列表。并且必须定义为成员函数，其左侧运算对象绑定到隐式的 <code>this</code> 参数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Foo&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Foo&amp;); <span class="comment">// 赋值运算符 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>赋值运算符应该返回一个指向其左侧运算对象的引用</strong>。</p>
+<h6 id="合成拷贝赋值运算符"><a href="#合成拷贝赋值运算符" class="headerlink" title="合成拷贝赋值运算符"></a>合成拷贝赋值运算符</h6><p>如果一个类未定义自己的拷贝赋值运算符，编译器会为它生成一个合成拷贝运算符。</p>
+<p>对某些类来说，<strong>合成拷贝赋值运算符用来阻止该类型对象的赋值</strong>。除此之外，合成拷贝赋值运算符会将右侧运算对象的每个非 <code>static</code> 成员赋予左侧对象的对应成员。</p>
+<p>下述代码等价于合成拷贝赋值运算符：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Sales_data &amp;Sales_data::<span class="keyword">operator</span>=(<span class="keyword">const</span> Sales_data &amp;rhs)&#123;</span><br><span class="line">    bookNo = rhs.bookNo;</span><br><span class="line">    units_sold = rhs.units_sold;</span><br><span class="line">    revenue = rhs.revenue;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h5><p>析构函数释放对象所使用的资源，并销毁对象的非 <code>static</code> 数据成员。</p>
+<h6 id="合成析构函数"><a href="#合成析构函数" class="headerlink" title="合成析构函数"></a>合成析构函数</h6><p>当一个类未定义自己的析构函数时，编译器会为它定义一个合成析构函数。如果其作用不是为了阻止某些类对象被销毁，那么它的函数体就为空。</p>
+<h5 id="三-五法则"><a href="#三-五法则" class="headerlink" title="三/五法则"></a>三/五法则</h5><ul>
+<li>需要析构函数的类也需要拷贝和赋值操作。</li>
+<li>需要拷贝操作的类也需要赋值操作，反之亦然。</li>
+</ul>
+<h5 id="使用-default"><a href="#使用-default" class="headerlink" title="使用=default"></a>使用=default</h5><p>将拷贝控制成员定义为 <code>=default</code> 来显式地要求编译器生成合成的版本。</p>
+<h5 id="阻止拷贝"><a href="#阻止拷贝" class="headerlink" title="阻止拷贝"></a>阻止拷贝</h5><p>某些类的拷贝构造函数和拷贝赋值运算符操作是没有意义的，如：<code>iostream</code> 类阻止拷贝，以避免多个对象写入或读取相同的 <code>IO</code> 缓冲。</p>
+<p>新标准下，可以在函数参数列表后加上 <code>=delete</code> 表示它是<strong>删除</strong>的。且 <code>=delete</code> 必须出现在函数第一次声明时。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NoCopy</span>&#123;</span></span><br><span class="line">	NoCopy() = <span class="keyword">default</span>; <span class="comment">// 使用合成的默认构造函数</span></span><br><span class="line">    NoCopy(<span class="keyword">const</span> NoCopy&amp;) = <span class="keyword">delete</span>; <span class="comment">// 阻止拷贝</span></span><br><span class="line">    NoCopy &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> NoCopy&amp;) = <span class="keyword">delete</span>; <span class="comment">// 阻止赋值</span></span><br><span class="line">    ~NoCopy() = <span class="keyword">default</span>; <span class="comment">// 使用合成的析构函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h6 id="析构函数不能是删除的成员"><a href="#析构函数不能是删除的成员" class="headerlink" title="析构函数不能是删除的成员"></a><strong>析构函数不能是删除的成员</strong></h6><h6 id="合成的拷贝控制成员可能是删除的"><a href="#合成的拷贝控制成员可能是删除的" class="headerlink" title="合成的拷贝控制成员可能是删除的"></a><strong>合成的拷贝控制成员可能是删除的</strong></h6><h6 id="private拷贝控制"><a href="#private拷贝控制" class="headerlink" title="private拷贝控制"></a><strong>private拷贝控制</strong></h6><p>通过声明（但不定义）<code>private</code> 的拷贝构造函数，可以预先阻止任何拷贝该类型对象的企图。</p>
+<h4 id="拷贝控制和资源管理"><a href="#拷贝控制和资源管理" class="headerlink" title="拷贝控制和资源管理"></a>拷贝控制和资源管理</h4><h5 id="行为像值的类"><a href="#行为像值的类" class="headerlink" title="行为像值的类"></a>行为像值的类</h5><p>类的行为像一个值，表示它有自己的状态。当我们拷贝一个像值的对象时，副本和原对象是完全独立的。</p>
+<p><strong>关键概念：赋值运算符</strong></p>
+<ul>
+<li>如果将一个对象赋予它自身，赋值运算符必须能正常工作。</li>
+<li>大多数赋值运算符组合了析构函数和拷贝构造函数的工作。</li>
+</ul>
+<h5 id="行为像指针的类"><a href="#行为像指针的类" class="headerlink" title="行为像指针的类"></a>行为像指针的类</h5><p>行为像指针的类则共享状态，当我们拷贝一个这种类的对象时，副本和原对象使用相同的底层数据。</p>
+<p>除了使用 <code>shared__ptr</code> 来管理类中的资源，如果想要直接管理资源，需要使用<strong>引用计数</strong>。</p>
+<h4 id="交换操作"><a href="#交换操作" class="headerlink" title="交换操作"></a>交换操作</h4><p>如果使用重排元素顺序的算法来操作类，那么定义一个 <code>swap</code> 就很重要了，算法在需要交换两个元素时调用 <code>swap</code>。</p>
+<h5 id="编写我们自己的swap函数"><a href="#编写我们自己的swap函数" class="headerlink" title="编写我们自己的swap函数"></a>编写我们自己的swap函数</h5><p>我们希望交换指针而不是分配新副本。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HasPtr</span>&#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(HasPtr&amp;, HasPtr&amp;)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(HasPtr &amp;lhs, HasPtr &amp;rhs)</span></span>&#123;</span><br><span class="line">    <span class="keyword">using</span> <span class="built_in">std</span>::swap;</span><br><span class="line">    swap(lhs.ps, rhs.ps); <span class="comment">// 交换string指针</span></span><br><span class="line">    swap(lhs.i, rhs.i); <span class="comment">// 交换int成员</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每个调用都应该是 <code>swap</code> 而不是 <code>std::swap</code> 。</p>
+<h5 id="在赋值运算符中使用swap"><a href="#在赋值运算符中使用swap" class="headerlink" title="在赋值运算符中使用swap"></a>在赋值运算符中使用swap</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rhs按值传递，HasPtr拷贝构造函数将右侧运算对象中的string拷贝到rhs</span></span><br><span class="line"><span class="function">HasPtr&amp; <span class="title">HasPtr::operator</span><span class="params">(HasPtr rhs)</span></span>&#123;</span><br><span class="line">    swap(*<span class="keyword">this</span>, rhs);</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>; <span class="comment">// rhs被销毁</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="拷贝控制示例"><a href="#拷贝控制示例" class="headerlink" title="拷贝控制示例"></a>拷贝控制示例</h4><p>实例，写为工程。</p>
+<h4 id="动态内存管理类"><a href="#动态内存管理类" class="headerlink" title="动态内存管理类"></a>动态内存管理类</h4><p>实例，写为工程。</p>
+<h4 id="对象移动"><a href="#对象移动" class="headerlink" title="对象移动"></a>对象移动</h4><p>很多情况下发生对象拷贝后就立即销毁了，如果此时进行移动而非拷贝对象会大幅度提升性能。</p>
+<img src="/blog/2021/02/03/C-拷贝控制/对象移动_note.png">
+
+<h5 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h5><p>右值引用就是必须绑定到右值的引用，使用 <code>&amp;&amp;</code> 而不是 <code>&amp;</code> 来获取右值引用。</p>
+<p><strong>右值引用有一个重要的性质——只能绑定到一个将要销毁的对象，因此，我们可以将一个右值引用的资源移动到另一个对象中。</strong></p>
+<ul>
+<li>一般而言，一个左值表达式表示的是一个对象的身份，而右值表达式表示的对象的值。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">int</span> &amp;r = i; <span class="comment">// 正确，r 引用 i</span></span><br><span class="line"><span class="keyword">int</span> &amp;&amp;rr = i; <span class="comment">// 错误，不能将一个右值引用绑定到一个左值上</span></span><br><span class="line"><span class="keyword">int</span> &amp;r2 = i * <span class="number">42</span>; <span class="comment">// 错误，i*42是一个右值</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;r3 = i * <span class="number">42</span>; <span class="comment">// 正确， 可以将一个 const 的引用绑定到一个右值上</span></span><br><span class="line"><span class="keyword">int</span> &amp;&amp;rr2 = i * <span class="number">42</span>; <span class="comment">// 正确，将 rr2 绑定到乘法结果上</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="左值持久，右值短暂"><a href="#左值持久，右值短暂" class="headerlink" title="左值持久，右值短暂"></a>左值持久，右值短暂</h6><p>右值要么是字面值常量，要么是在表达式求值过程中创建的临时对象。</p>
+<h6 id="变量是左值"><a href="#变量是左值" class="headerlink" title="变量是左值"></a>变量是左值</h6><h6 id="标准库move函数"><a href="#标准库move函数" class="headerlink" title="标准库move函数"></a>标准库move函数</h6><p>头文件 <code>utility</code> 中，名为 <code>move</code> 的函数可以显式地将一个左值转换为对应地右值引用。使用 <code>move</code> 时应使用 <code>std::move</code> ，避免潜在的名字冲突。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> &amp;&amp;rr3 = <span class="built_in">std</span>::move(rr1); <span class="comment">// 调用move意味着：除了对rr1赋值或销毁它外，我们将不再使用它</span></span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2021/02/03/C-拷贝控制/move_note.png">
+
+<h5 id="移动构造函数和移动赋值运算符"><a href="#移动构造函数和移动赋值运算符" class="headerlink" title="移动构造函数和移动赋值运算符"></a>移动构造函数和移动赋值运算符</h5><h6 id="移动操作、标准库容器和异常"><a href="#移动操作、标准库容器和异常" class="headerlink" title="移动操作、标准库容器和异常"></a>移动操作、标准库容器和异常</h6><p>移动操作不会抛出任何异常，我们应将此事通知给标准库，一种方法为在构造函数中指明 <code>noexcept</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrVec</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	StrVec(StrVec&amp;&amp;) <span class="keyword">noexcept</span>; <span class="comment">// 移动构造函数</span></span><br><span class="line">&#125;;</span><br><span class="line">StrVec::StrVec(StrVec &amp;&amp;s) <span class="keyword">noexcept</span> : <span class="comment">/*成员初始化器*/</span></span><br><span class="line">&#123; <span class="comment">/* 构造函数体 */</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="移动赋值运算符"><a href="#移动赋值运算符" class="headerlink" title="移动赋值运算符"></a>移动赋值运算符</h6><p>如果我们的移动赋值预算符不抛出任何异常，我们就应该将其标记为 <code>noexcept</code>。</p>
+<h6 id="移后源对象必须可析构"><a href="#移后源对象必须可析构" class="headerlink" title="移后源对象必须可析构"></a>移后源对象必须可析构</h6><p>在移动操作之后，移后源对象必须保持有效的、可析构的状态，但是用户不能对其值进行任何假设。</p>
+<h6 id="合成的移动操作"><a href="#合成的移动操作" class="headerlink" title="合成的移动操作"></a>合成的移动操作</h6><img src="/blog/2021/02/03/C-拷贝控制/合成的移动操作_note.png">
+
+<p>定义了一个移动构造函数或移动赋值运算符的类必须也定义自己的拷贝操作。否则，这些成员默认地定义为删除的。</p>
+<h6 id="移动右值，拷贝左值"><a href="#移动右值，拷贝左值" class="headerlink" title="移动右值，拷贝左值"></a>移动右值，拷贝左值</h6><h6 id="如果没有移动构造函数，右值也被拷贝"><a href="#如果没有移动构造函数，右值也被拷贝" class="headerlink" title="如果没有移动构造函数，右值也被拷贝"></a>如果没有移动构造函数，右值也被拷贝</h6><img src="/blog/2021/02/03/C-拷贝控制/右值拷贝.png">
+
+<h6 id="移动迭代器"><a href="#移动迭代器" class="headerlink" title="移动迭代器"></a>移动迭代器</h6><p>新标准库中定义了一种<strong>移动迭代器</strong>适配器，其解引用运算符生成一个右值引用。我们通过调用标准库中的 <code>make_move_iterator</code> 函数将一个普通迭代器转换为一个移动迭代器。此函数接受一个迭代器参数，返回一个迭代器。</p>
+<img src="/blog/2021/02/03/C-拷贝控制/不要随意使用移动操作.png">
+
+<h5 id="右值引用和成员函数"><a href="#右值引用和成员函数" class="headerlink" title="右值引用和成员函数"></a>右值引用和成员函数</h5><p>如果一个成员函数同时提供拷贝和移动版本，其中一个版本接受一个指向 <code>const</code> 的左值引用，第二个版本接受一个指向非 <code>const</code> 的右值引用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push_back</span><span class="params">(<span class="keyword">const</span> X&amp;)</span></span>; <span class="comment">// 拷贝，绑定到任意类型的X</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push_back</span><span class="params">(X&amp;&amp;)</span></span>; <span class="comment">// 移动，只能绑定到类型X可修改的右值</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="引用限定符"><a href="#引用限定符" class="headerlink" title="引用限定符"></a><strong>引用限定符</strong></h6><p>引用限定符可以是 <code>&amp;</code> 或 <code>&amp;&amp;</code>，分别指出 <code>this</code> 可以指向一个左值或右值，只能用于非 <code>static</code> 成员函数，且必须同时出现在函数的声明和定义中。一个函数可以同时用 <code>const</code> 和引用限定，引用限定必须跟随在 <code>const</code> 限定符之后：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function">Foo <span class="title">someMem</span><span class="params">()</span> &amp; <span class="keyword">const</span></span>; <span class="comment">// 错误，const 限定符必须在前</span></span><br><span class="line">	<span class="function">FOO <span class="title">anotherMem</span><span class="params">()</span> <span class="keyword">const</span> &amp;</span>; <span class="comment">// 正确，const 限定符在前</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>当我们对一个右值进行排序时，可以安全的直接对 <code>data</code> 成员进行排序；当对一个 <code>const</code> 右值或一个左值执行排序时，我们不能改变对象，因此需要在排序前拷贝 <code>data</code>。</p>
+<img src="/blog/2021/02/03/C-拷贝控制/引用限定符_note.png">
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Class/" rel="tag"># Class</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2021/02/03/LeetCode424-替换后的最长重复字符/" rel="next" title="LeetCode424-替换后的最长重复字符">
+                <i class="fa fa-chevron-left"></i> LeetCode424-替换后的最长重复字符
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2021/02/04/C-操作重载与类型转换/" rel="prev" title="C++操作重载与类型转换">
+                C++操作重载与类型转换 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zxy</p>
+              <p class="site-description motion-element" itemprop="description">写作即思考</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">121</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com/u/zxy-70/" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拷贝、赋值与销毁"><span class="nav-number">2.</span> <span class="nav-text">拷贝、赋值与销毁</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#拷贝构造函数"><span class="nav-number">2.1.</span> <span class="nav-text">拷贝构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#合成拷贝构造函数"><span class="nav-number">2.1.1.</span> <span class="nav-text">合成拷贝构造函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#拷贝初始化"><span class="nav-number">2.1.2.</span> <span class="nav-text">拷贝初始化</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#参数和返回值"><span class="nav-number">2.1.3.</span> <span class="nav-text">参数和返回值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#拷贝初始化的限制"><span class="nav-number">2.1.4.</span> <span class="nav-text">拷贝初始化的限制</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#编译器可以绕过拷贝构造函数"><span class="nav-number">2.1.5.</span> <span class="nav-text">编译器可以绕过拷贝构造函数</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#拷贝赋值运算符"><span class="nav-number">2.2.</span> <span class="nav-text">拷贝赋值运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#重载赋值运算符"><span class="nav-number">2.2.1.</span> <span class="nav-text">重载赋值运算符</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#合成拷贝赋值运算符"><span class="nav-number">2.2.2.</span> <span class="nav-text">合成拷贝赋值运算符</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#析构函数"><span class="nav-number">2.3.</span> <span class="nav-text">析构函数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#合成析构函数"><span class="nav-number">2.3.1.</span> <span class="nav-text">合成析构函数</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三-五法则"><span class="nav-number">2.4.</span> <span class="nav-text">三/五法则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用-default"><span class="nav-number">2.5.</span> <span class="nav-text">使用=default</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#阻止拷贝"><span class="nav-number">2.6.</span> <span class="nav-text">阻止拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#析构函数不能是删除的成员"><span class="nav-number">2.6.1.</span> <span class="nav-text">析构函数不能是删除的成员</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#合成的拷贝控制成员可能是删除的"><span class="nav-number">2.6.2.</span> <span class="nav-text">合成的拷贝控制成员可能是删除的</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#private拷贝控制"><span class="nav-number">2.6.3.</span> <span class="nav-text">private拷贝控制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拷贝控制和资源管理"><span class="nav-number">3.</span> <span class="nav-text">拷贝控制和资源管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#行为像值的类"><span class="nav-number">3.1.</span> <span class="nav-text">行为像值的类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#行为像指针的类"><span class="nav-number">3.2.</span> <span class="nav-text">行为像指针的类</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交换操作"><span class="nav-number">4.</span> <span class="nav-text">交换操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#编写我们自己的swap函数"><span class="nav-number">4.1.</span> <span class="nav-text">编写我们自己的swap函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在赋值运算符中使用swap"><span class="nav-number">4.2.</span> <span class="nav-text">在赋值运算符中使用swap</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拷贝控制示例"><span class="nav-number">5.</span> <span class="nav-text">拷贝控制示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态内存管理类"><span class="nav-number">6.</span> <span class="nav-text">动态内存管理类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象移动"><span class="nav-number">7.</span> <span class="nav-text">对象移动</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#右值引用"><span class="nav-number">7.1.</span> <span class="nav-text">右值引用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#左值持久，右值短暂"><span class="nav-number">7.1.1.</span> <span class="nav-text">左值持久，右值短暂</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#变量是左值"><span class="nav-number">7.1.2.</span> <span class="nav-text">变量是左值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#标准库move函数"><span class="nav-number">7.1.3.</span> <span class="nav-text">标准库move函数</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#移动构造函数和移动赋值运算符"><span class="nav-number">7.2.</span> <span class="nav-text">移动构造函数和移动赋值运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#移动操作、标准库容器和异常"><span class="nav-number">7.2.1.</span> <span class="nav-text">移动操作、标准库容器和异常</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#移动赋值运算符"><span class="nav-number">7.2.2.</span> <span class="nav-text">移动赋值运算符</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#移后源对象必须可析构"><span class="nav-number">7.2.3.</span> <span class="nav-text">移后源对象必须可析构</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#合成的移动操作"><span class="nav-number">7.2.4.</span> <span class="nav-text">合成的移动操作</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#移动右值，拷贝左值"><span class="nav-number">7.2.5.</span> <span class="nav-text">移动右值，拷贝左值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#如果没有移动构造函数，右值也被拷贝"><span class="nav-number">7.2.6.</span> <span class="nav-text">如果没有移动构造函数，右值也被拷贝</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#移动迭代器"><span class="nav-number">7.2.7.</span> <span class="nav-text">移动迭代器</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#右值引用和成员函数"><span class="nav-number">7.3.</span> <span class="nav-text">右值引用和成员函数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#引用限定符"><span class="nav-number">7.3.1.</span> <span class="nav-text">引用限定符</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">127.9k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
