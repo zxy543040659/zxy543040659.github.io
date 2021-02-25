@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="泛型,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本次学习要点 类型转换与模板类型参数 函数模板显式实参 尾置返回类型与类型转换 函数指针和实参推断 模板实参推断和引用 理解 std::move 转发">
+<meta name="keywords" content="泛型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++模板与泛型编程（二）——模板实参推断">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2021/02/23/C-模板与泛型编程（二）/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="本次学习要点 类型转换与模板类型参数 函数模板显式实参 尾置返回类型与类型转换 函数指针和实参推断 模板实参推断和引用 理解 std::move 转发">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/23/C-模板与泛型编程（二）/实参传递给模板类型的函数形参note.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/23/C-模板与泛型编程（二）/正常类型转换应用于普通函数实参.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/23/C-模板与泛型编程（二）/标准类型转换模板.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/23/C-模板与泛型编程（二）/引用折叠.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/23/C-模板与泛型编程（二）/右值引用参数.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/23/C-模板与泛型编程（二）/转发.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/23/C-模板与泛型编程（二）/forward.png">
+<meta property="og:updated_time" content="2021-02-24T09:18:43.038Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++模板与泛型编程（二）——模板实参推断">
+<meta name="twitter:description" content="本次学习要点 类型转换与模板类型参数 函数模板显式实参 尾置返回类型与类型转换 函数指针和实参推断 模板实参推断和引用 理解 std::move 转发">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2021/02/23/C-模板与泛型编程（二）/实参传递给模板类型的函数形参note.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2021/02/23/C-模板与泛型编程（二）/">
+
+
+
+
+
+  <title>C++模板与泛型编程（二）——模板实参推断 | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">工欲善其事，必先利其器</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2021/02/23/C-模板与泛型编程（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zxy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++模板与泛型编程（二）——模板实参推断</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-23T23:34:45+08:00">
+                2021-02-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2021/02/23/C-模板与泛型编程（二）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2021/02/23/C-模板与泛型编程（二）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="本次学习要点"><a href="#本次学习要点" class="headerlink" title="本次学习要点"></a>本次学习要点</h4><ol>
+<li>类型转换与模板类型参数</li>
+<li>函数模板显式实参</li>
+<li>尾置返回类型与类型转换</li>
+<li>函数指针和实参推断</li>
+<li>模板实参推断和引用</li>
+<li>理解 <code>std::move</code></li>
+<li>转发</li>
+</ol>
+<a id="more"></a>
+
+<p>从函数实参来确定模板实参的过程称为<strong>模板实参推断</strong>。</p>
+<h4 id="类型转换与模板类型参数"><a href="#类型转换与模板类型参数" class="headerlink" title="类型转换与模板类型参数"></a>类型转换与模板类型参数</h4><p>编译器通常不是对实参进行类型转换，而是生成一个新的模板实例。顶层 <code>const</code>无论在形参还是实参中都会被忽略。</p>
+<ul>
+<li><code>const</code> 转换：可以将一个非 <code>const</code> 对象的引用（或指针）传递给一个 <code>const</code> 的引用（或指针）形参。</li>
+<li>数组或函数指针转换：如果函数形参不是引用类型，则可以对数组或函数类型的实参应用正常的指针转换。一个数组实参可以转换为一个指向指向其首元素的指针。类似的，一个函数实参可以转换为一个该函数类型的指针。</li>
+</ul>
+<img src="/blog/2021/02/23/C-模板与泛型编程（二）/实参传递给模板类型的函数形参note.png">
+
+<h5 id="使用相同模板参数类型的函数形参"><a href="#使用相同模板参数类型的函数形参" class="headerlink" title="使用相同模板参数类型的函数形参"></a>使用相同模板参数类型的函数形参</h5><p>一个模板类型参数可以作为多个函数形参的类型，但是传递给形参的实参类型必须相同：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> lng;</span><br><span class="line">compare(lng, <span class="number">1024</span>); <span class="comment">// 错误，不能实例化compare(long, int)，类型不匹配</span></span><br></pre></td></tr></table></figure>
+
+<p>如果希望允许对函数实参进行正常的类型转换，我们可以将函数模板定义为两个类型参数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> A, <span class="keyword">typename</span> B&gt;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">flexibleCompare</span><span class="params">(<span class="keyword">const</span> A&amp; v1, <span class="keyword">const</span> B&amp; v2)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(v1 &lt; v2) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">if</span>(v2 &lt; v1) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="正常类型转换应用于普通函数实参"><a href="#正常类型转换应用于普通函数实参" class="headerlink" title="正常类型转换应用于普通函数实参"></a>正常类型转换应用于普通函数实参</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function">ostream &amp;<span class="title">print</span><span class="params">(ostream &amp;os, <span class="keyword">const</span> T &amp;obj)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> os &lt;&lt; obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于 <code>os</code> 类型固定，因此调用 <code>print</code> 时，传递给它的实参会正常进行类型转换。</p>
+<img src="/blog/2021/02/23/C-模板与泛型编程（二）/正常类型转换应用于普通函数实参.png">
+
+<h4 id="函数模板显式实参"><a href="#函数模板显式实参" class="headerlink" title="函数模板显式实参"></a>函数模板显式实参</h4><h5 id="指定显式模板实参"><a href="#指定显式模板实参" class="headerlink" title="指定显式模板实参"></a>指定显式模板实参</h5><p>我们可以定义表示返回类型的第三个模板参数，从而允许用户控制返回类型：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 编译器无法推断T1，它未出现在函数参数列表中</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keyword">typename</span> T3&gt;</span><br><span class="line"><span class="function">T1 <span class="title">sum</span><span class="params">(T2, T3)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>每次调用前，调用者必须为 <code>T1</code> 提供一个<strong>显式模板实参</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> val3 = sum&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt;(i, lng); <span class="comment">// long long sum(int, long)</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>显式模板实参按照由左至右的顺序与对应的模板参数匹配</strong>。</p>
+<h5 id="正常类型转换应用于显式指定的实参"><a href="#正常类型转换应用于显式指定的实参" class="headerlink" title="正常类型转换应用于显式指定的实参"></a>正常类型转换应用于显式指定的实参</h5><p>对于模板类型参数已经显式指定了的函数实参，也进行正常的类型转换：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> lng;</span><br><span class="line">compare(lng, <span class="number">1024</span>); <span class="comment">// 错误：模板类型不匹配</span></span><br><span class="line">compare&lt;<span class="keyword">long</span>&gt;(lng, <span class="number">1024</span>); <span class="comment">// 正确：实例化compare(long, long)，接受两个const long&amp;;</span></span><br><span class="line">compare&lt;<span class="keyword">int</span>&gt;(lng, <span class="number">1024</span>); <span class="comment">// 正确：实例化compare(int, int)，lng被转换为int;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="尾置返回类型与类型转换"><a href="#尾置返回类型与类型转换" class="headerlink" title="尾置返回类型与类型转换"></a>尾置返回类型与类型转换</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 尾置返回类型允许我们在参数列表之后声明返回类型</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> It&gt;</span><br><span class="line">auto fcn(It beg, It end) -&gt; decltype(*beg) // 迭代器解引用返回元素引用</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="keyword">return</span> *beg; <span class="comment">// 返回序列中的一个元素的引用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="进行类型转换的标准库模板类"><a href="#进行类型转换的标准库模板类" class="headerlink" title="进行类型转换的标准库模板类"></a>进行类型转换的标准库模板类</h5><p>如果希望编写一个类似 <code>fcn</code> 的函数，但返回一个元素的值而非引用。可以使用标准库的<strong>类型转换</strong>模板，定义在头文件 <code>type_traits</code> 中。模板如下表：</p>
+<img src="/blog/2021/02/23/C-模板与泛型编程（二）/标准类型转换模板.png">
+
+<p>上述模板中每个都拥有一个名为 <code>type</code> 的 <code>public</code> 成员，表示一个类型。</p>
+<ul>
+<li>如果不可能（不必要）转换模板参数，则 <code>type</code> 成员就是模板参数本身。</li>
+</ul>
+<p>组合使用 <code>remove_reference</code> ，尾置返回类型及 <code>decltype</code>，我们可以在函数中返回元素值的拷贝：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用typename表示type是一个类型</span></span><br><span class="line"><span class="keyword">template</span> &lt;typnemae It&gt;</span><br><span class="line">auto fcn2(It beg, It end) -&gt; typename remove_reference&lt;decltype(*beg)::type</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">// </span></span><br><span class="line">	<span class="keyword">return</span> *beg; <span class="comment">// 返回序列中一个元素的拷贝</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="函数指针和实参推断"><a href="#函数指针和实参推断" class="headerlink" title="函数指针和实参推断"></a>函数指针和实参推断</h4><p>当我们使用一个函数模板初始化一个函数指针或为一个函数指针赋值时，编译器使用指针的类型来推断模板实参：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">const</span> T&amp;, <span class="keyword">const</span> T&amp;)</span></span>;</span><br><span class="line"><span class="comment">// pf1指向实例int compare(const int&amp;, const int&amp;)</span></span><br><span class="line"><span class="keyword">int</span> (*pf1)(<span class="keyword">const</span> <span class="keyword">int</span>&amp;, <span class="keyword">const</span> <span class="keyword">int</span>&amp;) = compare;</span><br></pre></td></tr></table></figure>
+
+<p>如果不能从函数指针类型确定函数模板，则产生错误：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// func的重载版本，每个版本接受一个不同的函数指针类型</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>(*)(<span class="keyword">const</span> <span class="built_in">string</span>&amp;, <span class="keyword">const</span> <span class="built_in">string</span>&amp;))</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>(*)(<span class="keyword">const</span> <span class="keyword">int</span>&amp;, <span class="keyword">const</span> <span class="keyword">int</span>&amp;))</span></span>;</span><br><span class="line">func(compare); <span class="comment">// 错误，使用compare的哪个实例？</span></span><br></pre></td></tr></table></figure>
+
+<p>可以使用显式模板实参来消除 <code>func</code> 调用的歧义：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func(compare&lt;<span class="keyword">int</span>&gt;); <span class="comment">// 传递compare(const int&amp;, const int&amp;)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="模板实参推断和引用"><a href="#模板实参推断和引用" class="headerlink" title="模板实参推断和引用"></a>模板实参推断和引用</h4><h5 id="从左值引用函数参数推断类型"><a href="#从左值引用函数参数推断类型" class="headerlink" title="从左值引用函数参数推断类型"></a>从左值引用函数参数推断类型</h5><p>当一个函数参数是模板类型参数的一个普通(左值)引用时（即，形如T&amp;）。绑定规则告诉我们：</p>
+<ul>
+<li>只能传递给它一个左值（如，一个变量或一个返回引用类型的表达式）。</li>
+</ul>
+<p>实参可以是 <code>const</code> 类型，也可以不是。如果实参是 <code>const</code> 的，则 <code>T</code> 将被推断为 <code>const</code> 类型：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">void</span> <span class="title">f1</span><span class="params">(T&amp;)</span></span>; <span class="comment">// 实参必须是一个左值</span></span><br><span class="line">f1(i); <span class="comment">// i是一个int，模板参数类型T是int</span></span><br><span class="line">f1(ci); <span class="comment">// ci是一个const int，模板参数T是const int</span></span><br><span class="line">f1(<span class="number">5</span>); <span class="comment">// 错误：5是右值</span></span><br></pre></td></tr></table></figure>
+
+<p>如果一个函数参数的类型是 <code>const T&amp;</code>，正常的绑定规则告诉我们：</p>
+<ul>
+<li>可以传递给它任何类型的实参一个对象（ <code>const</code> 或非 <code>const</code> ）、一个临时对象或是一个字面常量值。</li>
+</ul>
+<p>当函数参数本身是 <code>const</code> 时，其已经是<strong>函数参数类型</strong>的一部分，因此，<strong>它不会也是模板参数类型的一部分</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">void</span> <span class="title">f2</span><span class="params">(<span class="keyword">const</span> T&amp;)</span></span>; <span class="comment">// 可以接受一个右值</span></span><br><span class="line"><span class="comment">// f2中的参数是const &amp;，实参中的const是无关的</span></span><br><span class="line"><span class="comment">// 在每个调用中，f2的函数实参都被推断为const int&amp;</span></span><br><span class="line">f2(i); <span class="comment">// i是一个int，模板参数类型T是int</span></span><br><span class="line">f2(ci); <span class="comment">// ci是一个const int，但模板参数T是int</span></span><br><span class="line">f2(<span class="number">5</span>); <span class="comment">// 一个const &amp;参数可以绑定到一个右值，T是int</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="从右值引用函数参数推断类型"><a href="#从右值引用函数参数推断类型" class="headerlink" title="从右值引用函数参数推断类型"></a>从右值引用函数参数推断类型</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">void</span> <span class="title">f3</span><span class="params">(T&amp;&amp;)</span></span>;</span><br><span class="line">f3(<span class="number">42</span>); <span class="comment">// 实参是一个int类型的右值，模板参数T是int</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="引用折叠和右值引用参数"><a href="#引用折叠和右值引用参数" class="headerlink" title="引用折叠和右值引用参数"></a>引用折叠和右值引用参数</h5><ul>
+<li>X&amp; &amp;、X&amp; &amp;&amp; 和 X&amp;&amp; &amp; 都折叠成类型 X&amp;</li>
+<li>类型 X&amp;&amp; &amp;&amp; 折叠成 X&amp;&amp;</li>
+</ul>
+<img src="/blog/2021/02/23/C-模板与泛型编程（二）/引用折叠.png">
+
+<p>这两个规则导致了两个重要结果：</p>
+<ol>
+<li>函数参数指向模板类型参数的右值引用，则它可以被绑定到一个左值；</li>
+<li>如果实参是一个左值，则推断出的模板实参类型将是一个左值引用，且函数参数将被实例化为一个普通左值引用参数。</li>
+</ol>
+<img src="/blog/2021/02/23/C-模板与泛型编程（二）/右值引用参数.png" style="zoom:80%;">
+
+<h5 id="编写接受右值引用参数的函数模板"><a href="#编写接受右值引用参数的函数模板" class="headerlink" title="编写接受右值引用参数的函数模板"></a>编写接受右值引用参数的函数模板</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T&amp;&amp;)</span></span>; <span class="comment">// 绑定到非const右值</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> T&amp;)</span></span>; <span class="comment">// 左值和const右值</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="理解std-move"><a href="#理解std-move" class="headerlink" title="理解std::move"></a>理解std::move</h4><h5 id="std-move是如何定义的"><a href="#std-move是如何定义的" class="headerlink" title="std::move是如何定义的"></a>std::move是如何定义的</h5><p>标准库定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">typename</span> remove_reference&lt;T&gt;::<span class="function">type&amp;&amp; <span class="title">move</span><span class="params">(T&amp;&amp; t)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;<span class="keyword">typename</span> remove_reference&lt;T&gt;::type&amp;&amp;&gt;(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过引用折叠，我们既可以传递给 <code>move</code> 一个左值，也可以传递给它一个右值：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string s1("hi!"), s2;</span><br><span class="line">s2 = <span class="built_in">std</span>::move(<span class="built_in">string</span>(<span class="string">"bye!"</span>)); <span class="comment">// 正确，从一个右值移动数据</span></span><br><span class="line">s2 = <span class="built_in">std</span>::move(s1); <span class="comment">// 正确，但在赋值之后，s1的值是不确定的</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="std-move是如何工作的"><a href="#std-move是如何工作的" class="headerlink" title="std::move是如何工作的"></a>std::move是如何工作的</h5><p>在 <code>std::move(string(&quot;bye!&quot;))</code> 中：</p>
+<ul>
+<li>推断出的 <code>T</code> 的类型为 <code>string</code>。</li>
+<li>因此，<code>remove reference</code> 用 <code>string</code> 进行实例化。</li>
+<li><code>remove_reference&lt;string&gt; </code>的 <code>type</code> 成员是 <code>string</code>。</li>
+<li><code>move</code> 的返回类型是 <code>string&amp;&amp;</code>。</li>
+<li><code>move</code> 的函数参数 <code>t</code> 的类型为 <code>string&amp;&amp;</code>。</li>
+</ul>
+<p>这个调用实例化 <code>move&lt;string&gt;</code>，即函数：<code>string&amp;&amp; move(string &amp;&amp;t)</code>。无需类型转换。</p>
+<p>第二个赋值，传递给 <code>move</code> 的实参是一个左值：</p>
+<ul>
+<li>推断出的 <code>T</code> 的类型为 <code>string&amp;</code>（ <code>string</code> 的引用，而非普通 <code>string</code>)。</li>
+<li>因此，<code>remove_reference</code> 用 <code>string&amp;</code> 进行实例化。</li>
+<li><code>remove_reference&lt;string&amp;&gt;</code> 的 <code>type</code> 成员是 <code>string</code>。</li>
+<li><code>move</code>的返回类型仍是 <code>string&amp;</code>。</li>
+<li><code>move</code> 的函数参数 <code>t</code> 实例化为 <code>string&amp; &amp;&amp;</code>，会折叠为 <code>string&amp;</code>。</li>
+</ul>
+<p>这个调用实例化 <code>move&lt;string&amp;&gt;</code>，即函数：<code>string&amp;&amp; move(string &amp;t)</code>。</p>
+<p><strong>将一个右值引用绑定到一个左值</strong>。这个实例的函数体返回 <code>static_cast&lt;string&amp;&amp;&gt;(t)</code>，在此情况下，<code>cast</code> 将 <code>t</code> 的类型 <code>string&amp;</code> 转换为 <code>string&amp;&amp;</code>。</p>
+<h5 id="从一个左值static-cast到一个右值引用时允许的"><a href="#从一个左值static-cast到一个右值引用时允许的" class="headerlink" title="从一个左值static_cast到一个右值引用时允许的"></a>从一个左值static_cast到一个右值引用时允许的</h5><p> 可以用 <code>static_cast</code> 显式的将一个左值转换为一个右值引用。</p>
+<h4 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">flip1</span><span class="params">(F f, T1 t1, T2 t2)</span></span>&#123;</span><br><span class="line">	f(t2, t1);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> v1, <span class="keyword">int</span> &amp;v2)</span></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; v1 &lt;&lt; <span class="string">" "</span> &lt;&lt; ++v2 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码中，<code>f</code> 改变了绑定到 <code>v2</code> 的实参的值，但是通过 <code>flip1</code> 调用 <code>f</code>，<code>f</code> 所作的改变就不会影响实参：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f(<span class="number">42</span>, i); <span class="comment">// f改变了实参i</span></span><br><span class="line">flip1(f, j, <span class="number">42</span>); <span class="comment">// 通过flip1调用f不会改变j</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="定义能保持类型信息的函数参数"><a href="#定义能保持类型信息的函数参数" class="headerlink" title="定义能保持类型信息的函数参数"></a>定义能保持类型信息的函数参数</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">flip2</span><span class="params">(F f, T1 &amp;&amp;t1, T2 &amp;&amp;t2)</span></span>&#123;</span><br><span class="line">	f(t2, t1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2021/02/23/C-模板与泛型编程（二）/转发.png">
+
+<p>当 <code>flip2</code> 调用 <code>f</code> 时，<code>f</code> 中的引用参数 <code>v2</code> 被绑定到 <code>t1</code>，也就是绑定到 <code>j</code>，当 <code>f</code> 递增 <code>v2</code> 时，它同时改变了 <code>j</code> 的值。</p>
+<p>上述 <code>flip2</code> 不能用于接受右值引用参数的函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">(<span class="keyword">int</span> &amp;&amp;i, <span class="keyword">int</span> &amp;j)</span></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" "</span> &lt;&lt; j &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过使用 <code>flip2</code> 调用 <code>g</code>，则参数 <code>t2</code> 将被传递给 <code>g</code> 的右值引用参数。即使我们传递一个右值给 <code>flip2</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flip2(g, i, <span class="number">42</span>); <span class="comment">// 函数参数为左值表达式，不能从一个左值实例化int&amp;&amp;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="在调用中使用std-forward保持类型信息"><a href="#在调用中使用std-forward保持类型信息" class="headerlink" title="在调用中使用std::forward保持类型信息"></a>在调用中使用std::forward保持类型信息</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义在头文件utility中，forward必须通过显式模板来调用</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Type&gt; intermediary(Type &amp;&amp;arg)&#123;</span><br><span class="line">	finalFcn(<span class="built_in">std</span>::forward&lt;Type&gt;(arg));</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2021/02/23/C-模板与泛型编程（二）/forward.png">
+
+<p>重写翻转函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> F, <span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">flip</span><span class="params">(F f, T1 &amp;&amp;t1, T2 &amp;&amp;t2)</span></span>&#123;</span><br><span class="line">	f(<span class="built_in">std</span>::forward&lt;T2&gt;(t2), <span class="built_in">std</span>::forward&lt;T1&gt;(t1));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时调用 <code>flip(g, i, 42)</code>，<code>i</code> 将以 <code>int&amp;</code> 类型传递给 <code>g</code>，<code>42</code> 将以 <code>int&amp;&amp;</code> 类型传递给 <code>g</code>。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/泛型/" rel="tag"># 泛型</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2021/02/23/LeetCode1052-爱生气的书店老板/" rel="next" title="LeetCode1052-爱生气的书店老板">
+                <i class="fa fa-chevron-left"></i> LeetCode1052-爱生气的书店老板
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2021/02/24/C-模板与泛型编程（三）/" rel="prev" title="C++模板与泛型编程（三）">
+                C++模板与泛型编程（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zxy</p>
+              <p class="site-description motion-element" itemprop="description">磨刀不误砍柴工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">130</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com/u/zxy-70/" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#本次学习要点"><span class="nav-number">1.</span> <span class="nav-text">本次学习要点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类型转换与模板类型参数"><span class="nav-number">2.</span> <span class="nav-text">类型转换与模板类型参数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用相同模板参数类型的函数形参"><span class="nav-number">2.1.</span> <span class="nav-text">使用相同模板参数类型的函数形参</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#正常类型转换应用于普通函数实参"><span class="nav-number">2.2.</span> <span class="nav-text">正常类型转换应用于普通函数实参</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数模板显式实参"><span class="nav-number">3.</span> <span class="nav-text">函数模板显式实参</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#指定显式模板实参"><span class="nav-number">3.1.</span> <span class="nav-text">指定显式模板实参</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#正常类型转换应用于显式指定的实参"><span class="nav-number">3.2.</span> <span class="nav-text">正常类型转换应用于显式指定的实参</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尾置返回类型与类型转换"><span class="nav-number">4.</span> <span class="nav-text">尾置返回类型与类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进行类型转换的标准库模板类"><span class="nav-number">4.1.</span> <span class="nav-text">进行类型转换的标准库模板类</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数指针和实参推断"><span class="nav-number">5.</span> <span class="nav-text">函数指针和实参推断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模板实参推断和引用"><span class="nav-number">6.</span> <span class="nav-text">模板实参推断和引用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#从左值引用函数参数推断类型"><span class="nav-number">6.1.</span> <span class="nav-text">从左值引用函数参数推断类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从右值引用函数参数推断类型"><span class="nav-number">6.2.</span> <span class="nav-text">从右值引用函数参数推断类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#引用折叠和右值引用参数"><span class="nav-number">6.3.</span> <span class="nav-text">引用折叠和右值引用参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编写接受右值引用参数的函数模板"><span class="nav-number">6.4.</span> <span class="nav-text">编写接受右值引用参数的函数模板</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#理解std-move"><span class="nav-number">7.</span> <span class="nav-text">理解std::move</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#std-move是如何定义的"><span class="nav-number">7.1.</span> <span class="nav-text">std::move是如何定义的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#std-move是如何工作的"><span class="nav-number">7.2.</span> <span class="nav-text">std::move是如何工作的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#从一个左值static-cast到一个右值引用时允许的"><span class="nav-number">7.3.</span> <span class="nav-text">从一个左值static_cast到一个右值引用时允许的</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#转发"><span class="nav-number">8.</span> <span class="nav-text">转发</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义能保持类型信息的函数参数"><span class="nav-number">8.1.</span> <span class="nav-text">定义能保持类型信息的函数参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在调用中使用std-forward保持类型信息"><span class="nav-number">8.2.</span> <span class="nav-text">在调用中使用std::forward保持类型信息</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">139.2k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
