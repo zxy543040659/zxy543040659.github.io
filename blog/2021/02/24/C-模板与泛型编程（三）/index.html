@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/24/C-模板与泛型编程（三）/函数重载与模板实例化.png">
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/24/C-模板与泛型编程（三）/普通作用域规则应用于特例化.png">
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/02/24/C-模板与泛型编程（三）/类模板部分特例化.png">
-<meta property="og:updated_time" content="2021-02-25T14:16:51.518Z">
+<meta property="og:updated_time" content="2021-03-09T16:01:54.085Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++模板与泛型编程（三）">
 <meta name="twitter:description" content="本次学习要点 重载与模板 可变参数模板 模板特例化">
@@ -501,6 +501,8 @@
 <h5 id="转发参数包"><a href="#转发参数包" class="headerlink" title="转发参数包"></a>转发参数包</h5><p>新标准下，我们可以组合使用可变参数模板与 <code>forward</code> 机制来编写函数，实现将其实参不变的传递给其他函数。</p>
 <img src="/blog/2021/02/24/C-模板与泛型编程（三）/建议_转发和可变参数模板.png">
 
+
+
 <h4 id="模板特例化"><a href="#模板特例化" class="headerlink" title="模板特例化"></a>模板特例化</h4><h5 id="定义函数模板特例化"><a href="#定义函数模板特例化" class="headerlink" title="定义函数模板特例化"></a>定义函数模板特例化</h5><p>定义一个特例化版本时，函数参数类型必须与一个先前声明的模板中对应的类型匹配。先前声明版本：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tempalte &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">const</span> T&amp;, <span class="keyword">const</span> T&amp;)</span></span></span><br></pre></td></tr></table></figure>
 
@@ -572,8 +574,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2021/03/01/尽可能使用const/" rel="prev" title="条款03：尽可能使用const">
-                条款03：尽可能使用const <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2021/02/26/LeetCode1178-猜字谜/" rel="prev" title="LeetCode1178-猜字谜">
+                LeetCode1178-猜字谜 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -654,7 +656,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">134</span>
+                  <span class="site-state-item-count">135</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -676,7 +678,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -788,7 +790,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">143.7k</span>
+    <span title="Site words total count">144.5k</span>
   
 </div>
 
