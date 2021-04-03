@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="Zxy&#39;s blog">
 <meta property="og:description" content="前言const 可以在  class 外部修饰 global 或 namespace 作用域中的常量，或修饰文件、函数、或区域作用块中被声明为 static 的对象；也可以修饰 class 内部的静态或非静态成员变量。对于指针，可以指出指针自身、指针所指物，或两者都（或都不）是 const。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-03-05T09:08:37.350Z">
+<meta property="og:updated_time" content="2021-04-01T15:31:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="条款03：尽可能使用const">
 <meta name="twitter:description" content="前言const 可以在  class 外部修饰 global 或 namespace 作用域中的常量，或修饰文件、函数、或区域作用块中被声明为 static 的对象；也可以修饰 class 内部的静态或非静态成员变量。对于指针，可以指出指针自身、指针所指物，或两者都（或都不）是 const。">
@@ -481,6 +481,11 @@
 <li>编译器强制实施 <code>bitwise constness</code>，但编程时应注重<strong>概念上的常量性</strong>；</li>
 <li>如果 <code>const</code> 和 <code>non_const</code> 成员函数有着等价的实现时，令 <code>non-const</code> 版本调用 <code>const</code> 版本可避免代码重复。</li>
 </ul>
+<p>除此之外：</p>
+<ul>
+<li><code>const</code> 对象只能调用 <code>const</code> 成员函数；</li>
+<li>非 <code>const</code> 对象既可以调用 <code>const</code> 成员函数，又可以调用非 <code>const</code> 成员函数。</li>
+</ul>
 <h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>《Effective C++》条款 03：尽可能使用 const</p>
 
       
@@ -614,7 +619,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">135</span>
+                  <span class="site-state-item-count">137</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -636,7 +641,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -748,7 +753,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">144.5k</span>
+    <span title="Site words total count">145.8k</span>
   
 </div>
 

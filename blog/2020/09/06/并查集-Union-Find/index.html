@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/09/06/并查集-Union-Find/pathcompression2">
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/09/06/并查集-Union-Find/pathcompression3">
 <meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2020/09/06/并查集-Union-Find/test">
-<meta property="og:updated_time" content="2020-09-06T05:34:44.613Z">
+<meta property="og:updated_time" content="2021-04-03T02:52:53.889Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="并查集(Union Find)">
 <meta name="twitter:description" content="本次学习要点 并查集的基本概念及实现(Quick_Find/Quick_Union) 基于size优化与基于rank优化 路径压缩">
@@ -458,7 +458,7 @@
 <ul>
 <li>isConnected(p, q)</li>
 </ul>
-<p>并查集可以用数组来表示，基本数据表示如下（0<del>4，5</del>9互相连接）：</p>
+<p>并查集可以用数组来表示，基本数据表示如下（0-4，5-9互相连接）：</p>
 <table>
 <thead>
 <tr>
@@ -543,7 +543,7 @@
 <p>这样一来，这棵树的层数变成了4，一种更合理的方式是根据当前根节点的树的高度来进行优化，如下图，这样树的层数为3：</p>
 <img src="/blog/2020/09/06/并查集-Union-Find/rank3" style="zoom:80%;">
 
-<p>我们可以用一个数组<code>rang[i]</code>表示根节点为i的树的高度。</p>
+<p>我们可以用一个数组<code>rank[i]</code>表示根节点为i的树的高度。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UnionFind4</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> *parent;</span><br><span class="line">    <span class="keyword">int</span> *rank;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    UnionFind4(<span class="keyword">int</span> count)&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;count = count;</span><br><span class="line">        parent = <span class="keyword">new</span> <span class="keyword">int</span>[count];</span><br><span class="line">        rank = <span class="keyword">new</span> <span class="keyword">int</span>[count];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            rank[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ~UnionFind4()&#123;</span><br><span class="line">        <span class="keyword">delete</span> [] parent;</span><br><span class="line">        <span class="keyword">delete</span> [] rank;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> p)</span></span>&#123;</span><br><span class="line">        assert(p &gt;= <span class="number">0</span> &amp;&amp; p &lt; count);</span><br><span class="line">        <span class="comment">// 寻找根节点，复杂度O(n)</span></span><br><span class="line">        <span class="keyword">while</span>(p != parent[p])</span><br><span class="line">            p = parent[p];</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isConnected</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> find(p) == find(q);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">uoionElement</span><span class="params">(<span class="keyword">int</span> p, <span class="keyword">int</span> q)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> pRoot = find(p);</span><br><span class="line">        <span class="keyword">int</span> qRoot = find(q);</span><br><span class="line">        <span class="keyword">if</span>(pRoot == qRoot) <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">// 基于size优化</span></span><br><span class="line">        <span class="keyword">if</span>(rank[pRoot] &lt; rank[qRoot])&#123;</span><br><span class="line">            <span class="comment">// 不用维护层数</span></span><br><span class="line">            parent[pRoot] = qRoot;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (rank[pRoot] &gt; rank[qRoot])&#123;</span><br><span class="line">            <span class="comment">// 不用维护层数</span></span><br><span class="line">            parent[qRoot] = pRoot;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123; </span><br><span class="line">            <span class="comment">// rank[pRoot] == rank[qRoot]</span></span><br><span class="line">            <span class="comment">// 层数加1</span></span><br><span class="line">            parent[pRoot] = qRoot;</span><br><span class="line">            rank[qRoot]++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h3 id="路径压缩-Path-Compression"><a href="#路径压缩-Path-Compression" class="headerlink" title="路径压缩(Path Compression)"></a>路径压缩(Path Compression)</h3><p>之前我们的<code>find(p)</code>操作中，递归查找的复杂度为<code>O(1)</code>，如下图，要查找4的根节点需要4次递归：</p>
@@ -709,7 +709,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">135</span>
+                  <span class="site-state-item-count">137</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -731,7 +731,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -843,7 +843,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">144.5k</span>
+    <span title="Site words total count">145.8k</span>
   
 </div>
 
