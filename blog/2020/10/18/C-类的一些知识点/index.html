@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="《C++ Primer》第七章内容——类 部分总结">
+<meta name="description" content="定义抽象数据类型 访问控制与封装 类的其他属性 类的作用域 构造函数再探 类的静态成员">
 <meta name="keywords" content="Class">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++类的一些知识点">
 <meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2020/10/18/C-类的一些知识点/index.html">
 <meta property="og:site_name" content="Zxy&#39;s blog">
-<meta property="og:description" content="《C++ Primer》第七章内容——类 部分总结">
+<meta property="og:description" content="定义抽象数据类型 访问控制与封装 类的其他属性 类的作用域 构造函数再探 类的静态成员">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-01-29T15:52:21.248Z">
+<meta property="og:updated_time" content="2021-07-12T02:26:29.467Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++类的一些知识点">
-<meta name="twitter:description" content="《C++ Primer》第七章内容——类 部分总结">
+<meta name="twitter:description" content="定义抽象数据类型 访问控制与封装 类的其他属性 类的作用域 构造函数再探 类的静态成员">
 
 
 
@@ -395,7 +395,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  570
+                  2.1k
                 </span>
               
 
@@ -411,7 +411,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -432,42 +432,84 @@
       
 
       
-        <p>《C++ Primer》第七章内容——类</p>
-<p><strong>部分总结</strong></p>
+        <ol>
+<li>定义抽象数据类型</li>
+<li>访问控制与封装</li>
+<li>类的其他属性</li>
+<li>类的作用域</li>
+<li>构造函数再探</li>
+<li>类的静态成员</li>
+</ol>
 <a id="more"></a>
 
-<h4 id="第七章：类"><a href="#第七章：类" class="headerlink" title="第七章：类"></a>第七章：类</h4><ol>
-<li><h5 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h5></li>
-</ol>
+<p>类的基本思想：数据抽象、封装。</p>
+<p><strong>数据抽象</strong>是一种依赖于接口和实现分类的编程技术。</p>
+<p><strong>封装</strong>实现了类的接口和实现的分离。</p>
+<h4 id="7-1-定义抽象数据类型"><a href="#7-1-定义抽象数据类型" class="headerlink" title="7.1 定义抽象数据类型"></a>7.1 定义抽象数据类型</h4><h5 id="7-1-1-设计-Sales-data-类"><a href="#7-1-1-设计-Sales-data-类" class="headerlink" title="7.1.1 设计 Sales_data 类"></a>7.1.1 设计 Sales_data 类</h5><h5 id="7-1-2-定义改进的-Sales-data-类"><a href="#7-1-2-定义改进的-Sales-data-类" class="headerlink" title="7.1.2 定义改进的 Sales_data 类"></a>7.1.2 定义改进的 Sales_data 类</h5><h6 id="定义成员函数"><a href="#定义成员函数" class="headerlink" title="定义成员函数"></a>定义成员函数</h6><h6 id="引入-this"><a href="#引入-this" class="headerlink" title="引入 this"></a>引入 this</h6><p>成员函数通过一个名为 <strong>this</strong> 的额外的隐式参数来访问调用它的那个对象。</p>
+<h6 id="引入-const-成员函数"><a href="#引入-const-成员函数" class="headerlink" title="引入 const 成员函数"></a>引入 const 成员函数</h6><p>成员函数参数列表后的 <strong>const</strong> 作用是：修改隐式 <strong>this</strong> 指针的类型为指向常量的指针。也就是指向常量的常量指针，提高函数的灵活性。</p>
+<p>默认情况下，<strong>this</strong> 的类型是<strong>指向类类型非常量版本</strong>的常量指针。</p>
+<p>常量对象，以及常量对量的引用或指针都只能调用常量成员函数。</p>
+<h6 id="类作用域和成员函数"><a href="#类作用域和成员函数" class="headerlink" title="类作用域和成员函数"></a>类作用域和成员函数</h6><p>编译器分两步处理类：①编译成员的声明②成员函数体（有的话）。</p>
+<h6 id="定义一个返回-this-对象的函数"><a href="#定义一个返回-this-对象的函数" class="headerlink" title="定义一个返回 this 对象的函数"></a>定义一个返回 this 对象的函数</h6><h5 id="7-1-3-定义类相关的非成员函数"><a href="#7-1-3-定义类相关的非成员函数" class="headerlink" title="7.1.3 定义类相关的非成员函数"></a>7.1.3 定义类相关的非成员函数</h5><p>一般来说，如果非成员函数是类接口的组成部分，则这些函数的声明应该与类在同一个头文件内。</p>
+<h5 id="7-1-4-构造函数"><a href="#7-1-4-构造函数" class="headerlink" title="7.1.4 构造函数"></a>7.1.4 构造函数</h5><p>类通过成员函数控制其对象初始化的过程，这些函数称为构造函数。</p>
+<h6 id="合成的默认构造函数"><a href="#合成的默认构造函数" class="headerlink" title="合成的默认构造函数"></a>合成的默认构造函数</h6><p>如果类没有显示的定义构造函数，则编译器会隐式定义一个默认构造函数，也称为<strong>合成的默认构造函数</strong>，其规则如下：</p>
 <ul>
+<li>如果存在类内初始值，则用它来初始化成员。</li>
+<li>否则，默认初始化该成员。</li>
+</ul>
+<p><strong>一旦我们定义了一些其他的构造函数，那么除非我们再定义一个默认的构造函数，否则类将没有默认构造函数。</strong></p>
+<h6 id="default-的含义"><a href="#default-的含义" class="headerlink" title="= default 的含义"></a>= default 的含义</h6><p>在 C++11 新标准中，如果我们需要<strong>默认</strong>的行为，那么可以通过在参数列表后面写上 <strong>= default</strong> 来要求编译器生成构造函数。</p>
+<h6 id="构造函数初始值列表"><a href="#构造函数初始值列表" class="headerlink" title="构造函数初始值列表"></a>构造函数初始值列表</h6><p>没有出现在   构造函数初始值列表中的成员将通过相应的类内初始值（如果存在的话）初始化，或者执行默认初始化。</p>
+<h5 id="7-1-5-拷贝、赋值和析构"><a href="#7-1-5-拷贝、赋值和析构" class="headerlink" title="7.1.5 拷贝、赋值和析构"></a>7.1.5 拷贝、赋值和析构</h5><p>如果我们不主动定义这些操作，则编译器将替我们合成它们。</p>
+<h6 id="某些类不能依赖于合成的版本"><a href="#某些类不能依赖于合成的版本" class="headerlink" title="某些类不能依赖于合成的版本"></a>某些类不能依赖于合成的版本</h6><p>当类需要分配类对象之外的资源时，合成的版本常常会失效。但是类包含 vector 或者 string 成员，则其拷贝、赋值和销毁的合成版本能够正常工作。</p>
+<h4 id="7-2-访问控制与封装"><a href="#7-2-访问控制与封装" class="headerlink" title="7.2 访问控制与封装"></a>7.2 访问控制与封装</h4><p>使用 class 和 struct 定义类唯一的区别就是默认的访问权限。</p>
+<h5 id="7-2-1-友元"><a href="#7-2-1-友元" class="headerlink" title="7.2.1 友元"></a>7.2.1 友元</h5><ul>
 <li><p>类可以允许其他类或者函数访问它的非共有成员，方法是令其他类或者函数（可以是成员函数也可以是非成员函数）成为它的友元。一般来说，在类的开始或者结束前位置集中声明友元。如果希望类的用户能够调用某个友元函数，那么就需要在类中友元声明之外再进行一次声明。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sales_data</span>&#123;</span></span><br><span class="line"><span class="function"><span class="keyword">friend</span> Sales_data <span class="title">add</span><span class="params">(<span class="keyword">const</span> Sale_data&amp;, <span class="keyword">const</span> Sale_data&amp;)</span></span>;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    /.../</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    /.../</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 非成员函数声明</span></span><br><span class="line"><span class="function">Sales_data <span class="title">add</span><span class="params">(<span class="keyword">const</span> Sale_data&amp;, <span class="keyword">const</span> Sale_data&amp;)</span></span>;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>如果一个类指定了友元类，则友元类的成员函数可以访问此类包括非公有成员在内的所有成员。友元的关系不具有传递性。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Screen</span>&#123;</span></span><br><span class="line">    <span class="comment">// Window_mgr的成员可以访问Screen类的私有部分</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Window_mgr</span>;</span></span><br><span class="line">    /.../</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 也可以只为某个成员函数提供访问权限</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Screen</span>&#123;</span></span><br><span class="line">    <span class="comment">// Window_mgr::clear必须再Screen类之前声明</span></span><br><span class="line">    <span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">Window_mgr::clear</span><span class="params">(ScreenIndex)</span></span>;</span><br><span class="line">    /.../</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ol start="2">
-<li><strong>构造函数</strong></li>
-</ol>
-<ul>
-<li><p>使用构造函数初始值列表来初始化成员。</p>
-</li>
-<li><p>如果成员是引用或者const时，必须通过函数初始值列标将其初始化：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConstRef</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	ConstRef(<span class="keyword">int</span> ii);</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> ci;</span><br><span class="line">	<span class="keyword">int</span> &amp;ri;</span><br><span class="line">&#125;</span><br><span class="line">ConstRef::ConstRef(<span class="keyword">int</span> ii): i(ii), ci(ii), ri(ii);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ol start="3">
-<li><strong>类的静态成员</strong></li>
-</ol>
-<ul>
-<li><p>适用于类的成员直接与类相关，而不是与类的各个对象关联，比如说：银行的利率</p>
-</li>
-<li><p>静态成员可以是public或者private，使用关键字static，成员函数不用通过作用域运算符就能直接使用静态成员。静态成员不是由类的构造函数初始化的，一般在类的外部定义和初始化每个静态成员，只能定义一次：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Account</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">calculate</span><span class="params">()</span> </span>&#123; amount += amount * interestRate; &#125;;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">double</span> <span class="title">rate</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> interestRate; &#125;;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">rate</span><span class="params">(<span class="keyword">double</span>)</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">string</span> owner;</span><br><span class="line">    <span class="keyword">double</span> amount;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">double</span> interestRate;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">double</span> <span class="title">initRate</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1.0</span>;</span><br><span class="line">    &#125;;  </span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Account::rate</span><span class="params">(<span class="keyword">double</span> newRate)</span></span>&#123;</span><br><span class="line">    interestRate = newRate;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定义并初始化一个静态成员</span></span><br><span class="line"><span class="keyword">double</span> Account::interestRate = initRate();</span><br><span class="line"><span class="comment">// test</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Account c1;</span><br><span class="line">    <span class="keyword">double</span> r;</span><br><span class="line">    r = c1.rate();</span><br><span class="line">    <span class="comment">// 输出1</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; r &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    </span><br><span class="line">    Account::rate(<span class="number">0.8</span>);</span><br><span class="line">    r = c1.rate();</span><br><span class="line">    <span class="comment">// 输出0.8</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; r &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
+<h4 id="7-3-类的其他特性"><a href="#7-3-类的其他特性" class="headerlink" title="7.3 类的其他特性"></a>7.3 类的其他特性</h4><h5 id="7-3-1-类成员再探"><a href="#7-3-1-类成员再探" class="headerlink" title="7.3.1 类成员再探"></a>7.3.1 类成员再探</h5><h6 id="可变数据成员"><a href="#可变数据成员" class="headerlink" title="可变数据成员"></a>可变数据成员</h6><p>const 成员函数可以改变<strong>可变数据成员</strong>，在变量的声明中加入 <code>mutable</code> 即可。</p>
+<h5 id="7-3-4-友元再探"><a href="#7-3-4-友元再探" class="headerlink" title="7.3.4 友元再探"></a>7.3.4 友元再探</h5><h6 id="类之间的友元关系"><a href="#类之间的友元关系" class="headerlink" title="类之间的友元关系"></a>类之间的友元关系</h6><p>如果一个类指定了友元类，则友元类的成员函数可以访问此类的所有成员。</p>
+<p><strong>每个类负责控制自己的友元类或友元函数。</strong></p>
+<h6 id="令成员函数作为友元"><a href="#令成员函数作为友元" class="headerlink" title="令成员函数作为友元"></a>令成员函数作为友元</h6><p>当把一个成员函数声明成友元时，我们必须明确指出该成员函数属于哪个类（用类作用域限定符）。</p>
+<h4 id="7-4-类的作用域"><a href="#7-4-类的作用域" class="headerlink" title="7.4 类的作用域"></a>7.4 类的作用域</h4><p>编译器处理完类的全部声明后才会处理成员函数的定义。</p>
+<h4 id="7-5-构造函数再探"><a href="#7-5-构造函数再探" class="headerlink" title="7.5 构造函数再探"></a>7.5 构造函数再探</h4><h5 id="为什么使用初始化列表？"><a href="#为什么使用初始化列表？" class="headerlink" title="为什么使用初始化列表？"></a>为什么使用初始化列表？</h5><p>如果没有在构造函数的初始化列表中显式地初始化成员，<strong>则该成员将在构造函数体之前执行默认初始化</strong>。相当于进行了赋值操作。相较于在构造函数中初始化效率更高。</p>
+<h5 id="构造函数初始值必不可少的情况"><a href="#构造函数初始值必不可少的情况" class="headerlink" title="构造函数初始值必不可少的情况"></a>构造函数初始值必不可少的情况</h5><p>如果成员是 <strong>const，引用</strong>或者<strong>某种未提供默认构造函数的类类型</strong>，必须通过构造函数初始化列表为这些成员提供初值。</p>
+<h5 id="成员初始化的顺序"><a href="#成员初始化的顺序" class="headerlink" title="成员初始化的顺序"></a>成员初始化的顺序</h5><p>构造函数初始化列表中的初始值的前后位置关系<strong>不会</strong>影响实际的初始化顺序。如果一个成员是用另一个成员来初始化的，那么需要考虑两者顺序。</p>
+<p>最好令构造函数初始化顺序与成员声明的顺序保持一致。而且如果可能的话，尽量避免使用某些成员初始化其他成员。</p>
+<h5 id="7-5-3-默认构造函数的作用"><a href="#7-5-3-默认构造函数的作用" class="headerlink" title="7.5.3 默认构造函数的作用"></a>7.5.3 默认构造函数的作用</h5><h6 id="默认初始化"><a href="#默认初始化" class="headerlink" title="默认初始化"></a>默认初始化</h6><ul>
+<li>在栈区对 int 声明后未定义，执行默认初始化，这个值随机，调用时编译器将提示未定义；如果对数组声明后可以直接使用，在没有赋值时数组元素的值随机，类中的 int 型数据成员也是如此。 </li>
+<li>类本身含有<strong>类类型的成员</strong>且使用合成的默认构造函数时。</li>
+<li>当类类型的成员没有在构造函数初始值列表中显式初始化时。</li>
+</ul>
+<h6 id="值初始化"><a href="#值初始化" class="headerlink" title="值初始化"></a>值初始化</h6><ul>
+<li>数组初始化过程中提供的初始值数量少于数组大小时：</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">3</span>] = &#123;<span class="number">1</span>&#125;; <span class="comment">// a[0] = 1, a[1] = 0, a[2] = 0</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不使用初始值定义一个局部静态变量时。</li>
+<li>显式地请求值初始化时。</li>
+</ul>
+<p>也就是说，非数组内置数据类型在静态/全局变量区进行<strong>值初始化</strong>为0；在栈区执行默认初始化，值随机。而非内置数据类型进行<strong>默认初始化</strong>，由各自决定其初始化对象的方式。例如 <code>string</code> 的默认初始化为空字符串。</p>
+<h5 id="7-5-4-隐式的类类型转换"><a href="#7-5-4-隐式的类类型转换" class="headerlink" title="7.5.4 隐式的类类型转换"></a>7.5.4 隐式的类类型转换</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> null_book = <span class="string">"9-999"</span>;</span><br><span class="line"><span class="comment">// 构造一个临时的 Sales_data 对象，接收 string 的构造函数</span></span><br><span class="line"><span class="comment">// 该对象的 units_sold 和 revenue 等于0，bookNo 等于 null_book</span></span><br><span class="line">item.combine(null_book); <span class="comment">// Sales_data 类对象</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="抑制构造函数定义的隐式转换"><a href="#抑制构造函数定义的隐式转换" class="headerlink" title="抑制构造函数定义的隐式转换"></a>抑制构造函数定义的隐式转换</h6><p>将构造函数声明为 <code>explicit</code> 加以阻止：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">explicit</span> <span class="title">Sales_data</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s)</span>: <span class="title">bookNo</span><span class="params">(s)</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时，没有任何构造函数能用于隐式的创建 <code>Sales_data</code> 对象。</p>
+<p>当我们用 <code>explicit</code> 关键字声明构造函数时，它将<strong>只能以直接初始化的形式使用，而不能使用拷贝初始化</strong>。</p>
+<h4 id="7-6-类的静态成员"><a href="#7-6-类的静态成员" class="headerlink" title="7.6 类的静态成员"></a>7.6 类的静态成员</h4><p><code>static</code> 关键字只出现在类内部的声明语句中。</p>
+<p>我们可以使用静态成员作为默认实参。</p>
+<h5 id="静态成员的类内初始化"><a href="#静态成员的类内初始化" class="headerlink" title="静态成员的类内初始化"></a>静态成员的类内初始化</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> v = <span class="number">0</span>; <span class="comment">// 类内可以初始化 const 静态成员</span></span><br></pre></td></tr></table></figure>
+
+<p>即使一个常量静态数据成员在类内部被初始化了，通常情况下也应该在类的外部定义一下该成员：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    B() = <span class="keyword">default</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> v = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> B::v;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -600,7 +642,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">140</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -622,7 +664,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -700,7 +742,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#第七章：类"><span class="nav-number">1.</span> <span class="nav-text">第七章：类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#友元"><span class="nav-number">1.1.</span> <span class="nav-text">友元</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-定义抽象数据类型"><span class="nav-number">1.</span> <span class="nav-text">7.1 定义抽象数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-1-设计-Sales-data-类"><span class="nav-number">1.1.</span> <span class="nav-text">7.1.1 设计 Sales_data 类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-2-定义改进的-Sales-data-类"><span class="nav-number">1.2.</span> <span class="nav-text">7.1.2 定义改进的 Sales_data 类</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#定义成员函数"><span class="nav-number">1.2.1.</span> <span class="nav-text">定义成员函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#引入-this"><span class="nav-number">1.2.2.</span> <span class="nav-text">引入 this</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#引入-const-成员函数"><span class="nav-number">1.2.3.</span> <span class="nav-text">引入 const 成员函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#类作用域和成员函数"><span class="nav-number">1.2.4.</span> <span class="nav-text">类作用域和成员函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#定义一个返回-this-对象的函数"><span class="nav-number">1.2.5.</span> <span class="nav-text">定义一个返回 this 对象的函数</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-3-定义类相关的非成员函数"><span class="nav-number">1.3.</span> <span class="nav-text">7.1.3 定义类相关的非成员函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-4-构造函数"><span class="nav-number">1.4.</span> <span class="nav-text">7.1.4 构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#合成的默认构造函数"><span class="nav-number">1.4.1.</span> <span class="nav-text">合成的默认构造函数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#default-的含义"><span class="nav-number">1.4.2.</span> <span class="nav-text">= default 的含义</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#构造函数初始值列表"><span class="nav-number">1.4.3.</span> <span class="nav-text">构造函数初始值列表</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-5-拷贝、赋值和析构"><span class="nav-number">1.5.</span> <span class="nav-text">7.1.5 拷贝、赋值和析构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#某些类不能依赖于合成的版本"><span class="nav-number">1.5.1.</span> <span class="nav-text">某些类不能依赖于合成的版本</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-访问控制与封装"><span class="nav-number">2.</span> <span class="nav-text">7.2 访问控制与封装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-1-友元"><span class="nav-number">2.1.</span> <span class="nav-text">7.2.1 友元</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-3-类的其他特性"><span class="nav-number">3.</span> <span class="nav-text">7.3 类的其他特性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-3-1-类成员再探"><span class="nav-number">3.1.</span> <span class="nav-text">7.3.1 类成员再探</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#可变数据成员"><span class="nav-number">3.1.1.</span> <span class="nav-text">可变数据成员</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-3-4-友元再探"><span class="nav-number">3.2.</span> <span class="nav-text">7.3.4 友元再探</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#类之间的友元关系"><span class="nav-number">3.2.1.</span> <span class="nav-text">类之间的友元关系</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#令成员函数作为友元"><span class="nav-number">3.2.2.</span> <span class="nav-text">令成员函数作为友元</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4-类的作用域"><span class="nav-number">4.</span> <span class="nav-text">7.4 类的作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-5-构造函数再探"><span class="nav-number">5.</span> <span class="nav-text">7.5 构造函数再探</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么使用初始化列表？"><span class="nav-number">5.1.</span> <span class="nav-text">为什么使用初始化列表？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#构造函数初始值必不可少的情况"><span class="nav-number">5.2.</span> <span class="nav-text">构造函数初始值必不可少的情况</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#成员初始化的顺序"><span class="nav-number">5.3.</span> <span class="nav-text">成员初始化的顺序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-5-3-默认构造函数的作用"><span class="nav-number">5.4.</span> <span class="nav-text">7.5.3 默认构造函数的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#默认初始化"><span class="nav-number">5.4.1.</span> <span class="nav-text">默认初始化</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#值初始化"><span class="nav-number">5.4.2.</span> <span class="nav-text">值初始化</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-5-4-隐式的类类型转换"><span class="nav-number">5.5.</span> <span class="nav-text">7.5.4 隐式的类类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#抑制构造函数定义的隐式转换"><span class="nav-number">5.5.1.</span> <span class="nav-text">抑制构造函数定义的隐式转换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-6-类的静态成员"><span class="nav-number">6.</span> <span class="nav-text">7.6 类的静态成员</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#静态成员的类内初始化"><span class="nav-number">6.1.</span> <span class="nav-text">静态成员的类内初始化</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -734,7 +776,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">147.7k</span>
+    <span title="Site words total count">155k</span>
   
 </div>
 
