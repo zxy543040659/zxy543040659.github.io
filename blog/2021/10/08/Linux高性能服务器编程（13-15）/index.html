@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="高性能服务器,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Linux高性能服务器编程（13-15）">
+<meta name="keywords" content="高性能服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux高性能服务器编程（13-15）">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="Linux高性能服务器编程（13-15）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/exec.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/子进程状态信息.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/SIGCHLD信号的典型处理函数.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/父进程通过管道向子进程写数据.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmget额外标志.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmid_ds0.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmid_ds1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmid_ds初始化.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/SHM_RND.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmflg1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmflg2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmat.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmdt.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmctl命令.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/shm_open.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/msqid_ds.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/msgbuf.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/msgsnd阻塞.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/IPC命令.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/NPTL.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/NPTL优势.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_create.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_t.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_create_flag.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_exit.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_join.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_join函数可能引发的错误码.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_cancel.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_cancel_.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_attr_t结构体.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/POSIX信号量.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/POSIX互斥锁.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_mutex_lock.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_mutex_trylock.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_mutex_unlock.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/互斥锁属性.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pshared.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/type.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/条件变量.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_cond_init.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/sigprocmask.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/处理信号的线程.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_kill.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/主进程选择子进程1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/主进程选择子进程2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/进程池模型.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/处理多客户.png">
+<meta property="og:updated_time" content="2021-10-08T02:21:24.647Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux高性能服务器编程（13-15）">
+<meta name="twitter:description" content="Linux高性能服务器编程（13-15）">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/exec.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/">
+
+
+
+
+
+  <title>Linux高性能服务器编程（13-15） | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">工欲善其事，必先利其器</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（13-15）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zxy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux高性能服务器编程（13-15）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-08T09:51:33+08:00">
+                2021-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2021/10/08/Linux高性能服务器编程（13-15）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2021/10/08/Linux高性能服务器编程（13-15）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  25 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Linux高性能服务器编程（13-15）</p>
+<a id="more"></a>
+
+<h3 id="第13章-多进程编程"><a href="#第13章-多进程编程" class="headerlink" title="第13章 多进程编程"></a>第13章 多进程编程</h3><p>本章包括以下内容：</p>
+<ul>
+<li>复制进程映像的 fork 系统调用和替换进程映像的 exec 系列系统调用。</li>
+<li>僵尸进程以及如何避免僵尸进程。</li>
+<li>进程间通信（Inter-Process Communication，IPC）最简单的方式：管道。</li>
+<li>3 种 System V 进程间通信方式：信号量、消息队列和共享内存。</li>
+<li>在进程间传递文件描述符的通用方法：通过 UNIX 本地域 socket 传递特殊的辅助数据。</li>
+</ul>
+<h4 id="13-1-fork-系统调用"><a href="#13-1-fork-系统调用" class="headerlink" title="13.1 fork 系统调用"></a>13.1 fork 系统调用</h4><p>Linux 下创建新进程的系统调用是 fork。其定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">pid_t</span> <span class="title">fork</span><span class="params">( <span class="keyword">void</span> )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>该函数的每次调用都返回两次：</p>
+<ul>
+<li>在父进程中返回的是子进程的 PID</li>
+<li>在子进程中则返回 0</li>
+</ul>
+<p>该返回值是后续代码判断当前进程是父进程还是子进程的依据。fork 调用失败时返回 -1，并设置 errno。</p>
+<h4 id="13-2-exec-系列系统调用"><a href="#13-2-exec-系列系统调用" class="headerlink" title="13.2 exec 系列系统调用"></a>13.2 exec 系列系统调用</h4><p> 有时需要在子进程中执行其他程序，即替换当前进程映像，这就需要使用如下 exec 系列函数之一：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/exec.png">
+
+<h4 id="13-4-处理僵尸进程"><a href="#13-4-处理僵尸进程" class="headerlink" title="13.4 处理僵尸进程"></a>13.4 处理僵尸进程</h4><p>多进程程序中，父进程一般需要跟踪子进程的退出状态。<strong>因此，当子进程结束运行时，内核不会立即释放该进程的进程表表项</strong>，以满足父进程后续对该子进程退出信息的查询（如果父进程还在运行）。<strong>在子进程结束运行之后，父进程读取其退出状态之前，我们称该子进程处于僵尸态</strong>。</p>
+<p>另一种使子进程进入僵尸态的情况是：<strong>父进程结束或异常终止，而子进程继续运行。</strong>此时子进程的 <code>PPID</code> 将被操作系统设置为 1，<strong>即 <code>init</code> 进程</strong>。<code>init</code> 进程接管了该子继承，并等待它结束。<strong>在父进程退出之后，子进程退出之前，该子进程处于僵尸态（孤儿进程）。</strong></p>
+<p>下面这对函数在父进程中调用，以等待子进程的结束，并获取子进程的返回信息，从而避免了僵尸进程的产生，或者使子进程的僵尸态立即结束：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">pid_t</span> <span class="title">wait</span><span class="params">( <span class="keyword">int</span>* stat_loc )</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">pid_t</span> <span class="title">waitpid</span><span class="params">( <span class="keyword">pid_t</span> pid, <span class="keyword">int</span>* stat_loc, <span class="keyword">int</span> options )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>wait</code> 函数将阻塞进程，直到该进程的某个子进程结束运行为止，它返回结束运行的子进程的 PID，并将该子进程的退出状态信息存储于 stat_loc 参数指向的内存中，以下是几个宏定义帮助解释子进程退出状态信息：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/子进程状态信息.png" style="zoom:80%;">
+
+<p><strong>waitpid</strong></p>
+<p><code>wait</code> 函数的阻塞特性不是服务器程序所期望的，而 <code>waitpid</code> 解决了这个问题。</p>
+<p><code>waitpid</code> 只等待由 pid 参数指定的子进程，如果 pid 取值为 -1，那么它就和 <code>wait</code> 函数相同，即等待任意一个子进程结束。stat_loc 参数的含义和 <code>wait</code> 函数的 stat_loc 参数相同。 options 参数可以控制 <code>waitpid</code> 的行为。<strong>当 options 取值为 WNOHANG 时，<code>waitpid</code> 调用将是非阻塞的：</strong></p>
+<ul>
+<li>如果 pid 指定的目标子进程还没有结束或意外终止，则 <code>waitpid</code> 立即返回 0；</li>
+<li>如果目标子进程确实正常退出，则 <code>waitpid</code> 但会该子进程的 PID；</li>
+<li><code>waitpid</code> 调用失败时返回 -1，并设置 errno。</li>
+</ul>
+<p><strong>当一个进程结束时，它将给其父进程发送一个 SIGCHLD 信号。</strong>因此，我们可以在父进程中捕获 SIGCHLD 信号，并在信号处理函数中调用 <code>waitpid</code> 函数以”彻底结束“一个子进程。如下代码清单：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/SIGCHLD信号的典型处理函数.png">
+
+<h4 id="13-4-管道"><a href="#13-4-管道" class="headerlink" title="13.4 管道"></a>13.4 管道</h4><p>管道能在父、子进程间传递数据，利用的是 fork 调用之后两个管道文件描述符都保持打开。一对描述符只能保证父、子进程间一个方向的数据传输，父进程和子进程必须有一个关闭 <code>fd[0]</code>，一个关闭 <code>fd[1]</code>。比如：父进程通过管道向子进程写数据，如下图：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/父进程通过管道向子进程写数据.png">
+
+<p>不过，<strong>管道只能用于有关联的两个进程间的通信。</strong>而 3 种类 System V IPC 能用于无关联的多个进程之间的通信。</p>
+<p>还有一种特殊的管道称为 FIFO，也成为<strong>命名管道</strong>，可用于无关联进程之间的通信。网络编程中用的不多。</p>
+<h4 id="13-5-信号量"><a href="#13-5-信号量" class="headerlink" title="13.5 信号量"></a>13.5 信号量</h4><h5 id="13-5-1-信号量原语"><a href="#13-5-1-信号量原语" class="headerlink" title="13.5.1 信号量原语"></a>13.5.1 信号量原语</h5><p>临界区/关键代码区：任一时刻只有一个进程可以进入。</p>
+<p>假设有信号量 SV，则对它的 P（wait）、V（signal） 操作含义如下：</p>
+<ul>
+<li>P(SV)：如果 SV 的值大于 0，就将其减 1；如果 SV 的值为 0，则挂起进程的执行。</li>
+<li>V(SV)：如果有其他进程因为等待 SV 而挂起，则唤醒之；如果没有，则将 SV 加1。</li>
+</ul>
+<h5 id="13-5-2-semget-系统调用"><a href="#13-5-2-semget-系统调用" class="headerlink" title="13.5.2 semget 系统调用"></a>13.5.2 semget 系统调用</h5><p><code>semget</code> 系统调用创建一个新的信号量集，或者获取一个已经存在的信号量集。其定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/sem.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semget</span><span class="params">( <span class="keyword">key_t</span> key, <span class="keyword">int</span> num_sems, <span class="keyword">int</span> sem_flags )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>key：键值，<strong>用来标识一个全局唯一的信号量集</strong>，就像文件名全局唯一地标识一个文件一样。要通过信号量通信的进程需要使用相同地键值来创建/获取该信号量。</li>
+<li>num_sems：指定要创建/获取的信号量集中<strong>信号量的数目</strong>。如果是创建信号量，则该值必须被指定；如果是获取已经存在的信号量，则可以把它设置成 0。</li>
+<li>sem_flag：指定一组标志。它低端的 9 个比特是该信号量的权限，其格式和含义都与系统调用 open 和 mode 参数相同。</li>
+</ul>
+<p><code>semget</code> 成功时返回一个正整数值，它时信号量集的标识符；<code>semget</code> 失败时返回 -1，并设置 errno。</p>
+<h5 id="13-5-3-semop-系统调用"><a href="#13-5-3-semop-系统调用" class="headerlink" title="13.5.3 semop 系统调用"></a>13.5.3 semop 系统调用</h5><p><code>semop</code> 系统调用改变信号量的值，即执行P、V操作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/sem.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semop</span><span class="params">( <span class="keyword">int</span> sem_id, struct sembuf* sem_ops, <span class="keyword">size_t</span> num_sem_ops )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>sem_id：由 <code>semget</code> 调用返回的信号量集标识符，用以指定被操作的目标信号量集。</p>
+</li>
+<li><p>sem_ops：指向一个 <code>sembuf</code> 结构体类型的数组，其定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sembuf</span>&#123;</span></span><br><span class="line">	<span class="keyword">unsigned</span> short <span class="keyword">int</span> sem_num; <span class="comment">// 信号量集合中信号量的编号，0是第一个</span></span><br><span class="line">	short <span class="keyword">int</span> sem_op; <span class="comment">// 指定操作类型，其可选值为正整数、0和负整数。每种类型的操作的行为又收到sem_flag 成员的影响。</span></span><br><span class="line">	short <span class="keyword">int</span> sem_flg; <span class="comment">// IPC_NOWAIT/SEM_UNDO</span></span><br><span class="line">    <span class="comment">// IPC_NOWAIT：无论信号量操作是否成功，semop调用都将立即返回，类似于非阻塞I/O操作</span></span><br><span class="line">    <span class="comment">// SEM_UNDO：当进程退出时取消正在进行的semop操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>num_sem_ops：指定要执行的操作个数，即 sem_ops 数组中元素的个数。</p>
+</li>
+</ul>
+<p><code>semop</code> 成功时返回 0，失败在返回 -1 并设置 errno。失败时 sem_ops 数组中指定的所有操作都不被执行。</p>
+<h5 id="13-5-4-semctl-系统调用"><a href="#13-5-4-semctl-系统调用" class="headerlink" title="13.5.4 semctl 系统调用"></a>13.5.4 semctl 系统调用</h5><p><code>semctl</code> 系统调用允许调用者对信号量进行直接控制。其定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/sem.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semctl</span><span class="params">( <span class="keyword">int</span> sem_id, <span class="keyword">int</span> sem_num, <span class="keyword">int</span> command, ... )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>sem_id：由 <code>semget</code> 调用返回的信号量集标识符，用以指定被操作的目标信号量集。</li>
+<li>sem_num：指定被操作的信号量在信号量几种的编号。</li>
+<li>command：指定要执行的命令。</li>
+<li>第四个参数的类型由用户自己定义，但 <code>sys/sem.h</code> 头文件给出了它的推荐格式。</li>
+</ul>
+<h5 id="13-5-5-特殊键值-IPC-PRIVATE"><a href="#13-5-5-特殊键值-IPC-PRIVATE" class="headerlink" title="13.5.5 特殊键值 IPC_PRIVATE"></a>13.5.5 特殊键值 IPC_PRIVATE</h5><p><code>semget</code>调用者可给其 key 参数传递 IPC_PRIVATE（其值为 0），无论该信号量是否已经存在，<code>semget</code> 都将创建一个新的信号量。此名称具有误导性，非进程私有。其他进程，尤其是子进程也有方法来访问这个信号量。</p>
+<h4 id="13-6-共享内存"><a href="#13-6-共享内存" class="headerlink" title="13.6 共享内存"></a>13.6 共享内存</h4><p><strong>共享内存是最高效的 IPC 机制，</strong>因为其不涉及进程之间的任何数据传输。不过其通常和其他进程间通信方式一起使用，否则会缠身竞态条件。</p>
+<p>Linux 共享内存的 API 都定义在 <code>sys/shm.h</code> 头文件中，包括 4 个系统调用：<code>shmget</code>、<code>shmat</code>、<code>shmdt</code> 和 <code>shmctl</code>。</p>
+<h5 id="13-6-1-shmget-系统调用"><a href="#13-6-1-shmget-系统调用" class="headerlink" title="13.6.1 shmget 系统调用"></a>13.6.1 shmget 系统调用</h5><p><code>shmget</code> 系统调用创建一段新的共享内存，或者获取一段已经存在的共享内存。其定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/shm.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shmget</span> <span class="params">( <span class="keyword">key_t</span> key, <span class="keyword">size_t</span> size, <span class="keyword">int</span> shmflg )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>key：键值，用来标识一段全局唯一的共享内存。</p>
+</li>
+<li><p>size：指定共享内存的大小，单位是字节。如果是创建新的共享内存，则 size 值必须指定。如果是获取已经存在的共享内存，则可以把 size 设置为 0。</p>
+</li>
+<li><p>shmflg：与 <code>semget</code> 系统调用的 <code>sem_flg</code> 参数相同，成功是返回一个正整数，它是共享内存的标识符，<code>shmget</code> 失败时返回 -1，并设置 errno。不过 <code>shmget</code> 支持两个额外的标志，如下所示：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmget额外标志.png">
+
+</li>
+</ul>
+<p>如果 <code>shmget</code> 用于创建共享内存，则这段共享内存的所有字节都被初始化为 0，与之关联的内核数据结构 <code>shmid_ds</code> 将被创建并初始化，其结构体定义如下：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmid_ds0.png">
+
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmid_ds1.png">
+
+<p><code>shmget</code> 对 <code>shmid_ds</code> 结构体的初始化包括：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmid_ds初始化.png" style="zoom:80%;">
+
+<h5 id="13-6-2-shmat-和-shmdt-系统调用"><a href="#13-6-2-shmat-和-shmdt-系统调用" class="headerlink" title="13.6.2 shmat 和 shmdt 系统调用"></a>13.6.2 shmat 和 shmdt 系统调用</h5><p>共享内存被创建/获取之后，我们不能立即访问它，而是①需要先将它关联到进程的地址空间中。②使用完共享内存之后，需要将它从进程地址空间中分离。使用如下两个系统调用实现：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/shm.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">shmat</span><span class="params">( <span class="keyword">int</span> shm_id, <span class="keyword">const</span> <span class="keyword">void</span>* shm_addr, <span class="keyword">int</span> shmflg )</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shmdt</span><span class="params">( <span class="keyword">const</span> <span class="keyword">void</span>* shm_addr )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>shm_id：<code>shmget</code> 调用返回的共享内存标识符。</p>
+</li>
+<li><p>shm_addr：指定将共享内存关联到进程的哪块地址空间，最终的效果还受到 <code>shmflg</code> 参数的可选标志 SHM_RND 的影响：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/SHM_RND.png">
+
+</li>
+</ul>
+<p>除了 SHM_END 标志外，<code>shmget</code> 参数还支持如下标志：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmflg1.png">
+
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmflg2.png">
+
+<p><strong>shmat</strong></p>
+<p>成功返回共享内存被关联到的地址，失败时返回 <code>(void*)-1</code> 并设置 errno，<code>shmat</code> 成功时，将修改内核数据结构 <code>shmid_ds</code> 的部分字段，如下：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmat.png">
+
+<p><strong>shmdt</strong></p>
+<p>将关联到 shm_addr 处的共享内存从进程中分离。它成功时返回 0，失败时返回 -1 并设置 errno。<code>shmdt</code> 在成功调用时将修改内核数据结构 <code>shmid_ds</code> 的部分字段，如下：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmdt.png">
+
+<h5 id="13-6-3-shmctl-系统调用"><a href="#13-6-3-shmctl-系统调用" class="headerlink" title="13.6.3 shmctl 系统调用"></a>13.6.3 shmctl 系统调用</h5><p><code>shmctl</code> 系统调用控制共享内存的某些属性。其定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/shm.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shmctl</span><span class="params">( <span class="keyword">int</span> shm_id, <span class="keyword">int</span> command, struct shmid_ds* buf )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>shm_id：<code>shmget</code> 调用返回的共享内存标识符。</li>
+<li>command：指定要执行的命令。如下表：</li>
+</ul>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/shmctl命令.png">
+
+<p><code>shmctl</code> 成功时的返回值取决于 command 参数，如上表所示。失败时返回 -1，并设置 errno。</p>
+<h5 id="13-6-4-共享内存的-POSIX-方法"><a href="#13-6-4-共享内存的-POSIX-方法" class="headerlink" title="13.6.4 共享内存的 POSIX 方法"></a>13.6.4 共享内存的 POSIX 方法</h5><p>通过打开同一个文件，<code>mmap</code> 可以实现无关进程之间的内存共享。Linux 提供了另外一种利用 <code>mmap</code> 在无关进程之间共享内存的方式，这种方式无须任何文件的支持，但它需要先使用如下函数来创建或打开一个 POSIX 共享内存对象：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#inculde <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#inculde <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shm_open</span><span class="params">( <span class="keyword">const</span> <span class="keyword">char</span>* name, <span class="keyword">int</span> oflag, <span class="keyword">mode_t</span> mode )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>shm_open</code> 的使用方法与 <code>open</code> 系统调用完全相同。</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/shm_open.png">
+
+<p><code>shm_open</code> 调用成功时返回一个文件描述符。该文件描述符可用于后续的 <code>mmap</code> 调用，从而将共享内存关联到调用进程。<code>shm_open</code> 失败时返回 -1，并设置 errno。</p>
+<p><strong><code>shm_open</code> 创建的共享内存对象使用完之后也需要被删除</strong>。这个过程是通过如下函数实现的：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#inculde <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#inculde <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shm_unlink</span><span class="params">( <span class="keyword">const</span> <span class="keyword">char</span> *name )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>该函数将 name 参数指定的共享内存对象标记为等待删除。当所有使用该共享内存对象的进程都使用 ummap 将它从进程种分离之后，系统将销毁这个共享内存对象所占据的资源。</p>
+<p><strong>如果代码中使用了上述 POSIX 共享内存函数，则编译时候需要指定链接选项 -lrt 。</strong></p>
+<h5 id="13-6-5-共享内存示例"><a href="#13-6-5-共享内存示例" class="headerlink" title="13.6.5 共享内存示例"></a>13.6.5 共享内存示例</h5><h4 id="13-7-消息队列"><a href="#13-7-消息队列" class="headerlink" title="13.7 消息队列"></a>13.7 消息队列</h4><p>消息队列是在两个进程之间传递二进制数据的一种简单有效的方式。<strong>每个数据块都有一个特定的类型，接收方可以根据类型来有选择地接收数据</strong>，而不一定像管道和命名管道那样必须以先进先出地方式接收数据。</p>
+<p>Linux 消息队列的 API 都定义在 <code>sys/msg.h</code> 头文件中，包括 4 个系统调用：<code>msgget</code>、<code>msgsnd</code>、<code>msgrcv</code> 和 <code>msgctl</code> 。</p>
+<h5 id="13-7-1-msgget-系统调用"><a href="#13-7-1-msgget-系统调用" class="headerlink" title="13.7.1 msgget 系统调用"></a>13.7.1 msgget 系统调用</h5><p><code>msgget</code> 系统调用创建一个消息队列，或者获取一个已有的消息队列。其定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/msg.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgget</span><span class="params">( <span class="keyword">key_t</span> key, <span class="keyword">int</span> msgflg )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>key：键值，用来标识一个全局唯一的消息队列。</li>
+<li>msgflag：与 <code>semget</code> 系统调用的 sem_flag 参数相同。</li>
+</ul>
+<p><code>msgget</code> 成功时返回一个正整数值，它是消息队列的标识符。<code>msgget</code> 失败时返回 -1，并设置 errno。</p>
+<p>如果 <code>msgget</code> 用于创建消息队列，则与之关联的内核数据结构 <code>msqid_ds</code> 将被创建并初始化。<code>msqid_ds</code> 结构体的定义如下：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/msqid_ds.png">
+
+<h5 id="13-7-2-msgsnd-系统调用"><a href="#13-7-2-msgsnd-系统调用" class="headerlink" title="13.7.2 msgsnd 系统调用"></a>13.7.2 msgsnd 系统调用</h5><p><code>msgsnd</code> 系统调用把一条消息添加到消息队列中。其定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/msg.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgsnd</span><span class="params">( <span class="keyword">int</span> msqid, <span class="keyword">const</span> <span class="keyword">void</span>* msg_ptr, <span class="keyword">size_t</span> msg_sz, <span class="keyword">int</span> msgflg )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>msqid：由 <code>msgget</code> 调用返回的消息队列标识符。</li>
+<li>msg_ptr：指向一个准备发送的消息，消息必须被定义为如下类型：<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/msgbuf.png" style="zoom:120%;">
+* mtype：指定消息的类型，正整数。
+* mtext：消息数据。</li>
+<li>msg_sz：消息的数据部分（mtext）的长度。为 0 表示无数据。</li>
+<li>msgflag：控制 <code>msgsnd</code> 行为，通常只支持 IPC_NOWAIT 标志，即以非阻塞的方式发送消息。</li>
+</ul>
+<p>默认情况下，发送消息时如果消息队列满了，则 <code>msgsnd</code> 将阻塞。若 IPC_NOWAIT 标志被指定，则 <code>msgsnd</code> 将立即返回并设置 errno 为 EAGAIN。</p>
+<p>处于阻塞状态的 <code>msgsnd</code> 调用可能被如下两种异常情况所中断：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/msgsnd阻塞.png">
+
+<h5 id="13-7-3-msgrcv-系统调用"><a href="#13-7-3-msgrcv-系统调用" class="headerlink" title="13.7.3 msgrcv 系统调用"></a>13.7.3 msgrcv 系统调用</h5><p><code>msgrcv</code> 系统调用从消息队列中获取消息。其定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/msg.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgrcv</span><span class="params">( <span class="keyword">int</span> msqid, <span class="keyword">void</span>* msg_ptr, <span class="keyword">size_t</span> msg_sz, <span class="keyword">long</span> <span class="keyword">int</span> msgtype, <span class="keyword">int</span> msgflg )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>msqid：由 <code>msgget</code> 调用返回的消息队列标识符。</li>
+<li>msg_ptr：用于存储接收的消息。</li>
+<li>msg_sz：消息数据部分的长度。</li>
+<li>msgtype：指定接收何种类型的消息。</li>
+</ul>
+<h5 id="13-7-4-msgctl-系统调用"><a href="#13-7-4-msgctl-系统调用" class="headerlink" title="13.7.4 msgctl 系统调用"></a>13.7.4 msgctl 系统调用</h5><p><code>msgctl</code> 系统调用控制消息队列的某些属性，其定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/msg.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgctl</span><span class="params">( <span class="keyword">int</span> msqid, <span class="keyword">int</span> command, struct msqid_ds* buf )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>msqid：由 <code>msgget</code> 调用返回的消息队列标识符。</li>
+<li>command：指定要执行的命令，支持命令在 P266 表 13-4。</li>
+</ul>
+<p><code>msgctl</code> 成功时返回值取决于 command参数，如 P266 表 13-4 所示。失败时返回 -1，并设置 errno。</p>
+<h4 id="13-8-IPC命令"><a href="#13-8-IPC命令" class="headerlink" title="13.8 IPC命令"></a>13.8 IPC命令</h4><p>Linux 提供 <strong>ipcs</strong> 命令，以观察当前系统上拥有哪些共享资源实例。此外，可以使用 <strong>ipcrm</strong> 命令来删除遗留在系统中的共享资源。</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/IPC命令.png">
+
+<h4 id="13-9-在进程间传递文件描述符"><a href="#13-9-在进程间传递文件描述符" class="headerlink" title="13.9 在进程间传递文件描述符"></a>13.9 在进程间传递文件描述符</h4><p>需要注意的是，传递一个文件描述符并不是传递一个文件描述符的值，而是要在接收进程中创建一个新的文件描述符，并且该文件描述符和发送进程中被传递的文件描述符指向内核中相同的文件表项。</p>
+<h3 id="第-14-章-多线程编程"><a href="#第-14-章-多线程编程" class="headerlink" title="第 14 章 多线程编程"></a>第 14 章 多线程编程</h3><p>本章线程（NPTL）相关的内容都属于 POSIX 线程（简称 <code>pthread</code> ）标准，具体包括：</p>
+<ol>
+<li>创建线程和结束线程。</li>
+<li>读取和设置线程属性。</li>
+<li>POSIX 线程同步方式：<strong>POSIX 信号量、互斥锁和条件变量。</strong></li>
+</ol>
+<h4 id="14-1-Linux-线程概述"><a href="#14-1-Linux-线程概述" class="headerlink" title="14.1 Linux 线程概述"></a>14.1 Linux 线程概述</h4><h5 id="14-1-1-线程模型"><a href="#14-1-1-线程模型" class="headerlink" title="14.1.1 线程模型"></a>14.1.1 线程模型</h5><p>线程可分为内核线程和用户线程：</p>
+<ul>
+<li>内核线程：也被称为 LWP（Light Weight Process，轻量级线程），运行在内核空间，由内核来调度。</li>
+<li>用户线程：运行在用户空间，由线程库调度。</li>
+</ul>
+<p>当进程的一个内核线程获得 CPU 的使用权时，它就加载并运行一个用户线程。可见，<strong>内核线程相当于用户线程运行的“容器”。</strong></p>
+<p>一个进程可以拥有 M 个内核线程和 N 个用户线程，其中 $M \leq N$。且在一个系统的所有进程中，M 和 N 的比值是<strong>固定的</strong>。</p>
+<p>线程的实现方式分为三种模式：</p>
+<ul>
+<li>完全在用户空间实现，多对一。</li>
+<li>完全由内核调度，一对一。</li>
+<li>双层调度，多对多。</li>
+</ul>
+<h5 id="14-1-2-Linux-线程库"><a href="#14-1-2-Linux-线程库" class="headerlink" title="14.1.2 Linux 线程库"></a>14.1.2 Linux 线程库</h5><p>现代 Linux 上默认使用的线程库是 NPTL，可以用如下命令查看当前系统上所使用的线程库：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/NPTL.png">
+
+<p>相比于 LinuxThreads，NPTL 的主要优势在于：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/NPTL优势.png">
+
+<h4 id="14-2-创建进程和结束进程"><a href="#14-2-创建进程和结束进程" class="headerlink" title="14.2 创建进程和结束进程"></a>14.2 创建进程和结束进程</h4><p>创建和结束线程的基础 API，Linux 上它们都定义在 <code>pthread.h</code> 头文件中。</p>
+<ol>
+<li><p><code>pthread_create</code>，创建一个线程：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_create.png">
+</li>
+</ol>
+<ul>
+<li><p>thread 参数是新线程的标识符，后续 <code>pthread_*</code> 函数通过它来引用新线程。其类型 <code>pthread_t</code> 的定义如下：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_t.png">
+</li>
+<li><p>attr 参数用于设置新线程的属性。给它传递 NULL 标识使用默认线程属性。</p>
+</li>
+<li><p>start_routine 和 arg 指定新线程运行的函数及其参数。</p>
+</li>
+</ul>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_create_flag.png">
+
+<ol start="2">
+<li><p><code>pthread_exit</code>，线程结束时最好调用此函数，以确保安全、干净的退出：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_exit.png">
+
+</li>
+</ol>
+<p><code>pthread_exit</code> 函数通过 retval 参数向线程的回收者传递其退出信息。它执行完之后不回返回到调用者，而且永远不会失败。</p>
+<ol start="3">
+<li><p><code>pthread_join</code>，一个进程中的所有线程都可以调用 <code>pthread_join</code> 函数来回收<strong>其他线程</strong>（前提是目标线程是可回收的，见后文），即等待<strong>其他线程</strong>结束，类似于回收进程的 <code>wait</code> 和 <code>waitpid</code> 系统调用。定义如下：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_join.png">
+
+</li>
+</ol>
+<p><code>thread</code> 参数是目标线程的标识符，retval 参数是目标线程返回的退出信息。该函数会一直阻塞，直到被回收的线程结束为止。该函数成功时返回 0，失败则返回错误码。可能的错误码如下：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_join函数可能引发的错误码.png">
+
+<ol start="4">
+<li><p><code>pthread_cancel</code>，有时候希望异常终止一个线程，即取消线程，通过以下函数实现：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_cancel.png">
+</li>
+</ol>
+<ul>
+<li>thread 参数是目标线程的标识符。</li>
+</ul>
+<p>该函数成功时返回 0，失败则返回错误码。接收到取消请求的目标线程可以决定是否允许被取消以及如何取消，通过以下函数：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_cancel_.png">
+
+<p>具体参数详见 P273。</p>
+<h4 id="14-3-线程属性※"><a href="#14-3-线程属性※" class="headerlink" title="14.3 线程属性※"></a>14.3 线程属性※</h4><p><code>pthread_attr_t</code> 结构体定义了一套完整的线程属性，如下所示：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_attr_t结构体.png">
+
+<p>可见，各种线程属性全部包含在一个字符数组中。线程库定义了一系列函数来操作 <code>pthread_attr_t</code> 类型的变量，以方便我们获取和设置线程属性。这些函数在 P273。</p>
+<p><strong>脱离线程</strong>：脱离了与其他线程同步的线程称为”脱离线程“。脱离线程在退出时将自行释放其占用的系统资源。可以设置 <code>detachstate</code> 设置为 <code>PTHREAD_CREATE_DETACH</code>，也可以使用 <code>pthread_detach</code> 函数直接将线程设置为脱离线程。</p>
+<h4 id="14-4-POSIX-信号量"><a href="#14-4-POSIX-信号量" class="headerlink" title="14.4 POSIX 信号量"></a>14.4 POSIX 信号量</h4><p>Linux 上信号量 API 有两组。一组是第 13 章讨论过的 System V IPC 信号量，另外一组是现在要讨论的 POSIX 信号量。这两组接口很相似，但不保证能互换。</p>
+<p>POSIX 信号量函数的名字都以 <code>sem_</code> 开头，并不像大多数线程函数那样以 <code>pthread_</code> 开头。常用的 POSIX 信号量是下面 5 个：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/POSIX信号量.png">
+
+<ul>
+<li>sem：指向被操作的信号量。</li>
+<li>sem_init：用于初始化一个未命名的信号量；pshared 参数指定信号量的类型，如果为 0，表示这个信号量是当前进程的局部信号量；value 参数指定信号量的初始值。<strong>此外，初始化一个已经被初始化的信号量将导致不可预期的结果。</strong></li>
+<li>sem_destroy：用于销毁信号量，以释放其占用的内核资源。<strong>如果销毁一个正被其他线程等待的信号量，则将导致不可于其的结果。</strong></li>
+<li>sem_wait：以原子操作的方式将信号量的值减 1，如果信号量的值为 0，则 sem_wait 将被阻塞，直到这个信号量具有非 0 值。</li>
+<li>sem_trywait：与 sem_wait 类似，不过它始终立即返回，而不论操作的信号量是否具有非 0 值，相当于 sem_wait 的非阻塞版本。</li>
+<li>sem_post：以原子操作的方式将信号量的值加 1。当信号量的值大于 0 时，其他正在调用 sem_wait 等待信号量的线程将被唤醒。</li>
+</ul>
+<p>以上函数成功时返回 0，失败则返回 -1 并设置 errno。</p>
+<h4 id="14-5-互斥锁"><a href="#14-5-互斥锁" class="headerlink" title="14.5 互斥锁"></a>14.5 互斥锁</h4><p>互斥锁可以用于保护关键代码段，以确保其独占式的访问。当进入关键代码段时，我们需要获得互斥锁并将其加锁，类似于二进制信号量的 P 操作；当离开关键代码段时，我们需要对互斥锁解锁，以唤醒其他等待该互斥锁的线程，等价于二进制信号量的 V 操作。</p>
+<h5 id="14-5-1-互斥锁基础-API"><a href="#14-5-1-互斥锁基础-API" class="headerlink" title="14.5.1 互斥锁基础 API"></a>14.5.1 互斥锁基础 API</h5><p>POSIX 互斥锁的相关函数主要有如下 5 个：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/POSIX互斥锁.png">
+
+<ul>
+<li>mutex：指向要操作的目标互斥锁，互斥锁的类型是 <code>pthread_mutex_t</code> 结构体。</li>
+</ul>
+<p><strong>pthread_mutex_init</strong></p>
+<p>用于初始化互斥锁。mutexattr 参数指定互斥锁的属性。如果将它设置为 NULL，则表示使用默认属性。也可以使用如下方式初始化一个互斥锁：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pthread_mutex_t</span> mutex = PTHREAD_MUTEX_INITIALIZER;</span><br></pre></td></tr></table></figure>
+
+<p><strong>pthread_mutex_destroy</strong></p>
+<p>用于销毁互斥锁，以释放其占用的内核资源。<strong>销毁一个已经加锁的互斥锁将导致不可预期的后果。</strong></p>
+<p><strong>pthread_mutex_lock</strong></p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_mutex_lock.png">
+
+<p><strong>pthread_mutex_trylock</strong></p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_mutex_trylock.png">
+
+<p><strong>pthread_mutex_unlock</strong></p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_mutex_unlock.png">
+
+<p>上面这些函数成功时返回 0，失败则返回错误码。</p>
+<h5 id="14-5-2-互斥锁属性"><a href="#14-5-2-互斥锁属性" class="headerlink" title="14.5.2 互斥锁属性"></a>14.5.2 互斥锁属性</h5><p><code>pthread_mutexattr_t</code> 结构体定义了一套完整的互斥锁属性。线程库提供了一系列函数类操作 <code>pthread_mutexattr_t</code> 类型的变量以方便我们获取和设置互斥锁属性。如下：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/互斥锁属性.png">
+
+<p>最主要两种是：<code>pshared</code> 和 <code>type</code>。</p>
+<p>互斥锁 <code>pshared</code> 指定是否允许跨进程共享互斥锁，其可选值有两个：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pshared.png">
+
+<p>互斥锁属性 <code>type</code> 指定互斥锁的类型。Linux 支持如下 4 种类型的互斥锁：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/type.png">
+
+<h5 id="14-5-3-死锁举例"><a href="#14-5-3-死锁举例" class="headerlink" title="14.5.3 死锁举例"></a>14.5.3 死锁举例</h5><p>P278。</p>
+<h4 id="14-6-条件变量"><a href="#14-6-条件变量" class="headerlink" title="14.6 条件变量"></a>14.6 条件变量</h4><p>互斥锁：同步线程对共享数据的访问。</p>
+<p>条件变量：线程之间同步共享数据的值。</p>
+<p><strong>条件变量</strong>提供了一种线程间的通知机制：<strong>当某个共享数据达到某个值的时候，唤醒等待这个共享数据的线程。</strong>条件变量的相关函数主要有如下 5 个：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/条件变量.png">
+
+<ul>
+<li>cond：指向要操作的目标条件变量，类型为 <code>pthread_cond_t</code> 结构体。</li>
+</ul>
+<p><strong>pthread_cond_init</strong></p>
+<p>用于初始化条件变量。cond_attr 参数执行条件变量的属性，设置为 NULL，表示使用默认属性。除了使用 <code>init</code> 函数，还可以用如下方式初始化：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_cond_init.png">
+
+<p>宏实际上是把条件变量的各个字段都初始化为 0。</p>
+<p><strong>pthread_cond_destroy</strong></p>
+<p>用于销毁条件变量，以释放其占用的内核资源。销毁一个正在被等待的条件变量将失败并返回 EBUSY。</p>
+<p><strong>pthread_cond_broadcast</strong></p>
+<p>以广播的方式唤醒所有等待目标条件变量的线程。</p>
+<p><strong>pthread_cond_signal</strong></p>
+<p>用于唤醒一个等待目标条件变量的线程。至于哪个线程将被唤醒，则取决于线程的优先级和调度策略。</p>
+<p><strong>pthread_cond_wait</strong></p>
+<p>用于等待目标条件变量。mutex 参数是用于保护条件变量的互斥锁，以确保 <code>pthread_cond_wait</code> 的原子性。详细信息 P280。</p>
+<h4 id="14-7-线程同步机制包装类"><a href="#14-7-线程同步机制包装类" class="headerlink" title="14.7 线程同步机制包装类"></a>14.7 线程同步机制包装类</h4><p>三种线程同步方式封装。P280-P282。</p>
+<h4 id="14-8-多线程环境"><a href="#14-8-多线程环境" class="headerlink" title="14.8 多线程环境"></a>14.8 多线程环境</h4><h5 id="14-8-1-可重入函数"><a href="#14-8-1-可重入函数" class="headerlink" title="14.8.1 可重入函数"></a>14.8.1 可重入函数</h5><p>如果一个函数能被多个线程<strong>同时调用</strong>且<strong>不发生竞态条件</strong>，则我们称它是<strong>线程安全</strong>的，或者<strong>可重入函数</strong>。Linux 库函数只有一小部分是不可重入的，比如 <code>inet_ntoa</code> 函数。不过 Linux 对很多不可重入的库函数提供了对应的可重入版本，这些可重入版本的函数名是在原函数名尾部加上 _r。如 <code>localtime</code> 对应的可重入函数是 <code>localtime_r</code>。</p>
+<h5 id="14-8-2-线程和进程"><a href="#14-8-2-线程和进程" class="headerlink" title="14.8.2 线程和进程"></a>14.8.2 线程和进程</h5><p>如果一个多线程程序的某个线程调用了 <code>fork</code> 函数，那么新创建的子进程只拥有一个执行线程，它是调用 <code>fork</code> 的哪个线程的完整复制，并且子进程将自动继承父进程种互斥锁。关于可能造成死锁的详情见 P283。</p>
+<h5 id="14-8-3-线程和信号"><a href="#14-8-3-线程和信号" class="headerlink" title="14.8.3 线程和信号"></a>14.8.3 线程和信号</h5><p>每个线程都可以独立地设置信号掩码，多线程环境下应使用 <code>pthread</code> 版本的 <code>sigprocmask</code> 函数来设置线程信号掩码：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/sigprocmask.png">
+
+<p>该函数的参数的含义与 <code>sigprocmask</code> 完全相同，成功返回 0，失败返回错误码。</p>
+<p>我们应该定义一个专门的线程来处理所有的信号，通过以下两个步骤来实现：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/处理信号的线程.png">
+
+<ul>
+<li>set：执行需要等待的信号的集合。</li>
+<li>sig：指向的整数用于存储该函数返回的信号值</li>
+</ul>
+<p><code>sigwait</code> 成功时返回 0，失败时返回错误码。</p>
+<p>最后，<code>pthread</code> 还提供以下方法，明确将一个信号发送给指定的线程：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/pthread_kill.png">
+
+<ul>
+<li>thread：指定目标线程。</li>
+<li>sig：指定待发送的信号。</li>
+</ul>
+<p><code>pthread_kill</code> 成功时返回 0，失败时返回错误码。</p>
+<h3 id="第-15-章"><a href="#第-15-章" class="headerlink" title="第 15 章"></a>第 15 章</h3><h4 id="15-1-进程池和线程池概述"><a href="#15-1-进程池和线程池概述" class="headerlink" title="15.1 进程池和线程池概述"></a>15.1 进程池和线程池概述</h4><ul>
+<li>进程池是由服务器预先创建的一组子进程，典型情况数目为 3~10 个之间。而线程池中的线程数量应该和 CPU 数量差不多。</li>
+<li>进程池中的所有子进程都运行着相同的代码，并具有相同的属性，比如优先级、PGID等。</li>
+<li>当有新任务到来时，主进程将通过某种方式选择进程池中的某一个子进程来为之服务。</li>
+</ul>
+<p>相比于动态创建子进程，选择一个已经存在的子进程的代价显然要小得多。</p>
+<p>主进程选择哪个子进程来为新任务服务，则有<strong>两种方式</strong>：</p>
+<ul>
+<li><img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/主进程选择子进程1.png"></li>
+<li><img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/主进程选择子进程2.png">
+
+</li>
+</ul>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/进程池模型.png">
+
+<p>通知机制：</p>
+<ul>
+<li>父子进程：最简单的方法是通过管道。</li>
+<li>父子线程：全局变量。</li>
+</ul>
+<h4 id="15-2-处理多客户"><a href="#15-2-处理多客户" class="headerlink" title="15.2 处理多客户"></a>15.2 处理多客户</h4><img src="/blog/2021/10/08/Linux高性能服务器编程（13-15）/处理多客户.png">
+
+<h4 id="15-3-半同步-半异步进程池实现"><a href="#15-3-半同步-半异步进程池实现" class="headerlink" title="15.3 半同步/半异步进程池实现"></a>15.3 半同步/半异步进程池实现</h4><p>P289-P297</p>
+<h4 id="15-4-用进程池实现的简单-CGI-服务器"><a href="#15-4-用进程池实现的简单-CGI-服务器" class="headerlink" title="15.4 用进程池实现的简单 CGI 服务器"></a>15.4 用进程池实现的简单 CGI 服务器</h4><p>P298-P301</p>
+<h4 id="15-5-半同步-半反应堆线程池的实现"><a href="#15-5-半同步-半反应堆线程池的实现" class="headerlink" title="15.5 半同步/半反应堆线程池的实现"></a>15.5 半同步/半反应堆线程池的实现</h4><p>相比于 15.3 半同步/半异步进程池实现，该线程池使用一个工作队列完全解除了主线程和工作线程的耦合关系：主线程往工作队列中插入任务，工作线程通过竞争来取得任务并执行它。</p>
+<p>如果要将该线程池应用到实际服务器程序中，那么我们必须保证客户请求都是无状态的，因为同一个连接上的不同请求可能会由不同的线程处理。</p>
+<p>P301-P304</p>
+<h4 id="15-6-用线程池实现的简单-Web-服务器"><a href="#15-6-用线程池实现的简单-Web-服务器" class="headerlink" title="15.6 用线程池实现的简单 Web 服务器"></a>15.6 用线程池实现的简单 Web 服务器</h4><h5 id="15-6-1-http-conn-类"><a href="#15-6-1-http-conn-类" class="headerlink" title="15.6.1 http_conn 类"></a>15.6.1 http_conn 类</h5><p>P304-P318s</p>
+<h5 id="15-6-2-main-函数"><a href="#15-6-2-main-函数" class="headerlink" title="15.6.2 main 函数"></a>15.6.2 main 函数</h5><p>P318-P321</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/高性能服务器/" rel="tag"># 高性能服务器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2021/10/08/Linux高性能服务器编程（7-12）/" rel="next" title="Linux高性能服务器编程（7-12）">
+                <i class="fa fa-chevron-left"></i> Linux高性能服务器编程（7-12）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2021/10/08/Linux高性能服务器编程（16-17）/" rel="prev" title="Linux高性能服务器编程（16-17）">
+                Linux高性能服务器编程（16-17） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zxy</p>
+              <p class="site-description motion-element" itemprop="description">磨刀不误砍柴工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">155</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com/u/zxy-70/" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第13章-多进程编程"><span class="nav-number">1.</span> <span class="nav-text">第13章 多进程编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#13-1-fork-系统调用"><span class="nav-number">1.1.</span> <span class="nav-text">13.1 fork 系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-2-exec-系列系统调用"><span class="nav-number">1.2.</span> <span class="nav-text">13.2 exec 系列系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-4-处理僵尸进程"><span class="nav-number">1.3.</span> <span class="nav-text">13.4 处理僵尸进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-4-管道"><span class="nav-number">1.4.</span> <span class="nav-text">13.4 管道</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-5-信号量"><span class="nav-number">1.5.</span> <span class="nav-text">13.5 信号量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#13-5-1-信号量原语"><span class="nav-number">1.5.1.</span> <span class="nav-text">13.5.1 信号量原语</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-5-2-semget-系统调用"><span class="nav-number">1.5.2.</span> <span class="nav-text">13.5.2 semget 系统调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-5-3-semop-系统调用"><span class="nav-number">1.5.3.</span> <span class="nav-text">13.5.3 semop 系统调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-5-4-semctl-系统调用"><span class="nav-number">1.5.4.</span> <span class="nav-text">13.5.4 semctl 系统调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-5-5-特殊键值-IPC-PRIVATE"><span class="nav-number">1.5.5.</span> <span class="nav-text">13.5.5 特殊键值 IPC_PRIVATE</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-6-共享内存"><span class="nav-number">1.6.</span> <span class="nav-text">13.6 共享内存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#13-6-1-shmget-系统调用"><span class="nav-number">1.6.1.</span> <span class="nav-text">13.6.1 shmget 系统调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-6-2-shmat-和-shmdt-系统调用"><span class="nav-number">1.6.2.</span> <span class="nav-text">13.6.2 shmat 和 shmdt 系统调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-6-3-shmctl-系统调用"><span class="nav-number">1.6.3.</span> <span class="nav-text">13.6.3 shmctl 系统调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-6-4-共享内存的-POSIX-方法"><span class="nav-number">1.6.4.</span> <span class="nav-text">13.6.4 共享内存的 POSIX 方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-6-5-共享内存示例"><span class="nav-number">1.6.5.</span> <span class="nav-text">13.6.5 共享内存示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-7-消息队列"><span class="nav-number">1.7.</span> <span class="nav-text">13.7 消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#13-7-1-msgget-系统调用"><span class="nav-number">1.7.1.</span> <span class="nav-text">13.7.1 msgget 系统调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-7-2-msgsnd-系统调用"><span class="nav-number">1.7.2.</span> <span class="nav-text">13.7.2 msgsnd 系统调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-7-3-msgrcv-系统调用"><span class="nav-number">1.7.3.</span> <span class="nav-text">13.7.3 msgrcv 系统调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-7-4-msgctl-系统调用"><span class="nav-number">1.7.4.</span> <span class="nav-text">13.7.4 msgctl 系统调用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-8-IPC命令"><span class="nav-number">1.8.</span> <span class="nav-text">13.8 IPC命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-9-在进程间传递文件描述符"><span class="nav-number">1.9.</span> <span class="nav-text">13.9 在进程间传递文件描述符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第-14-章-多线程编程"><span class="nav-number">2.</span> <span class="nav-text">第 14 章 多线程编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#14-1-Linux-线程概述"><span class="nav-number">2.1.</span> <span class="nav-text">14.1 Linux 线程概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#14-1-1-线程模型"><span class="nav-number">2.1.1.</span> <span class="nav-text">14.1.1 线程模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14-1-2-Linux-线程库"><span class="nav-number">2.1.2.</span> <span class="nav-text">14.1.2 Linux 线程库</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-2-创建进程和结束进程"><span class="nav-number">2.2.</span> <span class="nav-text">14.2 创建进程和结束进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-3-线程属性※"><span class="nav-number">2.3.</span> <span class="nav-text">14.3 线程属性※</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-4-POSIX-信号量"><span class="nav-number">2.4.</span> <span class="nav-text">14.4 POSIX 信号量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-5-互斥锁"><span class="nav-number">2.5.</span> <span class="nav-text">14.5 互斥锁</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#14-5-1-互斥锁基础-API"><span class="nav-number">2.5.1.</span> <span class="nav-text">14.5.1 互斥锁基础 API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14-5-2-互斥锁属性"><span class="nav-number">2.5.2.</span> <span class="nav-text">14.5.2 互斥锁属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14-5-3-死锁举例"><span class="nav-number">2.5.3.</span> <span class="nav-text">14.5.3 死锁举例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-6-条件变量"><span class="nav-number">2.6.</span> <span class="nav-text">14.6 条件变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-7-线程同步机制包装类"><span class="nav-number">2.7.</span> <span class="nav-text">14.7 线程同步机制包装类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-8-多线程环境"><span class="nav-number">2.8.</span> <span class="nav-text">14.8 多线程环境</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#14-8-1-可重入函数"><span class="nav-number">2.8.1.</span> <span class="nav-text">14.8.1 可重入函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14-8-2-线程和进程"><span class="nav-number">2.8.2.</span> <span class="nav-text">14.8.2 线程和进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14-8-3-线程和信号"><span class="nav-number">2.8.3.</span> <span class="nav-text">14.8.3 线程和信号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第-15-章"><span class="nav-number">3.</span> <span class="nav-text">第 15 章</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#15-1-进程池和线程池概述"><span class="nav-number">3.1.</span> <span class="nav-text">15.1 进程池和线程池概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-2-处理多客户"><span class="nav-number">3.2.</span> <span class="nav-text">15.2 处理多客户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-3-半同步-半异步进程池实现"><span class="nav-number">3.3.</span> <span class="nav-text">15.3 半同步/半异步进程池实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-4-用进程池实现的简单-CGI-服务器"><span class="nav-number">3.4.</span> <span class="nav-text">15.4 用进程池实现的简单 CGI 服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-5-半同步-半反应堆线程池的实现"><span class="nav-number">3.5.</span> <span class="nav-text">15.5 半同步/半反应堆线程池的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-6-用线程池实现的简单-Web-服务器"><span class="nav-number">3.6.</span> <span class="nav-text">15.6 用线程池实现的简单 Web 服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#15-6-1-http-conn-类"><span class="nav-number">3.6.1.</span> <span class="nav-text">15.6.1 http_conn 类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15-6-2-main-函数"><span class="nav-number">3.6.2.</span> <span class="nav-text">15.6.2 main 函数</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">210.8k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

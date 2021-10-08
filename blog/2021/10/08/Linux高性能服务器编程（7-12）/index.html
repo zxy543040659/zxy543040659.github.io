@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="高性能服务器,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Zxy's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Linux高性能服务器编程（7-12）">
+<meta name="keywords" content="高性能服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux高性能服务器编程（7-12）">
+<meta property="og:url" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/index.html">
+<meta property="og:site_name" content="Zxy&#39;s blog">
+<meta property="og:description" content="Linux高性能服务器编程（7-12）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/syslog.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/日志级别.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/openlog.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/openlog-logopt.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/UID等.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/getpgid.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/setpgid.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/setsid.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/新会话.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/getsid.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/ps.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/资源限制类型.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/getcwd-chdir.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/改变工作目录和跟目录.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/chroot.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/改变工作目录和跟目录1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/后台化.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/服务器基本框架.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/IO模型.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/5种IO模型.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/Reactor.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/Procator.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/模拟Proactor.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/异步.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/半同步-半异步.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/半同步-半反应堆模型.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/半同步-半反应堆.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/高效的半同步-半异步模式.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/领导者-追随者.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/三种复用的区别.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/信号.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/kill.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/信号集.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/SO_REVTIMEO和SO_SNDTIMEO调用.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/时间轮.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/IO框架库组件.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/句柄.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/事件多路分发器.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/事件多路分发器1.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/事件多路分发器2.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/事件处理器和具体事件处理器.png">
+<meta property="og:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/IO框架库的工作时序.png">
+<meta property="og:updated_time" content="2021-10-08T01:57:39.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux高性能服务器编程（7-12）">
+<meta name="twitter:description" content="Linux高性能服务器编程（7-12）">
+<meta name="twitter:image" content="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/syslog.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/">
+
+
+
+
+
+  <title>Linux高性能服务器编程（7-12） | Zxy's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zxy's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">工欲善其事，必先利其器</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xingyuzhao.ltd/blog/2021/10/08/Linux高性能服务器编程（7-12）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zxy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zxy's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux高性能服务器编程（7-12）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-08T09:51:22+08:00">
+                2021-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2021/10/08/Linux高性能服务器编程（7-12）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/blog/2021/10/08/Linux高性能服务器编程（7-12）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Linux高性能服务器编程（7-12）</p>
+<a id="more"></a>
+
+<h3 id="第-7-章-Linux-服务器程序规范"><a href="#第-7-章-Linux-服务器程序规范" class="headerlink" title="第 7 章 Linux 服务器程序规范"></a>第 7 章 Linux 服务器程序规范</h3><p>服务器程序规范如下：</p>
+<ul>
+<li>Linux 服务器程序一般以后台形式运行。后台程序又称为<strong>守护进程</strong>。它没有控制终端，因而也不会意外接收到用户输入。守护进程的父进程通常是 <strong>init</strong> 进程（PID 为 1 的进程）。</li>
+<li>Linux 服务器程序通常有一套日志系统，它至少能输出日志到文件，有的高级服务器还能输出日志到专门的 UDP 服务器。大部分后台进程都在 /var/log 目录下拥有自己的日志目录。</li>
+<li>Linux 服务器程序一般以某个专门的非 root 身份运行。比如 mysqld、httpd、syslogd 等后台进程，分别拥有自己的运行账户 mysql、apache 和 syslog。</li>
+<li>Linux 服务器程序通常是可配置的。服务器程序通常能处理很多命令行选项，如果一次运行的选项太多，则可以用配置文件来管理。绝大多数服务器程序都有配置文件，并存放在 /etc 目录下。</li>
+<li>Linux 服务器进程通常会在启动的时候生成一个 PID 文件并存入 /var/run 目录中，以记录该后台进程的 PID。比如 syslogd 的 PID 文件是 /var/run/syslogd.pid。</li>
+<li>Linux 服务器程序通常需要考虑系统资源和限制，以预测自身能承受多大负荷，比如进程可用文件描述符总数和内存总量等。</li>
+</ul>
+<h4 id="7-1-日志"><a href="#7-1-日志" class="headerlink" title="7.1 日志"></a>7.1 日志</h4><h5 id="7-1-1-Linux-系统日志"><a href="#7-1-1-Linux-系统日志" class="headerlink" title="7.1.1 Linux 系统日志"></a>7.1.1 Linux 系统日志</h5><p>Linux 提供一个守护进程来处理系统日志——syslogd，不过现在的 Linux 系统上使用的都是它的升级版——rsyslogd。</p>
+<p>rsyslogd 守护进程既能接收用户进程输出的日志，又能接收内核日志。</p>
+<ul>
+<li>用户进程是通过调用 syslog 函数生成系统日志的。该函数将日志输出到一个 UNIX 本地域 socket 类型（AF_UNIX）的文件 /dev/log 中，rsyslogd 则监听该文件以获取用户进程的输出。</li>
+<li>内核日志由 printk 等函数打印至内核的环状缓存（ring buffer）中。环状缓存的内容直接映射到 /proc/kmsg 文件中。rsyslogd 则通过读取该文件获得内核日志。</li>
+</ul>
+<h5 id="7-1-2-syslog-函数"><a href="#7-1-2-syslog-函数" class="headerlink" title="7.1.2 syslog 函数"></a>7.1.2 syslog 函数</h5><p>应用程序通过使用 syslog 函数与 rsyslogd 守护进程通信。syslog 函数的定义如下：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/syslog.png">
+
+<p>priority 参数是所谓的设施值与日志级别的按位或。设施值的默认值是 LOG_USER，下面讨论的也只限于这一种设施值。日志级别有如下几个：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/日志级别.png">
+
+<p>下面这个函数可以改变 syslog 的默认输出方式，进一步结构化日志内容：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/openlog.png">
+
+<ul>
+<li>ident：指定的字符串将被添加到日志消息的日期和时间之后，通常被设置为程序的名字。</li>
+<li>logopt：对后续的 syslog 调用的行为进行配置，它可取下列值的按位或：</li>
+</ul>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/openlog-logopt.png">
+
+<ul>
+<li>facility：用来修改 syslog 函数中的默认设施值。</li>
+</ul>
+<p><strong>日志过滤</strong></p>
+<p>P116</p>
+<h4 id="7-2-用户信息"><a href="#7-2-用户信息" class="headerlink" title="7.2 用户信息"></a>7.2 用户信息</h4><h5 id="7-2-1-UID、EUID、GID-和-EGID※"><a href="#7-2-1-UID、EUID、GID-和-EGID※" class="headerlink" title="7.2.1 UID、EUID、GID 和 EGID※"></a>7.2.1 UID、EUID、GID 和 EGID※</h5><p>用户信息对于服务器程序的安全性来说很重要，大部分服务器就必须以 root 身份启动，但不能以 root 身份运行。下面这一组函数可以获取和设置当前进程的真实用户 ID（UID）、有效用户 ID（EUID）、真实组 ID（GID）和有效组 ID（EGID）:</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/UID等.png">
+
+<p>需要指出的是，<strong>一个进程有两个用户 ID</strong>：UID 和 EUID。EUID 存在的目的是方便资源访问：<strong>它使得运行程序的用户拥有该程序的有效用户的权限。</strong></p>
+<h5 id="7-2-2-切换用户"><a href="#7-2-2-切换用户" class="headerlink" title="7.2.2 切换用户"></a>7.2.2 切换用户</h5><h4 id="7-3-进程间关系"><a href="#7-3-进程间关系" class="headerlink" title="7.3 进程间关系"></a>7.3 进程间关系</h4><h5 id="7-3-1-进程组"><a href="#7-3-1-进程组" class="headerlink" title="7.3.1 进程组"></a>7.3.1 进程组</h5><p>Linux 下每个进程都隶属于一个进程组，因此它们除了 PID 信息外，还有进程组 ID（PGID）。可以用如下函数来获得指定进程的 PGID：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/getpgid.png">
+
+<p>每个进程组都有一个首领进程，其 PGID 和 PID 相同。进程组将一直存在，直到其中所有进程都退出，或者加入其他进程组。</p>
+<p>下面的函数用于设置 PGID：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/setpgid.png">
+
+<h5 id="7-3-2-会话"><a href="#7-3-2-会话" class="headerlink" title="7.3.2 会话"></a>7.3.2 会话</h5><p>一些有关联的进程组将形成一个会话（session）。下面的函数用于创建一个会话：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/setsid.png">
+
+<p>该函数不能由首领进程调用，否则将产生一个错误。对于非组首领的进程，调用该函数不仅创建新会话，而且有如下额外效果：<br><img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/新会话.png"></p>
+<p>Linux 进程<strong>并未提供所谓会话 ID（SID）</strong>的概念，<strong>但 Linux 系统认为它等于会话首领所在的进程组的 PGID</strong>，并提供了如下函数来读取 SID：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/getsid.png">
+
+<h5 id="7-3-3-用-ps-命令查看进程关系※"><a href="#7-3-3-用-ps-命令查看进程关系※" class="headerlink" title="7.3.3 用 ps 命令查看进程关系※"></a>7.3.3 用 ps 命令查看进程关系※</h5><img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/ps.png">
+
+<h4 id="7-4-系统资源限制"><a href="#7-4-系统资源限制" class="headerlink" title="7.4 系统资源限制"></a>7.4 系统资源限制</h4><p>Linux 系统资源限制可以通过如下一对函数来读取和设置：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/resource,h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getrlimit</span><span class="params">( <span class="keyword">int</span> resource, struct rlimit *rlim )</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setrlimit</span><span class="params">( <span class="keyword">int</span> resource, <span class="keyword">const</span> struct rlimit *rlim )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>rlim 参数是 rlimit 结构体类型的指针，rlimit 结构体的定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rlimit</span>&#123;</span></span><br><span class="line">	<span class="keyword">rlim_t</span> rlim_cur;</span><br><span class="line">	<span class="keyword">rlim_t</span> rlim_max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>rlim_t 是一个整数类型，它描述资源级别。</p>
+<ul>
+<li>rlim_cur 成员指定资源的软限制（建议性、最好不要超越的限制）</li>
+<li>rlim_max 成员指定资源的硬限制（软限制的上限）</li>
+</ul>
+<p><strong>resource</strong> 参数指定资源限制类型，如下表：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/资源限制类型.png">
+
+<h4 id="7-5-改变工作目录和根目录"><a href="#7-5-改变工作目录和根目录" class="headerlink" title="7.5 改变工作目录和根目录"></a>7.5 改变工作目录和根目录</h4><ol>
+<li>获取进程当前工作目录和改变进程工作目录的函数分别是：<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/getcwd-chdir.png">
+
+</li>
+</ol>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/改变工作目录和跟目录.png">
+
+<ol start="2">
+<li>改变进程根目录的函数是 chroot，其定义如下：<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/chroot.png">
+
+</li>
+</ol>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/改变工作目录和跟目录1.png">
+
+<h4 id="7-6-服务器程序后台化"><a href="#7-6-服务器程序后台化" class="headerlink" title="7.6 服务器程序后台化"></a>7.6 服务器程序后台化</h4><p>在代码中让一个进程以守护进程的方式运行。</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/后台化.png">
+
+<h3 id="第8章-高性能服务器程序框架"><a href="#第8章-高性能服务器程序框架" class="headerlink" title="第8章 高性能服务器程序框架"></a>第8章 高性能服务器程序框架</h3><h4 id="8-1-服务器模型"><a href="#8-1-服务器模型" class="headerlink" title="8.1 服务器模型"></a>8.1 服务器模型</h4><h5 id="8-1-1-C-S模型"><a href="#8-1-1-C-S模型" class="headerlink" title="8.1.1 C/S模型"></a>8.1.1 C/S模型</h5><h5 id="8-1-2-P2P模型"><a href="#8-1-2-P2P模型" class="headerlink" title="8.1.2 P2P模型"></a>8.1.2 P2P模型</h5><h4 id="8-2-服务器编程框架"><a href="#8-2-服务器编程框架" class="headerlink" title="8.2 服务器编程框架"></a>8.2 服务器编程框架</h4><img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/服务器基本框架.png">
+
+<h4 id="8-3-I-O模型"><a href="#8-3-I-O模型" class="headerlink" title="8.3 I/O模型"></a>8.3 I/O模型</h4><img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/IO模型.png">
+
+<ul>
+<li>同步 IO：同步 IO 模型包括阻塞 IO，非阻塞 IO 和 IO 多路复用。特点就是当进程从内核复制数据的时候都是阻塞的。 <ul>
+<li><strong>阻塞</strong>：调用 IO 操作的时候，如果缓冲区空或者满了，调用的进程或者线程就会处于阻塞状态直到 IO 可用并完成数据拷贝。</li>
+<li><strong>非阻塞</strong>：调用 IO 操作的时候，内核会马上返回结果，如果 IO 不可用，会返回错误，这种方式下进程需要不断轮询直到 IO 可用为止，但是当进程从内核拷贝数据时是阻塞的。</li>
+<li><strong>IO 多路复用</strong>：同时监听多个描述符，一旦某个描述符 IO 就绪（读就绪或者写就绪），就能够通知进程进行相应的 IO 操作，否则就将进程阻塞在 select 或者 epoll 语句上。</li>
+<li><strong>信号驱动 I/O</strong>：进程在 IO 访问时，先通过 sigaction 系统调用，提交一个信号处理函数，立即返回，进程不阻塞。当内核准备好数据后，产生一个 SIGIO 信号并投递给信号处理函数，可以在此函数中调用读写函数操作数据，这段过程阻塞。</li>
+</ul>
+</li>
+<li>异步 IO：在检测 IO 是否可用和进程拷贝数据的两个阶段都是不阻塞的，进程可以做其他事情，当 IO 完成后内核会给进程发送一个信号。</li>
+</ul>
+<p><strong>IO复用</strong>：应用程序通过 I/O 复用函数向<strong>内核</strong>注册一组事件，内核通过 I/O 复用函数把其中就绪的事件通知给应用程序。Linux 上常用的 I/O 复用函数是 select、poll、epoll。I/O 复用函数本身是<strong>阻塞</strong>的，他们能提高程序效率的原因是它们具有同时监听多个 I/O 事件的能力。</p>
+<p><strong>共有 5 种 I/O模型。</strong></p>
+<p>下图来自于 UNIX 网络编程卷1。前四种为<strong>同步 I/O。</strong></p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/5种IO模型.png" style="zoom:80%;">
+
+<h4 id="8-4-两种高效的事件处理模式※"><a href="#8-4-两种高效的事件处理模式※" class="headerlink" title="8.4 两种高效的事件处理模式※"></a>8.4 两种高效的事件处理模式※</h4><h5 id="8-4-1-Reactor模式"><a href="#8-4-1-Reactor模式" class="headerlink" title="8.4.1 Reactor模式"></a>8.4.1 Reactor模式</h5><p>主线程（I/O处理单元）只负责监听文件描述符上是否有事件发生，有的话就立即将该事件通知工作线程（逻辑单元）。<strong>读写数据，接受新的连接，以及处理客户请求均在工作线程中完成。</strong></p>
+<p>使用同步 I/O 模型（epoll_wait为例）实现的 Reactor 模式工作流程：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/Reactor.png">
+
+<h5 id="8-4-2-Proactor模式"><a href="#8-4-2-Proactor模式" class="headerlink" title="8.4.2 Proactor模式"></a>8.4.2 Proactor模式</h5><p>与 Reactor 模式不同，Proactor 模式将所有 I/O 操作都交给主线程和内核来处理，工作线程仅仅负责业务逻辑。</p>
+<p>使用异步 I/O 模型（以 aio_read 和 aio_write 为例）实现的 Proactor 模式的工作流程是：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/Procator.png">
+
+<p>主线程中的 epoll_wait 调用<strong>仅能</strong>用来检测监听 socket 上的<strong>连接请求</strong>事件，而<strong>不能</strong>用来检测连接 socket 上的<strong>读写事件</strong>。</p>
+<h5 id="8-4-3-模拟-Proactor-模式"><a href="#8-4-3-模拟-Proactor-模式" class="headerlink" title="8.4.3 模拟 Proactor 模式"></a>8.4.3 模拟 Proactor 模式</h5><p>原理：主线程执行数据读写操作，读写完成之后，主线程向工作线程通知这一“完成事件”。那么从工作线程的角度来看，它们就直接获得了数据读写的结果，接下来要做的只是对读写结果进行逻辑处理。</p>
+<p>使用同步 I/O 模型（仍然以 epoll_wait 为例）模拟出的 Proactor 模式的工作流程如下：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/模拟Proactor.png">
+
+<h4 id="8-5-两种高效的并发模式"><a href="#8-5-两种高效的并发模式" class="headerlink" title="8.5 两种高效的并发模式"></a>8.5 两种高效的并发模式</h4><p>并发模式是指 I/O 处理单元和多个逻辑单元之间协调完成任务的方法。</p>
+<h5 id="8-5-1-半同步-半异步模式"><a href="#8-5-1-半同步-半异步模式" class="headerlink" title="8.5.1 半同步/半异步模式"></a>8.5.1 半同步/半异步模式</h5><p>并发模式中，“同步”指的是程序完全按照代码序列的顺序执行；“异步”指的是程序的执行需要由系统事件来驱动。常见的系统事件包括中断、信号等。如下图：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/异步.png">
+
+<p>半同步/半异步模式中，同步线程用于处理客户逻辑，相当于逻辑单元；异步线程用于处理 I/O 事件，相当于处理单元。异步线程监听到客户请求后，就将其封装成请求对象并插入请求队列中。请求队列将通知某个工作在同步模式的工作线程来读取并处理该对象请求：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/半同步-半异步.png">
+
+<p>一种变体—半同步/半反应堆模型：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/半同步-半反应堆模型.png">
+
+<p>其存在以下缺点：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/半同步-半反应堆.png">
+
+<p>一种相对高效的半同步/半异步模式，它的每个工作线程都能同时处理多个客户连接：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/高效的半同步-半异步模式.png">
+
+<h5 id="8-5-2-领导者-追随者模式"><a href="#8-5-2-领导者-追随者模式" class="headerlink" title="8.5.2 领导者/追随者模式"></a>8.5.2 领导者/追随者模式</h5><img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/领导者-追随者.png">
+
+<h4 id="8-6-有限状态机"><a href="#8-6-有限状态机" class="headerlink" title="8.6 有限状态机"></a>8.6 有限状态机</h4><p>解析 HTTP。</p>
+<h4 id="8-7-提高服务器性能的其他建议"><a href="#8-7-提高服务器性能的其他建议" class="headerlink" title="8.7 提高服务器性能的其他建议"></a>8.7 提高服务器性能的其他建议</h4><h5 id="8-7-1-池"><a href="#8-7-1-池" class="headerlink" title="8.7.1 池"></a>8.7.1 池</h5><p>池是一组资源的集合，这组资源在服务器启动之初就被完全创建好并初始化，这称为静态资源分配。</p>
+<p><strong>内存池</strong>常用于 socket 的接收缓存和发送缓存。对于某些长度有限的客户请求，比如 HTTP 请求，预先分配一个大小足够（比如5000字节）的接收缓存区是合理的。超过时可选择丢弃请求和动态扩大接收缓冲区。</p>
+<p><strong>进程池</strong>和<strong>线程池</strong>作为工作进程或工作线程来处理新到来的客户请求时，我们可以直接从池中取得一个执行实体，而无须动态的调用 <code>fork</code> 或 <code>pthread_create</code> 等函数来创建进程或线程。</p>
+<p><strong>连接池</strong>时服务器预先和数据库程序建立的一组连接的集合，当某个逻辑单元需要访问数据库时，它可以直接从连接池中取得一个连接的实体并使用之，待完成数据库的访问之后，逻辑单元将该连接返回给连接池。</p>
+<h5 id="8-7-2-数据复制"><a href="#8-7-2-数据复制" class="headerlink" title="8.7.2 数据复制"></a>8.7.2 数据复制</h5><p>高性能服务器应该避免不必要的数据复制，尤其是当数据复制发生在用户代码和内核之间的时候。</p>
+<ol>
+<li>如果内核可以直接处理（应用程序不关心这些数据的内容）从 socket 或者文件读入的数据，则应用程序就没西药将这些数据从内核缓冲区复制到应用程序缓冲区中。</li>
+<li>避免用户代码内部（不访问内核）的数据复制也是应该避免的，例如两个工作进程之间需要传递大量数据时，应考虑使用共享内存来在它们之间传送数据，而不是用管道或消息队列来传递。</li>
+</ol>
+<h5 id="8-7-3-上下文切换和锁"><a href="#8-7-3-上下文切换和锁" class="headerlink" title="8.7.3 上下文切换和锁"></a>8.7.3 上下文切换和锁</h5><p>并发程序必须考虑上下文切换的问题，即<strong>进程切换或线程切换导致的系统开销</strong>。多线程服务器的一个优点是不同的线程可以同时运行在不同的 CPU 上，当线程的数量不大于 CPU 的数目时，上下文的切换就不是问题了。</p>
+<p>并发程序需要考虑的另外一个问题就是共享资源的<strong>加锁保护</strong>，如果服务器有更好的解决方案，就应该避免使用锁。如果服务器必须使用锁，则可以考虑减小锁的粒度，比如使用读写锁。半同步/半异步模式就比半同步/半反应堆模式要好。</p>
+<h3 id="第9章-I-O-复用"><a href="#第9章-I-O-复用" class="headerlink" title="第9章 I/O 复用"></a>第9章 I/O 复用</h3><h4 id="9-1-select-系统调用"><a href="#9-1-select-系统调用" class="headerlink" title="9.1 select 系统调用"></a>9.1 select 系统调用</h4><h5 id="9-1-1-select-api"><a href="#9-1-1-select-api" class="headerlink" title="9.1.1 select api"></a>9.1.1 select api</h5><h5 id="9-1-2-文件描述符就绪条件"><a href="#9-1-2-文件描述符就绪条件" class="headerlink" title="9.1.2 文件描述符就绪条件"></a>9.1.2 文件描述符就绪条件</h5><h5 id="9-1-3-处理带外数据"><a href="#9-1-3-处理带外数据" class="headerlink" title="9.1.3 处理带外数据"></a>9.1.3 处理带外数据</h5><h4 id="9-2-poll-系统调用"><a href="#9-2-poll-系统调用" class="headerlink" title="9.2 poll 系统调用"></a>9.2 poll 系统调用</h4><h4 id="9-3-epoll系列系统调用"><a href="#9-3-epoll系列系统调用" class="headerlink" title="9.3 epoll系列系统调用"></a>9.3 epoll系列系统调用</h4><h5 id="9-3-1-内核事件表"><a href="#9-3-1-内核事件表" class="headerlink" title="9.3.1 内核事件表"></a>9.3.1 内核事件表</h5><h5 id="9-3-2-epoll-wait-函数"><a href="#9-3-2-epoll-wait-函数" class="headerlink" title="9.3. 2 epoll_wait 函数"></a>9.3. 2 epoll_wait 函数</h5><h5 id="9-3-3-lt-和-et-模式"><a href="#9-3-3-lt-和-et-模式" class="headerlink" title="9.3.3 lt 和 et 模式"></a>9.3.3 lt 和 et 模式</h5><p>epoll 对文件描述符的操作有两种模式：LT（Level Trigger，电平出发）模式和 ET（Edge Trigger，边沿触发）模式。</p>
+<ul>
+<li>LT 模式是默认的工作模式，这种模式下 epoll 相当于一个效率较高的 poll。对于采用 LT 工作模式的文件描述符，当 epoll_wait 检测到其上有事件发生并将此事件通知应用程序后，应用程序可以不立即处理该事件。当应用程序下一次调用 epoll_wait 时，epoll_wait 还会再次向应用程序通告此事件，直到该事件被处理。</li>
+<li>ET 模式时 epoll 高效的工作模式，对于采用 ET 工作模式的文件描述符，当 epoll_wait 检测到其上有事件发生并将此事件通知应用程序后，应用程序必须立即处理该事件，因为后续的 epoll_wait 调用将不再向应用程序通知这一事件。</li>
+</ul>
+<p>由此可见，ET 模式降低了同一个 epoll 事件被重复触发的次数，因此效率比 LT 模式高。</p>
+<p><strong>注意：</strong>每个使用 ET 模式的文件都应该是非阻塞的。如果文件描述符是阻塞的，那么读或写操作将会因为没有后续的事件而一致处于阻塞状态（饥渴状态）。</p>
+<h5 id="9-3-4-epolloneshot-事件"><a href="#9-3-4-epolloneshot-事件" class="headerlink" title="9.3.4 epolloneshot 事件"></a>9.3.4 epolloneshot 事件</h5><h4 id="9-4-三组-I-O-复用函数的比较"><a href="#9-4-三组-I-O-复用函数的比较" class="headerlink" title="9.4 三组 I/O 复用函数的比较"></a>9.4 三组 I/O 复用函数的比较</h4><img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/三种复用的区别.png">
+
+<h4 id="9-5-I-O-复用的高级应用一：非阻塞-connect"><a href="#9-5-I-O-复用的高级应用一：非阻塞-connect" class="headerlink" title="9.5 I/O 复用的高级应用一：非阻塞 connect"></a>9.5 I/O 复用的高级应用一：非阻塞 connect</h4><h4 id="9-6-I-O-复用的高级应用二：聊天室程序"><a href="#9-6-I-O-复用的高级应用二：聊天室程序" class="headerlink" title="9.6 I/O 复用的高级应用二：聊天室程序"></a>9.6 I/O 复用的高级应用二：聊天室程序</h4><h5 id="9-6-1-客户端"><a href="#9-6-1-客户端" class="headerlink" title="9.6.1 客户端"></a>9.6.1 客户端</h5><h5 id="9-6-2-服务器"><a href="#9-6-2-服务器" class="headerlink" title="9.6.2 服务器"></a>9.6.2 服务器</h5><h4 id="9-7-I-O-复用的高级应用三：同时处理-TCP-和-UDP-服务"><a href="#9-7-I-O-复用的高级应用三：同时处理-TCP-和-UDP-服务" class="headerlink" title="9.7 I/O 复用的高级应用三：同时处理 TCP 和 UDP 服务"></a>9.7 I/O 复用的高级应用三：同时处理 TCP 和 UDP 服务</h4><h3 id="第10章-信号"><a href="#第10章-信号" class="headerlink" title="第10章 信号"></a>第10章 信号</h3><p>信号是由用户、系统或者进程发送给目标进程的信息，以通知目标进程某个状态的改变或系统异常。Linux 信号可由如下条件产生：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/信号.png">
+
+<h4 id="10-1-Linux-信号概述"><a href="#10-1-Linux-信号概述" class="headerlink" title="10.1 Linux 信号概述"></a>10.1 Linux 信号概述</h4><h5 id="10-1-1-发送信号"><a href="#10-1-1-发送信号" class="headerlink" title="10.1.1 发送信号"></a>10.1.1 发送信号</h5><p>Linux 下，一个进程给其他进程发送信号的 API 是 kill 函数，定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kill</span><span class="params">( <span class="keyword">pid_t</span> pid, <span class="keyword">int</span> sig )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>该函数把信号 sig 发送给目标进程：目标进程由 pid 参数指定，其可能的取值及含义如下：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/kill.png">
+
+<h5 id="10-1-2-信号处理方式"><a href="#10-1-2-信号处理方式" class="headerlink" title="10.1.2 信号处理方式"></a>10.1.2 信号处理方式</h5><p>目标进程收到信号后，需要定义一个接收函数来处理，信号处理函数的原型如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*<span class="keyword">_sighandler_t</span>)</span> <span class="params">( <span class="keyword">int</span> )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="10-1-3-Linux-信号"><a href="#10-1-3-Linux-信号" class="headerlink" title="10.1.3 Linux 信号"></a>10.1.3 Linux 信号</h5><p>Linux 可用信号都定义在 <code>bits/signum.h</code> 头文件中，其中包括标准信号和 POSIX 实时信号。表在 P180。</p>
+<h5 id="10-1-4-中断系统调用"><a href="#10-1-4-中断系统调用" class="headerlink" title="10.1.4 中断系统调用"></a>10.1.4 中断系统调用</h5><h4 id="10-2-信号函数"><a href="#10-2-信号函数" class="headerlink" title="10.2 信号函数"></a>10.2 信号函数</h4><h5 id="10-2-1-signal-系统调用"><a href="#10-2-1-signal-系统调用" class="headerlink" title="10.2.1 signal 系统调用"></a>10.2.1 signal 系统调用</h5><p>要为一个信号设置处理函数，可以使用下面的 signal 系统调用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">_sighandler_t</span> <span class="title">signal</span> <span class="params">( <span class="keyword">int</span> sig, _sighandler_ _handler )</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>sig</code>：要捕获的信号类型</li>
+<li><code>_handler</code>：_sighandler_t 类型的函数指针，用于指定信号 sig 的处理函数</li>
+</ul>
+<p>signal 函数成功返回前一次调用 signal 函数时传入的函数指针，或者是信号 sig 对应的默认处理函数指针 SIG_DEF（如果是第一次调用 signal 的话）。</p>
+<p>signal 系统调用出错时返回 SIG_ERR，并设置 errno。</p>
+<h5 id="10-2-2-sigaction-系统调用"><a href="#10-2-2-sigaction-系统调用" class="headerlink" title="10.2.2 sigaction 系统调用"></a>10.2.2 sigaction 系统调用</h5><p>设置信号处理函数的更健壮的接口是如下的系统调用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sigaction</span><span class="params">( <span class="keyword">int</span> sig, <span class="keyword">const</span> struct sigaction* act, struct sigaction* oact)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>sig</code>：要捕获的信号类型</li>
+<li><code>act</code>：指定新的信号处理方式</li>
+<li><code>oact</code>：输出信号先前的处理方式（如果不为 NULL 的话）</li>
+</ul>
+<p>sigaction 结构体描述了信号处理的细节，其定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sigaction</span>&#123;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __USE_POSIX199309</span></span><br><span class="line">	<span class="keyword">union</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">_sighandler_t</span> sa_handler;</span><br><span class="line">		<span class="keyword">void</span> (*sa_sigaction) ( <span class="keyword">int</span>, <span class="keyword">siginfo_t</span>*, <span class="keyword">void</span>* );</span><br><span class="line">	&#125; </span><br><span class="line">	_sigaction_handler;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> sa_handler		__sigaction_handler.sa_handler</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> sa_sigcation	__sigaction_handler.sa_sigaction</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">	<span class="keyword">_sighandler_t</span> sa_handler;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">_sigset_t</span> sa_mask;</span><br><span class="line">	<span class="keyword">int</span> sa_flags;</span><br><span class="line">	<span class="keyword">void</span> (*sa_restorer) (<span class="keyword">void</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>参数的详细介绍在 P182。</p>
+<h4 id="10-3-信号集"><a href="#10-3-信号集" class="headerlink" title="10.3 信号集"></a>10.3 信号集</h4><h5 id="10-3-1-信号集函数"><a href="#10-3-1-信号集函数" class="headerlink" title="10.3.1 信号集函数"></a>10.3.1 信号集函数</h5><p>Linux 使用数据结构 sigset_t 来表示一组信号。定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/sigset.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">define</span> _SIGSET_NWORDS (1024 / (8 * sizeof (unsigned long int)))</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">int</span> __val[_SIGSET_NWORDS];</span><br><span class="line">&#125; <span class="keyword">__sigset_t</span>;</span><br></pre></td></tr></table></figure>
+
+<p>sigset_t 实际上是一个长整型数组，数组中的每个元素的每个位表示一个信号。Linux 提供了如下一组函数来设置、修改、删除和查询信号集：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/信号集.png">
+
+<h5 id="10-3-2-进程信号掩码"><a href="#10-3-2-进程信号掩码" class="headerlink" title="10.3.2 进程信号掩码"></a>10.3.2 进程信号掩码</h5><h5 id="10-3-3-被挂起的信号"><a href="#10-3-3-被挂起的信号" class="headerlink" title="10.3.3 被挂起的信号"></a>10.3.3 被挂起的信号</h5><h4 id="10-4-统一事件源"><a href="#10-4-统一事件源" class="headerlink" title="10.4 统一事件源"></a>10.4 统一事件源</h4><p>信号是一种异步事件：信号处理函数和程序的主循环是两条不同的执行路线。显然，信号处理函数需要尽可能快的执行完毕，以确保该信号不被屏蔽太久。一种典型的解决方案是 P184。</p>
+<h4 id="10-5-网络编程相关信号"><a href="#10-5-网络编程相关信号" class="headerlink" title="10.5 网络编程相关信号"></a>10.5 网络编程相关信号</h4><h5 id="10-5-1-SIGHUP"><a href="#10-5-1-SIGHUP" class="headerlink" title="10.5.1 SIGHUP"></a>10.5.1 SIGHUP</h5><p>当挂起进程的控制终端时，SIGHUP 信号将被出发。对于没有控制终端的网络后台程序而言，它们通常利用 SIGHUP 信号来强制服务器重读配置文件。一个典型的例子时 xinetd 超级服务程序。</p>
+<h5 id="10-5-2-SIGPIPE"><a href="#10-5-2-SIGPIPE" class="headerlink" title="10.5.2 SIGPIPE"></a>10.5.2 SIGPIPE</h5><p>默认情况下，往一个读端关闭的通道或 socket 连接中写数据将引发 SIGPIPE 信号。我们需要在代码中捕获并处理该信号，或者至少忽略它。因为程序接收到 SIGPIPE 信号的默认行为是结束进程，我们不希望因为错误的写操作而导致程序退出。引起 SIGPIPE 信号的写操作将设置 errno 为 EPIPE。</p>
+<h5 id="10-5-3-SIGURG"><a href="#10-5-3-SIGURG" class="headerlink" title="10.5.3 SIGURG"></a>10.5.3 SIGURG</h5><p>Linux 下内核通知应用程序带外数据到达主要有两种办法：</p>
+<ol>
+<li>I/O 复用计数</li>
+<li>使用 SIGURG 信号</li>
+</ol>
+<p><strong>TCP带外数据相关知识</strong></p>
+<ul>
+<li>3.8 节 TCP 带外数据的基本知识</li>
+<li>5.8.1 小节 如何在应用程序中使用带 MSG_OOB 标志的 send/recv 系统调用来发送/接收带外数据</li>
+<li>9.1.3 10.5.3 小节 检测带外数据是否到达的两种方法</li>
+</ul>
+<h3 id="第11章-定时器"><a href="#第11章-定时器" class="headerlink" title="第11章 定时器"></a>第11章 定时器</h3><p>Linux 提供了三种定时方法，它们是：</p>
+<ul>
+<li>socket 选项 SO_RCVTIMEO 和 SO_SNDTIMEO。</li>
+<li>SIGALRM 信号。</li>
+<li>I/O 复用系统调用的超时参数。</li>
+</ul>
+<h4 id="11-1-socket-选项-SO-RCVTIMEO-和-SO-SNDTIMEO"><a href="#11-1-socket-选项-SO-RCVTIMEO-和-SO-SNDTIMEO" class="headerlink" title="11.1 socket 选项 SO_RCVTIMEO 和 SO_SNDTIMEO"></a>11.1 socket 选项 SO_RCVTIMEO 和 SO_SNDTIMEO</h4><p>SO_RCVTIMEO：设置 socket 接收数据超时时间。</p>
+<p> SO_SNDTIMEO：设置 socket 接收数据超时时间。</p>
+<p>仅对数据接收和发送相关的 socket 的 API 有效，包括 <code>send</code>、<code>sendmsg</code>、<code>recv</code>、<code>resvmsg</code>、<code>accept</code>和 <code>connect</code>。</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/SO_REVTIMEO和SO_SNDTIMEO调用.png">
+
+<h4 id="11-2-SIGALRM-信号"><a href="#11-2-SIGALRM-信号" class="headerlink" title="11.2 SIGALRM 信号"></a>11.2 SIGALRM 信号</h4><p>由 <code>alarm</code> 和 <code>setitimer</code> 函数设置的实时闹钟一旦超时，将出发 SIGALRM 信号。</p>
+<h5 id="11-2-1-基于升序链表的定时器"><a href="#11-2-1-基于升序链表的定时器" class="headerlink" title="11.2.1 基于升序链表的定时器"></a>11.2.1 基于升序链表的定时器</h5><p>定时器通常至少包含两个成员：一个超时时间（相对时间或者绝对时间）和一个任务回调函数。</p>
+<h5 id="11-2-2-处理非活动连接"><a href="#11-2-2-处理非活动连接" class="headerlink" title="11.2.2 处理非活动连接"></a>11.2.2 处理非活动连接</h5><p>可以考虑在应用层实现类似于 KEEPALIVE 的机制，以管理所有长时间处于非活动状态的连接。</p>
+<h4 id="11-3-I-O-复用系统调用的超时参数"><a href="#11-3-I-O-复用系统调用的超时参数" class="headerlink" title="11.3 I/O 复用系统调用的超时参数"></a>11.3 I/O 复用系统调用的超时参数</h4><p>Linux 下的 3 组 I/O 复用系统调用都带有超时参数，因此它们不仅能统一处理信和 I/O 时间，也能统一处理定时事件。但是由于 I/O 复用系统调用可能在超时事件到期之前就返回（有 I/O 事件发生），所以如果我们要利用它们来定时，就需要不断更新定时参数以反应剩余的时间。</p>
+<h4 id="11-4-高性能定时器"><a href="#11-4-高性能定时器" class="headerlink" title="11.4 高性能定时器"></a>11.4 高性能定时器</h4><h5 id="11-4-1-时间轮"><a href="#11-4-1-时间轮" class="headerlink" title="11.4.1 时间轮"></a>11.4.1 时间轮</h5><img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/时间轮.png">
+
+<h5 id="11-4-2-时间堆"><a href="#11-4-2-时间堆" class="headerlink" title="11.4.2 时间堆"></a>11.4.2 时间堆</h5><p>将所有定时器中超时时间最小的一个定时器的超时值作为心搏间隔。这样，一旦心搏函数 tick 被调用，超时时间最小的定时器必然到期，我们就可以在 tick 函数中处理该定时器。然后，再次从剩余的定时器中找出超时时间最小的一个，并将这段最小时间设置为下一次心搏间隔。如此反复，就实现了较为精确的定时。<strong>最小堆</strong>适合处理此种方案。</p>
+<h3 id="第12章-高性能I-O框架库libevent"><a href="#第12章-高性能I-O框架库libevent" class="headerlink" title="第12章 高性能I/O框架库libevent"></a>第12章 高性能I/O框架库libevent</h3><h4 id="12-1-I-O-框架库概述"><a href="#12-1-I-O-框架库概述" class="headerlink" title="12.1 I/O 框架库概述"></a>12.1 I/O 框架库概述</h4><p>基于 Reactor 模式的 I/O 框架库包含如下几个组件：句柄（handle）、事件多路分发器（EventDemultiplexer）、事件处理器（EventHander）和具体的事件处理器（ConcreteEventHandler）、Reactor。这些组件关系如图所示：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/IO框架库组件.png">
+
+<p><strong>句柄</strong></p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/句柄.png">
+
+<p><strong>事件多路分发器</strong></p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/事件多路分发器.png">
+
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/事件多路分发器1.png">
+
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/事件多路分发器2.png" style="zoom:80%;">
+
+<p><strong>事件处理器和具体事件处理器</strong></p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/事件处理器和具体事件处理器.png">
+
+<p><strong>Reactor</strong></p>
+<p>Reactor 是 I/O 框架库的核心，它提供的几个主要方法是：</p>
+<ul>
+<li><code>handle_events</code>：该方法执行事件循环。它重复如下过程：等待事件，然后依次处理所有就绪事件对应的事件处理器。</li>
+<li><code>register_handler</code>：该方法调用事件多路分发器的 <code>register_event</code> 方法来往事件多路分发器中注册一个事件。</li>
+<li><code>remove_handler</code>：该方法掉调用事件多路分发器的 <code>remove_event</code> 方法来删除事件多路分发器中的一个事件。</li>
+</ul>
+<p>下图是 I/O 框架库的工作时序：</p>
+<img src="/blog/2021/10/08/Linux高性能服务器编程（7-12）/IO框架库的工作时序.png">
+
+<h4 id="12-2-Libevent-源码分析"><a href="#12-2-Libevent-源码分析" class="headerlink" title="12.2 Libevent 源码分析"></a>12.2 Libevent 源码分析</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+ 
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------感谢阅读-------------</div>
+    
+</div>
+  
+</div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/高性能服务器/" rel="tag"># 高性能服务器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2021/10/08/设计模式/" rel="next" title="设计模式">
+                <i class="fa fa-chevron-left"></i> 设计模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2021/10/08/Linux高性能服务器编程（13-15）/" rel="prev" title="Linux高性能服务器编程（13-15）">
+                Linux高性能服务器编程（13-15） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zxy</p>
+              <p class="site-description motion-element" itemprop="description">磨刀不误砍柴工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">155</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zxy543040659" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:543040659@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://leetcode-cn.com/u/zxy-70/" title="LeetCode" target="_blank">LeetCode</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.nowcoder.com" title="牛客网" target="_blank">牛客网</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第-7-章-Linux-服务器程序规范"><span class="nav-number">1.</span> <span class="nav-text">第 7 章 Linux 服务器程序规范</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-日志"><span class="nav-number">1.1.</span> <span class="nav-text">7.1 日志</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-1-Linux-系统日志"><span class="nav-number">1.1.1.</span> <span class="nav-text">7.1.1 Linux 系统日志</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-2-syslog-函数"><span class="nav-number">1.1.2.</span> <span class="nav-text">7.1.2 syslog 函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-用户信息"><span class="nav-number">1.2.</span> <span class="nav-text">7.2 用户信息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-1-UID、EUID、GID-和-EGID※"><span class="nav-number">1.2.1.</span> <span class="nav-text">7.2.1 UID、EUID、GID 和 EGID※</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-2-切换用户"><span class="nav-number">1.2.2.</span> <span class="nav-text">7.2.2 切换用户</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-3-进程间关系"><span class="nav-number">1.3.</span> <span class="nav-text">7.3 进程间关系</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-3-1-进程组"><span class="nav-number">1.3.1.</span> <span class="nav-text">7.3.1 进程组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-3-2-会话"><span class="nav-number">1.3.2.</span> <span class="nav-text">7.3.2 会话</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-3-3-用-ps-命令查看进程关系※"><span class="nav-number">1.3.3.</span> <span class="nav-text">7.3.3 用 ps 命令查看进程关系※</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4-系统资源限制"><span class="nav-number">1.4.</span> <span class="nav-text">7.4 系统资源限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-5-改变工作目录和根目录"><span class="nav-number">1.5.</span> <span class="nav-text">7.5 改变工作目录和根目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-6-服务器程序后台化"><span class="nav-number">1.6.</span> <span class="nav-text">7.6 服务器程序后台化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第8章-高性能服务器程序框架"><span class="nav-number">2.</span> <span class="nav-text">第8章 高性能服务器程序框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-服务器模型"><span class="nav-number">2.1.</span> <span class="nav-text">8.1 服务器模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#8-1-1-C-S模型"><span class="nav-number">2.1.1.</span> <span class="nav-text">8.1.1 C/S模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-1-2-P2P模型"><span class="nav-number">2.1.2.</span> <span class="nav-text">8.1.2 P2P模型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-服务器编程框架"><span class="nav-number">2.2.</span> <span class="nav-text">8.2 服务器编程框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3-I-O模型"><span class="nav-number">2.3.</span> <span class="nav-text">8.3 I/O模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-4-两种高效的事件处理模式※"><span class="nav-number">2.4.</span> <span class="nav-text">8.4 两种高效的事件处理模式※</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#8-4-1-Reactor模式"><span class="nav-number">2.4.1.</span> <span class="nav-text">8.4.1 Reactor模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-4-2-Proactor模式"><span class="nav-number">2.4.2.</span> <span class="nav-text">8.4.2 Proactor模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-4-3-模拟-Proactor-模式"><span class="nav-number">2.4.3.</span> <span class="nav-text">8.4.3 模拟 Proactor 模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-5-两种高效的并发模式"><span class="nav-number">2.5.</span> <span class="nav-text">8.5 两种高效的并发模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#8-5-1-半同步-半异步模式"><span class="nav-number">2.5.1.</span> <span class="nav-text">8.5.1 半同步/半异步模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-5-2-领导者-追随者模式"><span class="nav-number">2.5.2.</span> <span class="nav-text">8.5.2 领导者/追随者模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-6-有限状态机"><span class="nav-number">2.6.</span> <span class="nav-text">8.6 有限状态机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-7-提高服务器性能的其他建议"><span class="nav-number">2.7.</span> <span class="nav-text">8.7 提高服务器性能的其他建议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#8-7-1-池"><span class="nav-number">2.7.1.</span> <span class="nav-text">8.7.1 池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-7-2-数据复制"><span class="nav-number">2.7.2.</span> <span class="nav-text">8.7.2 数据复制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-7-3-上下文切换和锁"><span class="nav-number">2.7.3.</span> <span class="nav-text">8.7.3 上下文切换和锁</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第9章-I-O-复用"><span class="nav-number">3.</span> <span class="nav-text">第9章 I/O 复用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-1-select-系统调用"><span class="nav-number">3.1.</span> <span class="nav-text">9.1 select 系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#9-1-1-select-api"><span class="nav-number">3.1.1.</span> <span class="nav-text">9.1.1 select api</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-1-2-文件描述符就绪条件"><span class="nav-number">3.1.2.</span> <span class="nav-text">9.1.2 文件描述符就绪条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-1-3-处理带外数据"><span class="nav-number">3.1.3.</span> <span class="nav-text">9.1.3 处理带外数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-2-poll-系统调用"><span class="nav-number">3.2.</span> <span class="nav-text">9.2 poll 系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-3-epoll系列系统调用"><span class="nav-number">3.3.</span> <span class="nav-text">9.3 epoll系列系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#9-3-1-内核事件表"><span class="nav-number">3.3.1.</span> <span class="nav-text">9.3.1 内核事件表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-3-2-epoll-wait-函数"><span class="nav-number">3.3.2.</span> <span class="nav-text">9.3. 2 epoll_wait 函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-3-3-lt-和-et-模式"><span class="nav-number">3.3.3.</span> <span class="nav-text">9.3.3 lt 和 et 模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-3-4-epolloneshot-事件"><span class="nav-number">3.3.4.</span> <span class="nav-text">9.3.4 epolloneshot 事件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-4-三组-I-O-复用函数的比较"><span class="nav-number">3.4.</span> <span class="nav-text">9.4 三组 I/O 复用函数的比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-5-I-O-复用的高级应用一：非阻塞-connect"><span class="nav-number">3.5.</span> <span class="nav-text">9.5 I/O 复用的高级应用一：非阻塞 connect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-6-I-O-复用的高级应用二：聊天室程序"><span class="nav-number">3.6.</span> <span class="nav-text">9.6 I/O 复用的高级应用二：聊天室程序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#9-6-1-客户端"><span class="nav-number">3.6.1.</span> <span class="nav-text">9.6.1 客户端</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-6-2-服务器"><span class="nav-number">3.6.2.</span> <span class="nav-text">9.6.2 服务器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-7-I-O-复用的高级应用三：同时处理-TCP-和-UDP-服务"><span class="nav-number">3.7.</span> <span class="nav-text">9.7 I/O 复用的高级应用三：同时处理 TCP 和 UDP 服务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第10章-信号"><span class="nav-number">4.</span> <span class="nav-text">第10章 信号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#10-1-Linux-信号概述"><span class="nav-number">4.1.</span> <span class="nav-text">10.1 Linux 信号概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#10-1-1-发送信号"><span class="nav-number">4.1.1.</span> <span class="nav-text">10.1.1 发送信号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-1-2-信号处理方式"><span class="nav-number">4.1.2.</span> <span class="nav-text">10.1.2 信号处理方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-1-3-Linux-信号"><span class="nav-number">4.1.3.</span> <span class="nav-text">10.1.3 Linux 信号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-1-4-中断系统调用"><span class="nav-number">4.1.4.</span> <span class="nav-text">10.1.4 中断系统调用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-2-信号函数"><span class="nav-number">4.2.</span> <span class="nav-text">10.2 信号函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#10-2-1-signal-系统调用"><span class="nav-number">4.2.1.</span> <span class="nav-text">10.2.1 signal 系统调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-2-2-sigaction-系统调用"><span class="nav-number">4.2.2.</span> <span class="nav-text">10.2.2 sigaction 系统调用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-3-信号集"><span class="nav-number">4.3.</span> <span class="nav-text">10.3 信号集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#10-3-1-信号集函数"><span class="nav-number">4.3.1.</span> <span class="nav-text">10.3.1 信号集函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-3-2-进程信号掩码"><span class="nav-number">4.3.2.</span> <span class="nav-text">10.3.2 进程信号掩码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-3-3-被挂起的信号"><span class="nav-number">4.3.3.</span> <span class="nav-text">10.3.3 被挂起的信号</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-4-统一事件源"><span class="nav-number">4.4.</span> <span class="nav-text">10.4 统一事件源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-5-网络编程相关信号"><span class="nav-number">4.5.</span> <span class="nav-text">10.5 网络编程相关信号</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#10-5-1-SIGHUP"><span class="nav-number">4.5.1.</span> <span class="nav-text">10.5.1 SIGHUP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-5-2-SIGPIPE"><span class="nav-number">4.5.2.</span> <span class="nav-text">10.5.2 SIGPIPE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-5-3-SIGURG"><span class="nav-number">4.5.3.</span> <span class="nav-text">10.5.3 SIGURG</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第11章-定时器"><span class="nav-number">5.</span> <span class="nav-text">第11章 定时器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#11-1-socket-选项-SO-RCVTIMEO-和-SO-SNDTIMEO"><span class="nav-number">5.1.</span> <span class="nav-text">11.1 socket 选项 SO_RCVTIMEO 和 SO_SNDTIMEO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-2-SIGALRM-信号"><span class="nav-number">5.2.</span> <span class="nav-text">11.2 SIGALRM 信号</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#11-2-1-基于升序链表的定时器"><span class="nav-number">5.2.1.</span> <span class="nav-text">11.2.1 基于升序链表的定时器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-2-2-处理非活动连接"><span class="nav-number">5.2.2.</span> <span class="nav-text">11.2.2 处理非活动连接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-3-I-O-复用系统调用的超时参数"><span class="nav-number">5.3.</span> <span class="nav-text">11.3 I/O 复用系统调用的超时参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-4-高性能定时器"><span class="nav-number">5.4.</span> <span class="nav-text">11.4 高性能定时器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#11-4-1-时间轮"><span class="nav-number">5.4.1.</span> <span class="nav-text">11.4.1 时间轮</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-4-2-时间堆"><span class="nav-number">5.4.2.</span> <span class="nav-text">11.4.2 时间堆</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第12章-高性能I-O框架库libevent"><span class="nav-number">6.</span> <span class="nav-text">第12章 高性能I/O框架库libevent</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#12-1-I-O-框架库概述"><span class="nav-number">6.1.</span> <span class="nav-text">12.1 I/O 框架库概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-2-Libevent-源码分析"><span class="nav-number">6.2.</span> <span class="nav-text">12.2 Libevent 源码分析</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zxy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">210.8k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'AdpVtSThS6jOJrm9IY1KbAhh-gzGzoHsz',
+        appKey: 'TfWIAg9fK7NHRzdEdwNazYD9',
+        placeholder: '输入中...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
